@@ -13,7 +13,7 @@ html,body { height: 100%; }
 }
 #container { 	
 	min-height: 100%;
-	padding: 120px 0 485px;
+	padding: 120px 125px 485px;
 	margin: -120px auto -485px;
 }
 #contents {
