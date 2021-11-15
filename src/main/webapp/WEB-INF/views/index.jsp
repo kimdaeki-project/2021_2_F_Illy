@@ -18,7 +18,7 @@
 		<c:import url="./navbar/navbar.jsp"></c:import>		
 		<div id="container">
 				
-			<div id="content">
+			<div id="contents">
 			
 			
 			
