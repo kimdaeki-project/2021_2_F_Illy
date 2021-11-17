@@ -99,7 +99,7 @@
 				} else {
 					translateX += width;					
 				}
-				slideTrack.css('transition', 'transform 300ms ease 0s');
+				slideTrack.css('transition', 'transform 1300ms ease 0s');
 				slideTrack.css('transform', 'translateX('+translateX+'px)')	
 				
 				oneRound(translateX);
@@ -116,7 +116,7 @@
 				slideTrack.css( 'transition', '' );
 				slideTrack.css('transform', 'translateX('+translateX+'px)')
 				slideCheck = true
-			}, 300);
+			}, 1300);
 		}
 
 		
@@ -125,7 +125,7 @@
 			if (slideCheck && translateX % width == 0){
 				
 				translateX -= width;
-				slideTrack.css('transition', 'transform 300ms ease 0s');
+				slideTrack.css('transition', 'transform 1300ms ease 0s');
 				slideTrack.css('transform', 'translateX('+translateX+'px)')
 				
 				oneRound(translateX);

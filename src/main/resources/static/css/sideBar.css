@@ -33,7 +33,7 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 .slider-banner-759793874 img{width:165px; height:165px;}
 .slider-banner-759793874 .slick-prev{}
 .slider-banner-759793874 .slick-next{}
-.slider-banner-759793874 .slick-dots li button{width:8px; height:8px; border-radius:100%; background:#aaaaaa;}
+/* .testBtn{width:8px; height:8px; border-radius:100%; background:#aaaaaa;} */
 .slider-banner-759793874 .slick-dots li.slick-active button{background:#333333;}
 /* 여기부터 */
 
