@@ -12,6 +12,7 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 #scroll_right{position:fixed; transition: all ease 0.5s 0s; top:0px; right:-187px;padding:0px;background:#fff;border-left:1px solid #ccc;height:100%; width:185px;z-index:100;}
 #scroll_right .btn_scroll_top{display:block; padding:10px 0 0 0; clear:both; text-align:center;}
 
+
 #scroll_right .right_quick_btn{position:absolute;top:45%;left:-30px;}
 #scroll_right .right_quick_btn ul li{width:30px;height:40px;text-align:center;background:#fff;border: 1px solid #ccc;border-right: 1px solid #fff;}
 #scroll_right .right_quick_btn ul li a{line-height:40px;font-size:14px;letter-spacing:-.5px;color:#000;position:relative;display:block;height:100%;}
@@ -22,17 +23,26 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 #scroll_right .right_quick_top a,.right_quick_bottom a{cursor:pointer;}
 
 #scroll_right .scroll_right_overflow{position:fixed;height:100%;width:185px;padding:10px;box-sizing:border-box;overflow-y:scroll; -ms-overflow-style: none;overflow: auto;}
+#scroll_right .scroll_right_overflow::-webkit-scrollbar { display: none; }
 
 #scroll_right .right_slideBanner{ display:block; width:165px; height:165px; background-color:#eee; margin:0 0 10px 0;}
 #scroll_right .right_slideBanner img{max-width:100%;}
 #scroll_right .right_slideBanner .slick-dots{bottom:6px;}
 #scroll_right .right_slideBanner .slick-dots li{margin:0 3px;}
-.slider-banner-759793874{width:165px; height:165px;}
+.slider-banner-759793874{width:165px; height:165px; overflow: hidden; font-size: 0;}
 .slider-banner-759793874 img{width:165px; height:165px;}
 .slider-banner-759793874 .slick-prev{}
 .slider-banner-759793874 .slick-next{}
 .slider-banner-759793874 .slick-dots li button{width:8px; height:8px; border-radius:100%; background:#aaaaaa;}
 .slider-banner-759793874 .slick-dots li.slick-active button{background:#333333;}
+/* 여기부터 */
+
+
+.slick_list { width: 825px; transform: translateX(-165px); }
+.slideContentR { display: inline-block; }
+
+
+/* 여기까지 */
 
 
 #scroll_right .right_banner{margin:0 0 10px 0;text-align:center;}

@@ -24,8 +24,23 @@
 		<div class="scroll_right_overflow">
 			<div class="right_slideBanner">
 				<div class="slider-wrap slider-banner-759793874 slick-initialized slick-slider slick-dotted" role="toolbar">
-					<div class="slick-list draggable">
+					<div class="slick_list draggable">
 					<!-- 슬라이더 작업 일단 보류  -->
+						<div class="slideContentR">
+						 	<a>
+						 		<img alt="" src="/images/right_sideBar/27a3a381b3f5a7ea08d8c8e3b17ea3eb_57343.jpg">
+						 	</a>
+						</div>
+						<div class="slideContentR">
+						 	<a>
+						 		<img alt="" src="/images/right_sideBar/dc49231efec2d60e072ca89f6a525f47_60621.jpg">
+						 	</a>
+						</div>
+						<div class="slideContentR">
+						 	<a>
+						 		<img alt="" src="/images/right_sideBar/3691b74e6afacbfe39ad92fc29c8b124_62308.jpg">
+						 	</a>
+						</div>
 					</div>
 				</div>
 				<div class="right_banner"></div>
@@ -130,6 +145,25 @@
 	
 	
 	</script>
+<!-- 여기부터 -->
+	<script type="text/javascript">
 
+		let slick_list = $('.slick_list');
+		let widthR = $('.slideContentR').width();
+	
+		slideIntervalR = function(){
+			let translateXR = Number(slick_list.css('transform').split(',')[4]);			
+			if (true){
+
+				translateXR -= widthR;
+				slick_list.css('transition', 'transform 1300ms ease 0s');
+				slick_list.css('transform', 'translateX('+translateXR+'px)')
+				
+				oneRoundR(translateXR);
+			}
+		}
+		intervalStarter = setInterval(slideIntervalR, 3300);
+	</script>
+<!-- 여기까지 -->
 </body>
 </html>
