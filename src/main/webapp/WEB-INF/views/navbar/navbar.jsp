@@ -75,88 +75,45 @@
 </body>
 <!-- ===== ===== ===== jquery START ===== ===== ===== -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/trackSlider.js"></script>
 	
 	<script type="text/javascript">
-		$().ready(function(){
-		})
+		/* 우클릭 방지 */
 		$("body").contextmenu(function() { return false; });
-	</script>
-	
-	<script type="text/javascript">
+		
 		let slideTrack = $('.slideTrack');
-		let slide_content_cnt = slideTrack.data('slide_content_cnt');
-		let width = $('.slideContent').width();
-		let slideCheck = true;
+		let slideContent = $('.slideContent');
+		
+		$().ready(function(){
+			navInterval = setInterval(function(){slide(slideTrack, slideContent, 1300);}, 3300);			
+		})
 		
 		$('.slideBtn').click(function(){
-			clearInterval(intervalStarter);
-			intervalStarter = setInterval(slideInterval, 3300);
-			let translateX = Number(slideTrack.css('transform').split(',')[4]);
-			if (slideCheck && translateX % width == 0){
-				slideCheck = false;
-				
-				if ($(this).hasClass('next')) {
-					translateX -= width;
-				} else {
-					translateX += width;					
-				}
-				slideTrack.css('transition', 'transform 1300ms ease 0s');
-				slideTrack.css('transform', 'translateX('+translateX+'px)')	
-				
-				oneRound(translateX);
-			}
+			/* 슬라이드 작동중 일 경우 종료 */
+			if(slideTrack.hasClass('slideActive')) { return; }
 			
-		});
+			/* 슬라이드 연속 방지를 위해 clearInterval후 새롭게 setInterval */
+			clearInterval(navInterval);
+			navInterval = setInterval(function(){slide(slideTrack, slideContent, 1300);}, 3300);
+			
+			slide(slideTrack, slideContent, 1300, $(this));
+		});		
 		
-		function oneRound(translateX){
-			
-			if (translateX > -width) { translateX = -width * slide_content_cnt; }
-			else if (translateX < -width * slide_content_cnt) { translateX = -width; }
-			
-			setTimeout(function(){
-				slideTrack.css( 'transition', '' );
-				slideTrack.css('transform', 'translateX('+translateX+'px)')
-				slideCheck = true
-			}, 1300);
-		}
-
-		
-		slideInterval = function(){
-			let translateX = Number(slideTrack.css('transform').split(',')[4]);			
-			if (slideCheck && translateX % width == 0){
-				
-				translateX -= width;
-				slideTrack.css('transition', 'transform 1300ms ease 0s');
-				slideTrack.css('transform', 'translateX('+translateX+'px)')
-				
-				oneRound(translateX);
-			}
-		}
-		intervalStarter = setInterval(slideInterval, 3300);
-	</script>
-	
-	<script type="text/javascript">
+		/* ===== hover event START ===== */
 		$('.searchImg').hover(
-			function(){
-				$(this).attr('src', '/images/gnb/new-search-hover.png');
-			}, function(){
-				$(this).attr('src', '/images/gnb/new-search.png');
-			}
+			function(){	$(this).attr('src', '/images/gnb/new-search-hover.png'); }
+			,function(){ $(this).attr('src', '/images/gnb/new-search.png'); }
 		);
 		$('.userImg').hover(
-				function(){
-					$(this).attr('src', '/images/gnb/new-user-hover.png');
-				}, function(){
-					$(this).attr('src', '/images/gnb/new-user.png');
-				}
-			);
+			function(){	$(this).attr('src', '/images/gnb/new-user-hover.png'); }
+			,function(){ $(this).attr('src', '/images/gnb/new-user.png'); }
+		);
 		$('.cartImg').hover(
-				function(){
-					$(this).attr('src', '/images/gnb/new-cart-hover.png');
-				}, function(){
-					$(this).attr('src', '/images/gnb/new-cart.png');
-				}
-			);
+			function(){ $(this).attr('src', '/images/gnb/new-cart-hover.png'); }
+			,function(){ $(this).attr('src', '/images/gnb/new-cart.png'); }
+		);
+		/* ===== hover event END ===== */
+		
 	</script>
 <!-- ===== ===== ===== jquery END ===== ===== ===== -->
 </html>

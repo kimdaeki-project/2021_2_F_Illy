@@ -131,19 +131,13 @@
 			}
 		);
 		$('.facebookImg').hover(
-				function(){
-					$(this).attr('src', '/images/footer/follow-facebook-over.png');
-				}, function(){
-					$(this).attr('src', '/images/footer/follow-facebook.png');
-				}
-			);
+			function(){ $(this).attr('src', '/images/footer/follow-facebook-over.png'); }
+			,function(){ $(this).attr('src', '/images/footer/follow-facebook.png'); }
+		);
 		$('.instaImg').hover(
-				function(){
-					$(this).attr('src', '/images/footer/follow-insta-over.png');
-				}, function(){
-					$(this).attr('src', '/images/footer/follow-insta.png');
-				}
-			);
+			function(){ $(this).attr('src', '/images/footer/follow-insta-over.png'); }
+			,function(){ $(this).attr('src', '/images/footer/follow-insta.png'); }
+		);
 	</script>
 <!-- ===== ===== ===== jquery END ===== ===== ===== -->
 </html>
