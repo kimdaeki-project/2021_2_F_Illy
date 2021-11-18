@@ -15,7 +15,7 @@ function slide(track, content, speed, slideBtn){
 	if(track.hasClass('slideActive')) { return; }
 	
 	let translateX = Number(track.css('transform').split(',')[4]); // 현재 track X좌표
-	let width = slideContent.width(); //content 가로 사이즈	
+	let width = content.width(); //content 가로 사이즈	
 	
 	track.addClass('slideActive'); //트랙 활성화
 		
@@ -24,7 +24,9 @@ function slide(track, content, speed, slideBtn){
 		translateX -= width;
 	} else if (slideBtn.hasClass('prev')) {
 		translateX += width;					
-	}				
+	} else {
+		translateX = -width * slideBtn.data('index');
+	}
 	
 	track.css('transition', 'transform '+speed+'ms ease 0s'); //속도 설정				
 	track.css('transform', 'translateX('+translateX+'px)') //좌표 대입

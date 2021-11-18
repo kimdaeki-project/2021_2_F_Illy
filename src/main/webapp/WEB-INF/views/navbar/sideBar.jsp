@@ -26,7 +26,7 @@
 		<div class="scroll_right_overflow">
 			<div class="right_slideBanner">
 				<div class="slider-wrap slider-banner slick-initialized slick-slider slick-dotted" role="toolbar">
-					<div class="slick_list draggable" data-slide_cnt="3">
+					<div class="slick_list draggable" data-slide_content_cnt="3">
 						<div class="slideContentR">
 						 	<a href="#">
 						 		<img alt="" src="/images/right_sideBar/3691b74e6afacbfe39ad92fc29c8b124_62308.jpg">
@@ -191,45 +191,22 @@
 	    })
 	    
 	})
-
-	</script>
-<!-- 여기부터 -->
-	<script type="text/javascript">
-		let slick_list = $('.slick_list');
-		let slide_cnt = Number(slick_list.data('slide_cnt'));
-		let widthR = $('.slideContentR').width();
-		
-		function oneRoundR(translateXR){
-			if (translateXR < -widthR * slide_cnt) { translateXR = -widthR; }
- 			else if (translateXR > -widthR) { translateXR = -widthR * slide_cnt; }
-			
-			setTimeout(function(){
-				slick_list.css( 'transition', '' );
-				slick_list.css('transform', 'translateX('+translateXR+'px)');
-			}, 1300);
-			
-		}
 	
-		slideIntervalR = function(){
-			let translateXR = Number(slick_list.css('transform').split(',')[4]);			
-			if (true){
- 			//	translateXR -= widthR;
-				translateXR = translateXR - widthR;
-				slick_list.css('transition', 'transform 1300ms ease 0s');
-				slick_list.css('transform', 'translateX('+translateXR+'px)');
-				
-				oneRoundR(translateXR);
-			}
-		}
-		intervalStarter = setInterval(slideIntervalR, 3300);
-	</script>
-	<script type="text/javascript">
+<!-- 여기부터 -->
+		let slick_list = $('.slick_list');
+		let slideContentR = $('.slideContentR')
+		
+		sideInterval = setInterval(function(){slide(slick_list, slideContentR, 1300);}, 3300);
+
 		$('.testBtn').click(function(){
-			let index = Number($(this).data('index'));
-			slick_list.css('transition', 'transform 1300ms ease 0s');
-			slick_list.css('transform', 'translateX('+(-widthR * index)+'px)');
+			if(slick_list.hasClass('slideActive')) { return; }
+
+			clearInterval (sideInterval);
+			sideInterval = setInterval(function(){slide(slick_list, slideContentR, 1300);}, 3300);
+			
+			slide(slick_list, slideContentR, 1300, $(this));
 		});
-	</script>
 <!-- 여기까지 -->
+	</script>
 </body>
 </html>
