@@ -43,7 +43,7 @@
 		<div class="gnbBottom">
 		
 			<div class="logo">
-				<img alt="" src="/images/gnb/logo50.jpg">
+				<a href="/"><img alt="" src="/images/gnb/logo50.jpg"></a>
 			</div>
 			
 			<div class="menuWrap">
@@ -79,6 +79,7 @@
 	<script type="text/javascript">
 		$().ready(function(){
 		})
+		$("body").contextmenu(function() { return false; });
 	</script>
 	
 	<script type="text/javascript">
@@ -99,7 +100,7 @@
 				} else {
 					translateX += width;					
 				}
-				slideTrack.css('transition', 'transform 300ms ease 0s');
+				slideTrack.css('transition', 'transform 1300ms ease 0s');
 				slideTrack.css('transform', 'translateX('+translateX+'px)')	
 				
 				oneRound(translateX);
@@ -116,7 +117,7 @@
 				slideTrack.css( 'transition', '' );
 				slideTrack.css('transform', 'translateX('+translateX+'px)')
 				slideCheck = true
-			}, 300);
+			}, 1300);
 		}
 
 		
@@ -125,7 +126,7 @@
 			if (slideCheck && translateX % width == 0){
 				
 				translateX -= width;
-				slideTrack.css('transition', 'transform 300ms ease 0s');
+				slideTrack.css('transition', 'transform 1300ms ease 0s');
 				slideTrack.css('transform', 'translateX('+translateX+'px)')
 				
 				oneRound(translateX);

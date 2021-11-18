@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
-.footerHeadWrap { text-align: center; width: 100%; height: 485px; min-width: 1200px; padding: 0 125px; border-top: 2px solid #fff; background: #63666a; }
+.footerHeadWrap { text-align: center; width: 100%; min-width: 1200px; background: #63666a; font-size: 12px; color: #fff; }
 
-.footListWrap { text-align: left; display:inline-block; width: 1200px; padding: 38px 0; border-bottom: 0; margin: 0 auto; line-height: 1; }
-.footListWrap:after { content: ''; display: block; clear: both; }
+.footList { text-align: left; display:inline-block; width: 1200px; padding: 38px 0 40px; border-bottom: 0; margin: 0 auto; line-height: 1; }
+.footList:after { content: ''; display: block; clear: both; }
 .footListCont { float: left; width: 200px; }
 .footListCont h3 { margin-bottom: 8px; font-size: 12px; font-weight: bold; line-height: 36px; color: #fff; }
 .footListCont ul { width: 100%; }
@@ -12,11 +12,22 @@
 .footListCont a:hover { text-decoration: underline; }
 
 .footEtcCont { float: right; width: 160px; }
-.footEtcCont a { display: inline-block; width: 160px; height: 40px; border: 1px solid #fff; border-radius: 20px; margin-bottom: 20px; font-size: 12px; font-weight: bold; color: #fff; text-align: center; line-height: 38px;}
+.footEtcCont a { display: inline-block; width: 160px; height: 40px; border: 1px solid #fff; border-radius: 20px; margin-bottom: 20px; font-size: 12px; font-weight: bold; color: #fff; text-align: center; line-height: 38px; letter-spacing: 1px;}
 .footEtcCont p { display: inline-block; margin: 15px 0 10px; font-size: 12px; line-height: 19px; color: #fff; }
-.footEtcCont ul { margin-bottom: 15px; }
+.footEtcCont .payments ul { margin-bottom: 15px; }
 .footEtcCont ul:after { content: ''; display: block; clear: both; }
 .footEtcCont li { float: left; padding-right: 4px; }
 .footEtcCont .followus a { width: 100%; border: none; }
 
-.contentInfoWrap { width: 100%; }
+.contentInfoWrap { display: block; width: 100%; border-top: 2px solid #fff; }
+.contentInfo { display: inline-block; width: 1200px; padding:25px 0 35px; margin: 0 auto; text-align: center; }
+.contentInfo p { line-height: 18px; }
+.country { float: left; width: 160px; height: 40px; border: 1px solid #fff; border-radius: 20px; padding: 0 16px 0 19px; margin: 10px 40px 0 0; text-align: center; line-height: 38px; }
+.country img { border-radius: 50%; vertical-align: middle; }
+.country:after { content:''; clear: both; display: block; }
+.country span { float: left; font-weight: bold; letter-spacing: 1px; }
+.country span:last-child { float: right; }
+.company { float: left; text-align: left; }
+.company span { padding-right: 5px; }
+.company a { color: #fff; text-decoration: underline; font-size: 11.5px; }
+.copyright { float: right; text-align: right; }
