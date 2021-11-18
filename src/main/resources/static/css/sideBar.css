@@ -25,16 +25,14 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 #scroll_right .scroll_right_overflow{position:fixed;height:100%;width:185px;padding:10px;box-sizing:border-box;overflow-y:scroll; -ms-overflow-style: none;overflow: auto;}
 #scroll_right .scroll_right_overflow::-webkit-scrollbar { display: none; }
 
-#scroll_right .right_slideBanner{ display:block; width:165px; height:165px; background-color:#eee; margin:0 0 10px 0;}
+#scroll_right .right_slideBanner{ display:block; position:relative; width:165px; height:165px; background-color:#eee; margin:0 0 10px 0;}
 #scroll_right .right_slideBanner img{max-width:100%;}
-#scroll_right .right_slideBanner .slick-dots{bottom:6px;}
-#scroll_right .right_slideBanner .slick-dots li{margin:0 3px;}
-.slider-banner-759793874{width:165px; height:165px; overflow: hidden; font-size: 0;}
-.slider-banner-759793874 img{width:165px; height:165px;}
-.slider-banner-759793874 .slick-prev{}
-.slider-banner-759793874 .slick-next{}
-.slider-banner-759793874 .slick-dots li button{width:8px; height:8px; border-radius:100%; background:#aaaaaa;}
-.slider-banner-759793874 .slick-dots li.slick-active button{background:#333333;}
+#scroll_right .right_slideBanner .slick-dots{bottom:6px; left:61.5px;  position:absolute; }
+#scroll_right .right_slideBanner .slick-dots li{margin:0 3px; display:inline-block; }
+.slider-banner{width:165px; height:165px; overflow: hidden; font-size: 0;}
+.slider-banner img{width:165px; height:165px;}
+.testBtn{width:8px; height:8px; border-style:none; border-radius:100%; background:#aaaaaa; cursor:pointer;} 
+
 /* 여기부터 */
 
 
@@ -87,8 +85,3 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 #scroll_right .right_link2 li:first-child a{color:#fff;}
 #scroll_right .right_link2 li:hover{background:#f5f5f5;border:1px solid #eee;}
 #scroll_right .right_link2 li:hover a{color:#111;}
-
-
-
-
-

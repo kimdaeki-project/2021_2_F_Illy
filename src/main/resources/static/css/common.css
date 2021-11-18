@@ -22,6 +22,7 @@ html,body { height: 100%; }
 	padding: 45px 0 60px 0;
 	margin: 0 auto 0;
 }
+#contents:after { content: ''; clear: both; display: block; }
 
 li { list-style: none; }
 a { color: #333; text-decoration: none; }

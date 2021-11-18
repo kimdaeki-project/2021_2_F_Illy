@@ -43,7 +43,7 @@
 		<div class="gnbBottom">
 		
 			<div class="logo">
-				<img alt="" src="/images/gnb/logo50.jpg">
+				<a href="/"><img alt="" src="/images/gnb/logo50.jpg"></a>
 			</div>
 			
 			<div class="menuWrap">

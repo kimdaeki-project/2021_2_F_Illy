@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/notice/**")
 public class NoticeController {
 
-	@GetMapping("selectList")
+	@GetMapping("list")
 	public ModelAndView getSelectList()throws Exception{
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("board/list");
