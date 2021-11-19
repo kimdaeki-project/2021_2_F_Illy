@@ -202,8 +202,13 @@
 		let dot_li=$('.dot_li');
 		let rightSlideBtn = $('.rightSlideBtn');
 		
-		sideInterval = setInterval(function(){slide(slick_list, slideContentR, 1300);}, 3300);
-		btnInterval=setInterval(function(){slide(slick_dots,dot_li,1300);},3300);
+		let test;
+		
+		sideInterval = setInterval(function(){
+			test = slide(slick_list, slideContentR, 1300);
+		}, 3300);
+		
+		test????
 		
 		rightSlideBtn.click(function(){
 			if(slick_list.hasClass('slideActive')) { return; }
@@ -213,7 +218,7 @@
 			clearInterval (sideInterval);
 			sideInterval = setInterval(function(){slide(slick_list, slideContentR, 1300);}, 3300);
 	
-			slide(slick_list, slideContentR, 1300, $(this),rightSlideBtn);
+			slide(slick_list, slideContentR, 1300, $(this));
 		});
 <!-- 여기까지 -->
 	</script>
