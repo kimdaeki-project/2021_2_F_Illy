@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-	<link rel="stylesheet" href="/css/footer.css">
+	<link rel="stylesheet" href="/css/navbar/footer.css">
 	
 </head>
 <body>

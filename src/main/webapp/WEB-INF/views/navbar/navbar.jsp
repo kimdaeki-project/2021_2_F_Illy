@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-	<link rel="stylesheet" href="/css/navbar.css">
+	<link rel="stylesheet" href="/css/navbar/navbar.css">
 
 </head>
 <body>
@@ -48,7 +48,7 @@
 			
 			<div class="menuWrap">
 				<ul>
-					<li><a href="javascript:;">ALL PRODUCT</a></li>
+					<li><a href="/product/list">ALL PRODUCT</a></li>
 					<li><a href="javascript:;">COFFEE</a></li>
 					<li><a href="javascript:;">MACHINES</a></li>
 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li>

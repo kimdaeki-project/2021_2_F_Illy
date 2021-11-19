@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/common.css">
-	<style type="text/css">
-		
-	</style>
+	<link rel="stylesheet" href="/css/product/list.css">
 
 <title>Insert title here</title>
 </head>
@@ -19,17 +17,9 @@
 		<div id="container">
 				
 			<div id="contents">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-				<h1>Product List Page</h1>
+				
+				<h2>ALL PRODUCT</h2>
+				<img alt="" src="/images/product/list/ALL_PRODUCT.jpg">
 				
 				
 				
