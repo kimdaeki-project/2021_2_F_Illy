@@ -6,7 +6,7 @@
 track		: content의 부모 div (data-slide_content_cnt='INTEGER') 를 포함
 content		: img의 부모 div
 speed		: 슬라이드 이동에 걸리는 시간(ms)
-slideBtn	: class로 "next" 또는 "prev" 를 포함하는 button
+slideBtn	: class로 "next" 또는 "prev" 를 포함하는 button    
 */
 
 /* ===== slide 함수 START ===== */
@@ -30,6 +30,7 @@ function slide(track, content, speed, slideBtn){
 	
 	track.css('transition', 'transform '+speed+'ms ease 0s'); //속도 설정				
 	track.css('transform', 'translateX('+translateX+'px)') //좌표 대입
+	
 	
 	oneRound(track, translateX, width, track.data('slide_content_cnt'), speed);
 	

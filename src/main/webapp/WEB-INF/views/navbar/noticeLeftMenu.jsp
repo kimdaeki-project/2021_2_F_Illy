@@ -16,6 +16,7 @@
 		.cs_center .cs_f span{font-size:14px; font-weight:bold; padding:8px 0 10px; line-height:14px; }
 		.cs_center .cs_f span:first-child{ border-top:0.1px solid #bbb; }
 		.cs_center .cs_mail > span > a{font-size:12px; margin-top:12px;  display:block;  }
+		.cs_center .cs_mail > span > a:hover{text-decoration:underline;}
 	</style>
 
 </head>
@@ -25,22 +26,22 @@
 		<h2>고객센터</h2>		
 		<ul class="left_cont_box">	
 			<li>
-				<a href="/notice/list" class="active">공지사항</a>
+				<a href="/notice/list">공지사항</a>
 			</li>
 			<li>
-				<a href="#" class="active">FAQ</a>
+				<a href="notice/faqList">FAQ</a>
 			</li>
 			<li>
-				<a href="#" class="active">1:1문의</a>
+				<a href="#">1:1문의</a>
 			</li>
 			<li>
-				<a href="#" class="active">상품후기</a>
+				<a href="/review/bestReview">상품후기</a>
 			</li>
 			<li>
-				<a href="#" class="active">이벤트</a>
+				<a href="#">이벤트</a>
 			</li>
 			<li>
-				<a href="#" class="active">고객지원</a>
+				<a href="#">고객지원</a>
 			</li>
 		</ul>	
 		<div class="cs_center">		

@@ -5,8 +5,11 @@
   
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
-  		
-  		
+  			
+  	<!-- LDY board work start  -->
+  		<typeAlias type="com.c.illy.notice.NoticeVO" alias="NoticeVO"/>
+  		<typeAlias type="com.c.illy.notice.FaqVO" alias="FaqVO"/>
+  	<!-- LDY board work end  -->
   		
   		
   		
