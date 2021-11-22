@@ -32,7 +32,7 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 .slider-banner{width:165px; height:165px; overflow: hidden; font-size: 0;}
 .slider-banner img{width:165px; height:165px;}
 .rightSlideBtn{width:8px; height:8px; padding:5px; border-style:none; border-radius:100%; background:#aaaaaa; cursor:pointer;} 
-
+.rightSlideBtn.active{background-color: #333333;}
 /* 여기부터 */
 
 

@@ -55,7 +55,7 @@
 					<div class="testBtns" >
 						<ul class="slick_dots" data-slide_content_cnt="3">
 							<li class="dot_li">
-								<button type="button"  style="background-color:#333333;" class="rightSlideBtn" data-index="1" ></button>					
+								<button type="button"  class="rightSlideBtn active" data-index="1" ></button>					
 							</li>
 							<li class="dot_li">
 								<button type="button"  class="rightSlideBtn" data-index="2" ></button>					
@@ -147,14 +147,7 @@
 
 		</div>
 	
-	
-	
-	
-	
 	</div>
-
-
-
 
 	<script type="text/javascript">
 	
@@ -192,32 +185,44 @@
 	})
 	
 	
-
-	
-	
 <!-- 여기부터 -->
 		let slick_list = $('.slick_list');
 		let slideContentR = $('.slideContentR');
-		let slick_dots = $('.slick_dots');
-		let dot_li=$('.dot_li');
 		let rightSlideBtn = $('.rightSlideBtn');
 		
-		let test;
+		//슬라이드 이미지의 가로값 선언
+		let imgDiv=slideContentR.width();
 		
-		sideInterval = setInterval(function(){
-			test = slide(slick_list, slideContentR, 1300);
-		}, 3300);
+		//슬라이드 내부 인자로 사용될 함수 선언 	
+		function slideDef(){
+			let transX = slide(slick_list, slideContentR, 1300);
+			//슬라이드 버튼 반복문
+			$(rightSlideBtn).each(function(){
+				//버튼의 css 색상 정의 클래스 지워주기
+				$(this).removeClass('active');
+				//지금 보여주고 있는 이미지의 width값으로 순서를 알아내어 짝꿍 버튼의 css 색상 정의 클래스 생성해주기
+				if(transX == -imgDiv * $(this).data('index')) {
+					$(this).addClass('active');					
+				}
+			});
+		}
 		
-		test????
+		//페이지 업로드시 슬라이드 자동 실행 
+		sideInterval = setInterval(function(){slideDef();}, 3300);
 		
+		//슬라이드의 dot 버튼 눌렀을때 실행되는 함수
 		rightSlideBtn.click(function(){
+			//슬라이드가 돌아가고 있다면 버튼을 눌러도 움직이지 마라 
 			if(slick_list.hasClass('slideActive')) { return; }
-			rightSlideBtn.css('background-color','#aaaaaa');
-			$(this).css('background-color','#333333');
+			//해당하는 버튼의 색상만 변경되도록 클래스 정의해주는 반복문
+			$(rightSlideBtn).each(function(){
+				$(this).removeClass('active');
+			}); $(this).addClass('active');
 			
+			//돌아가고 있던 슬라이드 해제 해주기 
 			clearInterval (sideInterval);
-			sideInterval = setInterval(function(){slide(slick_list, slideContentR, 1300);}, 3300);
-	
+			//원하는 버튼이 눌린 위치부터 다시 슬라이드 생성해주기 
+			sideInterval = setInterval(function(){slideDef();}, 3300);
 			slide(slick_list, slideContentR, 1300, $(this));
 		});
 <!-- 여기까지 -->

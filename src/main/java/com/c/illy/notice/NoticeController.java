@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.c.illy.util.Pager;
+
 @Controller
 @RequestMapping("/notice/**")
 public class NoticeController {
@@ -18,13 +20,20 @@ public class NoticeController {
 // --------------------------------------------------------------------- Notice	
 	//공지사항 리스트 불러오기 
 	@GetMapping("list")
-	public ModelAndView getSelectList()throws Exception{
-		ModelAndView mv = new ModelAndView();
-		List<NoticeVO> ar = noticeService.getSelectList();
+	public ModelAndView getSelectList(Pager pager,ModelAndView mv)throws Exception{
+		List<NoticeVO> ar = noticeService.getSelectList(pager);
+		List<NoticeVO> arTop=noticeService.getSelectListTop();
 		mv.setViewName("board/noticeList");
 		mv.addObject("List", ar);
+		mv.addObject("ListTop", arTop);
+		mv.addObject("pager", pager);
 		return mv; 	
 	}
+	
+	
+	
+	
+	
 	
 	
 	

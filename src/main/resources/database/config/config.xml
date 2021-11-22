@@ -5,10 +5,13 @@
   
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
-  			
+		
   	<!-- LDY board work start  -->
   		<typeAlias type="com.c.illy.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.c.illy.notice.FaqVO" alias="FaqVO"/>
+ 		<typeAlias type="com.c.illy.util.Pager" alias="Pager"/>
+ 		<typeAlias type="java.lang.Long" alias="Long"/>
+ 		<typeAlias type="java.util.List" alias="List"/>
   	<!-- LDY board work end  -->
   		
   		

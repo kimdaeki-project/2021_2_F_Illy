@@ -25,7 +25,7 @@ function slide(track, content, speed, slideBtn){
 	} else if (slideBtn.hasClass('prev')) {
 		translateX += width;					
 	} else {
-		translateX = -width * slideBtn.data('index');
+		translateX = -width * slideBtn.data('index');	
 	}
 	
 	track.css('transition', 'transform '+speed+'ms ease 0s'); //속도 설정				
