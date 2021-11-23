@@ -56,12 +56,15 @@ public class AdminController {
 
 	@PostMapping("insertCoffee")
 	public String setInsertCoffee(@Valid CoffeeVO coffeeVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles) throws Exception {
-		
+		System.out.println(multipartFiles[0]);
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("type", "coffee");
+			System.out.println("err1");
 			return "admin/insertProduct";
 		}
 
+		System.out.println("err2");
+		
 		productService.setInsertProduct(coffeeVO, multipartFiles);
 		coffeeService.setInsertProduct(coffeeVO);
 		

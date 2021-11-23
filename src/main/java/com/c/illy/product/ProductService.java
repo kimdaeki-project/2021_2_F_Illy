@@ -20,6 +20,8 @@ public class ProductService {
 		for(MultipartFile file:multipartFiles) {
 			if(file.getSize() == 0L) { continue; }
 			
+			System.out.println("me");
+			
 			//이미지 저장
 //			String fileName = fileManager.getUseServletContext("/upload/notice", file);	
 //			String fileName = fileManager.getUseResourceLoader("upload/notice", file);

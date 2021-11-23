@@ -27,6 +27,6 @@ public class ProductVO {
 	@NotBlank(message = "필수 항목 입니다")
     private String			product_importer; //수입판매원
 	
-	private List<ProductFileVO> productFileVO;
+//	private List<ProductFileVO> multipartFiles;
 
 }
