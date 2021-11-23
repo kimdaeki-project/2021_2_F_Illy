@@ -5,7 +5,7 @@
 	font-family: nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
 }
 
-html,body { height: 100%; }
+html,body { height: 100%; font-size: 12px; line-height: 1.5; }
 #wrapper {
 	position:relative;
 	min-width: 1200px;
@@ -13,7 +13,7 @@ html,body { height: 100%; }
 }
 #container { 	
 	min-height: 100%;
-	padding: 120px 0 485px;
+	padding: 120px 125px 485px;
 	margin: -120px auto -485px;
 }
 #contents {
@@ -23,6 +23,7 @@ html,body { height: 100%; }
 	margin: 0 auto 0;
 }
 
-li { list-style: none; }
+ul, ol, li { list-style: none; }
 a { color: #333; text-decoration: none; }
 input:focus { outline: none; }
+em { font-weight: normal; font-style: normal; }

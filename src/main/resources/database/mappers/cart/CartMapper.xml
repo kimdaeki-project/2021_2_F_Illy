@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.cart.CartRepository">
+	<insert id="setCart" parameterType="CartVO">
+		insert into cart (cart_id, member_id, product_id, cart_cnt, cart_state)
+		values (null, #{member_id}, #{product_id}, #{cart_cnt}, 'checked')
+	</insert> <!-- 장바구니 담기 -->
+
+	<select id="getNormalBasket" resultType="CartProductVO" parameterType="MemberVO">
+		select C.*, P.* from cart C
+		join product P
+		on C.product_id = P.product_id
+		<!-- left join productfile PF
+		on C.product_id = PF.product_id -->
+		where C.member_id=#{member_id}
+	</select> <!-- 일반배송 장바구니 리스트 -->
+  	
+  	<select id="getCartListCheck" resultType="CartProductVO" parameterType="MemberVO">
+  		select C.*, P.* from cart C
+		join product P
+		on C.product_id = P.product_id
+		<!-- left join productfile PF
+		on C.product_id = PF.product_id -->
+		where C.member_id=#{member_id} and
+			  C.cart_state='checked'
+  	</select>
+  	
+  	<update id="setCountUpdate" parameterType="CartVO">
+  		update cart set cart_cnt=#{cart_cnt} where cart_id=#{cart_id}
+  	</update> <!-- 장바구니 수량변경 -->
+  	
+  	<update id="setCheckAll" parameterType="CartVO">
+  		update cart set cart_state=#{cart_state}
+  		where member_id=#{member_id} and
+			(cart_state = 'checked' or
+			cart_state = 'unChecked')
+  	</update> <!-- 장바구니 전체선택 -->
+  	
+  	<update id="setCheckOne" parameterType="CartVO">
+  		update cart set cart_state=#{cart_state}
+  		where cart_id=#{cart_id}
+  	</update> <!-- 장바구니 상품 선택 -->
+  	
+  	
+  	<delete id="setDelete" parameterType="CartVO">
+  		delete from cart where cart_id=#{cart_id}
+  	</delete> <!-- 장바구니 물건 삭제 -->
+</mapper>

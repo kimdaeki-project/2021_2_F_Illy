@@ -5,9 +5,9 @@
   
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
-  		
-  		
-  		
+  		<typeAlias type="com.c.illy.cart.CartVO" alias="CartVO"/>
+  		<typeAlias type="com.c.illy.cart.CartProductVO" alias="CartProductVO"/>
+  		<typeAlias type="com.c.illy.payment.PaymentVO" alias="PaymentVO"/>
   		
   		
   		

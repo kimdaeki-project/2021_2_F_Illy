@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<c:import url="./navbar/navbar.jsp"></c:import>		
+		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>		
 		<div id="container">
 				
 			<div id="contents">
@@ -43,7 +43,7 @@
 			</div>
 			
 		</div>
-		<c:import url="./navbar/footer.jsp"></c:import>		
+		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
 	</div>
 </body>
 </html>
