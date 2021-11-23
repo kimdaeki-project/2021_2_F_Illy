@@ -11,7 +11,7 @@ public class MemberService implements BoardService {
 	private MemberRepository memberRepository;
 
 	@Override
-	public MemberVO setInsert(MemberVO memberVO) {
+	public int setInsert(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		return memberRepository.setInsert(memberVO);
 	}
