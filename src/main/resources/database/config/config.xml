@@ -11,7 +11,6 @@
   		<typeAlias type="com.c.illy.product.ProductFileVO" alias="ProductFileVO"/>
   		<typeAlias type="com.c.illy.product.coffee.CoffeeVO" alias="CoffeeVO"/>
   		
-  		
   		<typeAlias type="com.c.illy.cart.CartVO" alias="CartVO"/>
   		<typeAlias type="com.c.illy.cart.CartProductVO" alias="CartProductVO"/>
   		<typeAlias type="com.c.illy.payment.PaymentVO" alias="PaymentVO"/>
@@ -23,10 +22,7 @@
  		<typeAlias type="java.lang.Long" alias="Long"/>
  		<typeAlias type="java.util.List" alias="List"/>
   	<!-- LDY board work end  -->
-  		
-  		
-  		
-  		
+
   	</typeAliases>
   
   </configuration>
