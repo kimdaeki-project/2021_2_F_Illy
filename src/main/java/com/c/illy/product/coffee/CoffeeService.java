@@ -7,15 +7,13 @@ import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
 
 @Service
-public class CoffeeService extends ProductService {
+public class CoffeeService {
 	
 	@Autowired
 	private CoffeeRepository coffeeRepository;
 	
-	@Override
 	public int setInsertProduct(ProductVO productVO) throws Exception {
-		coffeeRepository.setInsertProduct(productVO);
-		return 0;
+		return coffeeRepository.setInsertProduct(productVO);
 	}
 
 }

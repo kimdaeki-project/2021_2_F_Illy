@@ -18,4 +18,14 @@
 		);
   	</insert>
   
+  	<insert id="setInsertProductFile" parameterType="ProductFileVO">
+	  	INSERT INTO productFile
+		VALUES(
+			#{productFile_id}
+		    ,#{product_id}
+		    ,#{productFile_name}
+		    ,#{productFile_oriName}
+		);
+  	</insert>
+  
 </mapper>

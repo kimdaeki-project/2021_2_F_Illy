@@ -239,7 +239,7 @@
 							<th>상품사진</th>
 							<td>
 								<div class="inputBox">
-									<input type="file" id="add_file1" class="addFile" name="multipartFile" data-num="1">
+									<form:input type="file" id="add_file1" class="addFile" path="productFileVO" data-num="1"/>
 									<img alt="" src="" class="addFileImg">
 									<label for="add_file1" class="addFileLable"></label>
 								</div>
