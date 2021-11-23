@@ -31,7 +31,7 @@ function slide(track, content, speed, slideBtn){
 	track.css('transition', 'transform '+speed+'ms ease 0s'); //속도 설정				
 	track.css('transform', 'translateX('+translateX+'px)') //좌표 대입
 	
-	oneRound(track, translateX, width, track.data('slide_content_cnt'), speed);
+	return oneRound(track, translateX, width, track.data('slide_content_cnt'), speed);
 	
 }
 /* ===== slide 함수 END ===== */
@@ -46,5 +46,7 @@ function oneRound(track, translateX, width, contentCnt, speed){
 		track.css('transform', 'translateX('+translateX+'px)') //좌표 대입
 		track.removeClass('slideActive'); //트랙 비활성화
 	}, speed);
+	
+	return translateX;
 }
 /* ===== oneRound 함수 END ===== */

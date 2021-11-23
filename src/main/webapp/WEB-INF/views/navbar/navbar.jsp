@@ -85,7 +85,7 @@
 		let slideContent = $('.slideContent');
 		
 		$().ready(function(){
-			navInterval = setInterval(function(){slide(slideTrack, slideContent, 1300);}, 3300);			
+			navInterval = setInterval(function(){slide(slideTrack, slideContent, 1300);}, 3300);
 		})
 		
 		$('.slideBtn').click(function(){
