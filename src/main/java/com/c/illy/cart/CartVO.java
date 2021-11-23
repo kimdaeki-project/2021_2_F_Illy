@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class CartVO {
 	
-	private int cart_id;
-	private int member_id;
+	private Integer cart_id;
+	private Integer member_id;
 	private String product_id;
-	private int cart_cnt;
+	private Integer cart_cnt;
 	private String cart_state;
 }

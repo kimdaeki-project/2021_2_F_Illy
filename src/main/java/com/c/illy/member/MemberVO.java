@@ -20,18 +20,15 @@ public class MemberVO extends BoardVO{
 
 	@NotBlank(message = "필수항목 입니다.")
 	private String address_detail;
-
-@Data
-public class MemberVO {
 	
 	private Integer member_id;
-	private String username;
-	private String password;
-	private String member_name;
-	private String member_email;
-	private String member_phone;
-	private Date member_birth;
-	private Integer member_point;
+//	private String username;
+//	private String password;
+//	private String member_name;
+//	private String member_email;
+//	private String member_phone;
+//	private Date member_birth;
+//	private Integer member_point;
 	private String address_reference;
 
 	@NotBlank(message = "필수항목 입니다.")
