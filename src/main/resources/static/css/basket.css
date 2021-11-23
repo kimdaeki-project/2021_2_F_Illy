@@ -1,0 +1,308 @@
+@charset "UTF-8";
+
+
+#order_bottom{
+	text-align: right;
+	min-height: 17px;
+		
+}
+
+#order_bottom p {
+	display: inline-block;
+	margin: 10px 0 0 0;
+	padding: 5px 0 5px 19px;    
+	color: #000;
+	background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/etc/icon_warning.png) no-repeat left 8px;
+}
+
+#order_tit {
+	overflow: hidden;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#order_tit h2 {
+	float: left;
+    font-size: 28px;
+    color: #222222;
+    font-weight: 600;
+}
+
+#order_tit ol {
+	float: right;
+    line-height: 62px;
+}
+
+#order_tit ol li {
+	float: left;
+    font-size: 14px;
+    color: #d1d1d1;
+}
+
+#order_tit ol li:first-child {
+	color: #000;
+    font-weight: bold;
+}
+
+#order_tit ol li span {
+	font-size: 16px;
+    font-weight: bold;
+}
+
+#order_tit ol li span > img {
+	padding: 0 14px;
+    vertical-align: -1px;
+}
+
+#cart_top {
+	font-size: 0px;
+    margin-top: 20px;
+}
+
+#cart_top li {
+	font-size: 14px;
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #d9272e;
+    height: 40px;
+    line-height: 40px;
+}
+
+#cart_top li.on {
+	border-top: 1px solid #d9272e;
+    border-bottom: 0px;
+}
+#cart_top li:first-child {
+	border-right: 1px solid #d9272e;
+}
+
+#cart_top li a {
+	display: block;
+    width: 100%;
+}
+
+#cart_top li.on a {
+	color: #d9272e;
+    background: #ffe9e8;	
+}
+
+#cart_list {
+	margin: 50px 0 10px 0;
+}
+
+#cart_table {
+	padding-top: 10px;
+}
+
+#cart_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#cart_table table thead tr th {
+	padding: 9px 10px 10px 10px; 
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+}
+
+#cart_table table tbody tr td {
+
+    height: 31px;
+	padding: 15px 10px 14px 10px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.tb_product {
+	font-weight: 600;
+	text-align: left;
+}
+
+.tb_border {
+	border-left: 1px solid #eee;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+
+.delivery {
+	font-size: 12px;
+	color: #777777;
+	font-weight: normal;
+}
+
+#btn_leftBox {
+	text-align: left;
+	display: inline-block;
+    border-bottom: 1px solid #333333;
+}
+
+#totalPrice {
+	margin-top: 30px;
+	border: 2px solid #d6d6d6;
+	padding: 20px 40px 25px 40px;
+	display: inline-block;
+	width: 100%;
+}
+
+#totalPrice_rg {
+	display: table;
+	text-align: right;
+	float: right;
+	
+}
+
+#totalPrice_rg_list {
+	
+	position: relative;
+}
+#totalPrice_rg_list dl {
+	display: table-cell;
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    text-align: right;
+}
+
+#totalPrice_rg_list span {
+	display: table-cell;
+    padding: 0 15px 0 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#totalPrice_rg_list dl dd strong{
+	font-size: 18px;
+	font-weight: 700;
+	
+}
+
+#totalPrice_rg_list #totalPrice_last {
+	padding-right: 0px;
+}
+
+#totalPrice_rg_list #totalPrice_last dd{
+	font-size: 20px;
+}
+
+#cart_bottom {
+	overflow: hidden;
+	padding-top: 30px;
+}
+
+#cart_btn_left {
+	float: left;
+}
+
+.cart_btn_left_del, .cart_btn_left_ch {
+	display: inline-block;
+    min-width: 120px;
+    height: 30px;
+    padding: 0 15px;
+    color: #626262;
+    border: 1px solid #a3a3a3;
+    text-align: center;
+    line-height: 28px;
+    background: white;
+    font-size: 12px;
+}
+
+.cart_btn_left_ch {
+	margin-left: 6px;
+}
+
+#cart_btn_right {
+	float: right;
+}
+
+.cart_btn_right_choice {
+	cursor: pointer;
+	height: 40px;
+    border: 1px solid #63666a;
+    color: #333;
+    border-radius: 21px;
+	min-width: 190px;
+	padding: 0 20px;
+    font-weight: bold;
+    font-size: 14px;
+    background: #fff;
+}
+.cart_btn_right_choice:hover {
+	color: #d12420;
+	border: 1px solid #d12420;
+}
+
+.cart_btn_right_whole {
+	margin-left: 6px;
+	height: 40px;
+    border: 0;
+    background: #d12420;
+    border-radius: 21px;
+    color: #fff;
+    min-width: 190px;
+	padding: 0 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.cart_btn_right_whole:hover {
+	background: linear-gradient(100deg, #d12420, #902323);
+}
+
+.tableCheck {
+	height: 18px;
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+}
+.tableCheck input {
+	position: absolute;
+	top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+}
+
+.check_s {
+	background: url(/images/cart/check_off_small.png) no-repeat 1px 2px;
+	padding-left: 5px;
+	min-width: 18px;
+	min-height: 20px;
+	display: inline-block;
+}
+
+/* .check_s:hover {
+	background: url(/images/cart/check_over_small.png) no-repeat 1px 2px;
+} */
+
+.on {
+	background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
+}
+
+.cnt_minus, .cnt_plus {
+	border: none;
+	padding: 0 10px;
+	height: 18px;
+}
+
+.cnt_cart {
+	border: none;
+	padding: 0 10px;
+	height: 18px;
+	text-align: center;
+	width: 50px;
+	font-weight: bold;
+}
+
+#cart_null {
+	padding: 60px 0;
+    margin: 0 0 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #dbdbdb;
+    color: #444;
+}

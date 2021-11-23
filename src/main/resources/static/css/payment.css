@@ -1,0 +1,312 @@
+@charset "UTF-8";
+
+#payment_tit {
+	overflow: hidden;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#payment_tit h2 {
+	float: left;
+    font-size: 28px;
+    color: #222222;
+    font-weight: 600;
+}
+
+#payment_tit ol {
+	float: right;
+    line-height: 62px;
+}
+
+#payment_tit ol li {
+	float: left;
+    font-size: 14px;
+    color: #d1d1d1;
+}
+
+#payment_tit ol li.payment_tit_black {
+	color: #000;
+    font-weight: bold;
+}
+
+#payment_tit ol li span {
+	font-size: 16px;
+    font-weight: bold;
+}
+
+#payment_tit ol li span > img {
+	padding: 0 14px;
+    vertical-align: -1px;
+}
+
+#payment_cont_list {
+	margin: 50px 0 10px 0;
+}
+
+#payment_cont_list_tit {
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+
+#payment_cont_list_tit h3 {
+	font-weight: 600;
+}
+
+
+.payment_table {
+	position: relative;
+}
+
+.payment_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.payment_table th {
+	padding: 9px 10px 10px 10px;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+}
+
+.payment_table td {
+	height: 31px;
+    padding: 15px 10px 14px 10px;
+    border-bottom: 1px solid #dbdbdb;
+    background: #ffffff;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+}
+
+.payment_table td:first-child {
+	border-left: none;
+}
+.payment_table td:last-child {
+	border-right: none;
+}
+
+.tb_product {
+	font-weight: 600;
+	text-align: left;
+}
+
+.tb_border {
+	border-left: 1px solid #eee;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+
+.delivery {
+	font-size: 12px;
+	color: #777777;
+	font-weight: normal;
+}
+#btn_leftBox {
+	text-align: left;
+	display: inline-block;
+    border-bottom: 1px solid #333333;
+}
+
+#price_sum {
+	margin-top: 30px;
+	padding: 20px 40px 25px;
+	border: 2px solid #d6d6d6;
+	display: inline-block;
+	width: 100%;
+}
+
+#totalPrice_rg {
+	display: table;
+	text-align: right;
+	float: right;
+	
+}
+
+#totalPrice_rg_list {
+	
+	position: relative;
+}
+#totalPrice_rg_list dl {
+	display: table-cell;
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    text-align: right;
+}
+
+#totalPrice_rg_list span {
+	display: table-cell;
+    padding: 0 15px 0 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#totalPrice_rg_list dl dd strong{
+	font-size: 18px;
+	font-weight: 700;
+	
+}
+
+#totalPrice_rg_list #totalPrice_last {
+	padding-right: 0px;
+}
+
+#totalPrice_rg_list #totalPrice_last dd{
+	font-size: 20px;
+}
+
+.member_info_tit {
+	padding-bottom: 10px;
+	font-size: 16px;
+}
+
+.member_info_tit h4 {
+	margin-top: 50px;
+	font-weight: 600;
+	
+}
+
+.order_info_table {
+	position: relative;
+}
+.order_info_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+    border-top: 1px solid #999999;
+}
+.order_info_table th {
+	padding: 15px 10px 14px 30px;
+    border-top: none 0;
+    background: #f7f7f7;
+    text-align: left;
+    border-bottom: 1px solid #dbdbdb;
+}
+.order_info_table th .essential {
+	margin: 0 0 0 -10px;
+    padding: 0 0 0 10px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/member/icon_dot_03.png) no-repeat 0 center;
+}
+
+.order_info_table td {
+	height: 31px;
+    padding: 12px 10px 11px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dbdbdb;
+    background: #ffffff;
+    color: #777777;
+}
+
+.order_cont input[type="text"] {
+    height: 40px;
+    border: 1px solid #63666a;
+    border-radius: 21px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+#payment_progress .member_info_tit p {
+	padding-top: 2px;
+    color: #000;
+    font-size: 12px;
+}
+
+.payment_progress_list {
+	padding-bottom: 10px;
+	border-top: 1px solid #999999;
+}
+
+.payment_progress_list dl {
+	display: block;
+    padding: 20px 0 15px 0;
+    font-size: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.payment_progress_list dt {
+	display: inline-block;
+    width: 180px;
+    padding: 0 0 0 24px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.payment_progress_list dd {
+	min-width: 520px;
+	display: inline-block;
+    font-size: 12px;
+}
+
+.delivery_control {
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.delivery_control ul {
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.delivery_control ul li {
+	display: inline-block;
+    padding-right: 30px;
+}
+
+.order_cont select {
+	height: 31px;
+    color: #717171;
+    outline: none;
+    font-size: 13px;
+    border: 1px solid #cccccc;
+}
+
+.address_postcode {
+	overflow: hidden;
+    position: relative;
+}
+.address_postcode input {
+	float: left;
+}
+.postcode_btn {
+	height: 31px;
+    border-radius: 21px;
+    border: 0!important;
+    background: #d12420!important;
+    color: #fff;
+    float: left;
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+.address_input {
+	float: left;
+    width: 98%;
+}
+
+.order_cont input[type="text"] {
+	width:220px;
+}
+.long_cont input[type="text"] {
+	width: 90%;
+}
+
+.address_input input:first-child {
+	width: 400px
+}
+
+.address_input input {
+	width: 250px;
+	margin-top: 10px;
+}
+
+.order_info_table td > strong {
+	color: #333333;
+}
+.order_payment_sum {
+	font-size: 18px;
+}

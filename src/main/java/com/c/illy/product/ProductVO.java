@@ -5,11 +5,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 public class ProductVO {
-	
+
 	private Integer			product_id;
 	@NotBlank(message = "필수 항목 입니다")
     private String			product_name; //상품명

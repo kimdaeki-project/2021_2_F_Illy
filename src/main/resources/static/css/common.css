@@ -7,7 +7,7 @@
 	-webkit-user-select: none; /* 드래그 선택 금지 */
 }
 
-html,body { height: 100%; min-width: 1450px; }
+html,body { height: 100%; min-width: 1450px; font-size: 12px; line-height: 1.5; }
 #wrapper {
 	position:relative;
 	min-width: 1200px;
@@ -25,7 +25,8 @@ html,body { height: 100%; min-width: 1450px; }
 	margin: 0 auto;
 }
 
-li { list-style: none; }
+ul, ol, li { list-style: none; }
+em { font-weight: normal; font-style: normal; }
 a { color: #333; text-decoration: none; }
 input:focus { outline: none; }
 
