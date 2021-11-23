@@ -36,7 +36,7 @@
 				
 			</div>
 			
-			<a class="tempBtn">illy CAFFE</a>
+			<a href="/admin/adIndex" class="tempBtn">illy CAFFE</a>
 						
 		</div>
 		

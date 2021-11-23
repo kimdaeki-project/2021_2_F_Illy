@@ -5,6 +5,8 @@
   
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
+  		<typeAlias type="com.c.illy.product.ProductVO" alias="ProductVO"/>
+  		<typeAlias type="com.c.illy.product.coffee.CoffeeVO" alias="CoffeeVO"/>
   		
   		
   		

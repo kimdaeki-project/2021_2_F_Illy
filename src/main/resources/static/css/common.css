@@ -28,3 +28,8 @@ html,body { height: 100%; min-width: 1450px; }
 li { list-style: none; }
 a { color: #333; text-decoration: none; }
 input:focus { outline: none; }
+
+.btnDefault { border: 1px solid #333; border-radius: 21px; width: 150px; height: 40px; font-size: 13px; font-weight: bold; color: #333; background: #fff; cursor: pointer;}
+.btnDefault:hover { color: #d12420; border-color: #d12420; }
+.btnDefault.red { border: none; color: #fff; background: #d12420}
+.btnDefault.red:hover { background: linear-gradient(90deg,#d12420,#d12420,#910d18); }

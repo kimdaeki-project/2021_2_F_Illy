@@ -28,7 +28,7 @@
 			
 			
 			
-				<h1>HELLO ILLY</h1>
+				<h1>ADMIN INDEX PAGE</h1>
 				
 				
 				

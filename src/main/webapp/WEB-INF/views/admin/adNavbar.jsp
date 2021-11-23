@@ -28,10 +28,10 @@
 			<div class="menuWrap">
 				<ul>
 <!-- 					<li><a href="/product/list">ALL PRODUCT</a></li> -->
-					<li><a href="/admin/insertProduct?type=coffee">COFFEE</a></li>
-					<li><a href="/admin/insertProduct?type=machines">MACHINES</a></li>
+					<li><a href="/admin/insertCoffee">COFFEE</a></li>
+					<li><a href="/admin/insertMachines">MACHINES</a></li>
 <!-- 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li> -->
-					<li><a href="/admin/insertProduct?type=accessories">ACCESSORIES</a></li>
+					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
 <!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
 				</ul>
 			</div>
@@ -53,8 +53,7 @@
 
 </body>
 <!-- ===== ===== ===== jquery START ===== ===== ===== -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- 	<script src="/js/trackSlider.js"></script> -->
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 	
 	<script type="text/javascript">
 		/* 우클릭 방지 */

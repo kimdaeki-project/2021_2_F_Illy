@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.product.ProductRepository">
+
+  	<insert id="setInsertProduct" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="product_id">
+  		INSERT INTO product
+		VALUES(
+			#{product_id}
+		    ,#{product_name}
+		    ,#{product_price}
+		    ,#{product_detail}
+		    ,#{product_type}
+			,NOW()
+		    ,#{product_manufacturer}
+		    ,#{product_origin}
+		    ,#{product_importer}
+		);
+  	</insert>
+  
+</mapper>

@@ -1,5 +1,10 @@
 package com.c.illy.product.coffee;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.c.illy.product.ProductVO;
 
 import lombok.Data;
@@ -9,10 +14,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class CoffeeVO extends ProductVO {
 	
-	private String			coffee_type; //cpa, bean, grind, stick
+	private Integer			product_id;
+	@NotBlank(message = "필수 항목 입니다")
+	private String			coffee_type; //cap, bean, grind, stick
+	@NotBlank(message = "필수 항목 입니다")
 	private String			coffee_material; //원재료명 및 함량
-    private Long			coffee_capacity; //용량
-    private String			coffee_shelfLife; //유통기한
-    private String			coffee_caffeine; //카페인함량    
+	@NotNull(message = "필수 항목 입니다")
+    private Double			coffee_capacity; //용량
+	@NotNull(message = "필수 항목 입니다")
+    private Double			coffee_caffeine; //카페인함량
+	
+	private String			coffee_shelfLife; //유통기한	
+	private Integer			coffee_portion; //캡슐커피, 스틱커피 개수
+	private String			coffee_stickSize; //스틱커피 사이즈
     
 }
