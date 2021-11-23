@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/join_agreement.css">
 <style type="text/css">
@@ -26,7 +25,7 @@
 						<li>03 가입완료</li>
 					</ol>
 				</div>
-				<div id="member_join_agreement_container">
+				<div class="member_join_agreement_container">
 					<h3>약관동의</h3>
 					<div id="member_join_agreement_contents">
 						<div id="member_join_agreement_check_all">
@@ -42,7 +41,7 @@
 								<label class="check" for="check_agree_1"> <strong>(필수)</strong> 이용약관
 								</label>
 								<span>
-									<a href="#">전체보기</a>
+									<a href="./join_agreement_detail">전체보기</a>
 								</span>
 							</div>
 							<div class="agreement_box">
@@ -69,7 +68,7 @@
 								<label class="check" for="check_agree_2"> <strong>(필수)</strong> 개인정보 수집 및 이용
 								</label>
 								<span>
-									<a href="#">전체보기</a>
+									<a href="./join_agreement_detail2">전체보기</a>
 								</span>
 							</div>
 							<div class="agreement_box">
@@ -88,9 +87,7 @@
 							</div>
 						</div>
 						<div class="btn_center_box">
-							<button type="button" class="btn_member_next">
-								다음단계
-							</button>
+							<button type="button" class="btn_member_next">다음단계</button>
 						</div>
 					</div>
 				</div>
@@ -98,5 +95,16 @@
 		</div>
 		<c:import url="../navbar/footer.jsp"></c:import>
 	</div>
+	<script type="text/javascript">
+	// 전체 동의 체크
+		$(".allAgree").click(function() {
+			if($(".allAgree").is(':checked')) {
+				$("input[type=checkbox]").prop("checked", true)
+			}
+			else {
+				$("input[type=checkbox]").prop("checked", false)
+			}
+		})
+	</script>
 </body>
 </html>

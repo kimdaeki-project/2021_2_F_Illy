@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/favicon*/**")
 					.antMatchers("/resources/**")
 					.antMatchers("/front/**")
+					
 					;
 	}
 	

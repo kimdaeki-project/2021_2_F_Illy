@@ -6,12 +6,6 @@
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
   		
-  		
-  		
-  		
-  		
-  		
-  		
   	</typeAliases>
   
   </configuration>

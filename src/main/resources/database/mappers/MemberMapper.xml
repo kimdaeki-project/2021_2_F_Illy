@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.iu.b5.member.MemberRepository">
+<mapper namespace="com.c.illy.member.MemberRepository">
 
-  	<select id="getSelect" parameterType="MemberVO" resultType="MemberVO">
-  		SELECT * FROM member WHERE member_id = #{member_id}
-  	</select>
-  
+	<select id="getSelect" parameterType="MemberVO"
+		resultType="MemberVO">
+		SELECT * FROM member WHERE member_id = #{member_id}
+	</select>
+
+	<insert id="setInsert" parameterType="MemberVO">
+		insert into member(username, password, member_name, member_email,member_phone, member_birth) values (
+		#{username},
+		#{password},
+		#{member_name},
+		#{member_email},
+		#{member_phone},
+		#{member_birth}
+		);
+	</insert>
 </mapper>

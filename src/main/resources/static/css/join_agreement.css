@@ -7,6 +7,11 @@
 	align-items: center;
 }
 
+#member_join_header h2 {
+	font-size: 28px;
+	margin: 0 0 20px 0;
+}
+
 #member_join_header ol {
 	line-height: 62px;
 	list-style: none;
@@ -16,15 +21,16 @@
 	float: left
 }
 
-#member_join_agreement_container {
+.member_join_agreement_container {
 	width: 743px;
 	margin: 0 auto;
 	border: none;
 	padding: 70px 60px;
 	box-sizing: content-box;
+	font-size: 12px;
 }
 
-#member_join_agreement_container h3 {
+.member_join_agreement_container h3 {
 	padding-bottom: 17px;
 	font-size: 18px;
 	font-weight: normal;
@@ -36,6 +42,16 @@
 	border-top: 1px solid #999999;
 }
 
+#member_join_agreement_contents em {
+	font-weight: bold;
+	font-style: normal;
+}
+
+#member_join_agreement_contents span {
+	color: #717171;
+	font-size: 11px;
+}
+
 #member_join_agreement_check_all {
 	margin: 0 0 30px 0;
 	display: inline-block;
@@ -43,6 +59,12 @@
 
 #member_join_agreement_box {
 	margin: 0 0 30px 0;
+}
+
+#member_join_agreement_box a {
+	padding: 0 10px 0 5px;
+	color: #333;
+	font-size: 12px
 }
 
 .agreement_box {
@@ -68,7 +90,8 @@
 	justify-content: center;
 	align-items: center;
 	padding: 15px 0 10px;
-	font-size: 12px; border-top : 1px solid #999999;
+	font-size: 12px;
+	border-top: 1px solid #999999;
 	border-left: 1px solid #e6e6e6;
 	border-right: 1px solid #e6e6e6;
 	border-bottom: 1px solid #e6e6e6;
@@ -76,7 +99,95 @@
 }
 
 .btn_center_box {
-	display:flex;
-	justify-content : center;
+	display: flex;
+	justify-content: center;
 	margin: 35px 0 0 0;
+}
+
+.service_title {
+	margin: 0 0 20px 0;
+	padding: 0 0 10px 0;
+	font-size: 16px;
+	border-bottom: 1px solid #999999;
+}
+
+.service_title h2 {
+	color: #d12420
+}
+
+.service_cont {
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+/* join form area */
+.member_join_table {
+	width: 100%;
+	font-size: 12px;
+	line-height: 1.5;
+	font-size: 12px;
+	border-top: 1px solid #999999;
+}
+
+.member_join_table th {
+	width: 25%;
+	text-align: left;
+	border-bottom: 1px solid #dcdcdc;
+	background: #fbfbfb;
+	text-align: left;
+	padding: 10px 25px;
+}
+
+.member_join_table td {
+	padding: 15px 0 15px 15px;
+	border-bottom: 1px solid #dcdcdc;
+}
+
+.member_join_table input[type=text], .member_join_table input[type=password]
+	{
+	height: 40px;
+	width: 380px;
+	border-radius: 21px;
+	padding: 0 20px;
+	border: 1px solid #63666a;
+}
+
+.address_input {
+	margin-top: 10px;
+}
+
+.address_btn {
+	height: 31px;
+	border-radius: 21px;
+	border: 0 !important;
+	background: #d12420 !important;
+	color: #fff;
+	margin: 0 0 0 5px;
+	padding: 5px 10px 5px 10px;
+}
+
+.submit_btn {
+	width: 150px;
+	height: 45px;
+	margin: 35px 0 0 0;
+	color: #ffffff;
+	font-size: 14px;
+	border: 1px solid #000;
+	background: #000;
+	cursor: pointer;
+	font-weight: bold;
+	border-radius: 21px;
+	border: 0;
+}
+
+#btn_cancel {
+	background-color: white;
+	color: black;
+	border: 1px solid #63666a;
+}
+
+#btn_submit {
+	margin-left: 6px;
+	background-color: #d12420 !important;
+	color: fff;
 }
