@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.c.illy.faq.FaqService;
+import com.c.illy.faq.FaqVO;
 import com.c.illy.util.Pager;
 
 @Controller
@@ -16,8 +18,11 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService; 
+	
+	@Autowired
+	private FaqService faqService;
 
-// --------------------------------------------------------------------- Notice	
+// --------------------------------------------------------------------- Notice	영역
 	//공지사항 리스트 불러오기 
 	@GetMapping("list")
 	public ModelAndView getSelectList(Pager pager,ModelAndView mv)throws Exception{
@@ -30,26 +35,19 @@ public class NoticeController {
 		return mv; 	
 	}
 	
+		
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-// --------------------------------------------------------------------- Faq	
+// --------------------------------------------------------------------- Faq 영역	
 	//Faq 리스트 불러오기 
 	@GetMapping("faqList")
-	public String getFaqList()throws Exception{
-		return "board/faqList";
+	public ModelAndView getFaqList(Pager pager,ModelAndView mv)throws Exception{
+		List<FaqVO> ar = faqService.getFaqList(pager);
+		mv.setViewName("board/faqList");
+		mv.addObject("FList", ar);
+		mv.addObject("pager", pager);
+		return mv;
 	}
 	
 	
