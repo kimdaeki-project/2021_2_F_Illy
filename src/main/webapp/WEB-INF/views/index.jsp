@@ -21,24 +21,7 @@
 				
 			<div id="contents">
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-				<h1>HELLO ILLY</h1>
-				
-				
-				
-				
-				
-				
-				
-				
+
 				
 				
 			</div>

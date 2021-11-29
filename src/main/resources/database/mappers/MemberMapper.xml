@@ -8,14 +8,58 @@
 		SELECT * FROM member WHERE member_id = #{member_id}
 	</select>
 
+	<select id="usernameSelect" parameterType="MemberVO"
+		resultType="MemberVO">
+		SELECT * FROM member WHERE username = #{username}
+	</select>
+
+	<select id="find_username" parameterType="String"
+		resultMap="getLoginResult">
+		select M.*, R.*
+		from Member M
+		inner join
+		member_role MR
+		on M.username = MR.username
+		inner join
+		role R
+		on MR.num = R.num
+		WHERE M.id=#{username}
+	</select>
+
 	<insert id="setInsert" parameterType="MemberVO">
-		insert into member(username, password, member_name, member_email,member_phone, member_birth) values (
+		insert into
+		member(username, password, member_name, member_email,member_phone,
+		member_birth, enabled) values (
 		#{username},
 		#{password},
 		#{member_name},
 		#{member_email},
 		#{member_phone},
-		#{member_birth}
+		#{member_birth},
+		#{enabled}
 		);
+	</insert>
+
+	<resultMap type="MemberVO" id="getLoginResult">
+		<id column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="member_name" property="member_name" />
+		<result column="member_email" property="member_email" />
+		<result column="member_phone" property="member_phone" />
+		<result column="member_birth" property="member_birth" />
+		<result column="member_point" property="member_point" />
+		<result column="enabled" property="enabled" />
+		<collection property="roles" javaType="List"
+			ofType="RoleVO">
+			<result column="num" property="num" />
+			<result column="roleName" property="roleName" />
+		</collection>
+	</resultMap>
+
+	<insert id="setMemberRoleInsert" parameterType="java.util.Map">
+		insert into
+		member_role(username,num) values(
+		#{username}, #{num}
+		)
 	</insert>
 </mapper>

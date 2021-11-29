@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.address.AddressRepository">
+	<insert id="setAddress" parameterType="AddressVO">
+		INSERT INTO
+		address(address_recipient_name, address_recipient_phone, address,
+		address_default, main_address, address_reference, address_detail, address_postcode, member_id) VALUES (
+		#{address_recipient_name},
+		(select address_recipient_phone from member where username=#{username}),
+		#{address},
+		1,
+		{main_address},
+		{address_reference},
+		{address_detail},
+		{address_postcode},
+		(select member_id from member where username=#{username})
+		);
+	</insert>
+</mapper>

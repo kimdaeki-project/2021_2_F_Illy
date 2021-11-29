@@ -16,6 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//정적자원 요청 URL은 Security 거치지 않고 통과
+		
 		web.ignoring()
 					.antMatchers("/css/**")
 					.antMatchers("/js/**")
@@ -24,13 +25,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/favicon*/**")
 					.antMatchers("/resources/**")
 					.antMatchers("/front/**")
-					
 					;
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
+		/*
+		 * http .authorizeRequests() .antMatchers("/member/login", "/member/join",
+		 * "/member/join_agreement").permitAll() .anyRequest().authenticated(); http
+		 * .formLogin() .loginPage("/member/login") .defaultSuccessUrl("/")
+		 * .usernameParameter("username") .passwordParameter("password") .permitAll()
+		 * .and() .logout() .logoutUrl("/member/logout") .logoutSuccessUrl("/")
+		 * .deleteCookies("JSESSIONID") .permitAll();
+		 */
 	}
 	
 	@Bean
