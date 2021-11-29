@@ -14,13 +14,15 @@ public class ProductService {
 	@Autowired
 	private FileManager fileManager;
 	
+	public int setInsertProduct(ProductVO productVO) throws Exception { return 0; };
+	
 	public int setInsertProduct(ProductVO productVO, MultipartFile[] multipartFiles) throws Exception {
 		productRepository.setInsertProduct(productVO);
 		
 		for(MultipartFile file:multipartFiles) {
 			if(file.getSize() == 0L) { continue; }
 			
-			System.out.println("me");
+			System.out.println("[ProductService] UPLOAD FILE : " + file.getOriginalFilename());
 			
 			//이미지 저장
 //			String fileName = fileManager.getUseServletContext("/upload/notice", file);	

@@ -1,4 +1,4 @@
-package com.c.illy.product.coffee;
+package com.c.illy.product.machine;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,14 +7,14 @@ import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
 
 @Service
-public class CoffeeService extends ProductService {
+public class MachineService extends ProductService {
 	
 	@Autowired
-	private CoffeeRepository coffeeRepository;
+	private MachineRepository machineRepository;
 	
 	@Override
 	public int setInsertProduct(ProductVO productVO) throws Exception {
-		return coffeeRepository.setInsertProduct(productVO);
+		return machineRepository.setInsertProduct(productVO);
 	}
 
 }

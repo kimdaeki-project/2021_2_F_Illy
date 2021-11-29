@@ -48,17 +48,106 @@
 							<td>
 								<div class="inputBox">
 									<form:input class="inputText" type="text" path="product_name"/>
+									<br><form:errors path="product_name" cssClass="error"/>
 								</div>
-								<br><form:errors path="product_name" cssClass="error"/>
 							</td>
 						</tr>
 						
 						
 						<c:choose>
-							<c:when test="${type eq 'coffee'}">
+							<c:when test="${type eq 'machine'}">
+							<!-- ===== MACHINE INSERT FORM START ===== -->
+								<tr>
+									<th>소재</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="product_type" class="inputText"/>
+										</div>
+										<div class="selectBox">
+											<select class="select">
+												<option>직접입력</option>
+												<option>TEST</option>
+											</select>
+											<div class="selectArrow"></div>
+										</div>
+										<br><form:errors path="product_type" cssClass="error"/>
+									</td>
+								</tr>
+								<tr>
+									<th>펌프</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_pump" type="number" class="inputText numberOnly"/>
+											<br><form:errors path="machine_pump" cssClass="error"/>
+											<div class="unit number">bar</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>사이즈 (W * D * H)</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_size" class="inputText"/>
+											<br><form:errors path="machine_size" cssClass="error"/>		
+											<div class="unit">mm</div>
+										</div>								
+									</td>
+								</tr>
+								<tr>
+									<th>무게</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_weight" type="number" step="0.1" class="inputText numberOnly"/>
+											<br><form:errors path="machine_weight" cssClass="error"/>
+											<div class="unit number">kg</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>물탱크 용량</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_capacity" type="number" step="0.1" class="inputText numberOnly"/>
+											<br><form:errors path="machine_capacity" cssClass="error"/>
+											<div class="unit number">L</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>정격전압/소비전력</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_powerV" class="inputText short numberOnly"/>
+											<br><form:errors path="machine_powerV" cssClass="error"/>
+											<div class="unit">V</div>
+										</div>
+										<div class="inputBox">
+											<form:input path="machine_powerHz" class="inputText short numberOnly"/>
+											<br><form:errors path="machine_powerHz" cssClass="error"/>
+											<div class="unit">Hz</div>
+										</div>
+										<div class="inputBox">
+											<form:input path="machine_powerConsumption" class="inputText short numberOnly"/>
+											<br><form:errors path="machine_powerConsumption" cssClass="error"/>
+											<div class="unit">W</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>KC안전인증 정보</th>
+									<td>
+										<div class="inputBox">
+											<form:input path="machine_safetyInfo" class="inputText"/>
+											<br><form:errors path="machine_safetyInfo" cssClass="error"/>
+										</div>
+									</td>
+								</tr>
+							<!-- ===== MACHINE INSERT FORM END ===== -->
+							</c:when>
+							<c:when test="${type eq 'coffee'}">							
 							<!-- ===== COFFEE INSERT FORM START ===== -->
 				
-								<input type="text" name="product_type" hidden="" value="커피">
+								<form:hidden path="product_type" value="커피"/>
 								<tr>								
 									<th>종류</th>
 									<td>
@@ -81,8 +170,7 @@
 									<td>
 										
 										<div class="inputBox">
-											<form:input class="inputText numberOnly short" type="number" path="coffee_portion"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+											<form:input class="inputText numberOnly short" type="number" path="coffee_portion"/>
 											<div class="unit number">P</div>
 										</div>
 											
@@ -107,8 +195,7 @@
 									<td>
 									
 										<div class="inputBox">
-											<form:input class="inputText numberOnly" type="text" path="coffee_capacity"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+											<form:input class="inputText numberOnly" type="text" path="coffee_capacity"/>
 											<span class="unit">g</span>
 										</div>
 										
@@ -155,8 +242,7 @@
 <!-- 										<label for="classicoLungo">클라시코룽고: 룽고</label> -->
 										
 										<div class="inputBox">
-											<form:input class="inputText numberOnly short" type="number" step="0.1" path="coffee_caffeine"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+											<form:input class="inputText numberOnly short" type="number" step="0.1" path="coffee_caffeine"/>
 											<div class="unit number">% 이하</div>
 										</div>
 										
@@ -182,8 +268,7 @@
 							<th>가격</th>
 							<td>
 								<div class="inputBox">
-									<form:input class="inputText numberOnly" type="text" path="product_price"
-										oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+									<form:input class="inputText numberOnly" type="text" path="product_price"/>
 									<div class="unit">원</div>
 								</div>
 								<br><form:errors path="product_price" cssClass="error"/>
@@ -237,11 +322,15 @@
 						</tr>
 						<tr>
 							<th>상품사진</th>
-							<td>
+							<td class="inputFileWrap" data-maximum_file_cnt="5" >
+								<input type="file" name="multipartFiles" multiple="multiple" data-file_cnt="0" hidden="">
+								
+								<div class="imgBoxWrap" data-img_cnt="0">
+								</div>
+								
 								<div class="inputBox">
-									<input type="file" id="add_file1" class="addFile" name="multipartFiles" data-num="1">
-									<img alt="" src="" class="addFileImg">
-									<label for="add_file1" class="addFileLable"></label>
+									<input type="file" id="inputFile" class="inputFile" multiple="multiple" hidden="">
+									<label for="inputFile" class="inputFileLable"></label>
 								</div>
 							</td>
 						</tr>
@@ -293,13 +382,16 @@
 	$().ready(function(){
 		$('input[type="radio"]').change(); //input 실패 시 라디오 버튼 체크
 		$('.numberOnly').blur(); //가격 숫자형식 변환 (1,000)
+		$('.numberOnly').attr('oninput', "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*)\\./g, '$1');") //숫자 정규식
+		$('input[name=machine_size]').attr('oninput', "this.value = this.value.replace(/[^0-9*]/g, '');") //사이즈(W*D*H) 입력제한
 	});
 	
 /* ===== submit button 이벤트 START ===== */
 	function submitBtn(){
 		//submit 하기 전 가격 숫자형식 변환
-		let price = $('input[name=product_price]');
-		price.val(price.val().replace(/[^\.|^0(0)+|^0-9\.]/g, ''));
+		$('.numberOnly').each(function(){
+			$(this).val($(this).val().replace(/[^\.|^0(0)+|^0-9\.]/g, ''))
+		});
 		return true;
 	}
 /* ===== submit button 이벤트 END ===== */
@@ -409,26 +501,162 @@
 	});
 /* ===== selectBox END ===== */
 	
-/* ===== 상품사진 프리뷰 START ===== */
-	$('.addFile').change(function(e){
-		previewFile(this);
-		$(this).siblings('label').css('background', 'none');
-	});
+/* ===== 상품사진 START ===== */
+	/* 사진 선택/변경 << */
+	$('.inputFileWrap').on('change', '.inputFile', function(){
+		addFiles(this);
 
-	function previewFile(inputFile) {
-		let preview = $('.addFileImg');
-		let file 	= inputFile.files[0]
+		let maximum = Number($('.inputFileWrap').data('maximum_file_cnt'));
+		let imgBoxWrap = $('.imgBoxWrap');
+		let img_cnt = $('.imgBoxWrap').data('img_cnt');
+		for(let file of this.files){
+			if(img_cnt < maximum){
+				appendImgBox();
+				setPeviewImg(file);
+				
+				img_cnt++;
+				imgBoxWrap.data('img_cnt', img_cnt);
+			}
+		}
+
+		let dataTransfer = new DataTransfer();
+		this.files = dataTransfer.files; //files 초기화
+		
+		printMultipartFiles();
+	});
+	/* 사진 선택/변경 >> */
+	
+	function addFiles(inputFile){
+		let multipartFiles = $('input[name=multipartFiles]');
+		let maximum = Number($('.inputFileWrap').data('maximum_file_cnt'));
+		let fileListArr = Array.from(multipartFiles[0].files); //기존 file을 배열에 대입
+		let addFileListArr = Array.from(inputFile.files); //추가 file을 배열에 대입
+		
+		let dataTransfer = new DataTransfer(); //기존 + 추가된 file을 담을 dataTransfer 변수선언
+
+		let file_cnt = 0;
+		for(let file of fileListArr){
+			if(file_cnt == maximum) { break; }
+			dataTransfer.items.add(file); //기존 file을 dataTransfer에 add
+			file_cnt++;
+		}		
+		for(let file of addFileListArr){
+			if(file_cnt == maximum) { break; }
+			dataTransfer.items.add(file); //추가 file을 dataTransfer에 add
+			file_cnt++;
+		}
+		
+		multipartFiles[0].files = dataTransfer.files; //multipartFiles에 dataTransfer 대입
+		multipartFiles.data('file_cnt', file_cnt);
+		
+		if(file_cnt == 5){
+			let inputBox = multipartFiles.siblings('.inputBox');
+			inputBox.css('display', 'none');
+		}
+	}
+	
+	function appendImgBox(){
+		let imgBoxWrap = $('.imgBoxWrap');
+		let img_cnt = imgBoxWrap.data('img_cnt');
+		let html
+		="<div class='imgBox'>"
+		+"<img alt='' src='' class='previewImg' data-index='"+img_cnt+"'>"
+		+"<button type='button' class='deleteFileBtn' data-index='"+img_cnt+"'></button>"
+		+"</div>"
+		imgBoxWrap.append(html); 
+	}
+
+	/* << 사진 프리뷰 */
+	function setPeviewImg(file) {
+		let img_cnt = $('.imgBoxWrap').data('img_cnt');
+		let previewImg = $('.previewImg[data-index='+img_cnt+']');
 		let reader  = new FileReader();
 		
 		reader.onload = function(e) {
-			preview.attr('src', e.target.result);
+			previewImg.attr('src', e.target.result);
 		}
 		
 		if(file) {
 			reader.readAsDataURL(file);
 		}
 	}
-/* ===== 상품사진 프리뷰 END ===== */
+	/* 사진 프리뷰 >> */
+	
+	/* << 파일 삭제버튼 */
+	$('.inputFileWrap').on('click', '.deleteFileBtn', function(){
+		let index = $(this).data('index'); //클릭한 버튼 index
+		deleteFile(index); //파일 삭제
+		
+		let imgBox = $(this).parent();
+		imgBox.remove(); //이미지 삭제
+		$('.imgBoxWrap').data('img_cnt', $('.imgBoxWrap').data('img_cnt') - 1);
+		
+		setImgIndex(); //index 설정
+		
+		printMultipartFiles();
+	});
+	/* 파일 삭제버튼 >> */
+	
+	function deleteFile(index) {
+		let multipartFiles = $('input[name=multipartFiles]');
+		let fileListArr = Array.from(multipartFiles[0].files); //files를 배열에 대입
+		let dataTransfer = new DataTransfer(); //dataTransfer 변수선언		
+		let file_cnt = multipartFiles.data('file_cnt');
+		
+		fileListArr.splice(index, 1); //배열에서 index번째 file 1개 삭제
+		for(let file of fileListArr){
+			dataTransfer.items.add(file); //배열에 있는 file을 dataTransferd에 items.add
+		}		
+		multipartFiles[0].files = dataTransfer.files; //multipartFiles에 dataTransfer 대입
+		
+		file_cnt--;
+		multipartFiles.data('file_cnt', file_cnt);
+		
+		if(file_cnt < 5){
+			let inputBox = multipartFiles.siblings('.inputBox');
+			inputBox.css('display', 'inline-block');
+		}
+	}
+	
+	function setImgIndex() {
+		let index = 0;
+		
+		$('.imgBox').each(function(){
+			previewImg = $(this).find('.previewImg')
+			deleteFileBtn = $(this).find('.deleteFileBtn')
+			previewImg.data('index', index);
+			deleteFileBtn.data('index', index);
+			
+			console.log(previewImg.data('index') + " : " + deleteFileBtn.data('index'))
+			index++;
+		});
+	}
+	
+	/* << 테스트용 함수 */
+	function printMultipartFiles() {
+		let multipartFiles = $('input[name=multipartFiles]');
+		let files = multipartFiles[0].files;
+		let index = 0;
+		console.log("/ ===== ===== ===== ===== ===== /");
+		for (let file of files){
+			console.log("[FILE INDEX "+(index++)+"] " + file.name);
+		}
+		console.log("[TOTAL COUNT] " + multipartFiles.data('file_cnt'));
+	}
+	/* 테스트용 함수 >> */
+	
+	$('.inputFileWrap').on('mouseover', '.previewImg', function(){
+		let deleteFileBtn = $(this).siblings('button');		
+		deleteFileBtn.css('visibility', 'visible');
+	});
+	$('.inputFileWrap').on('mouseleave', '.previewImg', function(){
+		let deleteFileBtn = $(this).siblings('button');		
+		deleteFileBtn.css('visibility', 'hidden');
+	});
+	$('.inputFileWrap').on('mouseover', '.deleteFileBtn', function(){
+		$(this).css('visibility', 'visible');
+	});
+/* ===== 상품사진 END ===== */
 	
 /* ===== 카페인함량 선택 시 % 자동입력 START ===== */
 	$('input[name="caffeineName"]').change(function(){

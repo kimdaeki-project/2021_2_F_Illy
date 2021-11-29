@@ -14,18 +14,17 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class CoffeeVO extends ProductVO {
 	
-	private Integer			product_id;
 	@NotBlank(message = "필수 항목 입니다")
-	private String			coffee_type; //cap, bean, grind, stick
+	private String			coffee_type;		//cap, bean, grind, stick
 	@NotBlank(message = "필수 항목 입니다")
-	private String			coffee_material; //원재료명 및 함량
+	private String			coffee_material;	//원재료명 및 함량
 	@NotNull(message = "필수 항목 입니다")
-    private Double			coffee_capacity; //용량
+    private Double			coffee_capacity;	//용량
 	@NotNull(message = "필수 항목 입니다")
-    private Double			coffee_caffeine; //카페인함량
+    private Double			coffee_caffeine;	//카페인함량
 	
-	private String			coffee_shelfLife; //유통기한	
-	private Integer			coffee_portion; //캡슐커피, 스틱커피 개수
-	private String			coffee_stickSize; //스틱커피 사이즈
+	private String			coffee_shelfLife;	//유통기한	
+	private Integer			coffee_portion;		//캡슐커피, 스틱커피 개수
+	private String			coffee_stickSize;	//스틱커피 사이즈
     
 }

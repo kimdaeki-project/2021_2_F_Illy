@@ -10,6 +10,7 @@
   		<typeAlias type="com.c.illy.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.c.illy.product.ProductFileVO" alias="ProductFileVO"/>
   		<typeAlias type="com.c.illy.product.coffee.CoffeeVO" alias="CoffeeVO"/>
+  		<typeAlias type="com.c.illy.product.machine.MachineVO" alias="MachineVO"/>
   		
   		<typeAlias type="com.c.illy.cart.CartVO" alias="CartVO"/>
   		<typeAlias type="com.c.illy.cart.CartProductVO" alias="CartProductVO"/>

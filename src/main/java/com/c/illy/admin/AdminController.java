@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.c.illy.product.ProductService;
 import com.c.illy.product.coffee.CoffeeService;
 import com.c.illy.product.coffee.CoffeeVO;
+import com.c.illy.product.machine.MachineService;
+import com.c.illy.product.machine.MachineVO;
 
 @Controller
 @RequestMapping("admin")
@@ -29,6 +31,8 @@ public class AdminController {
 	private ProductService productService;
 	@Autowired
 	private CoffeeService coffeeService;
+	@Autowired
+	private MachineService machineService;
 	
 	@GetMapping("adIndex")
 	public void main() {
@@ -40,12 +44,11 @@ public class AdminController {
 		return "admin/insertProduct";
 	}
 	
-//	@GetMapping("insertMachines")
-//	public String insertMachinesPage(Model model, CoffeeVO coffeeVO) {
-//		model.addAttribute("type", "Coffee");
-//		model.addAttribute("CoffeeVO", coffeeVO);
-//		return "admin/insertProduct";
-//	}
+	@GetMapping("insertMachine")
+	public String insertMachinesPage(Model model, @ModelAttribute MachineVO machineVO) {
+		model.addAttribute("type", "machine");
+		return "admin/insertProduct";
+	}
 //	
 //	@GetMapping("insertAccessories")
 //	public String insertAccessories(Model model, CoffeeVO coffeeVO) {
@@ -54,21 +57,30 @@ public class AdminController {
 //		return "admin/insertProduct";
 //	}
 
-	@PostMapping("insertCoffee")
-	public String setInsertCoffee(@Valid CoffeeVO coffeeVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles) throws Exception {
-		System.out.println(multipartFiles[0]);
+	@PostMapping("insertMachine")
+	public String setInsertMachine(@Valid MachineVO machineVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles) throws Exception {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("type", "coffee");
-			System.out.println("err1");
+			model.addAttribute("type", "machine");
 			return "admin/insertProduct";
 		}
+		
+		productService.setInsertProduct(machineVO, multipartFiles);
+		machineService.setInsertProduct(machineVO);
+		
+		return "redirect:/admin/adIndex";
+	}
 
-		System.out.println("err2");
+	@PostMapping("insertCoffee")
+	public String setInsertCoffee(@Valid CoffeeVO coffeeVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles) throws Exception {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("type", "coffee");
+			return "admin/insertProduct";
+		}
 		
 		productService.setInsertProduct(coffeeVO, multipartFiles);
 		coffeeService.setInsertProduct(coffeeVO);
 		
-		return "admin/adIndex";
+		return "redirect:/admin/adIndex";
 	}
 	
 }
