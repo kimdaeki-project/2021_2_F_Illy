@@ -22,6 +22,7 @@
 				<div class="member_title">
 					<h2>로그인</h2>
 				</div><!-- member_title end -->
+				<form action="./login" method="post"></form>
 				<div class="member_con">
 					<div class="member_con_login">
 						<div class="member_login_box">

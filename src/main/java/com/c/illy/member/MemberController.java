@@ -57,16 +57,14 @@ public class MemberController {
 
 	// 회원가입 form 검증
 	@PostMapping("join")
-	public String join(@Valid AddressVO memberVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+	public String join(@Valid AddressVO addressVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "/member/join";
 		}
 		
-		System.out.println(memberVO.getPassword());
-		memberService.setInsert(memberVO);
+		memberService.setInsert(addressVO);
 		
 		// api로 받아온 우편번호, 주소, 참고항목, 상세정보를 address 변수에 합침
-		AddressVO addressVO = new AddressVO();
 		addressService.setAddress(addressVO,request);
 		return "redirect:/";
 	}
