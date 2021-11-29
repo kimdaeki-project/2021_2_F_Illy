@@ -57,7 +57,7 @@ public class MemberController {
 
 	// 회원가입 form 검증
 	@PostMapping("join")
-	public String join(@Valid MemberVO memberVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+	public String join(@Valid AddressVO memberVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "/member/join";
 		}

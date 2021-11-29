@@ -10,10 +10,10 @@
 		(select address_recipient_phone from member where username=#{username}),
 		#{address},
 		1,
-		{main_address},
-		{address_reference},
-		{address_detail},
-		{address_postcode},
+		#{main_address},
+		#{address_reference},
+		#{address_detail},
+		#{address_postcode},
 		(select member_id from member where username=#{username})
 		);
 	</insert>

@@ -188,7 +188,7 @@
 		}
 		// 회원가입 버튼 클릭시 폼 전송
 		$(".submit_btn").click(function() {
-			$("#memberVO").submit();
+			$("#addressVO").submit();
 		})
 		
 		//아이디 중복검사 함수 
