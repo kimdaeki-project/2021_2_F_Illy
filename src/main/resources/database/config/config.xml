@@ -18,6 +18,7 @@
   	<!-- LDY board work start  -->
   		<typeAlias type="com.c.illy.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.c.illy.faq.FaqVO" alias="FaqVO"/>
+  		<typeAlias type="com.c.illy.review.ReviewVO" alias="ReviewVO"/>
  		<typeAlias type="com.c.illy.util.Pager" alias="Pager"/>
  		<typeAlias type="java.lang.Long" alias="Long"/>
  		<typeAlias type="java.util.List" alias="List"/>

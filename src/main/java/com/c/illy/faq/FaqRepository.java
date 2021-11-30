@@ -17,9 +17,6 @@ public interface FaqRepository {
 	//totalCount 받아오기 
 	public Long getTotalCount(Pager pager)throws Exception;
 	
-	//타입별로 리스트 불러오기 
-	public List<FaqVO> getFaqTypeList(Pager pager)throws Exception;
-		
 		
 		
 		

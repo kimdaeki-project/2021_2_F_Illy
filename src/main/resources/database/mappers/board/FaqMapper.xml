@@ -8,22 +8,24 @@
 	<!-- 자주묻는질문 리스트 불러오기 -->
 	<select id="getFaqList" parameterType="Pager" resultType="FaqVO">
 		SELECT * FROM faq
-		WHERE faq_title LIKE CONCAT('%',#{search},'%')
+		WHERE 
+			<if test='kind!=""'>
+				faq_type_code=#{kind} AND
+			</if>
+		faq_title LIKE CONCAT('%',#{search},'%')
 		ORDER BY faq_id DESC limit #{startRow},#{perPage}
 	</select>
 	
 	<!-- totalCount 불러오기  -->
 	<select id="getTotalCount" parameterType="Pager" resultType="Long">
 		SELECT COUNT(faq_id) FROM faq
-		WHERE faq_type LIKE CONCAT('%',#{search},'%')
+		WHERE 
+			<if test='kind!=""'>
+				faq_type_code=#{kind} AND
+			</if>
+		faq_title LIKE CONCAT('%',#{search},'%')
 	</select>
 	
-	<!-- faq_type별로 리스트 불러오기 -->
-	<select id="getFaqTypeList" resultType="FaqVO">
-		SELECT * FROM faq WHERE faq_type=#{faq_type}
-		ORDER BY faq_id DESC limit #{startRow},#{perPage}	
-	</select>
-
 
 
 </mapper>

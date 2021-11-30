@@ -29,7 +29,7 @@
 				<a href="/notice/list">공지사항</a>
 			</li>
 			<li>
-				<a href="notice/faqList">FAQ</a>
+				<a href="/notice/faqList?pn=1&search=&kind=">FAQ</a>
 			</li>
 			<li>
 				<a href="#">1:1문의</a>

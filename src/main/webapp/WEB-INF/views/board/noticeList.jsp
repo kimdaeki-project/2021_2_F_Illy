@@ -161,7 +161,7 @@
 			$("#pn").val(num);
 			$("#search").val(search);
 			$("#kind").val(kind);
-			$("#frmList").submit();
+			$("#frmList").submit();	
 		});
 	
 		

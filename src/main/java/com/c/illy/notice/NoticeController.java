@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.c.illy.faq.FaqService;
@@ -49,6 +51,26 @@ public class NoticeController {
 		mv.addObject("pager", pager);
 		return mv;
 	}
+	
+	
+	@GetMapping("faqTypeList")
+	public ModelAndView getFaqTypeList(Pager pager,ModelAndView mv)throws Exception{
+		List<FaqVO> ar = faqService.getFaqList(pager); 
+		mv.addObject("FList", ar);
+		mv.setViewName("board/faqTypeList");
+		return mv;
+	}
+	
+	@GetMapping("faqTypePager")
+	public ModelAndView getFaqTypePager(Pager pager,ModelAndView mv)throws Exception{
+		List<FaqVO> ar = faqService.getFaqList(pager); 
+		mv.addObject("pager", pager);
+		mv.setViewName("board/pager");
+		return mv;
+	}
+	
+	
+	
 	
 	
 	

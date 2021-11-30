@@ -29,6 +29,7 @@
 							<p>자주묻는 질문 검색</p>
 							<form name="frmList" id="frmList" action="./faqList" method="get">
 							<input type="hidden" name="pn" value="1" id="pn">	
+							<input type="hidden" name="kind" value="${pager.kind}" id="kind">	
 								<input type="text" class="text" name="search" id="search" placeholder="검색어를 입력하세요">
 								<button type="button" class="btn_board_search">검색<em></em></button>
 							</form>
@@ -46,34 +47,34 @@
 						<div class="pickTab">
 							<ul>
 								<li>
-									<a class="on" href="#">전체</a>
+									<button type="button" name="kind" class="pickFaq_type pick" value="">전체</button>
 								</li>
 								<li>
-									<a href="#">회원가입/회원혜택</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_1">회원가입/회원혜택</button>
 								</li>
 								<li>
-									<a href="#">주문/결제/배송</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_2">주문/결제/배송</button>
 								</li>
 								<li>
-									<a href="#">취소/교환/반품/환불</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_3">취소/교환/반품/환불</button>
 								</li>
 								<li>
-									<a href="#">상품문의</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_4">상품문의</button>
 								</li>
 								<li>
-									<a href="#">머신안내(Y1.1)</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_5">머신안내(Y1.1)</button>
 								</li>
 								<li>
-									<a href="#">머신안내(Y3/Y3.2/Y3.3)</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_6">머신안내(Y3/Y3.2/Y3.3)</button>
 								</li>
 								<li>
-									<a href="#">머신안내(X7,X7.1)</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_7">머신안내(X7,X7.1)</button>
 								</li>
 								<li>
-									<a href="#">AS 안내</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_8">AS안내</button>
 								</li>
 								<li>
-									<a href="#">자가진단</a>
+									<button type="button" name="kind" class="pickFaq_type" value="f_9">자가진단</button>
 								</li>
 							</ul>
 						
@@ -88,7 +89,7 @@
 									<th>번호</th><th>분류</th><th>내용</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="faq_list">				
 								<c:forEach items="${FList}" var="faqVO">
 									<tr class="toggle_faq">
 										<td>${faqVO.faq_id}</td>
@@ -104,23 +105,24 @@
 										</td>
 									</tr>
 								</c:forEach>
-							
 							</tbody>
 						</table>
 			
 			
-					<div class="pagination">
-							<c:if test="${pager.curBlock>1}">
-								<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>
-								<button type="button" data-list-pn="${pager.startNum-1}" style="margin-right:10px;" class="btnPage pageBtn">&#9001; 이전</button>
-							</c:if>
-							<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-								<span class="pageNum pageBtn" data-list-pn="${i}">${i}</span>
-							</c:forEach>
-							<c:if test="${!pager.lastCheck}">
-								<button type="button" data-list-pn="${pager.lastNum+1}" style="margin-left:10px;" class="btnPage pageBtn">다음 &#9002;</button>
-								<button type="button" data-list-pn="${pager.totalPage}"  class="btnPage pageBtn">맨뒤 &#9002;&#9002;</button>
-							</c:if>
+						<div class="pagination">
+							<div id="page">
+								<c:if test="${pager.curBlock>1}">
+									<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>
+									<button type="button" data-list-pn="${pager.startNum-1}" style="margin-right:10px;" class="btnPage pageBtn">&#9001; 이전</button>
+								</c:if>
+								<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+									<span class="pageNum pageBtn" data-list-pn="${i}">${i}</span>
+								</c:forEach>
+								<c:if test="${!pager.lastCheck}">
+									<button type="button" data-list-pn="${pager.lastNum+1}" style="margin-left:10px;" class="btnPage pageBtn">다음 &#9002;</button>
+									<button type="button" data-list-pn="${pager.totalPage}"  class="btnPage pageBtn">맨뒤 &#9002;&#9002;</button>
+								</c:if>
+							</div>
 						</div>
 			
 			
@@ -143,6 +145,8 @@
 	<script type="text/javascript">
 	let search='${pager.search}';
 	let pn =${pager.pn};		
+	let kind='${pager.kind}';
+	
 	
 	$("#search").val(search);
 	
@@ -159,9 +163,52 @@
 	$(".pageBtn").click(function(){
 		const num=$(this).attr("data-list-pn");
 		$("#pn").val(num);
+		$("#kind").val(kind);
 		$("#search").val(search);
 		$("#frmList").submit();
 	});
+	
+
+	$(function(){
+		$('.pickFaq_type').click(function(){
+			var kind=$(this).val();
+			console.log(pn);
+			console.log(kind);
+			
+			$.ajax({
+				url:'./faqTypeList',
+				type:'get',
+				data:{kind:kind,search:search},
+				success:function(data){
+					$("#faq_list").empty();	
+					pn =${pager.pn};
+					//------ 검색하던 중이던 내용 계속 유지 시키기(페이지 넘겨도)
+					 $(".pickFaq_type").each(function(){
+						 $(this).addClass("pick");
+						 if($(this).val()!=kind){
+							$(this).removeClass("pick");
+						}
+					}); 
+					$("#kind").val(kind);
+					$("#faq_list").append(data.trim());
+				}
+			});
+			
+		 	$.ajax({
+				url:'./faqTypePager',
+				type:'get',
+				data:{kind:kind,search:search},
+				success:function(data){
+					$("#page").empty();				
+					$("#kind").val(kind);
+					$("#page").append(data.trim());
+				}
+			}); 
+		});	
+	}); 
+	
+	
+
 	</script>
 	
 	

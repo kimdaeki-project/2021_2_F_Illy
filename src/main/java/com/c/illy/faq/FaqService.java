@@ -1,6 +1,5 @@
 package com.c.illy.faq;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,7 @@ public class FaqService {
 		pager.makeNum(totalCount);
 		return faqRepository.getFaqList(pager);
 	}
-	
-	//타입별로 리스트 불러오기 
-	public List<FaqVO> getFaqTypeList(Pager pager)throws Exception{
-		pager.makeRow();
-		Long totalCount=faqRepository.getTotalCount(pager);
-		pager.makeNum(totalCount);
-		return faqRepository.getFaqTypeList(pager);
-	}
-	
-	
-	
+
 	
 	
 }
