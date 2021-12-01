@@ -15,6 +15,7 @@
 <body>
 	<div id="wrapper">
 		<c:import url="../navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">
 			<div id="contents">
 				<div id="member_join_header">
@@ -37,8 +38,8 @@
 
 						<div id="member_join_agreement_box">
 							<div class="form_element">
-								<input class="check_agree_1" type="checkbox">
-								<label class="check" for="check_agree_1"> <strong>(필수)</strong> 이용약관
+								<input class="check_agree" type="checkbox">
+								<label class="check" for="check_agree"> <strong>(필수)</strong> 이용약관
 								</label>
 								<span>
 									<a href="./join_agreement_detail">전체보기</a>
@@ -64,8 +65,8 @@
 
 						<div id="member_join_agreement_box">
 							<div class="form_element">
-								<input class="check_agree_2" type="checkbox">
-								<label class="check" for="check_agree_2"> <strong>(필수)</strong> 개인정보 수집 및 이용
+								<input class="check_agree" type="checkbox">
+								<label class="check" for="check_agree"> <strong>(필수)</strong> 개인정보 수집 및 이용
 								</label>
 								<span>
 									<a href="./join_agreement_detail2">전체보기</a>
@@ -87,7 +88,7 @@
 							</div>
 						</div>
 						<div class="btn_center_box">
-							<button type="button" class="btn_member_next">다음단계</button>
+							<button type="button" class="btn_member_next btnDefault red">다음단계</button>
 						</div>
 					</div>
 				</div>
@@ -99,11 +100,24 @@
 	// 전체 동의 체크
 		$(".allAgree").click(function() {
 			if($(".allAgree").is(':checked')) {
-				$("input[type=checkbox]").prop("checked", true)
+				$("input:checkbox[class='check_agree']").prop("checked", true)
 			}
 			else {
-				$("input[type=checkbox]").prop("checked", false)
+				$("input:checkbox[class='check_agree']").prop("checked", false)
 			}
+		})
+		
+	
+	// 회원가입 페이지로 이동
+		$(".btn_member_next").click(function(){
+	/* 		if ($("input:checkbox[class='check_agree']").prop("checked") == true ) {
+				location.href = "./join"
+			} */
+			$(".check_agree").each(function(i, check) {
+				if($(check).is(":checked")) {
+					location.href = "./join"
+				}
+			})
 		})
 	</script>
 </body>

@@ -1,6 +1,7 @@
 package com.c.illy.member;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class MemberController {
 	}
 
 	@GetMapping("join")
-	public String join(Model model) {
+	public String join(Model model, HttpSession httpSession) {
 		AddressVO addressVO = new AddressVO();
 		model.addAttribute("addressVO", addressVO);
 		return "/member/join";
@@ -90,5 +91,17 @@ public class MemberController {
 	@GetMapping("findId")
 	public String findId() {
 		return "member/find_id";
+	}
+	
+	@PostMapping("findId")
+	public ModelAndView findId(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMember_name(request.getParameter("member_name"));
+		memberVO.setMember_email(request.getParameter("member_email"));
+		memberVO = memberService.find_id_useEmail(memberVO);
+		mv.addObject("findId", memberVO);
+		mv.setViewName("member/common/Find_id");
+		return mv;
 	}
 }

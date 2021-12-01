@@ -23,7 +23,7 @@
 		inner join
 		role R
 		on MR.num = R.num
-		WHERE M.id=#{username}
+		WHERE M.username=#{username}
 	</select>
 
 	<insert id="setInsert" parameterType="MemberVO">
@@ -62,4 +62,8 @@
 		#{username}, #{num}
 		)
 	</insert>
+	
+	<select id="find_id_useEmail" parameterType="MemberVO" resultType="MemberVO">
+		select username from member where member_name = #{member_name} and member_email = #{member_email}
+	</select>
 </mapper>

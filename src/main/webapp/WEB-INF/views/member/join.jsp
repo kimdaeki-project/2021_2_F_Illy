@@ -17,6 +17,7 @@
 <body>
 	<div id="wrapper">
 		<c:import url="../navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">
 			<div id="contents">
 				<div id="member_join_header">
@@ -124,7 +125,15 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$(".birth_input").val(getToday())
+			let now = new Date();
+			let year = now.getFullYear();
+			let month = now.getMonth() + 1;
+			let date = now.getDate();
+		    month = month >=10 ? month : "0" + month;
+		    date  = date  >= 10 ? date : "0" + date;
+		    
+			
+			$(".birth_input").val(""+year+"-"+ month+"-" + date)
 		});
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
@@ -201,9 +210,11 @@
 				},
 				success : function(data) {
 					if(data.trim()=="") {
+						console.log(data)
 						$("#username_error").html("사용 가능한 아이디 입니다.")
 					}
 					else {
+						console.log(data)
 						$("#username_error").html("이미 사용중인 아이디 입니다.")
 					}
 				}
