@@ -3,6 +3,7 @@ package com.c.illy.address;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.c.illy.member.MemberVO;
 
@@ -32,4 +33,5 @@ public interface AddressRepository {
 	//기본배송지 변경
 	public int setMyDefaultAddressInsert(AddressVO addressVO) throws Exception;
 
+	public int setAddress(AddressVO AddressVO);
 }

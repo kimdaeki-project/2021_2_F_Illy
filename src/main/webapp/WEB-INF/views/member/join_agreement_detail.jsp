@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/join_agreement.css">
+<link rel="stylesheet" href="/css/member.css">
 <style type="text/css">
 </style>
 

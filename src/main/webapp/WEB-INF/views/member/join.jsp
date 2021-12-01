@@ -8,7 +8,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/join_agreement.css">
+<link rel="stylesheet" href="/css/member.css">
 <style type="text/css">
 </style>
 
@@ -17,6 +17,7 @@
 <body>
 	<div id="wrapper">
 		<c:import url="../navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">
 			<div id="contents">
 				<div id="member_join_header">
@@ -27,7 +28,7 @@
 						<li>03 가입완료</li>
 					</ol>
 				</div>
-				<form:form modelAttribute="memberVO" enctype="multipart/form-data" method="post">
+				<form:form modelAttribute="addressVO" enctype="multipart/form-data" method="post">
 					<div class="member_join_agreement_container">
 						<h3>기본정보</h3>
 
@@ -37,7 +38,7 @@
 									<th><span>아이디</span></th>
 									<td>
 										<form:input path="username" />
-										<div class="errors_section">
+										<div class="errors_section" id="username_error">
 											<form:errors path="username"></form:errors>
 										</div>
 									</td>
@@ -45,7 +46,7 @@
 								<tr>
 									<th><span>비밀번호</span></th>
 									<td>
-										<form:input path="password" />
+										<form:input type="password" path="password" />
 										<div class="errors_section">
 											<form:errors path="password"></form:errors>
 										</div>
@@ -54,7 +55,9 @@
 								<tr>
 									<th><span>비밀번호 확인</span></th>
 									<td>
-										<input type="text">
+										<input type="password" id="password_check">
+										<div class="errors_section" id="password_check_error">
+										</div>
 									</td>
 								</tr>
 								<tr>
@@ -66,6 +69,17 @@
 										</div>
 									</td>
 								</tr>
+								
+								<tr>
+									<th><span>Email</span></th>
+									<td>
+										<form:input path="member_email" />
+										<div class="errors_section">
+											<form:errors path="member_email"></form:errors>
+										</div>
+									</td>
+								</tr>
+								
 								<tr>
 									<th><span>휴대폰번호</span></th>
 									<td>
@@ -85,14 +99,16 @@
 								<tr>
 									<th><span>주소</span></th>
 									<td>
-										<form:input path="address_num" id="sample6_postcode" placeholder="우편번호" readonly="true" />
+										<form:input path="address_postcode" id="sample6_postcode" placeholder="우편번호" readonly="true" />
 										<input type="button" class="address_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 										<br>
 										<form:input path="main_address" id="sample6_address" class="address_input" placeholder="주소" readonly="true" />
 										<br>
 										<form:input path="address_reference" class="address_input" placeholder="참고항목" id="sample6_extraAddress" readonly="true" />
 										<form:input path="address_detail" class="address_input" placeholder="상세주소" id="sample6_detailAddress" />
-										<form:errors path="main_address"></form:errors>
+										<div class="error_section">
+											<form:errors path="main_address"></form:errors>
+										</div>
 									</td>
 								</tr>
 							</tbody>
@@ -109,7 +125,15 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$(".birth_input").val(getToday())
+			let now = new Date();
+			let year = now.getFullYear();
+			let month = now.getMonth() + 1;
+			let date = now.getDate();
+		    month = month >=10 ? month : "0" + month;
+		    date  = date  >= 10 ? date : "0" + date;
+		    
+			
+			$(".birth_input").val(""+year+"-"+ month+"-" + date)
 		});
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
@@ -171,10 +195,70 @@
 			return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
 					+ date.getDate();
 		}
-
+		// 회원가입 버튼 클릭시 폼 전송
 		$(".submit_btn").click(function() {
-			$("#memberVO").submit();
+			$("#addressVO").submit();
 		})
+		
+		//아이디 중복검사 함수 
+		let idOverlapCheck = function() {
+			$.ajax({
+				type:"get",
+				url:"./checkId",
+				data:{
+					username : $("#username").val()
+				},
+				success : function(data) {
+					if(data.trim()=="") {
+						console.log(data)
+						$("#username_error").html("사용 가능한 아이디 입니다.")
+					}
+					else {
+						console.log(data)
+						$("#username_error").html("이미 사용중인 아이디 입니다.")
+					}
+				}
+			})
+		}
+		
+		// 아이디란에 변경이벤트 발생시 아이디 중복확인
+		$("#username").change(function(){
+			if($("#username").val()=="") {
+				$("#username_error").html("")
+			}
+			else {
+			idOverlapCheck();
+			}
+		})
+		
+		// 비밀번호 확인 함수
+		
+		let passwordCheck = function() {
+			if($("#password_check").val() == $("#password").val()) {
+				$("#password_check_error").html("일치하는 비밀번호 입니다.")
+			}
+			else {
+				$("#password_check_error").html("일치하지 않는 비밀번호 입니다.")
+			}
+		}
+		
+		
+
+		// 비밀번호 확인란에 변경사항이 생기면 비밀번호 확인 함수 실행
+		$("#password_check").change(function() {
+			 if($("#password").val() !="") {
+				 passwordCheck();
+			 }
+		})
+		
+		// 비밀번호란에 변경사항이 생기면 비밀번호 확인 함수 실행 =
+		$("#password").change(function() {
+			if($("#password_check").val() != "") {
+				passwordCheck();
+			}
+		})
+		
+	
 	</script>
 </body>
 </html>

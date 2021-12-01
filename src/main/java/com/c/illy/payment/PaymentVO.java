@@ -2,10 +2,12 @@ package com.c.illy.payment;
 
 import java.util.Date;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.Data;
 
 @Data
-public class PaymentVO {
+public class PaymentVO{
 
 	private Integer payment_id;
 	private Integer member_id;

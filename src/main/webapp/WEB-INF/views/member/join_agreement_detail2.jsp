@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/join_agreement.css">
+<link rel="stylesheet" href="/css/member.css">
 <style type="text/css">
 </style>
 
@@ -16,6 +16,7 @@
 <body>
 	<div id="wrapper">
 		<c:import url="../navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">
 			<div id="contents">
 				<div class="service_title">

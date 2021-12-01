@@ -51,4 +51,20 @@
 		update address set address_default=0
 			where address_default=1 and member_id=#{member_id}
 	</update> <!-- 기본배송지 변경하기 -->
+
+	<insert id="setAddress" parameterType="AddressVO">
+		INSERT INTO
+		address(address_recipient_name, address_recipient_phone, address,
+		address_default, main_address, address_reference, address_detail, address_postcode, member_id) VALUES (
+		#{address_recipient_name},
+		#{address_recipient_phone},
+		#{address},
+		1,
+		#{main_address},
+		#{address_reference},
+		#{address_detail},
+		#{address_postcode},
+		(select member_id from member where username=#{username})
+		);
+	</insert>
 </mapper>

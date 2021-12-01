@@ -1,5 +1,7 @@
 package com.c.illy.member;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +11,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.c.illy.address.AddressRepository;
+import com.c.illy.address.AddressService;
+import com.c.illy.address.AddressVO;
 
 @Controller
 @RequestMapping("member/**")
 public class MemberController {
 	@Autowired
-	private MemberRepository memberRepository;
+	private MemberService memberService;
 
+	@Autowired
+	private AddressService addressService;
+	
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
 		ModelAndView mv = new ModelAndView();
@@ -39,26 +50,27 @@ public class MemberController {
 	}
 
 	@GetMapping("join")
-	public String join(Model model) {
-		MemberVO memberVO = new MemberVO();
-		model.addAttribute("memberVO", memberVO);
+	public String join(Model model, HttpSession httpSession) {
+		AddressVO addressVO = new AddressVO();
+		model.addAttribute("addressVO", addressVO);
 		return "/member/join";
 	}
 
 	// 회원가입 form 검증
 	@PostMapping("join")
-	public String join(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/join");
-		memberRepository.setInsert(memberVO);
+	public String join(@Valid AddressVO addressVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "/member/join";
 		}
-		memberRepository.setInsert(memberVO);
+		
+		memberService.setInsert(addressVO);
+		
+		// api로 받아온 우편번호, 주소, 참고항목, 상세정보를 address 변수에 합침
+		addressService.setAddress(addressVO,request);
 		return "redirect:/";
 	}
 	
-	
+
 	//----------------------------------------------------------------------------myPage_다영 추가
 	@GetMapping("myPage")
 	public String getmyPage()throws Exception{
@@ -71,9 +83,37 @@ public class MemberController {
 		mv.setViewName("board/qnaList");
 		return mv;
 	}
+	// Ajax 아이디 중복검사
+	@GetMapping("checkId")
+	public ModelAndView checkId(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(request.getParameter("username"));
+		memberVO = memberService.usernameSelect(memberVO);
+		mv.setViewName("member/common/checkId");
+		mv.addObject("checkId", memberVO);
+		return mv;
+	}
 	
+	@GetMapping("login")
+	public String login() {
+		return "member/login";
+	}
 	
+	@GetMapping("findId")
+	public String findId() {
+		return "member/find_id";
+	}
 	
-	
-	
+	@PostMapping("findId")
+	public ModelAndView findId(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMember_name(request.getParameter("member_name"));
+		memberVO.setMember_email(request.getParameter("member_email"));
+		memberVO = memberService.find_id_useEmail(memberVO);
+		mv.addObject("findId", memberVO);
+		mv.setViewName("member/common/Find_id");
+		return mv;
+	}
 }
