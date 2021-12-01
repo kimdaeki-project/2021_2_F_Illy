@@ -324,8 +324,8 @@
 						</tr>
 						<tr>
 							<th>상품사진</th>
-							<td class="inputFileWrap" data-maximum_file_cnt="5" >
-								<input type="file" name="multipartFiles" multiple="multiple" data-file_cnt="0" hidden="">
+							<td class="inputFileWrap">
+								<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="5" data-file_cnt="0" hidden="">
 								
 								<div class="imgBoxWrap" data-img_cnt="0">
 								</div>
@@ -379,6 +379,8 @@
 	</div>
 </body>
 	
+ 	
+<script src="/js/util/inputFileWrap.js"></script>
 <script type="text/javascript">
 	
 	$().ready(function(){
@@ -503,155 +505,34 @@
 	});
 /* ===== selectBox END ===== */
 	
-/* ===== 상품사진 START ===== */
-	/* 사진 선택/변경 << */
+/* ===== 상품사진 START ===== */ 
+ 	
+	/* 파일선택 */
 	$('.inputFileWrap').on('change', '.inputFile', function(){
-		addFiles(this);
-
-		let maximum = Number($('.inputFileWrap').data('maximum_file_cnt'));
+		let multipartFiles = $('input[name=multipartFiles]');
 		let imgBoxWrap = $('.imgBoxWrap');
-		let img_cnt = $('.imgBoxWrap').data('img_cnt');
-		for(let file of this.files){
-			if(img_cnt < maximum){
-				appendImgBox(file);
-				
-				img_cnt++;
-				imgBoxWrap.data('img_cnt', img_cnt);
-				console.log("preivewimg change")
-			}
-		}
-
 		let dataTransfer = new DataTransfer();
+		
+		addFiles(multipartFiles, this);	//inputFileWrap.js
+		addPeviewImg(multipartFiles, imgBoxWrap, this) //inputFileWrap.js
 		this.files = dataTransfer.files; //files 초기화
 		
-		printMultipartFiles();
+		printMultipartFiles(); //테스트용 함수
 	});
-	/* 사진 선택/변경 >> */
+	/* //파일선택 */
 	
-	function addFiles(inputFile){
-		let multipartFiles = $('input[name=multipartFiles]');
-		let maximum = Number($('.inputFileWrap').data('maximum_file_cnt'));
-		let fileListArr = Array.from(multipartFiles[0].files); //기존 file을 배열에 대입
-		let addFileListArr = Array.from(inputFile.files); //추가 file을 배열에 대입
-		
-		let dataTransfer = new DataTransfer(); //기존 + 추가된 file을 담을 dataTransfer 변수선언
-
-		let file_cnt = 0;
-		for(let file of fileListArr){
-			if(file_cnt == maximum) { break; }
-			dataTransfer.items.add(file); //기존 file을 dataTransfer에 add
-			file_cnt++;
-		}		
-		for(let file of addFileListArr){
-			if(file_cnt == maximum) { break; }
-			dataTransfer.items.add(file); //추가 file을 dataTransfer에 add
-			file_cnt++;
-		}
-		
-		multipartFiles[0].files = dataTransfer.files; //multipartFiles에 dataTransfer 대입
-		multipartFiles.data('file_cnt', file_cnt);
-		
-		if(file_cnt == 5){
-			let inputBox = multipartFiles.siblings('.inputBox');
-			inputBox.css('display', 'none');
-		}
-	}
-	
-	function appendImgBox(file){
-		let imgBoxWrap = $('.imgBoxWrap');
-		let img_cnt = imgBoxWrap.data('img_cnt');
-		let html
-		="<div class='imgBox'>"
-		+"<img alt='' src='' class='previewImg'>"
-		+"<button type='button' class='deleteFileBtn'></button>"
-		+"</div>"
-		imgBoxWrap.append(html);
-		
-		let previewImg = imgBoxWrap.find('.previewImg').last();
-		let deleteFileBtn = imgBoxWrap.find('.deleteFileBtn').last();
-		previewImg.data('index', img_cnt);
-		deleteFileBtn.data('index', img_cnt);
-		
-		setPeviewImg(file, previewImg);
-	}
-
-	/* << 사진 프리뷰 */
-	function setPeviewImg(file, imgTag) {
-		let reader  = new FileReader();
-		
-		reader.onload = function(e) {
-			imgTag.attr('src', e.target.result);
-		}
-		
-		if(file) {
-			reader.readAsDataURL(file);
-		}
-	}
-	/* 사진 프리뷰 >> */
-	
-	/* << 파일 삭제버튼 */
+	/* 파일 삭제버튼 */
 	$('.inputFileWrap').on('click', '.deleteFileBtn', function(){
-		let index = $(this).data('index'); //클릭한 버튼 index
-		deleteFile(index); //파일 삭제
+		let multipartFiles = $('input[name=multipartFiles]');
 		
-		let imgBox = $(this).parent();
-		imgBox.remove(); //이미지 삭제
-		$('.imgBoxWrap').data('img_cnt', $('.imgBoxWrap').data('img_cnt') - 1);
+		deleteFile($(this), multipartFiles); //inputFileWrap.js
+		deletePeviewImg($(this)); //inputFileWrap.js
+		let imgBox = $('.imgBox'); //setImgIndex() 호출 직전에 imgBox변수 선언
+		setImgIndex(imgBox) //inputFileWrap.js
 		
-		setImgIndex(); //index 설정
-		
-		printMultipartFiles();
+		printMultipartFiles(); //테스트용 함수
 	});
-	/* 파일 삭제버튼 >> */
-	
-	function deleteFile(index) {
-		let multipartFiles = $('input[name=multipartFiles]');
-		let fileListArr = Array.from(multipartFiles[0].files); //files를 배열에 대입
-		let dataTransfer = new DataTransfer(); //dataTransfer 변수선언		
-		let file_cnt = multipartFiles.data('file_cnt');
-		
-		fileListArr.splice(index, 1); //배열에서 index번째 file 1개 삭제
-		for(let file of fileListArr){
-			dataTransfer.items.add(file); //배열에 있는 file을 dataTransferd에 items.add
-		}		
-		multipartFiles[0].files = dataTransfer.files; //multipartFiles에 dataTransfer 대입
-		
-		file_cnt--;
-		multipartFiles.data('file_cnt', file_cnt);
-		
-		if(file_cnt < 5){
-			let inputBox = multipartFiles.siblings('.inputBox');
-			inputBox.css('display', 'inline-block');
-		}
-	}
-	
-	function setImgIndex() {
-		let index = 0;
-		
-		$('.imgBox').each(function(){
-			previewImg = $(this).find('.previewImg')
-			deleteFileBtn = $(this).find('.deleteFileBtn')
-			previewImg.data('index', index);
-			deleteFileBtn.data('index', index);
-			
-			console.log(previewImg.data('index') + " : " + deleteFileBtn.data('index'))
-			console.log(previewImg);
-			index++;
-		});
-	}
-	
-	/* << 테스트용 함수 */
-	function printMultipartFiles() {
-		let multipartFiles = $('input[name=multipartFiles]');
-		let files = multipartFiles[0].files;
-		let index = 0;
-		console.log("/ ===== ===== ===== ===== ===== /");
-		for (let file of files){
-			console.log("[FILE INDEX "+(index++)+"] " + file.name);
-		}
-		console.log("[TOTAL COUNT] " + multipartFiles.data('file_cnt'));
-	}
-	/* 테스트용 함수 >> */
+	/* //파일 삭제버튼 */
 	
 	$('.inputFileWrap').on('mouseover', '.previewImg', function(){
 		let deleteFileBtn = $(this).siblings('button');		
@@ -664,6 +545,20 @@
 	$('.inputFileWrap').on('mouseover', '.deleteFileBtn', function(){
 		$(this).css('visibility', 'visible');
 	});
+	
+	/* 테스트용 함수 */
+	function printMultipartFiles() {
+		let multipartFiles = $('input[name=multipartFiles]');
+		let files = multipartFiles[0].files;
+		let index = 0;
+		console.log("/ ===== ===== ===== ===== ===== /");
+		for (let file of files){
+			console.log("[FILE INDEX "+(index++)+"] " + file.name);
+		}
+		console.log("[TOTAL COUNT] " + multipartFiles.data('file_cnt'));
+	}
+	/* 테스트용 함수// */
+	
 /* ===== 상품사진 END ===== */
 	
 /* ===== 카페인함량 선택 시 % 자동입력 START ===== */
