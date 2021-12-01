@@ -79,6 +79,7 @@
 							</ul>
 						
 						</div>	
+						<div id="ajax">
 						<table class="board_list_table" style="width:100%;">
 							<colgroup> <!-- table 간격 기본설정 -->
 								<col width="67px">
@@ -89,6 +90,7 @@
 									<th>번호</th><th>분류</th><th>내용</th>
 								</tr>
 							</thead>
+							
 							<tbody id="faq_list">				
 								<c:forEach items="${FList}" var="faqVO">
 									<tr class="toggle_faq">
@@ -124,7 +126,8 @@
 								</c:if>
 							</div>
 						</div>
-			
+						
+						</div> <!-- ajax end -->
 			
 			
 						
@@ -180,7 +183,8 @@
 				type:'get',
 				data:{kind:kind,search:search},
 				success:function(data){
-					$("#faq_list").empty();	
+					 $("#faq_list").empty();	 
+					/* $("#ajax").empty();	 */
 					pn =${pager.pn};
 					//------ 검색하던 중이던 내용 계속 유지 시키기(페이지 넘겨도)
 					 $(".pickFaq_type").each(function(){
@@ -190,11 +194,12 @@
 						}
 					}); 
 					$("#kind").val(kind);
-					$("#faq_list").append(data.trim());
+					 $("#faq_list").append(data.trim()); 
+					/* $("#ajax").append(data.trim()); */
 				}
 			});
 			
-		 	$.ajax({
+		 	 $.ajax({
 				url:'./faqTypePager',
 				type:'get',
 				data:{kind:kind,search:search},
@@ -203,7 +208,7 @@
 					$("#kind").val(kind);
 					$("#page").append(data.trim());
 				}
-			}); 
+			});  
 		});	
 	}); 
 	
