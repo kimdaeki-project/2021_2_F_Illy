@@ -26,9 +26,6 @@ public class LoginFail implements AuthenticationFailureHandler {
 			  request.setAttribute("loginFailMsg", "아이디나 비밀번호가 맞지 않습니다. 다시 확인해 주세요.");
 		  }
 
-		System.out.println(request.getParameter("username"));
-		
-		System.out.println(request.getMethod());
 		request.getRequestDispatcher("/member/login").forward(request, response);
 	}
 	

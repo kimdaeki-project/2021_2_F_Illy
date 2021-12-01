@@ -65,6 +65,6 @@
 		#{address_detail},
 		#{address_postcode},
 		(select member_id from member where username=#{username})
-		);
+		)
 	</insert>
 </mapper>

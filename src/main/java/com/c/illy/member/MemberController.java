@@ -100,6 +100,12 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@PostMapping("login")
+	public String login(HttpServletRequest httpServletRequest) {
+		System.out.println(httpServletRequest.getAttribute("loginFailMsg"));
+		return "member/login";
+	}
+	
 	@GetMapping("findId")
 	public String findId() {
 		return "member/find_id";
