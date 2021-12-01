@@ -1,0 +1,944 @@
+@charset "UTF-8";
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+}
+
+#payment_tit {
+	overflow: hidden;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#payment_tit h2 {
+	float: left;
+    font-size: 28px;
+    color: #222222;
+    font-weight: 600;
+}
+
+#payment_tit ol {
+	float: right;
+    line-height: 62px;
+}
+
+#payment_tit ol li {
+	float: left;
+    font-size: 14px;
+    color: #d1d1d1;
+}
+
+#payment_tit ol li.payment_tit_black {
+	color: #000;
+    font-weight: bold;
+}
+
+#payment_tit ol li span {
+	font-size: 16px;
+    font-weight: bold;
+}
+
+#payment_tit ol li span > img {
+	padding: 0 14px;
+    vertical-align: -1px;
+}
+
+#payment_cont_list {
+	margin: 50px 0 10px 0;
+}
+
+#payment_cont_list_tit {
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+
+#payment_cont_list_tit h3 {
+	font-weight: 600;
+}
+
+
+.payment_table {
+	position: relative;
+}
+
+.payment_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.payment_table th {
+	padding: 9px 10px 10px 10px;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+}
+
+.payment_table td {
+	height: 31px;
+    padding: 15px 10px 14px 10px;
+    border-bottom: 1px solid #dbdbdb;
+    background: #ffffff;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+}
+
+.payment_table td:first-child {
+	border-left: none;
+}
+.payment_table td:last-child {
+	border-right: none;
+}
+
+.tb_product {
+	font-weight: 600;
+	text-align: left;
+}
+
+.tb_border {
+	border-left: 1px solid #eee;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+
+.delivery {
+	font-size: 12px;
+	color: #777777;
+	font-weight: normal;
+}
+#btn_leftBox {
+	text-align: left;
+	display: inline-block;
+    border-bottom: 1px solid #333333;
+}
+
+#price_sum {
+	margin-top: 30px;
+	padding: 20px 40px 25px;
+	border: 2px solid #d6d6d6;
+	display: inline-block;
+	width: 100%;
+}
+
+#totalPrice_rg {
+	display: table;
+	text-align: right;
+	float: right;
+	
+}
+
+#totalPrice_rg_list {
+	
+	position: relative;
+}
+#totalPrice_rg_list dl {
+	display: table-cell;
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    text-align: right;
+}
+
+#totalPrice_rg_list span {
+	display: table-cell;
+    padding: 0 15px 0 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#totalPrice_rg_list dl dd strong{
+	font-size: 18px;
+	font-weight: 700;
+	
+}
+
+#totalPrice_rg_list #totalPrice_last {
+	padding-right: 0px;
+}
+
+#totalPrice_rg_list #totalPrice_last dd{
+	font-size: 20px;
+}
+
+.member_info_tit {
+	padding-bottom: 10px;
+	font-size: 16px;
+}
+
+.member_info_tit h4 {
+	margin-top: 50px;
+	font-weight: 600;
+	
+}
+
+.order_info_table {
+	position: relative;
+}
+.order_info_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+    border-top: 1px solid #999999;
+}
+.order_info_table th {
+	padding: 15px 10px 14px 30px;
+    border-top: none 0;
+    background: #f7f7f7;
+    text-align: left;
+    border-bottom: 1px solid #dbdbdb;
+}
+.order_info_table th .essential {
+	margin: 0 0 0 -10px;
+    padding: 0 0 0 10px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/member/icon_dot_03.png) no-repeat 0 center;
+}
+
+.order_info_table td {
+	height: 31px;
+    padding: 12px 10px 11px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dbdbdb;
+    background: #ffffff;
+    color: #777777;
+}
+
+.order_cont input[type="text"] {
+    height: 40px;
+    border: 1px solid #63666a;
+    border-radius: 21px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.order_cont input[type="email"] {
+    height: 40px;
+    border: 1px solid #63666a;
+    border-radius: 21px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.order_cont input[type="number"] {
+    height: 40px;
+    border: 1px solid #63666a;
+    border-radius: 21px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.order_cont input[type="number"]::-webkit-outer-spin-button,
+.order_cont input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+#payment_progress .member_info_tit p {
+	padding-top: 2px;
+    color: #000;
+    font-size: 12px;
+}
+
+.payment_progress_list {
+	padding-bottom: 10px;
+	border-top: 1px solid #999999;
+}
+
+.payment_progress_list dl {
+	display: block;
+    padding: 20px 0 15px 0;
+    font-size: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.payment_progress_list dt {
+	display: inline-block;
+    width: 180px;
+    padding: 0 0 0 24px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.payment_progress_list dd {
+	min-width: 520px;
+	display: inline-block;
+    font-size: 12px;
+}
+
+.delivery_control {
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.delivery_control ul {
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.delivery_control ul li {
+	display: inline-block;
+    padding-right: 30px;
+    min-height: 20px;
+}
+
+.order_cont select {
+	height: 31px;
+    color: #717171;
+    outline: none;
+    font-size: 13px;
+    border: 1px solid #cccccc;
+}
+
+.address_postcode {
+	overflow: hidden;
+    position: relative;
+}
+.address_postcode input {
+	float: left;
+}
+.postcode_btn {
+	height: 31px;
+    border-radius: 21px;
+    border: 0;
+    background: #d12420;
+    color: #fff;
+    float: left;
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+.postcode_btn:hover {
+	background: linear-gradient(100deg, #d12420, #902323);
+}
+
+.address_input {
+	float: left;
+}
+
+.order_cont input[type="text"] {
+	width:220px;
+}
+.order_cont input[type="email"] {
+	width:220px;
+}
+.order_cont input[type="number"] {
+	width:220px;
+}
+
+.long_cont input[type="text"] {
+	width: 90%;
+}
+
+.address_input input:first-child {
+	width: 400px;
+	margin-right: 5px;
+}
+
+.address_input input {
+	width: 250px;
+	margin-top: 10px;
+}
+
+.order_info_table td > strong {
+	color: #333333;
+}
+.order_payment_sum {
+	font-size: 18px;
+}
+
+.order_sale_point {
+	color: #333333;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.order_sale_point li {
+	display: block;
+}
+
+.order_sale_point .order_sale {
+	padding-bottom: 5px;
+}
+
+.order_sale_point .order_sale em {
+	padding: 0 5px 1px 20px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_discount.gif) no-repeat 0 2px;
+}
+
+.order_sale_point .order_sale span, .order_sale_point .order_point span {
+	color: #777777;
+}
+
+.order_sale_point .order_point em {
+	padding: 0 5px 1px 20px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_mileage.gif) no-repeat 0 2px;
+}
+
+.delivery_control input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+}
+.delivery_control label {
+	display: inline-block;
+	height: 20px;
+}
+.delivery_control label.choice_s {
+	min-width: 13px;
+    padding: 0 0 0 22px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/radio_off_small.png) no-repeat 1px 50%;
+}
+.delivery_control label.choice_s.on {
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/radio_on_small.png) no-repeat 1px 50%;
+}
+
+.delivery_control span a {
+    font-size: 11px;
+    background-color: white;
+    display: inline-block;
+    padding: 0 12px 0 11px;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    line-height: 22px;
+}
+
+.delivery_add {
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.delivery_add label {
+	color: #329cff;
+	position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    min-height: 20px;
+}
+
+.delivery_add label.check_s {
+	min-width: 13px;
+	padding: 0 0 0 22px;
+    background: url(/images/cart/check_off_small.png) no-repeat 1px 2px;
+}
+.delivery_add label.check_s.on {
+	background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
+}
+ 
+ .coupon_use {
+ 	font-size: 12px;
+    background-color: white;
+    display: inline-block;
+    padding: 0 12px 0 11px;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    line-height: 26px;
+    height: 26px;
+}
+
+.payment_pay {
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.payment_pay li {
+	display: inline-block;
+    margin-right: 30px;
+    font-size: 12px;
+    padding-right: 0;
+    min-height: 20px;
+}
+
+.payment_pay ul {
+	font-size: 0;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.payment_pay input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+}
+
+.payment_pay label {
+	display: inline-block;
+	height: 20px;
+}
+.payment_pay label.pay_s {
+	min-width: 13px;
+    padding: 0 0 0 22px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/radio_off_small.png) no-repeat 1px 50%;
+}
+.payment_pay label.pay_s.on {
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/radio_on_small.png) no-repeat 1px 50%;
+}
+
+.payment_final {
+	margin-top: 30px;
+}
+
+.payment_final_total {
+	padding: 13px 46px 20px 0;
+    border: 2px solid #d6d6d6;
+    text-align: right;
+}
+
+.payment_final_total dl {
+	display: inline-block;
+    font-size: 0;
+}
+
+.payment_final_total dt {
+	display: inline-block;
+    padding-right: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.payment_final_total dd {
+	display: inline-block;
+    font-size: 30px;
+    color: #000;
+}
+
+.payment_final_check {
+	padding: 30px 0 20px;
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+}
+
+.payment_final_check input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+}
+
+.payment_final_check label {
+	position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    min-height: 20px;
+}
+
+.payment_final_check label.import_s {
+	min-width: 13px;
+    padding: 0 0 0 22px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/check_off_small.png) no-repeat 1px 2px;
+}
+.payment_final_check label.import_s.on {
+	background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/common/input/check_on_small.png) no-repeat 1px 2px;
+}
+
+.payment_final_btn {
+	font-size: 14px;
+	text-align: center;
+}
+.btn_center_order {
+	line-height: 40px;
+}
+
+.use_bean b {
+	font-weight: normal;
+}
+
+.use_bean_chk {
+	padding: 0 0 0 10px;
+    vertical-align: middle;
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.use_bean_chk input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+}
+
+.use_bean_chk label {
+	position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    min-width: 20px;    
+    min-height: 20px;
+    padding-left: 22px;
+	background: url(/images/cart/check_off_small.png) no-repeat 1px 2px;
+}
+
+.use_bean_chk label.on {
+	background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
+}
+
+.use_bean_chk span {
+	color: #329cff;
+}
+
+.modal {
+	overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 210;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.coupon_modal_list {
+	min-height: 635px;
+}
+
+.modal_window {
+	position: absolute;
+	width: 800px;
+	border: 2px solid #555555;
+    background: #ffffff;
+    margin: 0px;
+    top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
+.dn {
+	display: none !important;
+}
+
+.modal_tit {
+	padding: 13px 15px 11px;
+	color: #333;
+}
+
+.modal_tit h4 {
+	padding: 0 30px 15px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #999999;
+}
+
+.modal_tit h4 span {
+	padding-left: 5px;
+    color: #777777;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.modal_cont {
+	padding: 0 30px 30px 30px;
+	min-height: 180px;
+	margin-top: -12px;
+}
+
+.modal_close {
+	display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 20px;
+}
+.modal_close:hover{
+    cursor: pointer;
+}
+
+.coupon_total_box {
+	margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #d6d6d6;
+    text-align: right;
+}
+
+.coupon_total_box dl {
+	font-size: 0;
+	color: #333;
+}
+
+.coupon_total_box dt {
+	display: inline-block;
+    font-size: 12px;
+}
+
+.coupon_total_box dd {
+	display: inline-block;
+    min-width: 90px;
+    padding: 0 0 0 10px;
+    font-size: 14px;
+}
+
+.coupon_total_box dd strong {
+	padding: 0 2px 0 0;
+    font-size: 16px;
+    color: #000;
+}
+
+.btn_center_box {
+	margin: 10px 0;
+	text-align: center;
+}
+
+.coupon_scroll_box {
+	height: 365px;
+    border-bottom: 1px solid #dbdbdb;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.coupon_scroll_box .order_h5 {
+	margin-top: 20px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+.coupon_scroll_box .delivery_h5 {
+	margin-top: 50px;
+    padding-bottom: 10px;
+    font-size: 14px;	
+}
+
+.top_table_type table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.top_table_type th {
+	padding: 9px 10px 10px 10px;
+    color: #777777;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+}
+
+.top_table_type td {
+	padding: 15px 10px 14px 10px;
+    color: #777777;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.btn_cancel_box {
+	margin: 0 2px;
+	display: inline-block;
+    width: 100px;
+    height: 42px;
+    padding: 0 5px;
+    color: #3e3d3c;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 21px;
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+}
+.btn_cancel_box:hover {
+	cursor: pointer;
+	border: 1px solid #999999;
+}
+
+.btn_coupon_chk {
+	margin: 0 2px;
+	display: inline-block;
+    min-width: 100px;
+    height: 42px;
+    padding: 0 10px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 21px;
+    border: none;
+    background: #d12420;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn_coupon_chk:hover {
+	cursor: pointer;
+	background: linear-gradient(100deg, #d12420, #902323);
+}
+
+.coupon_scroll_box h4 {
+	padding-top: 20%;
+	text-align:center;
+	font-size: 20px;
+}
+
+td.coupon_data_no {
+	padding: 50px 30px;
+}
+
+.coupon_use_ul {
+	color: #333333;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.coupon_use_benefit {
+	padding: 0 0 5px 0;
+	display: block;
+}
+.coupon_use_benefit_final {
+	padding: 0 30px 0 0;
+}
+
+.coupon_use_benefit em {
+	padding: 0 5px 1px 20px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_discount.gif) no-repeat 0 2px;
+}
+
+.coupon_use_benefit_final em {
+	padding: 0 5px 1px 20px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_mileage.gif) no-repeat 0 2px;
+}
+
+
+.coupon_element {
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.coupon_element input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+	height: 13px;
+    vertical-align: top;
+}
+
+.coupon_element label {
+	position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    min-height: 20px;
+	width: 21px;    
+	height: 21px;
+    padding: 1px 0 0;
+    min-width: 13px;
+    background: url(/images/cart/check_off_small.png) no-repeat 1px 2px;
+}
+.coupon_element label.on {
+	background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
+}
+
+.delivery_window {
+	position: absolute;
+    margin: 0px;
+    width: 750px;
+    border: 2px solid #555555;
+    background: #ffffff;
+    max-height: 690px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.delivery_modal_tit {
+	padding: 13px 15px 11px;
+}
+.delivery_modal_tit h4 {
+	font-size: 18px;
+	border-bottom: 1px solid #999999;
+	padding: 0 30px 15px 0;
+}
+.delivery_modal_cont {
+	min-width: 180px;
+	padding: 30px;
+	margin-bottom: 30px;
+}
+
+.delivery_modal_scroll {
+	padding: 20px 0;
+	height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.delivery_modal_scroll h5 {
+	font-size: 14px;
+	padding-bottom: 10px;
+}
+
+.delivery_add_list {
+	position: relative;
+}
+
+.delivery_add_list table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+    display: table;
+    text-indent: initial;
+}
+
+.delivery_add_list th {
+	padding: 9px 10px 10px 10px;
+    color: #777777;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+}
+
+.delivery_add_list td {
+	padding: 15px 10px 14px 10px;
+    color: #777777;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.td_address {
+	text-align: left;
+	width: 196px;
+}
+
+.td_phone {
+	width: 170px;
+}
+
+.delivery_btn_click {
+	margin: 5px 0;
+	display: block;
+}
+
+.delivery_btn_click a {
+	display: inline-block;
+    padding: 3px 12px 3px 11px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    font-size: 11px;
+}
+
+.new_delivery_add {
+	position: absolute;
+    top: -42px;
+    right: 0;
+    width: 121px;
+    height: 32px;
+    line-height: 28px;
+    color: #fff;
+    border: 1px solid #979797;
+    background: #979797;
+    text-align: center;
+}
+
+.new_delivery_add:hover {
+	background: #666666;
+	border: 1px solid #666666;
+}

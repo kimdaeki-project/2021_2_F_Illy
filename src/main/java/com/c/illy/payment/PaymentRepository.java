@@ -10,5 +10,7 @@ import com.c.illy.member.MemberVO;
 @Mapper
 public interface PaymentRepository {
 
+	public int setPayment(PaymentVO paymentVO) throws Exception;
 	
+	public PaymentVO getPaymentOne() throws Exception;
 }

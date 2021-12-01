@@ -15,4 +15,5 @@ public class CartVO {
 	private String product_id;
 	private Integer cart_cnt;
 	private String cart_state;
+	private Integer payment_id;
 }

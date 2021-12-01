@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/common.css">
-	<link rel="stylesheet" href="/css/basket.css">
+	<link rel="stylesheet" href="/css/order/basket.css">
 	<style type="text/css">
 		
 	</style>
@@ -16,7 +16,8 @@
 </head>
 <body>
 	<div id="wrapper">
-		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>		
+		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>		
 		<div id="container">
 				
 			<div id="contents">

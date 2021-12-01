@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.coupon.CouponRepository">
+
+	<select id="getCouponList" parameterType="MemberVO" resultType="CouponVO"> 
+		select * from coupon
+			where member_id=#{member_id}
+				and coupon_state='cart' or coupon_state='delivery'
+	</select> <!-- coupon_list -->
+	
+	<update id="setUseState" parameterType="CouponVO">
+		update coupon set coupon_state='use' where coupon_id=#{coupon_id}
+	</update> <!-- 쿠폰 사용 후 상태변경 -->
+	
+	<update id="setDeadlineState" parameterType="CouponVO">
+		update coupon set coupon_state='deadline' where coupon_id=#{coupon_id}
+	</update> <!-- 쿠폰 사용기간 만료 후 상태변경 -->
+</mapper>

@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/common.css">
-	<link rel="stylesheet" href="/css/basket.css">
+	<link rel="stylesheet" href="/css/order/basket.css">
 	<style type="text/css">
 		
 	</style>
@@ -17,9 +17,10 @@
 </head>
 <body>
 	<div id="wrapper">
-		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>		
+		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>
+		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>				
 		<div id="container">
-				
+		<input type="hidden" value="${member.member_id}" id="memberIdHidden">		
 			<div id="contents">
 			
 				<div id="order_main">
@@ -48,7 +49,7 @@
 						</ol>
 					</div> <!-- order_tit end-->
 					<div id="cart_ajax">
-					
+						
 					</div> <!-- cart_ajax end -->
 					
 				</div> <!-- order_main end -->
@@ -67,9 +68,14 @@
  	//장바구니 리스트 불러오기
  	ajaxBasket();
  	function ajaxBasket() {
+ 		let member_id=$('#memberIdHidden').val();
+ 		console.log(member_id);
  		$.ajax({
  			type:"GET",
  			url:"./cartMain",
+ 			data: {
+ 				member_id:member_id
+ 			},
  			success: function(result){
  				result=result.trim();
  				$('#cart_ajax').html(result);
@@ -133,7 +139,7 @@
  	//전체상품 주문
  	function allOrder() {
 		let orderArray = new Array();
-		
+		let member_id=$('#memberIdHidden').val();
 		$("input:checkbox[name=chkDel]").each(function(){
 			let cartId = $(this).prev().val();
 			orderArray.push(cartId);
@@ -144,7 +150,8 @@
 			type : 'GET',
 			url : './setCheckAll',
 			data : {
-				cart_state : "checked"
+				cart_state : "checked",
+				member_id:member_id
 			},
 			success : function(){		
 				ajaxBasket();

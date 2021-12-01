@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.c.illy.member.MemberVO;
 
 @Controller
-@RequestMapping("cart")
+@RequestMapping("/cart/**")
 public class CartController {
 
 	@Autowired
@@ -24,8 +24,12 @@ public class CartController {
 	
 	//일반구매 - 장바구니 리스트
 	@GetMapping("normalBasket")
-	public void getNormalBasket() throws Exception {
+	public void getNormalBasket(Model model) throws Exception {
+		//세션 받기
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMember_id(2);
 		
+		model.addAttribute("member", memberVO);
 	}
 	//정기배송 - 장바구니 리스트
 	@GetMapping("regularBasket")
@@ -83,7 +87,6 @@ public class CartController {
 	//전체상품선택
 	@GetMapping("setCheckAll")
 	public String setCheckAll(CartVO cartVO, Model model, MemberVO memberVO) throws Exception {
-		cartVO.setMember_id(1);
 		cartService.setCheckAll(cartVO);
 		
 		model.addAttribute("carts", cartService.getNormalBasket(memberVO));

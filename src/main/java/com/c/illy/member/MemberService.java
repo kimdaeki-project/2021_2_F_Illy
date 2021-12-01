@@ -15,5 +15,9 @@ public class MemberService implements BoardService {
 		// TODO Auto-generated method stub
 		return memberRepository.setInsert(memberVO);
 	}
+	
+	public int setAddBean(MemberVO memberVO) throws Exception {
+		return memberRepository.setAddBean(memberVO);
+	}
 
 }

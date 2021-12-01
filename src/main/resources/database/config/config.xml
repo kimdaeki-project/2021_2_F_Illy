@@ -5,7 +5,7 @@
   
   	<typeAliases>
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
-
+		<typeAlias type="com.c.illy.address.AddressVO" alias="AddressVO"/>
 		  
   		<typeAlias type="com.c.illy.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.c.illy.product.ProductFileVO" alias="ProductFileVO"/>
@@ -14,6 +14,7 @@
   		<typeAlias type="com.c.illy.cart.CartVO" alias="CartVO"/>
   		<typeAlias type="com.c.illy.cart.CartProductVO" alias="CartProductVO"/>
   		<typeAlias type="com.c.illy.payment.PaymentVO" alias="PaymentVO"/>
+  		<typeAlias type="com.c.illy.coupon.CouponVO" alias="CouponVO"/>
 
   	<!-- LDY board work start  -->
   		<typeAlias type="com.c.illy.notice.NoticeVO" alias="NoticeVO"/>
