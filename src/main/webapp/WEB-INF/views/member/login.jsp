@@ -60,7 +60,7 @@
 						<div class="member_snsLogin_box">
 							<h3>간편 로그인</h3>
 							<a class="snsLogin">
-								<img alt="naver" src="">
+								
 								<span>네이버 로그인</span>
 							</a>
 							<a class="snsLogin">
