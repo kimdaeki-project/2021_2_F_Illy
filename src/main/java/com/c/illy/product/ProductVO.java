@@ -18,7 +18,7 @@ public class ProductVO {
     private Integer			product_price;			//가격
     private String			product_detail;			//상품상세정보
 	@NotBlank(message = "필수 항목 입니다")
-    private String			product_type;			//식품유형 or 재질 or 소재
+    private String			product_categoryCode;	//(커피 : 001, 머신 : 002)
     private Date			product_regDate;		//등록일
 
 	@NotBlank(message = "필수 항목 입니다")

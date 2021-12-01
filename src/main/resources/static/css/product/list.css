@@ -1,3 +1,35 @@
 @charset "UTF-8";
 
 h2 { padding-bottom: 45px; font-size: 19px; font-weight: normal; color: #333; text-align: center; }
+.mainImg { width: 1200px; padding-bottom: 30px; }
+
+.productCategory { text-align: center; margin-bottom: 40px; }
+.productCategory a { padding:3px 10px; border: 1px solid #eee; margin: 0 5px; font-size: 13px; color: #666; }
+.productCategory span { font-size: 11px; color: #bbb; }
+
+.productPickList { margin-bottom: 10px; }
+.productPickList .pickListNum { display: block; font-size: 14px; margin-bottom: 10px; }
+.productPickList .pickListBox { display: block; height: 49px; padding: 9px 0 10px; border-top: 1px solid #999; border-bottom: 1px solid #dbdbdb; margin-bottom: 50px; }
+.productPickList .pickListBox li { display: inline-block; margin: 5px 0 0; }
+.productPickList .pickListBox input[type=radio] { display: none; }
+.productPickList .pickListBox .sortLabel { padding-left: 20px; margin-left: 10px; cursor: pointer; }
+.productPickList .pickListBox .sortLabel.on { color: #000; font-weight: bold; background: url(/images/product/list/icon_sort_check.png) no-repeat left 5px; }
+
+.productList { display: table; padding-bottom: 65px; border-bottom: 1px solid #dbdbdb; }
+.productList li { position: relative; display: inline-block; vertical-align: top; width: 300px; height: 430px; margin-bottom: 15px; }
+.productList .productWrap { height: 430px; padding: 55px 25px; border: 1px solid #eee; border-radius: 20px; margin: 0 7.5px; background-color: #fff; text-align: center; }
+.productList .productWrap:hover { position: absolute; z-index: 100; width: 285px; height: 500px; border-color: #d12420;}
+.productList .productWrap .productImgWrap { display: block; position: relative; width: 100%; height: 233px; overflow: hidden; }
+.productList .productWrap .productImgWrap img { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; }
+.productList .productWrap .productName { display: block; height: 36px; padding-top: 9px; font-size: 13px; font-weight: bold; }
+.productList .productWrap .iconBox { min-height: 33px; }
+.productList .productWrap .productPrice { display: block; margin: 6px 0 35px; font-size: 20px; font-weight: bold; color: #d12420; }
+.productList .productWrap button { display: none; width: 40%; opacity: 0; }
+.productList .productWrap:hover button { opacity: 1; }
+
+.pagination { padding-top: 50px; }
+.pagination ul { text-align: center; }
+.pagination li { display: inline-block; }
+.pagination a,
+.pagination span { display: block; width: 30px; height: 30px; line-height: 30px; font-size: 11px; color: #888; }
+.pagination span { border-radius: 20px; font-weight: bold; color: #fff; background: #7a7d81; }

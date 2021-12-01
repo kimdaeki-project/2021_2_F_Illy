@@ -1,5 +1,7 @@
 package com.c.illy.product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +21,11 @@ public class ProductService {
 	public int setInsertProduct(ProductVO productVO, MultipartFile[] multipartFiles) throws Exception {
 		productRepository.setInsertProduct(productVO);
 		
+		int index = 0;
 		for(MultipartFile file:multipartFiles) {
 			if(file.getSize() == 0L) { continue; }
 			
-			System.out.println("[ProductService] UPLOAD FILE : " + file.getOriginalFilename());
+			System.out.println("[ProductService] UPLOAD FILE "+(index++)+" : " + file.getOriginalFilename());
 			
 			//이미지 저장
 //			String fileName = fileManager.getUseServletContext("/upload/notice", file);	
@@ -40,5 +43,9 @@ public class ProductService {
 		
 		return 0;
 	};
+
+	public List<ProductVO> getListProduct(String cateCd) throws Exception {
+		return productRepository.getListProduct(cateCd);
+	}
 
 }

@@ -57,11 +57,13 @@
 						<c:choose>
 							<c:when test="${type eq 'machine'}">
 							<!-- ===== MACHINE INSERT FORM START ===== -->
+				
+								<form:hidden path="product_categoryCode" value="002"/>
 								<tr>
 									<th>소재</th>
 									<td>
 										<div class="inputBox">
-											<form:input path="product_type" class="inputText"/>
+											<form:input path="machine_material" class="inputText"/>
 										</div>
 										<div class="selectBox">
 											<select class="select">
@@ -70,7 +72,7 @@
 											</select>
 											<div class="selectArrow"></div>
 										</div>
-										<br><form:errors path="product_type" cssClass="error"/>
+										<br><form:errors path="machine_material" cssClass="error"/>
 									</td>
 								</tr>
 								<tr>
@@ -147,7 +149,7 @@
 							<c:when test="${type eq 'coffee'}">							
 							<!-- ===== COFFEE INSERT FORM START ===== -->
 				
-								<form:hidden path="product_type" value="커피"/>
+								<form:hidden path="product_categoryCode" value="001"/>
 								<tr>								
 									<th>종류</th>
 									<td>
@@ -511,11 +513,11 @@
 		let img_cnt = $('.imgBoxWrap').data('img_cnt');
 		for(let file of this.files){
 			if(img_cnt < maximum){
-				appendImgBox();
-				setPeviewImg(file);
+				appendImgBox(file);
 				
 				img_cnt++;
 				imgBoxWrap.data('img_cnt', img_cnt);
+				console.log("preivewimg change")
 			}
 		}
 
@@ -555,25 +557,30 @@
 		}
 	}
 	
-	function appendImgBox(){
+	function appendImgBox(file){
 		let imgBoxWrap = $('.imgBoxWrap');
 		let img_cnt = imgBoxWrap.data('img_cnt');
 		let html
 		="<div class='imgBox'>"
-		+"<img alt='' src='' class='previewImg' data-index='"+img_cnt+"'>"
-		+"<button type='button' class='deleteFileBtn' data-index='"+img_cnt+"'></button>"
+		+"<img alt='' src='' class='previewImg'>"
+		+"<button type='button' class='deleteFileBtn'></button>"
 		+"</div>"
-		imgBoxWrap.append(html); 
+		imgBoxWrap.append(html);
+		
+		let previewImg = imgBoxWrap.find('.previewImg').last();
+		let deleteFileBtn = imgBoxWrap.find('.deleteFileBtn').last();
+		previewImg.data('index', img_cnt);
+		deleteFileBtn.data('index', img_cnt);
+		
+		setPeviewImg(file, previewImg);
 	}
 
 	/* << 사진 프리뷰 */
-	function setPeviewImg(file) {
-		let img_cnt = $('.imgBoxWrap').data('img_cnt');
-		let previewImg = $('.previewImg[data-index='+img_cnt+']');
+	function setPeviewImg(file, imgTag) {
 		let reader  = new FileReader();
 		
 		reader.onload = function(e) {
-			previewImg.attr('src', e.target.result);
+			imgTag.attr('src', e.target.result);
 		}
 		
 		if(file) {
@@ -628,6 +635,7 @@
 			deleteFileBtn.data('index', index);
 			
 			console.log(previewImg.data('index') + " : " + deleteFileBtn.data('index'))
+			console.log(previewImg);
 			index++;
 		});
 	}

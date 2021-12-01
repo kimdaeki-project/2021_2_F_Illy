@@ -15,7 +15,7 @@
 		    ,#{product_manufacturer}
 		    ,#{product_origin}
 		    ,#{product_importer}
-		);
+		)
   	</insert>
   
   	<insert id="setInsertProductFile" parameterType="ProductFileVO">
@@ -25,7 +25,28 @@
 		    ,#{product_id}
 		    ,#{productFile_name}
 		    ,#{productFile_oriName}
-		);
+		)
   	</insert>
+  	
+  	<select id="getListProduct" resultMap="listAllProduct" parameterType="String">
+		SELECT product_id, product_name, product_price, productFile_id, productFile_name
+		FROM product
+		    JOIN productFile USING (product_id)
+		<if test="cateCd != null">
+			WHERE product_type = #{cateCd}
+		</if>
+		GROUP BY product_id 
+		ORDER BY product_id DESC
+  	</select>
+  	<resultMap type="ProductVO" id="listAllProduct">
+		<id column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/> <!-- 상품명 -->
+		<result column="product_price" property="product_price"/> <!-- 가격 -->
+		
+		<collection ofType="ProductFileVO" property="productFileVOs" javaType="List">
+			<id column="productFile_id" property="productFile_id"/>
+			<result column="productFile_name" property="productFile_name"/>
+		</collection>
+  	</resultMap>
   
 </mapper>

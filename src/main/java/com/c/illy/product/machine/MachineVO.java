@@ -12,6 +12,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class MachineVO extends ProductVO {
 
+	@NotBlank(message = "필수 항목 입니다")
+	private String		machine_material;			//소재
 	@NotNull(message = "필수 항목 입니다")
 	private Integer 	machine_pump;				//펌프
 	@NotBlank(message = "필수 항목 입니다")
