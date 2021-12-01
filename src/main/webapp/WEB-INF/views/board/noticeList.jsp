@@ -16,14 +16,14 @@
 		.board_list_table th{padding:10px 10px 10px 14px; font-size:12px; border-bottom:1px solid #dbdbdb; background:#fbfbfb;}
 		.board_list_table td{padding:13px 10px 15px 10px; border-bottom:1px solid #dbdbdb;}
 		tbody tr td{font-weight:normal; font-size:12px; color:#333;}
-		.test{width:20px; height:20px; background-color:#fff; border:none;   font-size:12px; line-height:12px;    }
 		.board_search_box{margin: 60px 0 30px 0;padding: 10px 10px 10px 10px;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8; background: #f7f7f7; text-align: center;}
-		.kind{width:90px; height:31px;  vertical-align:top; text-align:left; font-size:13px; border-color:#ccc; padding-left:8px;  }
+		#kind{width:90px; height:31px;  vertical-align:top; text-align:left; font-size:13px; border-color:#ccc; padding-left:3px; color:#717171; }
 		.text{width:162px; height:31px;  vertical-align:top; text-align:left; font-size:13px; border:1px solid #ccc; padding:0 10px;   }
 		.btn_board_search{border:none; margin: 0 0 0 5px;padding: 0 20px 0 20px;color: #fff; border-radius: 21px;background: #d12420;line-height: 30px; cursor:pointer; }
-		.pagination{margin-top:60px; left:50%;  display:inline-block; text-align:center; position:relative;   }
-		.pageBtn{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
-		.pageBtn.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
+		.pagination .btnPage{min-width:26px; background-color:#fff;border:1px solid #e0e0e0;cursor:pointer;color:#888; font-size:11px; padding: 6px 4px 10px 4px; }
+		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
+		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
+		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>일리카페 코리아</title>
@@ -94,9 +94,17 @@
 			
 			
 						<div class="pagination">
+							<c:if test="${pager.curBlock>1}">
+								<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>
+								<button type="button" data-list-pn="${pager.startNum-1}" style="margin-right:10px;" class="btnPage pageBtn">&#9001; 이전</button>
+							</c:if>
 							<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-								<span class="pageBtn" data-list-pn="${i}">${i}</span>
+								<span class="pageNum pageBtn" data-list-pn="${i}">${i}</span>
 							</c:forEach>
+							<c:if test="${!pager.lastCheck}">
+								<button type="button" data-list-pn="${pager.lastNum+1}" style="margin-left:10px;" class="btnPage pageBtn">다음 &#9002;</button>
+								<button type="button" data-list-pn="${pager.totalPage}"  class="btnPage pageBtn">맨뒤 &#9002;&#9002;</button>
+							</c:if>
 						</div>
 			
 			
@@ -153,8 +161,9 @@
 			$("#pn").val(num);
 			$("#search").val(search);
 			$("#kind").val(kind);
-			$("#frmList").submit();
+			$("#frmList").submit();	
 		});
+	
 		
 		
 	

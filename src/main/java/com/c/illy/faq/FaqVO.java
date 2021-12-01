@@ -1,4 +1,4 @@
-package com.c.illy.notice;
+package com.c.illy.faq;
 
 import lombok.Data;
 
@@ -9,6 +9,7 @@ public class FaqVO {
 	private String faq_title; 
 	private String faq_contents; 
 	private String faq_type; 
+	private String faq_type_code; 
 	
 	
 }

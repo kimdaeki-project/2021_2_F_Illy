@@ -57,4 +57,23 @@ public class MemberController {
 		memberRepository.setInsert(memberVO);
 		return "redirect:/";
 	}
+	
+	
+	//----------------------------------------------------------------------------myPage_다영 추가
+	@GetMapping("myPage")
+	public String getmyPage()throws Exception{
+		return"member/myPage";
+	}
+	
+	//--1:1 문의 페이지
+	@GetMapping("qnaList")
+	public ModelAndView getQnaList(ModelAndView mv)throws Exception{
+		mv.setViewName("board/qnaList");
+		return mv;
+	}
+	
+	
+	
+	
+	
 }

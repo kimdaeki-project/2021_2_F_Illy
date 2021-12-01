@@ -99,13 +99,13 @@
 							</a>
 						</li>
 						<li>
-							<a href="/notice/faqList">
+							<a href="/notice/faqList?pn=1&search=&kind=">
 								<i class="xi-message"></i>
 								<span>FAQ</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="/member/qnaList">
 								<i class="xi-pen"></i>
 								<span>1:1 문의</span>
 							</a>
@@ -117,13 +117,13 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="/review/reviewAll">
 								<i class="xi-camera"></i>
 								<span>상품후기</span>
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="/member/myPage">
 								<i class="xi-user"></i>
 								<span>내 정보</span>
 							</a>

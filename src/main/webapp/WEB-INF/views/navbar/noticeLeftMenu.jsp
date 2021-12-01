@@ -29,10 +29,10 @@
 				<a href="/notice/list">공지사항</a>
 			</li>
 			<li>
-				<a href="notice/faqList">FAQ</a>
+				<a href="/notice/faqList?pn=1&search=&kind=">FAQ</a>
 			</li>
 			<li>
-				<a href="#">1:1문의</a>
+				<a href="/member/qnaList">1:1문의</a>
 			</li>
 			<li>
 				<a href="/review/bestReview">상품후기</a>
