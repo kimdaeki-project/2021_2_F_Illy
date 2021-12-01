@@ -2,29 +2,98 @@ package com.c.illy.payment;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.c.illy.address.AddressService;
+import com.c.illy.address.AddressVO;
 import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartService;
+import com.c.illy.coupon.CouponService;
+import com.c.illy.coupon.CouponVO;
+import com.c.illy.member.MemberService;
 import com.c.illy.member.MemberVO;
 
 @Controller
-@RequestMapping("payment")
+@RequestMapping("/payment/**")
 public class PaymentController {
 	
 	@Autowired
 	private PaymentService paymentService;
 	@Autowired
 	private CartService cartService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private CouponService couponService;
+	@Autowired
+	private AddressService addressService;
+	
 	
 	@GetMapping("paymentList")
 	public void getPaymentList(MemberVO memberVO, Model model) throws Exception {
-		List<CartProductVO> ar = cartService.getCartListCheck(memberVO);
+		List<CartProductVO> ar = cartService.getCartListCheck(memberVO); //상품List
+		List<CouponVO> coupon = couponService.getCouponList(memberVO); //modal - 쿠폰적용
+		List<AddressVO> ar2 = addressService.getAddressList(memberVO); //modal _ 배송지관리
+		System.out.println(ar2.size());
+		AddressVO addressVO = addressService.getAddressLatest(memberVO); //최근배송지
+		AddressVO addressVO2 = addressService.getDefaultAddress(memberVO); //기본배송지
 		
+		memberVO.setMember_name("인주연");
+		memberVO.setMember_phone("010-1998-0912");
+		memberVO.setMember_email("yyy@naver.com");
+		memberVO.setMember_point(100);
+		//나중에 session 받아오기 //주문자정보
+		
+		model.addAttribute("addressDefault", addressVO2);
+		model.addAttribute("addressVO", addressVO);
+		model.addAttribute("memberVO", memberVO);
 		model.addAttribute("paymentList", ar);
+		model.addAttribute("addressList", ar2);
+		model.addAttribute("coupon", coupon);
+	}
+	
+	@RequestMapping("insertPayment")
+	@ResponseBody
+	public Integer setPaymentInsert(CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO) throws Exception {
+		
+		System.out.println(addressVO.getMember_id());
+		addressVO.setMember_id(paymentVO.getMember_id());
+		int result = addressService.setPaymentAddress(addressVO); //배송받을 주소 insert
+		
+		addressVO = addressService.getAddressOne();
+		paymentVO.setAddress_id(addressVO.getAddress_id());
+		result = paymentService.setPayment(paymentVO); //결제완료
+		
+		paymentVO = paymentService.getPaymentOne();
+		
+		result = cartService.setPaymentID(paymentVO); //결제상태 update
+		
+		result = memberService.setAddBean(memberVO); //결제 후 포인트 적립
+		
+		if(couponVO.getCoupon_id() != 0) {
+			//쿠폰 사용 시 쿠폰 상태 update
+			couponVO.setMember_id(paymentVO.getMember_id());
+			result = couponService.setUseState(couponVO);
+		}
+		
+		return paymentVO.getPayment_id();
+	}
+	
+	@GetMapping("paymentEnd")
+	public void getPaymentEnd(Model model, PaymentVO paymentVO) throws Exception {
+
+		List<CartProductVO> ar = cartService.getPaymentCart(paymentVO); //결제완료 상품 list
+		
+		model.addAttribute("cartList", ar);
+		model.addAttribute("addressVO", addressService.getAddressOne());
+		model.addAttribute("paymentVO", paymentService.getPaymentOne());
 	}
 }

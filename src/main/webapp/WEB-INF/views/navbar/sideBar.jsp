@@ -77,7 +77,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="http://localhost/cart/normalBasket">
 								<i class="xi-cart"></i>
 								<span>CART</span>
 							</a>

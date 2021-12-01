@@ -9,4 +9,6 @@ public interface MemberRepository {
 
 	public int setInsert(MemberVO memberVO);
 	
+	
+	public int setAddBean(MemberVO memberVO) throws Exception;
 }

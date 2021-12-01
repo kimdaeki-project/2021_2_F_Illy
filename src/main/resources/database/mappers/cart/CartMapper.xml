@@ -11,9 +11,8 @@
 		select C.*, P.* from cart C
 		join product P
 		on C.product_id = P.product_id
-		<!-- left join productfile PF
-		on C.product_id = PF.product_id -->
-		where C.member_id=#{member_id}
+		where C.member_id=#{member_id} and
+				(C.cart_state = 'checked' or C.cart_state = 'unChecked')
 	</select> <!-- 일반배송 장바구니 리스트 -->
   	
   	<select id="getCartListCheck" resultType="CartProductVO" parameterType="MemberVO">
@@ -24,7 +23,14 @@
 		on C.product_id = PF.product_id -->
 		where C.member_id=#{member_id} and
 			  C.cart_state='checked'
-  	</select>
+  	</select> <!-- 선택한 장바구니 리스트 -->
+  	
+  	<select id="getPaymentCart" resultType="CartProductVO" parameterType="PaymentVO">
+  		select * from cart C
+		join product P
+		on C.product_id = P.product_id
+		where C.payment_id=#{payment_id}
+  	</select> <!-- 결제완료 상품 List 출력 -->
   	
   	<update id="setCountUpdate" parameterType="CartVO">
   		update cart set cart_cnt=#{cart_cnt} where cart_id=#{cart_id}
@@ -41,6 +47,13 @@
   		update cart set cart_state=#{cart_state}
   		where cart_id=#{cart_id}
   	</update> <!-- 장바구니 상품 선택 -->
+  	
+  	<update id="setPaymentID" parameterType="PaymentVO">
+  		update cart set cart_state='payment'
+  						, payment_id=#{payment_id}
+  		where cart_state='checked'
+  				and member_id=#{member_id}
+  	</update> <!-- 결제 후 장바구니 상태 변경 -->
   	
   	
   	<delete id="setDelete" parameterType="CartVO">

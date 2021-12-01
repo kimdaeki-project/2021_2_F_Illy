@@ -24,7 +24,7 @@
 										<tr>
 											<th>
 												<div class="tableCheck">
-													<input type="checkbox" id="allCheck" class="allCheck">
+													<input type="checkbox" id="allCheck" value="2" class="allCheck">
 													<label for="allCheck" class="check_s allCheck_s"></label>
 												</div>
 											</th>
@@ -39,6 +39,7 @@
 									<tbody class="cartMain">
  										<c:forEach items="${carts}" var="carts" varStatus="status">
 											<tr>
+												<c:if test="${carts.cart_state eq 'checked' or carts.cart_state eq 'unChecked'}">
 												<td>
 													<div class="tableCheck">
 														<input type="hidden" value="${carts.cart_id}">
@@ -70,6 +71,7 @@
 													<td class="delivery tb_border" rowspan="${count}">
 														배송비 기본정책<br> <span class="deliveryPrice"></span>원<br>(택배-선결제)
 													</td>
+												</c:if>
 												</c:if>
 											</tr>
 										</c:forEach>
@@ -205,6 +207,8 @@
 		
 		let boolean;
 		let cart_state;
+		let member_id = $(this).val();
+		
 		if($(this).is(':checked') == true) {
 			boolean = true;
 			cart_state = "checked"
@@ -216,12 +220,13 @@
 			$('.check_s').removeClass('on');
 		}
 		
-		$.ajax({
+ 		$.ajax({
 			async : false,
 			type : 'GET',
 			url : './setCheckAll',
 			data : {
-				cart_state : cart_state
+				cart_state : cart_state,
+				member_id : member_id
 			},
 			success : function(){	
 				$('input').prop('checked', boolean);			

@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+.ajax_scroll {
+	padding: 20px 0;
+}
+
+.ajax_scroll h5 {
+	padding-bottom: 10px;
+	font-size: 14px;
+}
+.ajax_scroll_btn_center {
+	margin: 10px 0;
+}
+
+.ajax_scroll_table table{
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.ajax_scroll_table th {
+	padding: 6px 10px 7px 20px;
+    color: #777777;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+    text-align: left;
+    width: 138px;
+}
+
+.ajax_scroll_table td {
+	height: 31px;
+    padding: 6px 10px 7px 15px;
+    color: #777777;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    text-align: left;
+}
+
+.ajax_scroll_table table td input[type="text"] {
+	padding: 0 10px;
+    outline: none;
+    font-size: 12px;
+    height: 31px;
+    color: #333333;
+    border: 1px solid #d6d6d6;
+    line-height: 31px;
+    box-sizing: border-box;
+}
+
+.ajax_scroll_table th .essential {
+	margin: 0 0 0 -10px;
+    padding: 0 0 0 10px;
+    background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/member/icon_dot_03.png) no-repeat 0 center;
+}
+
+#sample66_postcode {
+	width: 190px;
+}
+
+#sample66_address {
+	width: 400px;
+}
+
+.addressPostcodeModal {
+	float: left;
+    margin: 0 0 0 5px;
+    padding: 5px 10px 5px 10px;
+    height: 31px;
+    border-radius: 21px;
+    border: 0;
+    background: #d12420;
+    color: #fff;
+    font-size: 12px;
+    
+}
+.addressPostcodeModal:hover {
+	background: linear-gradient(100deg, #d12420, #902323);
+}
+
+.ajax_scroll_addressDefault {
+	margin-top: 3px;
+	display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.ajax_scroll_addressDefault input {
+	position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 0;
+    z-index: -1;
+    height: 13px;
+    vertical-align: top;
+}
+
+.ajax_scroll_addressDefault label {
+	min-width: 13px;
+    padding: 0 0 0 22px;
+    background: url(/images/cart/check_off_small.png) no-repeat 1px 2px;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+}	
+
+.ajax_scroll_addressDefault label.on {
+    background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
+}	

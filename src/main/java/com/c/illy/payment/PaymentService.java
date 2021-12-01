@@ -14,5 +14,12 @@ public class PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
+	public int setPayment(PaymentVO paymentVO) throws Exception {
+		return paymentRepository.setPayment(paymentVO);
+	}
+	
+	public PaymentVO getPaymentOne() throws Exception {
+		return paymentRepository.getPaymentOne();
+	}
 	
 }

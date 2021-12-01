@@ -1,0 +1,156 @@
+@charset "UTF-8";
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+}
+
+#end_tit {
+	overflow: hidden;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+#end_tit h2 {
+	float: left;
+    font-size: 28px;
+    color: #222222;
+}
+
+#end_tit ol {
+	float: right;
+    line-height: 62px;
+}
+
+#end_tit ol li {
+	float: left;
+    font-size: 14px;
+    color: #d1d1d1;
+}
+
+#end_tit ol li.end_tit_black {
+	color: #000;
+    font-weight: bold;
+}
+
+#end_tit ol li span {
+	font-size: 16px;
+    font-weight: bold;
+}
+
+#end_tit ol li span > img {
+	padding: 0 14px;
+    vertical-align: -1px;
+}
+
+.end_btn {
+	text-align: center;
+}
+.end_btn_black {
+	display: inline-block;
+    width: 200px;
+    height: 61px;
+    line-height: 59px;
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid #000;
+    background: #000;
+    text-align: center;
+}
+
+.end_cont_complete {
+	padding: 40px 0;
+	text-align: center;
+}
+
+.end_cont_complete p {
+	margin-top: 15px;
+	line-height: 2;
+}
+
+.end_cont_complete strong {
+	font-size: 22px;
+}
+
+.end_cont_complete em {
+	font-size: 14px;
+}
+
+.end_cont_tit {
+	padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.end_cont_tit h4 {
+	font-size: 16px;
+}
+
+.end_cont_table {
+	position: relative;
+	margin-bottom: 50px;
+}
+
+.end_cont_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+.end_cont_table .table_left {
+	border-top: 1px solid #999999;
+}
+
+.end_cont_table .table_left th {
+	padding: 15px 10px 14px 30px;
+	border-top: none 0;
+    background: #f7f7f7;
+    text-align: left;
+    border-bottom: 1px solid #dbdbdb;
+    width: 180px;
+}
+
+.end_cont_table .table_left td {
+	color: #777777;
+    border-bottom: 1px solid #dbdbdb;
+    background: #ffffff;
+    height: 31px;
+    padding: 12px 10px 11px 15px;
+    text-align: left;
+}
+
+.pay_with_list {
+	color: #333333;
+}
+
+.order_payment_sum {
+	font-size: 18px;
+	color: #333333;
+}
+
+.end_cont_table table ul {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.end_cont_table table ul li {
+	display: block;
+}
+
+.pay_benefit_sale {
+	padding-bottom: 5px;
+}
+.pay_benefit_sale span {
+	color: #777777;
+}
+.pay_benefit_sale em {
+	padding: 0 5px 1px 20px;
+	background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_discount.gif) no-repeat 0 2px;
+}
+.pay_benefit_milege {
+	padding-right: 30px;
+}
+.pay_benefit_milege span {
+	color: #777777;
+}
+.pay_benefit_milege em {
+	padding: 0 5px 1px 20px;
+	background: url(https://shop.illycaffe.co.kr/data/skin/front/udweb_200529/img/icon/goods_icon/icon_mileage.gif) no-repeat 0 2px;
+}

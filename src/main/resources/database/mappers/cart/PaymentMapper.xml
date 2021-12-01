@@ -2,5 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.c.illy.payment.PaymentRepository">
+	<insert id="setPayment" parameterType="PaymentVO">
+		insert into payment(payment_id, payment_comment, payment_use_point, payment_type, payment_total, 
+							payment_date, payment_name, payment_delivery, payment_email, payment_phone, payment_product_total, member_id,
+							payment_use_coupon, payment_total_discount, address_id, payment_add_point)
+		values(null, #{payment_comment}, #{payment_use_point}, #{payment_type}, #{payment_total}, now(), 
+				#{payment_name}, #{payment_delivery}, #{payment_email}, #{payment_phone}, #{payment_product_total}, #{member_id},
+				#{payment_use_coupon}, #{payment_total_discount}, #{address_id}, #{payment_add_point})
+	</insert> <!-- 결제하기 -->
 	
+	<select id="getPaymentOne" resultType="PaymentVO">
+		select * from payment
+			where payment_id=(select max(payment_id) from payment)
+	</select> <!-- 마지막 결제 가져오기 -->
 </mapper>

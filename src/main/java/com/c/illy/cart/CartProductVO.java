@@ -11,6 +11,7 @@ import lombok.Data;
 public class CartProductVO {
 	
 	private Integer cart_id;
+	private Integer member_id;
 	private String product_id;
 	private Integer cart_cnt;
 	private String cart_state;
