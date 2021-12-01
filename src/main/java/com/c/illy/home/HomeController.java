@@ -27,7 +27,8 @@ public class HomeController {
 
 		SecurityContextImpl sc =(SecurityContextImpl)object;
 		Authentication authentication = sc.getAuthentication();
-		MemberVO memberVO = (MemberVO)authentication.getPrincipal();
+		model.addAttribute("member", (MemberVO)authentication.getPrincipal());
+		
 		return "index";
 	}
 

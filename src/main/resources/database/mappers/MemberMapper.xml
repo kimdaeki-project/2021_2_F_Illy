@@ -15,7 +15,7 @@
 
 	<select id="find_username" parameterType="String"
 		resultMap="getLoginResult">
-		select M.*, R.*
+		select *
 		from Member M
 		inner join
 		member_role MR
@@ -50,7 +50,8 @@
 	</insert> <!-- 결제 후 포인트 변경 -->
 
 	<resultMap type="MemberVO" id="getLoginResult">
-		<id column="username" property="username" />
+		<id column="member_id" property="member_id"/>
+		<result column="username" property="username" />
 		<result column="password" property="password" />
 		<result column="member_name" property="member_name" />
 		<result column="member_email" property="member_email" />
