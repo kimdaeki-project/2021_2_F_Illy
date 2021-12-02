@@ -62,7 +62,7 @@
 								<button type="button" class="pick_date"data-term="4">1개월</button>
 								<button type="button" class="pick_date" data-term="5">3개월</button>
 								<button type="button"style="margin-right:10px;" class="pick_date" data-term="6">1년</button>
-								<input type="date" class="date_picker start" value="">
+								<input type="date" class="date_picker start" value="2021-12-02">
 								<span>~</span>
 								<input type="date" class="date_picker end" value="">
 								<button type="button" class="btn_board_search">조회<em></em></button>
@@ -117,6 +117,9 @@
 
 	<script type="text/javascript">
 
+	
+	
+	
  	function getToday(date){
 		var year=date.getFullYear();
 		var month=date.getMonth()+1;
@@ -125,7 +128,11 @@
 	  	return year+"-"+("0"+(month)).slice(-2)+"-"+("0"+day).slice(-2); 
 	} 
 	
-	
+	$(".btn_board_search").click(function(){
+		$("#start_date").val($(".start").val());
+		$("#end_date").val($(".end").val());
+		$("#qFrm").submit(); 
+	});
 	
 	$(".pick_date").click(function(){
 		var pick_term=$(this).data('term');
