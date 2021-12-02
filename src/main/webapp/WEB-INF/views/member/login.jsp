@@ -71,6 +71,7 @@
 							</a>
 							<a class="snsLogin">
 								<span>위메프 로그인</span>
+							
 							</a>
 						</div>
 						<!-- member_snsLogin_box end -->

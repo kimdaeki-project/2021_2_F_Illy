@@ -20,9 +20,15 @@
 		<div id="container">
 				
 			<div id="contents">
-			
-
 				
+				${member.member_name}
+				${member.member_id}
+				${member.password}
+				${member.member_email}
+				
+				<h1>${member.member_id}</h1>
+				
+		
 				
 			</div>
 			

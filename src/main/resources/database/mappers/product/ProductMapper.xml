@@ -10,7 +10,7 @@
 		    ,#{product_name}
 		    ,#{product_price}
 		    ,#{product_detail}
-		    ,#{product_type}
+		    ,#{product_categoryCode}
 			,NOW()
 		    ,#{product_manufacturer}
 		    ,#{product_origin}

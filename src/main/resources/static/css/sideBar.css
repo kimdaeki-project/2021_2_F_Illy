@@ -76,9 +76,9 @@ src:url(fonts/xeicon.eot?3ka2yj#iefix) format("embedded-opentype"),url(fonts/xei
 #scroll_right .right_info .bank_info .bank_number{font-size:15px;color:#333;font-weight:normal;margin-bottom:5px;display:block;}
 
 #scroll_right .right_link2 ul{display:block; }
-#scroll_right .right_link2 li{display:inline-block;width:100%;padding:8px 5px;box-sizing:border-box;border:1px solid #e9e9e9;border-radius:5px;margin:0 0 10px;font-size:9.5px;text-align:center;letter-spacing:1.1px;}
-#scroll_right .right_link2 li a{color:#555;}
-#scroll_right .right_link2 li a i{padding-right:5px;font-size:9px;}
+#scroll_right .right_link2 li{display:inline-block;width:100%;padding:8px 6px 8px 1px;box-sizing:border-box;border:1px solid #e9e9e9;border-radius:5px;margin:0 0 10px;font-size:9.5px;text-align:center;letter-spacing:1.1px;}
+#scroll_right .right_link2 li a{color:#555; width:165px;display:block;  }
+#scroll_right .right_link2 li a i{font-size:9px;}
 #scroll_right .right_link2 li:first-child{border:0!important;background:#d12420!important;color:#fff;}
 #scroll_right .right_link2 li:first-child:hover{background:linear-gradient(90deg,#d12420,#d12420,#910d18)!important;;border:0!important;;background-size:100%;background-position-x:0;}
 #scroll_right .right_link2 li:first-child:hover a{color:#fff!important;}

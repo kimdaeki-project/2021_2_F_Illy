@@ -15,13 +15,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService; 
 	
-	@GetMapping("qnaList")
-	public ModelAndView getQnaList(ModelAndView mv)throws Exception{
-		List<QnaVO> ar = qnaService.getQnaList();
-		mv.setViewName("board/qnaList");
-		mv.addObject("QList", ar);
-		return mv; 
-	}
+
 	
 	
 	

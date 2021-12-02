@@ -16,7 +16,9 @@ public class QnaVO {
 	private Integer member_id; 
 	private String qna_state; 
 	
-	
+	//임의의 변수 선언(날짜 조회용)
+	private Date start_date;
+	private Date end_date;
 	
 	
 	

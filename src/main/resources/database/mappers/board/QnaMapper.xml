@@ -5,15 +5,29 @@
   
 <mapper namespace="com.c.illy.qna.QnaRepository">
 
-
-<select id="getQnaList" resultSets="QnaVO">
-	SELECT * FROM qna
+<!-- QNA리스트 불러오기  -->
+<select id="getQnaList" parameterType="java.util.Map" resultType="QnaVO">
+	SELECT * FROM qna 
+	<if test="qnaVO.start_date != null">
+			WHERE qna_regDate BETWEEN #{qnaVO.start_date} AND #{qnaVO.end_date}		
+	</if>
 </select>
 
+<!-- totalCount 불러오기  -->
+<!-- <select id="getTotalCount" parameterType="Pager" resultType="Long">
+	SELECT COUNT(qna_id) FROM qna
+	WHERE member_id=#{member_id}
+		<choose>
+			<when test="kind=='qna_regDate'">qna_regDate</when>
+		</choose>
+	LIKE CONCAT('%',#{search},'%')
+</select>
 
-
-
-
+ -->
+ 
+<select id="getListForDate" parameterType="QnaVO" resultType="QnaVO">
+	SELECT * FROM qna WHERE qna_regDate BETWEEN #{start_date} AND #{end_date}		
+</select>
 
 
 

@@ -1,5 +1,7 @@
 package com.c.illy.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.c.illy.address.AddressRepository;
 import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
+import com.c.illy.qna.QnaService;
+import com.c.illy.qna.QnaVO;
 
 @Controller
 @RequestMapping("member/**")
@@ -27,6 +31,10 @@ public class MemberController {
 
 	@Autowired
 	private AddressService addressService;
+	
+	//--다영 
+	@Autowired
+	private QnaService qnaService; 
 	
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
@@ -71,7 +79,7 @@ public class MemberController {
 	}
 	
 
-	//----------------------------------------------------------------------------myPage_다영 추가
+	//----------------------------------------------------------------------------myPage_다영 추가 start
 	@GetMapping("myPage")
 	public String getmyPage()throws Exception{
 		return"member/myPage";
@@ -79,10 +87,13 @@ public class MemberController {
 	
 	//--1:1 문의 페이지
 	@GetMapping("qnaList")
-	public ModelAndView getQnaList(ModelAndView mv)throws Exception{
+	public ModelAndView getQnaList(ModelAndView mv,QnaVO qnaVO)throws Exception{
+		List<QnaVO> ar = qnaService.getQnaList(qnaVO);
 		mv.setViewName("board/qnaList");
-		return mv;
+		mv.addObject("QList", ar);
+		return mv; 
 	}
+	//----------------------------------------------------------------------------myPage_다영 추가 end
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
 	public ModelAndView checkId(HttpServletRequest request) {
@@ -99,6 +110,13 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
+	
+	@PostMapping("login")
+	public String login(HttpServletRequest httpServletRequest) {
+		System.out.println(httpServletRequest.getAttribute("loginFailMsg"));
+		return "member/login";
+	}
+	
 	
 	@GetMapping("findId")
 	public String findId() {
