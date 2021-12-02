@@ -1,5 +1,6 @@
 package com.c.illy.product;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class ProductService {
 
 	public List<ProductVO> getListProduct(String cateCd) throws Exception {
 		return productRepository.getListProduct(cateCd);
+	}
+	public List<CategoryCntVO> getCategoryCnt(String cateCd) throws Exception {
+		return productRepository.getCategoryCnt(cateCd);
 	}
 
 }

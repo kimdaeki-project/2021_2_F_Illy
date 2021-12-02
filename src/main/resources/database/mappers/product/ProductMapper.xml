@@ -33,7 +33,7 @@
 		FROM product
 		    JOIN productFile USING (product_id)
 		<if test="cateCd != null">
-			WHERE product_categoryCode = #{cateCd}
+			WHERE product_categoryCode LIKE CONCAT(#{cateCd}, '%')
 		</if>
 		GROUP BY product_id 
 		ORDER BY product_id DESC
@@ -48,5 +48,23 @@
 			<result column="productFile_name" property="productFile_name"/>
 		</collection>
   	</resultMap>
+  	
+  	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="String">
+  		SELECT
+  			CASE product_categoryCode
+				WHEN '001001' THEN '캡슐커피'
+				WHEN '001002' THEN '원두커피'
+				WHEN '001003' THEN '분쇄커피'
+				WHEN '001004' THEN '스틱원두커피'
+		    END AS name
+			,product_categoryCode AS code
+		    ,COUNT(product_categoryCode) AS count
+		FROM product
+		<if test="cateCd != null">
+			WHERE product_categoryCode LIKE CONCAT(LEFT(#{cateCd}, 3), '%')
+		</if>
+		GROUP BY product_categoryCode
+		ORDER BY product_categoryCode
+  	</select>
   
 </mapper>

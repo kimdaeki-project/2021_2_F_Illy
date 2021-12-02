@@ -7,6 +7,7 @@
  		<typeAlias type="java.lang.Long" alias="Long"/>
  		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="java.lang.String" alias="String"/>
+		<typeAlias type="java.util.HashMap" alias="HashMap"/>
 
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.c.illy.member.RoleVO" alias="RoleVO"/>
@@ -14,6 +15,7 @@
 		  
   		<typeAlias type="com.c.illy.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.c.illy.product.ProductFileVO" alias="ProductFileVO"/>
+  		<typeAlias type="com.c.illy.product.CategoryCntVO" alias="CategoryCntVO"/>
   		<typeAlias type="com.c.illy.product.coffee.CoffeeVO" alias="CoffeeVO"/>
   		<typeAlias type="com.c.illy.product.machine.MachineVO" alias="MachineVO"/>
   		

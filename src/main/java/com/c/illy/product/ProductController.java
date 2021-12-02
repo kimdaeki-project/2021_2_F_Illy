@@ -16,6 +16,7 @@ public class ProductController {
 	@GetMapping("list")
 	public String list(Model model, String cateCd) throws Exception {
 		model.addAttribute("listAllProduct", productService.getListProduct(cateCd));
+		model.addAttribute("categoryCnt", productService.getCategoryCnt(cateCd));
 		model.addAttribute("cateCd", cateCd);
 		return "/product/list";
 	}

@@ -18,24 +18,33 @@
 			
 			<div id="contents">
 				
-				<h2>ALL PRODUCT</h2>
 				<c:choose>
-					<c:when test="${not empty cateCd}">						
+					<c:when test="${not empty cateCd}">	
+					
+						<c:choose>
+							<c:when test="${cateCd eq 001}"><h2>COFFEE</h2></c:when>
+							<c:when test="${cateCd eq 002}"><h2>MACHINES</h2></c:when>
+							<c:when test="${cateCd eq 003}"><h2>COFFEE</h2></c:when>
+							<c:when test="${cateCd eq 004}"><h2>COFFEE</h2></c:when>
+						</c:choose>
+					
+						<c:forEach var="categoryCnt" items="${categoryCnt}">
+							<c:if test="${cateCd eq categoryCnt.code}">
+								<h2>${categoryCnt.name}</h2>
+							</c:if>
+						</c:forEach>
+						
 						<img class="mainImg" alt="" src="/images/product/list/productList_${cateCd}.jpg">
 										
 						<div class="productCategory">
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
-							<a href="javascript:;">제품1 <span>(50)</span></a>
+							<c:forEach var="categoryCnt" items="${categoryCnt}">
+								<a href="/product/list?cateCd=${categoryCnt.code}">${categoryCnt.name} <span>(${categoryCnt.count})</span></a>
+							</c:forEach>
 						</div>
+						
 					</c:when>
 					<c:otherwise>
+						<h2>ALL PRODUCT</h2>
 						<img class="mainImg" alt="" src="/images/product/list/ALL_PRODUCT.jpg">
 					</c:otherwise>
 				</c:choose>
