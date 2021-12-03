@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/common.css">
-	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px;}
@@ -28,6 +26,10 @@
 		.board_list_table th{padding:10px 10px 10px 14px; font-size:12px; border-bottom:1px solid #dbdbdb; background:#fbfbfb;}
 		.board_list_table td{padding:13px 10px 15px 10px; border-bottom:1px solid #dbdbdb; }
 		.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
+		.pagination .btnPage{min-width:26px; background-color:#fff;border:1px solid #e0e0e0;cursor:pointer;color:#888; font-size:11px; padding: 6px 4px 10px 4px; }
+		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
+		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
+		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 	</style>
 	
 
@@ -53,8 +55,8 @@
 							<div class="search_box">
 								<h3>조회기간</h3>
 								<form action="./qnaList" method="get" id="qFrm">
-									<input type="hidden" name="start_date" value="" id="start_date">
-									<input type="hidden" name="end_date" value="" id="end_date">
+									<!-- <input type="hidden" name="start_date" value="" id="start_date">
+									<input type="hidden" name="end_date" value="" id="end_date"> -->
 								</form>
 								<button type="button" class="pick_date" data-term="1">오늘</button>
 								<button type="button" class="pick_date" data-term="2">7일</button>
@@ -62,46 +64,34 @@
 								<button type="button" class="pick_date"data-term="4">1개월</button>
 								<button type="button" class="pick_date" data-term="5">3개월</button>
 								<button type="button"style="margin-right:10px;" class="pick_date" data-term="6">1년</button>
-								<input type="date" class="date_picker start" value="2021-12-02">
+								<input type="date" name="start_date" id="start_date" class="date_picker start" value="">
 								<span>~</span>
-								<input type="date" class="date_picker end" value="">
+								<input type="date" name="end_date" id="end_date" class="date_picker end" value="">
 								<button type="button" class="btn_board_search">조회<em></em></button>
 							</div>
-							<div class="list_zone">
-								<table class="board_list_table" style="width:100%;">
-							<colgroup> <!-- table 간격 기본설정 -->
-								<col width="10%">
-								<col width="15%">
-								<col>
-								<col width="10%">						
-							</colgroup>
-							<thead>
-								<tr>
-									<th>문의날짜</th><th>카테고리</th><th>제목</th><th>문의상태</th>
-								</tr>
-							</thead>
-							<tbody>			
-								<c:forEach items="${QList}" var="qnaVO">
-									<tr class="toggle_faq">
-										<td>${qnaVO.qna_regDate}</td>
-										<td>${qnaVO.qna_type}</td>
-										<td class="board_tit">
-											<a href="#">
-												<span>
-													<strong class="btnView">${qnaVO.qna_title}</strong>
-												</span>
-											</a>
-										</td>
-										<td>${qnaVO.qna_state}</td>
-									</tr>
-								</c:forEach>					
-							</tbody>
-						</table>
-							<c:if test="${empty QList}">
-								<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
-							</c:if>
-			
+							<div class="list_zone" id="empty">
+								
+								<c:if test="${empty QList}">
+								 	<table class="board_list_table" style="width:100%;">
+										<colgroup> <!-- table 간격 기본설정 -->
+											<col width="10%">
+											<col width="15%">
+											<col>
+											<col width="10%">						
+										</colgroup>
+										<thead>
+											<tr>
+												<th>문의날짜</th><th>카테고리</th><th>제목</th><th>문의상태</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>	
+									<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
+								</c:if>		
+					
 							</div>
+						
+						
 						
 						</div>
 			
@@ -115,70 +105,9 @@
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
 	</div>
 
-	<script type="text/javascript">
 
-	
-	
-	
- 	function getToday(date){
-		var year=date.getFullYear();
-		var month=date.getMonth()+1;
-		var day=date.getDate();
-		
-	  	return year+"-"+("0"+(month)).slice(-2)+"-"+("0"+day).slice(-2); 
-	} 
-	
-	$(".btn_board_search").click(function(){
-		$("#start_date").val($(".start").val());
-		$("#end_date").val($(".end").val());
-		$("#qFrm").submit(); 
-	});
-	
-	$(".pick_date").click(function(){
-		var pick_term=$(this).data('term');
-		var date_line = new Date();
-		var today=getToday(date_line);
-		/* var term=getToday(date_line); */
-		if(pick_term == 1){
-			$("#start_date").val(today);
-			$("#end_date").val(today);
-			console.log($("#start_date").val()+1111);
-		}else if(pick_term == 2){
-			var sevenDay=new Date(date_line.setDate(date_line.getDate()-7));
-			sevenDay=getToday(sevenDay);
-			console.log(sevenDay);
-			$("#start_date").val(sevenDay);
-			$("#end_date").val(today);
-		}else if(pick_term==3){
-			var fifthDay=new Date(date_line.setDate(date_line.getDate()-15));
-			fifthDay=getToday(fifthDay);
-			console.log(fifthDay);
-			$("#start_date").val(fifthDay);
-			$("#end_date").val(today);
-		}else if(pick_term==4){
-			var aMonth=new Date(date_line.setMonth(date_line.getMonth()-1));
-			aMonth=getToday(aMonth);
-			$("#start_date").val(aMonth);
-			console.log($("#start_date").val());
-			$("#end_date").val(today);
-		}else if(pick_term==5){
-			var threeMonth=new Date(date_line.setMonth(date_line.getMonth()-3));
-			threeMonth=getToday(threeMonth);
-			$("#start_date").val(threeMonth);
-			console.log($("#start_date").val());
-			$("#end_date").val(today);
-		}else if(pick_term==6){
-			var aYear=new Date(date_line.setFullYear(date_line.getFullYear()-1));
-			aYear=getToday(aYear);
-			$("#start_date").val(aYear);
-			console.log($("#start_date").val());
-			$("#end_date").val(today);
-		}
-			 $("#qFrm").submit(); 
-	});
-	
 
-	</script>
+	<script type="text/javascript" src="/js/qnaList.js"></script>
 
 	
 

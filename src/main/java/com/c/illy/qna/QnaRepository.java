@@ -5,11 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.c.illy.util.Pager;
+
 @Mapper
 public interface QnaRepository {
 
+	// qna list 조회하기
 	public List<QnaVO> getQnaList(Map<String, Object> map)throws Exception;
 	
-	public List<QnaVO> getListForDate(QnaVO qnaVO)throws Exception;
+	//totalCount 조회 
+	public Long getTotalCount(Map<String, Object> map)throws Exception;
 	
 }

@@ -7,16 +7,21 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.c.illy.util.Pager;
+
 @Service
 public class QnaService {
 
 	@Autowired
 	private QnaRepository qnaRepository; 
 	
-	public List<QnaVO> getQnaList(QnaVO qnaVO)throws Exception{
+	public List<QnaVO> getQnaList(Pager pager,QnaVO qnaVO)throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("qnaVO", qnaVO);
-		/* map.put("pager", pager); */
+		pager.makeRow();
+		Long totalCount=qnaRepository.getTotalCount(map);
+		pager.makeNum(totalCount); 
+		map.put("pager", pager);
 		return qnaRepository.getQnaList(map);
 	}
 

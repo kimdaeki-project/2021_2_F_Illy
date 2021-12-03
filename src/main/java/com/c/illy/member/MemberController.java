@@ -22,6 +22,7 @@ import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
+import com.c.illy.util.Pager;
 
 @Controller
 @RequestMapping("member/**")
@@ -87,12 +88,25 @@ public class MemberController {
 	
 	//--1:1 문의 페이지
 	@GetMapping("qnaList")
-	public ModelAndView getQnaList(ModelAndView mv,QnaVO qnaVO)throws Exception{
-		List<QnaVO> ar = qnaService.getQnaList(qnaVO);
-		mv.setViewName("board/qnaList");
+	public String getQnaList(ModelAndView mv)throws Exception{
+		System.out.println("저길 오나");
+		return "board/qnaList"; 
+	}
+	
+	//--1:1 문의 ajax
+	@GetMapping("qnaListDate")
+	public ModelAndView getQnaListDate(ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		System.out.println("여길 오나");
+		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
+		System.out.println(ar.size());
+		mv.setViewName("board/qnaListajax");
 		mv.addObject("QList", ar);
+		mv.addObject("pager", pager);
 		return mv; 
 	}
+	
+	
+	
 	//----------------------------------------------------------------------------myPage_다영 추가 end
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
