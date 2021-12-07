@@ -6,6 +6,11 @@
 		insert into cart (cart_id, member_id, product_id, cart_cnt, cart_state)
 		values (null, #{member_id}, #{product_id}, #{cart_cnt}, 'checked')
 	</insert> <!-- 장바구니 담기 -->
+	
+	<insert id="setPaymentCart" parameterType="CartVO">
+		insert into cart (cart_id, member_id, product_id, cart_cnt, cart_state)
+		values (null, #{member_id}, #{product_id}, #{cart_cnt}, 'direct')
+	</insert> <!-- 바로구매 담기 -->
 
 	<select id="getNormalBasket" resultType="CartProductVO" parameterType="MemberVO">
 		select C.*, P.*, PF.* from cart C
@@ -25,7 +30,17 @@
         	on C.product_id = PF.product_id
 		where C.member_id=#{member_id} and
 			  C.cart_state='checked'
-  	</select> <!-- 선택한 장바구니 리스트 -->
+  	</select> <!-- 선택한 장바구니 리스트 --> <!-- 선택상품 주문 때 이용 -->
+  	
+  	<select id="getDirectPayment" resultType="CartProductVO" parameterType="MemberVO">
+  		select C.*, P.*, PF.* from cart C
+		join product P
+			on C.product_id = P.product_id
+        join productfile PF
+        	on C.product_id = PF.product_id
+		where C.member_id=#{member_id} and
+			  C.cart_state='direct'
+  	</select> <!-- 바로구매 통한 구매상품 리스트 출력 -->
   	
   	<select id="getPaymentCart" resultType="CartProductVO" parameterType="PaymentVO">
   		select * from cart C
@@ -149,12 +164,12 @@
   		where cart_id=#{cart_id}
   	</update> <!-- 장바구니 상품 선택 -->
   	
-  	<update id="setPaymentID" parameterType="PaymentVO">
+  	<update id="setPaymentID" parameterType="HashMap">
   		update cart set cart_state='payment'
-  						, payment_id=#{payment_id}
-  		where cart_state='checked'
-  				and member_id=#{member_id}
-  	</update> <!-- 결제 후 장바구니 상태 변경 -->
+  						, payment_id=#{payment.payment_id}
+  		where cart_state=#{cart.cart_state}
+  				and member_id=#{payment.member_id}
+  	</update> <!-- 결제 후 cart 상태 변경 -->
   	
   	<update id="setPaymentDelivery" parameterType="PaymentVO">
   		update cart C join payment PM
@@ -185,6 +200,12 @@
   		where cart_state='done'
   				and payment_id=#{payment_id}
   	</update> <!-- 환불 후 장바구니 상태 변경 -->
+  	
+  	<update id="setDirectPayment" parameterType="MemberVO">
+  		update cart set cart_state=null
+  		where cart_state='direct'
+  				and member_id=#{member_id}
+  	</update> <!-- 바로구매 cart_state 변경 -->
   	
   	<delete id="setDelete" parameterType="CartVO">
   		delete from cart where cart_id=#{cart_id}

@@ -564,7 +564,9 @@ function paymentEnd(){
 								address_reference:address_reference,
 								address_detail:address_detail,
 								address_myAddress:address_myAddress,
-								address_default:0
+								address_default:0,
+								//cart_state 넘겨서 장바구니 통한 결제인지 바로구매 결제인지 구분
+								cart_state: $('#cartState').val()
 							},
 							success: function(result) {
 								result
@@ -666,7 +668,7 @@ $('.btn_center_order').click(function(){
 		            }
 		        });
 			} else {
-				paymentEnd();			
+				paymentEnd();
 			}
 	
 		}

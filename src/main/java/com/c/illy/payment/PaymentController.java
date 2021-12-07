@@ -1,10 +1,7 @@
 package com.c.illy.payment;
 
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +16,7 @@ import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
 import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartService;
+import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.member.MemberService;
@@ -44,7 +41,7 @@ public class PaymentController {
 	@Autowired
 	private ProductService productService;
 	
-	
+	// 장바구니 통해서 온 목록
 	@GetMapping("paymentList")
 	public void getPaymentList(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
 		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
@@ -56,6 +53,7 @@ public class PaymentController {
 		AddressVO addressVO2 = addressService.getDefaultAddress(memberVO); //기본배송지
 		AddressVO addressVO3 = addressService.getJoinAddress(memberVO); //내 정보에 있는 주소
 		
+		
 		model.addAttribute("addressJoin", addressVO3);
 		model.addAttribute("addressDefault", addressVO2);
 		model.addAttribute("addressVO", addressVO);
@@ -65,9 +63,37 @@ public class PaymentController {
 		model.addAttribute("coupon", coupon);
 	}
 	
+	// 바로구매를 통해서 온 목록
+	@GetMapping("directPayment")
+	public String getDirectPayment(@AuthenticationPrincipal MemberVO memberVO, CartVO cartVO, Model model) throws Exception {
+		int result = cartService.setDirectPayment(memberVO); //cart_state 변경해주기
+		result = cartService.setPaymentCart(cartVO, memberVO);
+		
+		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
+		
+		List<CartProductVO> ar = cartService.getDirectPayment(memberVO); //상품List
+		List<CouponVO> coupon = couponService.getCouponList(memberVO); //modal - 쿠폰적용
+		List<AddressVO> ar2 = addressService.getAddressList(memberVO); //modal _ 배송지관리
+		AddressVO addressVO = addressService.getAddressLatest(memberVO); //최근배송지
+		AddressVO addressVO2 = addressService.getDefaultAddress(memberVO); //기본배송지
+		AddressVO addressVO3 = addressService.getJoinAddress(memberVO); //내 정보에 있는 주소
+		
+
+		model.addAttribute("addressJoin", addressVO3);
+		model.addAttribute("addressDefault", addressVO2);
+		model.addAttribute("addressVO", addressVO);
+		model.addAttribute("memberVO", memberService.usernameSelect(memberVO));
+		model.addAttribute("paymentList", ar);
+		model.addAttribute("addressList", ar2);
+		model.addAttribute("coupon", coupon);
+		
+		return "payment/paymentList";
+	}
+	
+	// 결제 완료
 	@RequestMapping("insertPayment")
 	@ResponseBody
-	public Integer setPaymentInsert(CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO) throws Exception {
+	public Integer setPaymentInsert(CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO, CartVO cartVO) throws Exception {
 		
 		addressVO.setMember_id(paymentVO.getMember_id());
 		int result = addressService.setPaymentAddress(addressVO); //배송받을 주소 insert
@@ -78,7 +104,7 @@ public class PaymentController {
 		
 		paymentVO = paymentService.getPaymentOne();
 		
-		result = cartService.setPaymentID(paymentVO); //결제상태 update
+		result = cartService.setPaymentID(paymentVO, cartVO); //결제상태 update
 		result = memberService.setAddBean(memberVO); //결제 후 포인트 적립
 		
 		if(couponVO.getCoupon_id() != 0) {
