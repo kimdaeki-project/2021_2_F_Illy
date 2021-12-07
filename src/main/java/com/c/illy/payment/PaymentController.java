@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,23 +39,20 @@ public class PaymentController {
 	
 	
 	@GetMapping("paymentList")
-	public void getPaymentList(MemberVO memberVO, Model model) throws Exception {
+	public void getPaymentList(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
+		
 		List<CartProductVO> ar = cartService.getCartListCheck(memberVO); //상품List
 		List<CouponVO> coupon = couponService.getCouponList(memberVO); //modal - 쿠폰적용
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO); //modal _ 배송지관리
-		System.out.println(ar2.size());
 		AddressVO addressVO = addressService.getAddressLatest(memberVO); //최근배송지
 		AddressVO addressVO2 = addressService.getDefaultAddress(memberVO); //기본배송지
+		AddressVO addressVO3 = addressService.getJoinAddress(memberVO); //내 정보에 있는 주소
 		
-		memberVO.setMember_name("인주연");
-		memberVO.setMember_phone("010-1998-0912");
-		memberVO.setMember_email("yyy@naver.com");
-		memberVO.setMember_point(100);
-		//나중에 session 받아오기 //주문자정보
-		
+		model.addAttribute("addressJoin", addressVO3);
 		model.addAttribute("addressDefault", addressVO2);
 		model.addAttribute("addressVO", addressVO);
-		model.addAttribute("memberVO", memberVO);
+		model.addAttribute("memberVO", memberService.usernameSelect(memberVO));
 		model.addAttribute("paymentList", ar);
 		model.addAttribute("addressList", ar2);
 		model.addAttribute("coupon", coupon);
@@ -64,7 +62,6 @@ public class PaymentController {
 	@ResponseBody
 	public Integer setPaymentInsert(CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO) throws Exception {
 		
-		System.out.println(addressVO.getMember_id());
 		addressVO.setMember_id(paymentVO.getMember_id());
 		int result = addressService.setPaymentAddress(addressVO); //배송받을 주소 insert
 		
@@ -75,7 +72,6 @@ public class PaymentController {
 		paymentVO = paymentService.getPaymentOne();
 		
 		result = cartService.setPaymentID(paymentVO); //결제상태 update
-		
 		result = memberService.setAddBean(memberVO); //결제 후 포인트 적립
 		
 		if(couponVO.getCoupon_id() != 0) {

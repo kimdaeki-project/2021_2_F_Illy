@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/favicon*/**")
 					.antMatchers("/resources/**")
 					.antMatchers("/front/**")
+					.antMatchers("/member/common/**")
 					;
 	}
 	
@@ -47,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		  http
 		  .formLogin()
 		  .loginPage("/member/login")
-		  .defaultSuccessUrl("/member/join")
+		  .defaultSuccessUrl("/")
 		  .failureHandler(loginFail)
 		  .usernameParameter("username") 
 		  .passwordParameter("password") 

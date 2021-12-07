@@ -46,6 +46,9 @@ public class MemberService implements UserDetailsService{
 	public int setAddBean(MemberVO memberVO) throws Exception {
 		return memberRepository.setAddBean(memberVO);
 	}
+	public MemberVO getSelect(MemberVO memberVO) throws Exception {
+		return memberRepository.getSelect(memberVO);
+	}
 
 	public int setInsert(MemberVO memberVO) throws Exception{	
 		System.out.println(memberVO.getPassword());

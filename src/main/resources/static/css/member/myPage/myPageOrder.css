@@ -1,0 +1,39 @@
+@charset "UTF-8";
+a:hover {
+	cursor: pointer;
+}
+
+.order_num_link {
+	color: #329cff;
+    font-weight: bold;
+    border-bottom: 1px solid #329cff;
+}
+
+.btn_order_cancel {
+	display: inline-block;
+	margin-top: 7px;
+}
+
+.btn_order_cancel a {
+	font-size: 11px;
+    background-color: white;
+    display: inline-block;
+    padding: 0 12px 0 11px;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    line-height: 22px;
+}
+
+.btn_order_refund {
+	display: inline-block;
+	margin-top: 7px;
+}
+.btn_order_refund a {
+	font-size: 11px;
+    background-color: white;
+    display: inline-block;
+    padding: 0 12px 0 11px;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    line-height: 22px;
+}

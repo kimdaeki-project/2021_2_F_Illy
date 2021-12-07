@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+}
+
+.myPage_lately_info {
+	position: relative;
+}
+
+.myPage_zone_tit {
+	padding-bottom: 10px;
+}
+.myPage_zone_tit h3 {
+	color: #d12420;
+	display: inline-block;
+    font-size: 16px;
+}
+
+.date_check_box {
+	margin: 0 0 35px 0;
+    padding: 20px 20px 20px 30px;
+    border: 3px solid #eeeeee;
+}
+
+.date_check_box h3 {
+	float:left; 
+	padding:6px 15px 0 0 ; 
+	color:#777777; 
+	font-size:13px;
+}
+
+.date_check_box .pick_date {
+	float:left; 
+	width:54px; 
+	height:31px; 
+	margin-left:-1px; 
+	color:#777; 
+	font-size:12px; 
+	border:1px solid #d6d6d6;
+	background-color:#fff; 
+}
+.date_check_box .pick_date:hover {
+	background-color:#aeaeae; 
+	color:#fff; 
+}
+
+.date_check_box .clickDay {
+	background-color:#aeaeae; 
+	color:#fff; 
+}
+
+.date_picker {
+	width:154px; 
+	height:31px; 
+	padding:0 10px; 
+	color:#333; 
+	border:1px solid #d6d6d6; 
+	line-height:31px; 
+}
+
+.btn_board_search {
+	width:100px; 
+	height:31px;
+	border:none;
+	padding: 0 20px 0 20px; 
+	font-weight:bold; 
+	font-size:12px; 
+	color: #fff; 
+	border-radius: 21px;
+	background: #d12420;
+	line-height:1.5; 
+	cursor:pointer; 
+	margin-left:10px;  
+}
+.btn_board_search:hover{
+	background:linear-gradient(90deg,#d12420,#d12420,#910d18);
+	border:0;
+	background-size:100%;
+	background-position-x:0;
+	color:#fff;
+}
+.btn_board_search em {
+	padding: 0 20px 0 0;
+	background-image: url(/images/board/btn_goods_search.png);
+	background-position: right 3px; 
+	background-repeat: no-repeat;}
+
+.pick_list_num {
+	display: block;
+    padding: 20px 0 10px 0;
+    font-size: 14px;
+}
+.pick_list_num strong {
+	 color: #ab3e55;
+}
+
+.myPage_type_table table {
+	width: 100%;
+    border: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.myPage_type_table th {
+	padding: 9px 10px 10px 10px;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #dbdbdb;
+    background: #f7f7f7;
+    
+}
+
+.myPage_type_table td {
+	height: 31px;
+    padding: 15px 10px 14px 10px;
+    color: #777777;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.td_left {
+	text-align: left;
+}
+
+.myPage_type_table .row_line td {
+	border-bottom: 1px solid #ebebeb;
+}
+
+.myPage_type_table table td.order_day_num {
+    border-right: 1px dotted #ededed;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.myPage_type_table .pick_add_cont {
+	position: relative;
+	display: table;
+}
+
+.myPage_type_table .pick_add_cont .pick_add_img {
+	display: table-cell;
+    width: 40px;
+    vertical-align: top;
+}
+
+.myPage_type_table .pick_add_cont .pick_add_img img {
+	width: 100%;
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+}
+
+.myPage_type_table .pick_add_cont .pick_add_info {
+	display: table-cell;
+    padding-left: 10px;
+    vertical-align: middle;
+    word-break: break-all;
+}
+
+.myPage_type_table .pick_add_cont .pick_add_info em {
+	display: block;
+    color: #333333;
+    font-weight: bold;
+}
+
+.myPage_type_table td>strong {
+	color: #ab3e55;
+}
+
+.order_day_num {
+	border-right: 1px dotted #ededed;
+}

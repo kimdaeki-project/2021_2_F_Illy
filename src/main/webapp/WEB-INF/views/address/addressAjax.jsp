@@ -18,6 +18,21 @@
 																	</tr>
 																</thead>
 																<tbody>
+																<c:if test="${addressList.size() eq 0}">
+																	<tr>
+																		<td colspan="6">
+																			<div style="width: 100%;
+																						text-align: center;
+																						position: relative;
+																						padding: 50px 30px;
+																						font-size: 12px;
+																						color: #333;">
+																				배송지 내역이 없습니다.
+																			</div>
+																		</td>
+																	</tr>
+																</c:if>
+																<c:if test="${addressList.size() ne 0}">
 																	<c:forEach items="${addressList}" var="al">
 																		<c:if test="${al.address_default eq 1}">
 																			<tr>
@@ -96,6 +111,7 @@
 																			</tr>
 																		</c:if>
 																	</c:forEach>
+																</c:if>
 																</tbody>
 															</table>
 														</div>

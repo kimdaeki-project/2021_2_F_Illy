@@ -21,19 +21,32 @@
 		select * from address
 		where address_id=
 						(select max(address_id) from address)
-	</select> <!-- 결제 시 주소 한 개 가져오기 --> 
+	</select> <!-- 결제 중에 필요한 주소 --> 
+	
+	<select id="getAddressOrder" parameterType="PaymentVO" resultType="AddressVO">
+		select * from address A
+		join payment P
+		on A.address_id=P.address_id
+		where P.payment_id=#{payment_id}
+	</select> <!-- 배송지 정보 주소 가져오기 -->
 	
 	<select id="getAddressLatest" parameterType="MemberVO" resultType="AddressVO">
 		select * from address A
 		join payment P
 		on A.address_id=P.address_id
-		where payment_id=(select max(payment_id) from payment where member_id=#{member_id})
-	</select> <!-- 최근 배송지 주소 가져오기 -->
+		where P.payment_id=(select max(payment_id) from payment where member_id=#{member_id})
+	</select> <!-- 결제완료한 주소 중 최근 배송지 주소 가져오기 -->
 	
 	<select id="getDefaultAddress" parameterType="MemberVO" resultType="AddressVO">
 		select * from address
 			where address_default=1 and member_id=#{member_id}
 	</select> <!-- 기본배송지 가져오기 -->
+	
+	<select id="getJoinAddress" parameterType="MemberVO" resultType="AddressVO">
+		select * from address
+			where address_id=(select min(address_id) from address
+								where member_id=#{member_id})
+	</select> <!-- 가입 시 내 정보에 들어가는 주소 -->
 	
 	<update id="setMyAddressDelete" parameterType="AddressVO">
 		update address set address_myAddress='no' 
@@ -51,20 +64,23 @@
 		update address set address_default=0
 			where address_default=1 and member_id=#{member_id}
 	</update> <!-- 기본배송지 변경하기 -->
+	
+<!-- ijy end -->
 
 	<insert id="setAddress" parameterType="AddressVO">
 		INSERT INTO
-		address(address_recipient_name, address_recipient_phone, address,
-		address_default, main_address, address_reference, address_detail, address_postcode, member_id) VALUES (
+		address(address_name, address_recipient_name, address_recipient_phone, address,
+		address_default, main_address, address_reference, address_detail, address_postcode, member_id, address_myAddress) VALUES (
+		#{address_recipient_name},
 		#{address_recipient_name},
 		#{address_recipient_phone},
 		#{address},
-		1,
+		0,
 		#{main_address},
 		#{address_reference},
 		#{address_detail},
 		#{address_postcode},
-		(select member_id from member where username=#{username})
-		);
+		(select member_id from member where username=#{username}),
+		'no');
 	</insert>
 </mapper>

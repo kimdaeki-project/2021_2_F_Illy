@@ -52,7 +52,7 @@
 							<span class="essential">휴대폰 번호</span>
 						</th>
 						<td>
-							<input type="text" name="address_recipient_phone" id="address_recipient_phone">
+							<input type="text" name="address_recipient_phone" id="address_recipient_phone" placeholder="EX) 010-1234-5678">
 						</td>
 					</tr>
 				</tbody>
@@ -186,7 +186,8 @@ $('#ajaxDefaultAddress').click(function(){
 
 
 $('.delivery_a_add').click(function(){
-	/* document.myAddressInsert.submit(); */
+	let patternPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;  //핸드폰 번호 올바른 패턴 확인하기
+	
 	let address_name=$('#address_name').val();
 	let address_recipient_name=$('#address_recipient_name').val();
 	let address_recipient_phone=$('#address_recipient_phone').val();
@@ -198,57 +199,72 @@ $('.delivery_a_add').click(function(){
 	let address_myAddress=$('#address_myAddress').val();
 	let member_id=$('#member_id').val();
 	
-	
-	if($('#ajaxDefaultAddress').next().hasClass('on') == true){
-		//기본배송지 변경O
-	  	$.ajax({
-			type:"POST",
-			url:"../address/myDefaultAddressInsert",
-			data: {
-				address_name:$('#address_name').val(),
-				address_recipient_name:$('#address_recipient_name').val(),
-				address_postcode:$('#sample66_postcode').val(),
-				main_address:$('#main_address').val(),
-				address_reference:$('#address_reference').val(),
-				address_detail:$('#sample66_detailAddress').val(),
-				address_default:$('#address_default').val(),
-				address_myAddress:$('#address_myAddress').val(),
-				address_recipient_phone:$('#address_recipient_phone').val(),
-				member_id:$('#member_id').val()
-			},
-			success: function(result){
-				result=result.trim();
-				$('.delivery_modal_cont').html(result);
-			},
-			error:function(xhr, status, error){
-				console.log('error');
-			}
-		});
+	if($('#address_name').val() == ''){
+		alert('배송지 이름을 입력하세요.');
+		$('#address_name').focus();
+	}else if($('#address_recipient_name').val() == '') {
+		alert('받으실 분 이름을 입력하세요.');
+		$('#address_recipient_name').focus();
+	}else if($('#sample66_postcode').val() == '') {
+		alert('우편번호를 입력하세요.');
+	}else if($('#address_recipient_phone').val() == '') {
+		alert('휴대폰번호를 입력하세요.');
+		$('#address_recipient_phone').focus();
+	}else if (!patternPhone.test($('#address_recipient_phone').val())) {
+		alert('휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
+		$('#address_recipient_phone').focus();
 	}else {
-		//기본배송지 변경X
- 	  	$.ajax({
-			type:"POST",
-			url:"../address/myAddressInsert",
-			data: {
-				address_name:$('#address_name').val(),
-				address_recipient_name:$('#address_recipient_name').val(),
-				address_postcode:$('#sample66_postcode').val(),
-				main_address:$('#main_address').val(),
-				address_reference:$('#address_reference').val(),
-				address_detail:$('#sample66_detailAddress').val(),
-				address_default:$('#address_default').val(),
-				address_myAddress:$('#address_myAddress').val(),
-				address_recipient_phone:$('#address_recipient_phone').val(),
-				member_id:$('#member_id').val()
-			},
-			success: function(result){
-				result=result.trim();
-				$('.delivery_modal_cont').html(result);
-			},
-			error:function(xhr, status, error){
-				console.log('error');
-			}
-		});
+		if($('#ajaxDefaultAddress').next().hasClass('on') == true){
+			//기본배송지 변경O
+		  	$.ajax({
+				type:"POST",
+				url:"../address/myDefaultAddressInsert",
+				data: {
+					address_name:$('#address_name').val(),
+					address_recipient_name:$('#address_recipient_name').val(),
+					address_postcode:$('#sample66_postcode').val(),
+					main_address:$('#main_address').val(),
+					address_reference:$('#address_reference').val(),
+					address_detail:$('#sample66_detailAddress').val(),
+					address_default:$('#address_default').val(),
+					address_myAddress:$('#address_myAddress').val(),
+					address_recipient_phone:$('#address_recipient_phone').val(),
+					member_id:$('#member_id').val()
+				},
+				success: function(result){
+					result=result.trim();
+					$('.delivery_modal_cont').html(result);
+				},
+				error:function(xhr, status, error){
+					console.log('error');
+				}
+			});
+		}else {
+			//기본배송지 변경X
+	 	  	$.ajax({
+				type:"POST",
+				url:"../address/myAddressInsert",
+				data: {
+					address_name:$('#address_name').val(),
+					address_recipient_name:$('#address_recipient_name').val(),
+					address_postcode:$('#sample66_postcode').val(),
+					main_address:$('#main_address').val(),
+					address_reference:$('#address_reference').val(),
+					address_detail:$('#sample66_detailAddress').val(),
+					address_default:$('#address_default').val(),
+					address_myAddress:$('#address_myAddress').val(),
+					address_recipient_phone:$('#address_recipient_phone').val(),
+					member_id:$('#member_id').val()
+				},
+				success: function(result){
+					result=result.trim();
+					$('.delivery_modal_cont').html(result);
+				},
+				error:function(xhr, status, error){
+					console.log('error');
+				}
+			});
+		}
 	}
 
 });

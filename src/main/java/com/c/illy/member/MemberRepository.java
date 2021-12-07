@@ -13,7 +13,11 @@ public interface MemberRepository {
 
 	public int setInsert(MemberVO memberVO);
 	
+	/* ijy */
 	public int setAddBean(MemberVO memberVO) throws Exception;
+	
+	public MemberVO getSelect(MemberVO memberVO) throws Exception;
+	/* ijy */
 	
 	public MemberVO usernameSelect(MemberVO memberVO);
 	

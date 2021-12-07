@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.c.illy.member.MemberVO;
+import com.c.illy.payment.PaymentVO;
 
 @Service
 public class AddressService {
@@ -40,6 +41,14 @@ public class AddressService {
 	
 	public AddressVO getDefaultAddress(MemberVO memberVO) throws Exception {
 		return addressRepository.getDefaultAddress(memberVO);
+	}
+	
+	public AddressVO getJoinAddress(MemberVO memberVO) throws Exception {
+		return addressRepository.getJoinAddress(memberVO);
+	}
+	
+	public AddressVO getAddressOrder(PaymentVO paymentVO) throws Exception {
+		return addressRepository.getAddressOrder(paymentVO);
 	}
 	
 	public List<AddressVO> getAddressList(MemberVO memberVO) throws Exception {

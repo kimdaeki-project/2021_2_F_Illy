@@ -62,6 +62,10 @@
 						</div> <!-- end_cont_tit end -->
 						<div class="end_cont_table">
 							<table class="table_left">
+								<colgroup>
+									<col style="width:15%">
+ 									<col style="width:85%">
+ 								</colgroup>
 								<tbody>
 									<tr>
 										<th>결제수단</th>

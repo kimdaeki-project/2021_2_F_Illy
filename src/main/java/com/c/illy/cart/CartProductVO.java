@@ -12,7 +12,8 @@ public class CartProductVO {
 	
 	private Integer cart_id;
 	private Integer member_id;
-	private String product_id;
+	private Integer product_id;
+	private Integer payment_id;
 	private Integer cart_cnt;
 	private String cart_state;
 	private String product_name;

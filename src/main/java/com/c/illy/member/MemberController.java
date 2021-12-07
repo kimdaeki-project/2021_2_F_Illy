@@ -1,10 +1,13 @@
 package com.c.illy.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.c.illy.address.AddressRepository;
 import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
+import com.c.illy.cart.CartService;
+import com.c.illy.cart.CartVO;
+import com.c.illy.coupon.CouponService;
+import com.c.illy.coupon.CouponVO;
+import com.c.illy.payment.PaymentVO;
+import com.c.illy.util.Pager;
 
 @Controller
 @RequestMapping("member/**")
@@ -27,6 +36,11 @@ public class MemberController {
 
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired
+	private CartService cartService;
+	@Autowired
+	private CouponService couponService;
 	
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
@@ -100,6 +114,12 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@PostMapping("login")
+	public String login(HttpServletRequest httpServletRequest) {
+		System.out.println(httpServletRequest.getAttribute("loginFailMsg"));
+		return "member/login";
+	}
+	
 	@GetMapping("findId")
 	public String findId() {
 		return "member/find_id";
@@ -116,4 +136,143 @@ public class MemberController {
 		mv.setViewName("member/common/Find_id");
 		return mv;
 	}
+	
+// ----------------------------------------------------- ijy ----------------------------------------------------	
+	
+	/* my page - 주문목록/배송조회 */
+	@GetMapping("myPage/myPageOrder")
+	public String getMyPageOrder(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		
+		model.addAttribute("member", memberVO);
+		return "member/myPageOrder/myPageOrder";
+	}
+	@GetMapping("myPage/myPageOrderPager")
+	public String getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
+		
+		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+	
+			
+		PaymentVO paymentVO2 = new PaymentVO();
+			
+		for(Integer i=0;i<list.size();i++) {
+			paymentVO2.setPayment_id(list.get(i).getPayment_id());
+			cartService.setPaymentDelivery(paymentVO2); //배송중으로 변경
+			cartService.setPaymentDone(paymentVO2); //배송완료로 변경
+		}
+			
+		list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		  
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("pager", pager);
+		return "member/myPageOrder/myPageOrderAjax";
+	}
+	
+	
+	/* my page - 주문목록/배송조회 : 상세페이지 */
+	@GetMapping("myPage/myPageOrderDetail")
+	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model) throws Exception {
+		paymentVO = cartService.getMyPageOrderDetail(paymentVO);
+		AddressVO addressDefault = addressService.getJoinAddress(memberVO);
+		AddressVO addressOrder = addressService.getAddressOrder(paymentVO);
+		
+		model.addAttribute("list", paymentVO);
+		model.addAttribute("addressDefault", addressDefault); //주문자 정보 배송지 가져오기
+		model.addAttribute("addressOrder", addressOrder); //배송지 정보 배송지 가져오기
+		
+		return "member/myPageOrder/myPageOrderDetail";
+	}
+	
+	/* my page - 취소/반품/교환 내역 */
+	@GetMapping("myPage/myPageCancel")
+	public String getMyPageCancel(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		
+		model.addAttribute("member", memberVO);
+		return "member/myPageOrder/myPageCancel";
+	}
+	
+	/* my page - 취소/반품 처리 현황 tab */
+	@GetMapping("myPage/myPageCancelPager")
+	public String getMyPageCancelPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
+		
+		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		  
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("pager", pager);
+		return "member/myPageOrder/myPageCancelAjax";
+	}
+	/* my page - 취소/반품 신청 내역 tab */
+	@GetMapping("myPage/myPageCancelNone")
+	public String getMyPageCancelNone() throws Exception {
+		return "member/myPageOrder/myPageCancelNone";
+	}
+	
+	
+	/* my page - 환불/입금 내역 */
+	@GetMapping("myPage/myPageRefund")
+	public String getMyPageRefund(@AuthenticationPrincipal MemberVO memberVO, Model model) {
+		
+		model.addAttribute("member", memberVO);
+		return "member/myPageOrder/myPageRefund";
+	}
+	
+	/* my page - 환불 처리 현황 tab */
+	@GetMapping("myPage/myPageRefundPager")
+	public String getMyPageRefundPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
+		
+		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		  
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("pager", pager);
+		return "member/myPageOrder/myPageRefundAjax";
+	}
+	
+	/* my page - 환불/입금 신청 내역 tab */
+	@GetMapping("myPage/myPageRefundNone")
+	public String getMyPageRefundNone() throws Exception {
+		return "member/myPageOrder/myPageRefundNone";
+	}
+	
+	
+	/* my page - 쿠폰 */
+	@GetMapping("myPage/myPageCoupon")
+	public String getMyPageCoupon(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		couponService.setDeadlineState(); //쿠폰 사용기간 만료 update
+		memberVO = memberService.getSelect(memberVO);
+
+		model.addAttribute("couponSize", couponService.getCouponList(memberVO).size());
+		model.addAttribute("member", memberVO);
+		return "member/myPageCoupon/myPageCoupon";
+	}
+	
+	/* my page - 쿠폰 사용가능 tab */
+	@GetMapping("myPage/myPageCouponPager")
+	public String getMyPageCouponPager(Pager pager, CouponVO couponVO, Model model) throws Exception {
+		
+		List<CouponVO> list = couponService.getCouponPager(pager, couponVO);
+		  
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", couponService.getCouponCount(couponVO));
+		model.addAttribute("pager", pager);
+		return "member/myPageCoupon/myPageCouponAjax";
+	}
+	/* my page - 쿠폰 사용불가 tab */
+	@GetMapping("myPage/myPageCouponNone")
+	public String getMyPageCouponNone(Pager pager, CouponVO couponVO, Model model) throws Exception {
+		
+		List<CouponVO> list = couponService.getCouponPager(pager, couponVO);
+		  
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", couponService.getCouponCount(couponVO));
+		model.addAttribute("pager", pager);
+		return "member/myPageCoupon/myPageCouponNone";
+	}
+// ----------------------------------------------------- ijy end ------------------------------------------------	
 }

@@ -303,6 +303,46 @@
 	padding: 60px 0;
     margin: 0 0 20px 0;
     text-align: center;
-    border-bottom: 1px solid #dbdbdb;
     color: #444;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.product_name_file {
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.product_name_file .product_name_file_fileAdd {
+	display: table-cell;
+    width: 38px;
+    padding: 0 10px 0 0;
+    vertical-align: top;
+}
+
+.product_name_file_fileAdd img {
+	width: 42px;
+	height: 42px;
+	border: 1px solid #dbdbdb;
+    vertical-align: middle;
+}
+a:hover {
+	cursor: pointer;
+}
+.product_name_file_nameAdd {
+	display: table-cell;
+    padding: 0;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-all;
+    min-width: 250px;
+}
+
+.naver_pay_box {
+	display: block;
+    float: left;
+    width: 100%;
+    margin: 10px 0 10px 0;
+    text-align: right;
 }
