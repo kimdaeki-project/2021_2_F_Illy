@@ -45,10 +45,12 @@ public class NoticeController {
 	//Faq 리스트 불러오기 
 	@GetMapping("faqList")
 	public ModelAndView getFaqList(Pager pager,ModelAndView mv)throws Exception{
-		List<FaqVO> ar = faqService.getFaqList(pager);
-		mv.setViewName("board/faqList");
-		mv.addObject("FList", ar);
-		mv.addObject("pager", pager);
+		/*
+		 * List<FaqVO> ar = faqService.getFaqList(pager);
+		 * mv.setViewName("board/faqList"); mv.addObject("FList", ar);
+		 * mv.addObject("pager", pager);
+		 */
+		 mv.setViewName("board/faqList");
 		return mv;
 	}
 	
@@ -57,17 +59,11 @@ public class NoticeController {
 	public ModelAndView getFaqTypeList(Pager pager,ModelAndView mv)throws Exception{
 		List<FaqVO> ar = faqService.getFaqList(pager); 
 		mv.addObject("FList", ar);
+		mv.addObject("pager", pager);
 		mv.setViewName("board/faqTypeList");
 		return mv;
 	}
 	
-	@GetMapping("faqTypePager")
-	public ModelAndView getFaqTypePager(Pager pager,ModelAndView mv)throws Exception{
-		List<FaqVO> ar = faqService.getFaqList(pager); 
-		mv.addObject("pager", pager);
-		mv.setViewName("board/pager");
-		return mv;
-	}
 	
 	
 	

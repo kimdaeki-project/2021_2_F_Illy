@@ -17,7 +17,7 @@ import com.c.illy.member.MemberVO;
 
 @Controller
 public class HomeController {
-	
+
 	@GetMapping("/")
 	public String home(Model model, @AuthenticationPrincipal MemberVO memberVO) {
 
@@ -25,18 +25,6 @@ public class HomeController {
 		
 		return "index";
 	}
-	/*
-	 * @GetMapping("/") public String home(Model model, HttpSession session) {
-	 * Enumeration<String> en = session.getAttributeNames(); while
-	 * (en.hasMoreElements()) { String string = (String) en.nextElement(); } Object
-	 * object = session.getAttribute("SPRING_SECURITY_CONTEXT");
-	 * 
-	 * SecurityContextImpl sc =(SecurityContextImpl)object; Authentication
-	 * authentication = sc.getAuthentication(); model.addAttribute("member",
-	 * (MemberVO)authentication.getPrincipal());
-	 * 
-	 * return "index"; }
-	 */
 
 	// -------------------------------------------------sideBar create cookie 
 	@GetMapping("/sideBar")

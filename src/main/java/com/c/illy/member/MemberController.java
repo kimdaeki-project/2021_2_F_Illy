@@ -14,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +28,8 @@ import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.payment.PaymentVO;
+import com.c.illy.qna.QnaService;
+import com.c.illy.qna.QnaVO;
 import com.c.illy.util.Pager;
 
 @Controller
@@ -42,6 +46,10 @@ public class MemberController {
 	@Autowired
 	private CouponService couponService;
 
+	//--다영 
+	@Autowired
+	private QnaService qnaService; 
+	
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
 		ModelAndView mv = new ModelAndView();
@@ -85,20 +93,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// ----------------------------------------------------------------------------myPage_다영
-	// 추가
-	@GetMapping("myPage")
-	public String getmyPage() throws Exception {
-		return "member/myPage";
-	}
-
-	// --1:1 문의 페이지
-	@GetMapping("qnaList")
-	public ModelAndView getQnaList(ModelAndView mv) throws Exception {
-		mv.setViewName("board/qnaList");
-		return mv;
-	}
-
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
 	public ModelAndView checkId(HttpServletRequest request) {
@@ -121,7 +115,6 @@ public class MemberController {
 
 		return "member/login";
 	}
-
 	@GetMapping("findId")
 	public String findId() {
 		return "member/find_id";
@@ -147,7 +140,7 @@ public class MemberController {
 		mv.setViewName("member/common/Find_id");
 		return mv;
 	}
-	
+
 	@GetMapping("findPw")
 	public ModelAndView findPw() {
 		ModelAndView mv = new ModelAndView();
@@ -307,4 +300,66 @@ public class MemberController {
 		return "member/myPageCoupon/myPageCouponNone";
 	}
 // ----------------------------------------------------- ijy end ------------------------------------------------
+
+	
+
+	//----------------------------------------------------------------------------myPage_다영 추가 start
+	@GetMapping("myPage")
+	public String getmyPage()throws Exception{
+		return"member/myPage";
+	}
+	
+	//--1:1 문의 페이지
+	@GetMapping("qnaList")
+	public String getQnaList(ModelAndView mv)throws Exception{
+		System.out.println("저길 오나");
+		return "board/qnaList"; 
+	}
+	
+	//--1:1 문의 ajax
+	@GetMapping("qnaListDate")
+	public ModelAndView getQnaListDate(ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		System.out.println("여길 오나");
+		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
+		System.out.println(ar.size());
+		mv.setViewName("board/qnaListajax");
+		mv.addObject("QList", ar);
+		mv.addObject("pager", pager);
+		return mv; 
+	}
+	
+	//1:1문의 작성하기 
+	@GetMapping("addQna")
+	public String addQna()throws Exception{
+		return "board/addQna";
+	}
+	
+	@PostMapping("addQnaList")
+	public void setAddQna()throws Exception{
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    com.c.illy.util.VerifyRecaptcha.setSecretKey("시크릿 코드");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    try {
+	       if(com.c.illy.util.VerifyRecaptcha.verify(gRecaptchaResponse))
+	          return 0; // 성공
+	       else return 1; // 실패
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1; //에러
+	    }
+	}
+	
+	
+	
+	//----------------------------------------------------------------------------myPage_다영 추가 end
+	
+	
+	
+	
 }

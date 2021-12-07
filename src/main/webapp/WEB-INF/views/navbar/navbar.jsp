@@ -64,7 +64,7 @@
 				</div>
 				<div class="memberWrap">
 					<img class="userImg" alt="" src="/images/gnb/new-user.png">
-					<img class="cartImg" alt="" src="/images/gnb/new-cart.png">
+					<a href="/cart/normalBasket"><img class="cartImg" alt="" src="/images/gnb/new-cart.png"></a>
 				</div>
 			</div>
 			

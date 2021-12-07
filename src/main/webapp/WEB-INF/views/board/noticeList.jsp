@@ -24,6 +24,9 @@
 		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
+		.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
+		#addNotice{float:right; margin:-30px 0 10px; }
+		#addNotice a{padding:7px 7px; font-size:12px; background-color:#979797; border:none; color:#fff; cursor:pointer;  }
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>일리카페 코리아</title>
@@ -43,6 +46,13 @@
 					<div class="board_zone_tit">
 						<h2>공지사항</h2>
 					</div>
+					
+					<!-- 관리자만 보이는 버튼  -->
+					<div id="addNotice">
+						<a href="#">공지사항 추가하기</a>			
+					</div>
+					<!-- 관리자만 보이는 버튼  -->
+					
 					<div class="board_zone_cont">
 						<table class="board_list_table" style="width:100%;">
 							<colgroup> <!-- table 간격 기본설정 -->
@@ -71,7 +81,8 @@
 									<td scope="row">${noticeVO.notice_hits}</td>
 								</tr>
 								</c:forEach>
-							</tbody>	
+							</tbody>
+								
 							<tbody>
 								<c:forEach items="${List}" var="noticeVO">		
 								<tr>													
@@ -91,15 +102,20 @@
 								</c:forEach>
 							</tbody>
 						</table>
-			
-			
+							<c:if test="${empty List}">
+								<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
+							</c:if>
+						
+						
 						<div class="pagination">
 							<c:if test="${pager.curBlock>1}">
 								<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>
 								<button type="button" data-list-pn="${pager.startNum-1}" style="margin-right:10px;" class="btnPage pageBtn">&#9001; 이전</button>
 							</c:if>
 							<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-								<span class="pageNum pageBtn" data-list-pn="${i}">${i}</span>
+								<c:if test="${pager.startNum ne null}">
+									<span class="pageNum pageBtn" data-list-pn="${i}">${i}</span>
+								</c:if>
 							</c:forEach>
 							<c:if test="${!pager.lastCheck}">
 								<button type="button" data-list-pn="${pager.lastNum+1}" style="margin-left:10px;" class="btnPage pageBtn">다음 &#9002;</button>
@@ -155,11 +171,14 @@
 			 }
 		});
 		 
+		
+		
 		//-------원하는 페이지 버튼을 눌렀을때 실행되는 함수들 
 		$(".pageBtn").click(function(){
 			const num=$(this).attr("data-list-pn");
 			$("#pn").val(num);
 			$("#search").val(search);
+			console.log(search);
 			$("#kind").val(kind);
 			$("#frmList").submit();	
 		});

@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/common.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px;}
 		.board_zone_tit h2{font-size:24px; color:#333333;padding-bottom:10px; margin-bottom:10px;   }
@@ -23,11 +25,17 @@
 		.board_list_table{width:100%;margin:0 0 20px 0;border:0;border-spacing:0;border-collapse:collapse;border-top:0.5px solid #999999;text-align:center;}
 		.board_list_table th{padding:10px 10px 10px 14px; font-size:12px; border-bottom:1px solid #dbdbdb; background:#fbfbfb;}
 		.board_list_table td{padding:13px 10px 15px 10px; border-bottom:1px solid #dbdbdb; }
-		
+		.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
+		.pagination .btnPage{min-width:26px; background-color:#fff;border:1px solid #e0e0e0;cursor:pointer;color:#888; font-size:11px; padding: 6px 4px 10px 4px; }
+		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
+		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
+		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 	</style>
 	
 
 <title>일리카페 코리아</title>
+
+
 </head>
 <body>
 	<div id="wrapper">
@@ -43,79 +51,52 @@
 					</div>
 					<div class="board_zone_cont">
 						<div class="board_zone_list">
-								<button type="button" class="write_qna"><strong>1:1 문의하기</strong></button>
+								<button type="button" onclick="location.href='addQna'"class="write_qna"><strong>1:1 문의하기</strong></button>
 							<div class="search_box">
 								<h3>조회기간</h3>
-								<button type="button" class="pick_date">오늘</button>
-								<button type="button" class="pick_date">7일</button>
-								<button type="button" class="pick_date">15일</button>
-								<button type="button" class="pick_date">1개월</button>
-								<button type="button" class="pick_date">3개월</button>
-								<button type="button"style="margin-right:10px; " class="pick_date">1년</button>
-								<input type="text" class="date_picker">
+								<form action="./qnaList" method="get" id="qFrm">
+									<!-- <input type="hidden" name="start_date" value="" id="start_date">
+									<input type="hidden" name="end_date" value="" id="end_date"> -->
+								</form>
+								<button type="button" class="pick_date" data-term="1">오늘</button>
+								<button type="button" class="pick_date" data-term="2">7일</button>
+								<button type="button" class="pick_date" data-term="3">15일</button>
+								<button type="button" class="pick_date"data-term="4">1개월</button>
+								<button type="button" class="pick_date" data-term="5">3개월</button>
+								<button type="button"style="margin-right:10px;" class="pick_date" data-term="6">1년</button>
+								<input type="date" name="start_date" id="start_date" class="date_picker start" value="">
 								<span>~</span>
-								<input type="text" class="date_picker">
+								<input type="date" name="end_date" id="end_date" class="date_picker end" value="">
 								<button type="button" class="btn_board_search">조회<em></em></button>
 							</div>
-							<div class="list_zone">
-								<table class="board_list_table" style="width:100%;">
-							<colgroup> <!-- table 간격 기본설정 -->
-								<col width="10%">
-								<col width="15%">
-								<col>
-								<col width="10%">						
-							</colgroup>
-							<thead>
-								<tr>
-									<th>문의날짜</th><th>카테고리</th><th>제목</th><th>문의상태</th>
-								</tr>
-							</thead>
-							
-							<tbody>			
-								<%-- <c:choose>
-									<c:when test="${QList not empty}">
-										<c:forEach items="${QList}" var="qnaVO">
-											<tr class="toggle_faq">
-												<td>${qnaVO.qna_regDate}</td>
-												<td>${qnaVO.qna_type}</td>
-												<td class="board_tit">
-													<a href="#">
-														<span>
-															<strong class="btnView">${qnaVO.qna_title}</strong>
-														</span>
-													</a>
-												</td>
-												<td>${qnaVO.qna_state}</td>
+							<div class="list_zone" id="empty">
+								
+								<c:if test="${empty QList}">
+								 	<table class="board_list_table" style="width:100%;">
+										<colgroup> <!-- table 간격 기본설정 -->
+											<col width="10%">
+											<col width="15%">
+											<col>
+											<col width="10%">						
+										</colgroup>
+										<thead>
+											<tr>
+												<th>문의날짜</th><th>카테고리</th><th>제목</th><th>문의상태</th>
 											</tr>
-										</c:forEach>
-									</c:when>
-									<c:otherwise> --%>
-										<tr class="toggle_faq">
-											<span>비어있습니다</span>	
-										</tr>
-								<%-- 	</c:otherwise>
-								</c:choose>  --%>
-							</tbody>
-						</table>
-			
-			
+										</thead>
+										<tbody></tbody>
+									</table>	
+									<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
+								</c:if>		
+					
 							</div>
+						
+						
 						
 						</div>
 			
-			
-			
-			
-			
-					
-				
-				
-				
 				
 					</div>
-				
-				
-				
 				
 				</div>
 				<!--right_content END-->
@@ -123,5 +104,16 @@
 		</div>
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
 	</div>
+
+
+
+	<script type="text/javascript" src="/js/qnaList.js"></script>
+
+
+
+
+
 </body>
 </html>
+
+
