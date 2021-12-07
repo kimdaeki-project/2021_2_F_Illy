@@ -14,11 +14,19 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("list")
-	public String list(Model model, String cateCd) throws Exception {
-		model.addAttribute("listAllProduct", productService.getListProduct(cateCd));
-		model.addAttribute("categoryCnt", productService.getCategoryCnt(cateCd));
-		model.addAttribute("cateCd", cateCd);
+	public String list(Model model, ProductVO productVO) throws Exception {
+		model.addAttribute("listAllProduct", productService.getListProduct(productVO));
+		model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
+		model.addAttribute("cateCd", productVO);
 		return "/product/list";
+	}
+	
+	@GetMapping("select")
+	public String select(Model model, ProductVO productVO) throws Exception {
+		model.addAttribute("listAllProduct", productService.getListProduct(productVO));
+		model.addAttribute("productVO", productService.getSelectProductOne(productVO));
+		model.addAttribute("productFileVOList", productService.getSelectProductFileList(productVO));
+		return "/product/select";
 	}
 
 }

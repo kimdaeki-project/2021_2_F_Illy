@@ -3,7 +3,7 @@
 h2 { font-size: 28px; color: #222; width: 100%; padding-bottom: 20px; border-bottom: 1px solid #dbdbdb; }
 h3 { font-size: 18px; color: #d12420; font-weight: normal; padding: 70px 0 17px; }
 
-.formWrap { width: 977px; margin: auto; }
+.formWrap { width: 1024px; margin: auto; }
 table { width: 100%; border-top: 1px solid #999; border-spacing: 0; font-size: 12px; color: #333; }
 th { text-align: left; padding: 10px 25px; border-bottom: 1px solid #dcdcdc; background: #fbfbfb;}
 td {  padding: 15px; border-bottom: 1px solid #dcdcdc; }
@@ -42,6 +42,7 @@ input:read-only { color: #999; background: #f7f7f7; }
 .deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
 
 .summernote { width: 100%; }
+.note-editable { padding: 5px !important; }
 
 .insertBtn { display: block; margin: 35px auto; }
 

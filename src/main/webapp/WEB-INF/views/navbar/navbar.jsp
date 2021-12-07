@@ -49,8 +49,8 @@
 			<div class="menuWrap">
 				<ul>
 					<li><a href="/product/list">ALL PRODUCT</a></li>
-					<li><a href="/product/list?cateCd=001">COFFEE</a></li>
-					<li><a href="/product/list?cateCd=002">MACHINES</a></li>
+					<li><a href="/product/list?product_categoryCode=001">COFFEE</a></li>
+					<li><a href="/product/list?product_categoryCode=002">MACHINES</a></li>
 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li>
 					<li><a href="javascript:;">ACCESSORIES</a></li>
 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li>

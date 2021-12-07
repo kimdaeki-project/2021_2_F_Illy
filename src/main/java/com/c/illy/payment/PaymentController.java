@@ -1,5 +1,7 @@
 package com.c.illy.payment;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +23,8 @@ import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.member.MemberService;
 import com.c.illy.member.MemberVO;
+import com.c.illy.product.ProductService;
+import com.c.illy.product.ProductVO;
 
 @Controller
 @RequestMapping("/payment/**")
@@ -35,6 +40,8 @@ public class PaymentController {
 	private CouponService couponService;
 	@Autowired
 	private AddressService addressService;
+	@Autowired
+	private ProductService productService;
 	
 	
 	@GetMapping("paymentList")
@@ -95,5 +102,17 @@ public class PaymentController {
 		model.addAttribute("cartList", ar);
 		model.addAttribute("addressVO", addressService.getAddressOne());
 		model.addAttribute("paymentVO", paymentService.getPaymentOne());
+	}
+	
+	@GetMapping("naverpay")
+	public void naverpayPopup(Model model, ProductVO productVO, Integer cnt) throws Exception {
+		model.addAttribute("productVO", productService.getSelectProductOne(productVO));
+		model.addAttribute("cnt", cnt);
+	}
+	@GetMapping("naverpayResultTest")
+	public void naverpayResultTest(String paymentId) throws Exception {
+		HttpURLConnection httpURLConnection = null;
+//		URL url = "https://dev.apis.naver.com/naverpay-partner/naverpay/payments/v2/apply/payment";
+		System.out.println(paymentId);
 	}
 }

@@ -45,11 +45,17 @@ public class ProductService {
 		return 0;
 	};
 
-	public List<ProductVO> getListProduct(String cateCd) throws Exception {
-		return productRepository.getListProduct(cateCd);
+	public List<ProductVO> getListProduct(ProductVO productVO) throws Exception {
+		return productRepository.getListProduct(productVO);
 	}
-	public List<CategoryCntVO> getCategoryCnt(String cateCd) throws Exception {
-		return productRepository.getCategoryCnt(cateCd);
+	public List<CategoryCntVO> getCategoryCnt(ProductVO productVO) throws Exception {
+		return productRepository.getCategoryCnt(productVO);
+	}
+	public ProductVO getSelectProductOne(ProductVO productVO) throws Exception {
+		return productRepository.getSelectProductOne(productVO);		
+	}
+	public List<ProductFileVO> getSelectProductFileList(ProductVO productVO) throws Exception {
+		return productRepository.getSelectProductFileList(productVO);
 	}
 
 }

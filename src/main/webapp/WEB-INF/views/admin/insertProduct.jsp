@@ -507,7 +507,6 @@
 	
 /* ===== 상품사진 START ===== */ 
  	
-	/* 파일선택 */
 	$('.inputFileWrap').on('change', '.inputFile', function(){
 		let multipartFiles = $('input[name=multipartFiles]');
 		let imgBoxWrap = $('.imgBoxWrap');
@@ -518,10 +517,8 @@
 		this.files = dataTransfer.files; //files 초기화
 		
 		printMultipartFiles(); //테스트용 함수
-	});
-	/* //파일선택 */
+	}); /********** 파일선택 **********/
 	
-	/* 파일 삭제버튼 */
 	$('.inputFileWrap').on('click', '.deleteFileBtn', function(){
 		let multipartFiles = $('input[name=multipartFiles]');
 		
@@ -531,22 +528,20 @@
 		setImgIndex(imgBox) //inputFileWrap.js
 		
 		printMultipartFiles(); //테스트용 함수
-	});
-	/* //파일 삭제버튼 */
+	}); /********** 파일 삭제버튼 **********/
 	
 	$('.inputFileWrap').on('mouseover', '.previewImg', function(){
-		let deleteFileBtn = $(this).siblings('button');		
+		let deleteFileBtn = $(this).siblings('.deleteFileBtn');		
 		deleteFileBtn.css('visibility', 'visible');
 	});
 	$('.inputFileWrap').on('mouseleave', '.previewImg', function(){
-		let deleteFileBtn = $(this).siblings('button');		
+		let deleteFileBtn = $(this).siblings('.deleteFileBtn');		
 		deleteFileBtn.css('visibility', 'hidden');
 	});
 	$('.inputFileWrap').on('mouseover', '.deleteFileBtn', function(){
 		$(this).css('visibility', 'visible');
 	});
 	
-	/* 테스트용 함수 */
 	function printMultipartFiles() {
 		let multipartFiles = $('input[name=multipartFiles]');
 		let files = multipartFiles[0].files;
@@ -556,8 +551,7 @@
 			console.log("[FILE INDEX "+(index++)+"] " + file.name);
 		}
 		console.log("[TOTAL COUNT] " + multipartFiles.data('file_cnt'));
-	}
-	/* 테스트용 함수// */
+	} /********** 테스트용 함수 **********/
 	
 /* ===== 상품사진 END ===== */
 	

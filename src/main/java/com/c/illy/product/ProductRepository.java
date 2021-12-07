@@ -10,7 +10,9 @@ public interface ProductRepository {
 	
 	public int setInsertProduct(ProductVO productVO) throws Exception;
 	public int setInsertProductFile(ProductFileVO productFileVO) throws Exception;
-	public List<ProductVO> getListProduct(String cateCd) throws Exception;
-	public List<CategoryCntVO> getCategoryCnt(String cateCd) throws Exception;
+	public List<ProductVO> getListProduct(ProductVO productVO) throws Exception;
+	public List<CategoryCntVO> getCategoryCnt(ProductVO productVO) throws Exception;
+	public ProductVO getSelectProductOne(ProductVO productVO) throws Exception;
+	public List<ProductFileVO> getSelectProductFileList(ProductVO productVO) throws Exception;
 
 }

@@ -16,8 +16,8 @@
 		    ,#{product_origin}
 		    ,#{product_importer}
 		)
-  	</insert>
-  
+  	</insert>  
+  	
   	<insert id="setInsertProductFile" parameterType="ProductFileVO">
 	  	INSERT INTO productFile
 		VALUES(
@@ -28,12 +28,12 @@
 		)
   	</insert>
   	
-  	<select id="getListProduct" resultMap="listAllProduct" parameterType="String">
-		SELECT product_id, product_name, product_price, productFile_id, productFile_name
+  	<select id="getListProduct" resultMap="listAllProduct" parameterType="ProductVO">
+		SELECT product_id, product_name, product_price, product_categoryCode, productFile_id, productFile_name
 		FROM product
 		    JOIN productFile USING (product_id)
-		<if test="cateCd != null">
-			WHERE product_categoryCode LIKE CONCAT(#{cateCd}, '%')
+		<if test="product_categoryCode != null">
+			WHERE product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')
 		</if>
 		GROUP BY product_id 
 		ORDER BY product_id DESC
@@ -42,6 +42,7 @@
 		<id column="product_id" property="product_id"/>
 		<result column="product_name" property="product_name"/> <!-- 상품명 -->
 		<result column="product_price" property="product_price"/> <!-- 가격 -->
+		<result column="product_categoryCode" property="product_categoryCode"/> <!-- 카테고리 코드 -->
 		
 		<collection ofType="ProductFileVO" property="productFileVOs" javaType="List">
 			<id column="productFile_id" property="productFile_id"/>
@@ -49,7 +50,7 @@
 		</collection>
   	</resultMap>
   	
-  	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="String">
+  	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="ProductVO">
   		SELECT
   			CASE product_categoryCode
 				WHEN '001001' THEN '캡슐커피'
@@ -60,11 +61,24 @@
 			,product_categoryCode AS code
 		    ,COUNT(product_categoryCode) AS count
 		FROM product
-		<if test="cateCd != null">
-			WHERE product_categoryCode LIKE CONCAT(LEFT(#{cateCd}, 3), '%')
+		<if test="product_categoryCode != null">
+			WHERE product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
 		</if>
 		GROUP BY product_categoryCode
 		ORDER BY product_categoryCode
+  	</select>
+  	
+  	<select id="getSelectProductOne" resultType="ProductVO" parameterType="ProductVO">
+  		SELECT *
+		FROM product
+			LEFT JOIN coffee USING (product_id)
+			LEFT JOIN machine USING (product_id)
+		WHERE product_id = #{product_id};
+  	</select>
+  	<select id="getSelectProductFileList" resultType="ProductFileVO" parameterType="ProductVO">
+  		SELECT *
+  		FROM productFile
+  		WHERE product_id = #{product_id}
   	</select>
   
 </mapper>

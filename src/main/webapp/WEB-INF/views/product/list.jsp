@@ -19,26 +19,26 @@
 			<div id="contents">
 				
 				<c:choose>
-					<c:when test="${not empty cateCd}">	
+					<c:when test="${not empty cateCd.product_categoryCode}">	
 					
 						<c:choose>
-							<c:when test="${cateCd eq 001}"><h2>COFFEE</h2></c:when>
-							<c:when test="${cateCd eq 002}"><h2>MACHINES</h2></c:when>
-							<c:when test="${cateCd eq 003}"><h2>COFFEE</h2></c:when>
-							<c:when test="${cateCd eq 004}"><h2>COFFEE</h2></c:when>
+							<c:when test="${cateCd.product_categoryCode eq 001}"><h2>COFFEE</h2></c:when>
+							<c:when test="${cateCd.product_categoryCode eq 002}"><h2>MACHINES</h2></c:when>
+							<c:when test="${cateCd.product_categoryCode eq 003}"><h2>COFFEE</h2></c:when>
+							<c:when test="${cateCd.product_categoryCode eq 004}"><h2>COFFEE</h2></c:when>
 						</c:choose>
 					
 						<c:forEach var="categoryCnt" items="${categoryCnt}">
-							<c:if test="${cateCd eq categoryCnt.code}">
+							<c:if test="${cateCd.product_categoryCode eq categoryCnt.code}">
 								<h2>${categoryCnt.name}</h2>
 							</c:if>
 						</c:forEach>
 						
-						<img class="mainImg" alt="" src="/images/product/list/productList_${cateCd}.jpg">
+						<img class="listMainImg" alt="" src="/images/product/list/productList_${cateCd.product_categoryCode}.jpg">
 										
 						<div class="productCategory">
 							<c:forEach var="categoryCnt" items="${categoryCnt}">
-								<a href="/product/list?cateCd=${categoryCnt.code}">${categoryCnt.name} <span>(${categoryCnt.count})</span></a>
+								<a href="/product/list?product_categoryCode=${categoryCnt.code}">${categoryCnt.name} <span>(${categoryCnt.count})</span></a>
 							</c:forEach>
 						</div>
 						
@@ -75,14 +75,14 @@
 				<c:forEach var="productVO" items="${listAllProduct}">
 					<li>
 						<div class="productWrap">
-							<a href="javascript:;">
+							<a href="/product/select?product_categoryCode=${productVO.product_categoryCode}&product_id=${productVO.product_id}">
 								<div class="productImgWrap">
 									<img alt="" src="/upload/product/${productVO.productFileVOs[0].productFile_name}">
 								</div>
 								<span class="productName">${productVO.product_name}</span>
 							</a>
 							<div class="iconBox"></div>
-							<span class="productPrice">${productVO.product_price}</span>
+							<span class="productPrice pricePattern">${productVO.product_price}</span>
 							<button class="btnDefault red">장바구니</button>
 							<button class="btnDefault red">구매하기</button>
 						</div>
@@ -102,13 +102,13 @@
 			</div>
 			
 		</div>
-		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
+		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>
 	</div>
 </body>
 	<script type="text/javascript">
 	
 		$().ready(function(){
-			$('.productPrice').each(function(){
+			$('.pricePattern').each(function(){
 				$(this).html(Number($(this).html()).toLocaleString() + '원');
 			})
 		});
@@ -116,7 +116,7 @@
 		$('input[type=radio]').change(function(){
 			$('.sortLabel').each(function(){ $(this).removeClass('on')})
 			$(this).next().addClass('on');
-		});
+		}); /********** 상품 기준별 재정렬 **********/
 		
 		$('.productWrap').hover(function(){
 			$(this).find('button').fadeIn( "fast" );
