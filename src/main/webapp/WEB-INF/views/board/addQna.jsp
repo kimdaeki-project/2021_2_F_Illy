@@ -34,7 +34,7 @@
 		.deleteFileBtn { position: absolute; right: 10px; top: 10px; padding: 0; border: 1px solid #333; border-radius: 20px; width: 20px; height: 20px; background: url('/images/admin/ico_x.svg') no-repeat; background-size: 12px; background-position: center ; background-color: #fff; visibility: hidden; cursor: pointer; }
 		.deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
 		.inputBox { position: relative; display: inline-block; line-height: 0; vertical-align: top; }
-		label { position:absolute;  height: 40px; border: 1px solid #d6d6d6; padding: 0 20px; }		 
+		label { position:absolute;  height: 40px; border: 1px solid #d6d6d6; padding: 0 20px; margin-left:-3px; }		 
 	</style>
 	
 
@@ -139,7 +139,10 @@
 									</tr>
 									<tr>
 										<th scope="row">자동등록방지</th>
-										<td></td>
+										<td>
+											 <div class="g-recaptcha" data-sitekey=6LeN34MdAAAAAPKUbkjmd0VH2dKXKwLW1EWdZwqu
+></div>
+										</td>
 									</tr>
 								
 								
@@ -166,7 +169,35 @@
 
 
 	<script type="text/javascript">
-		
+	$(function() {
+		$('#add_member_form').submit(function() {
+				var captcha = 1;
+				$.ajax({
+		            url: './VerifyRecaptcha',
+		            type: 'post',
+		            data: {
+		                recaptcha: $("#g-recaptcha-response").val()
+		            },
+		            success: function(data) {
+		                switch (data) {
+		                    case 0:
+		                        console.log("자동 가입 방지 봇 통과");
+		                        captcha = 0;
+		                		break;
+		                    case 1:
+		                        alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+		                        break;
+		                    default:
+		                        alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+		                   		break;
+		                }
+		            }
+		        });
+				if(captcha != 0) {
+					return false;
+				} 
+		});
+		});
 	
 	</script>
 

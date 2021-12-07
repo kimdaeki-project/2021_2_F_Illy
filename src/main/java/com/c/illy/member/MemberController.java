@@ -13,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +38,9 @@ public class MemberController {
 	//--다영 
 	@Autowired
 	private QnaService qnaService; 
+	
+	
+	
 	
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
@@ -157,6 +162,24 @@ public class MemberController {
 	public void setAddQna()throws Exception{
 		
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    com.c.illy.util.VerifyRecaptcha.setSecretKey("시크릿 코드");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    try {
+	       if(com.c.illy.util.VerifyRecaptcha.verify(gRecaptchaResponse))
+	          return 0; // 성공
+	       else return 1; // 실패
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1; //에러
+	    }
+	}
+	
+	
 	
 	//----------------------------------------------------------------------------myPage_다영 추가 end
 	
