@@ -20,12 +20,19 @@
 					<td>${faqVO.faq_type}</td>
 					<td class="board_tit">
 						<img class="icon_q" src="/images/board/icon_qna_q.png">
-						<a href="#">
+						<a href="#" class="pickList">
 							<span>
 								<strong class="btnView">${faqVO.faq_title}</strong>
 							</span>
 							<span><img class="icon_open" src="/images/board/icon_toggle_open.png"></span>
 						</a>
+					</td>
+				</tr>
+				<tr class="faq_answer hide">
+					<td colspan="4">
+						<ul>
+							<li><img class="icon_q" src="/images/board/icon_qna_a.png">${faqVO.faq_contents}</li>						
+						</ul>
 					</td>
 				</tr>
 			</c:forEach>

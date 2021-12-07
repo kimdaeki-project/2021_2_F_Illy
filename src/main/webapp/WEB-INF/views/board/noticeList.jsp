@@ -25,6 +25,8 @@
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 		.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
+		#addNotice{float:right; margin:-30px 0 10px; }
+		#addNotice a{padding:7px 7px; font-size:12px; background-color:#979797; border:none; color:#fff; cursor:pointer;  }
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>일리카페 코리아</title>
@@ -44,6 +46,13 @@
 					<div class="board_zone_tit">
 						<h2>공지사항</h2>
 					</div>
+					
+					<!-- 관리자만 보이는 버튼  -->
+					<div id="addNotice">
+						<a href="#">공지사항 추가하기</a>			
+					</div>
+					<!-- 관리자만 보이는 버튼  -->
+					
 					<div class="board_zone_cont">
 						<table class="board_list_table" style="width:100%;">
 							<colgroup> <!-- table 간격 기본설정 -->
@@ -96,7 +105,8 @@
 							<c:if test="${empty List}">
 								<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
 							</c:if>
-			
+						
+						
 						<div class="pagination">
 							<c:if test="${pager.curBlock>1}">
 								<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>

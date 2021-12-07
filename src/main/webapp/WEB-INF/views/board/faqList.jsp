@@ -81,7 +81,7 @@
 						</div>	
 						
 						
-						<div id="ajax">
+						<div id="showFaqList">
 						
 								<!-- faqList 출력 -->
 						

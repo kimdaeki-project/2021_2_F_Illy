@@ -79,35 +79,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
-	//----------------------------------------------------------------------------myPage_다영 추가 start
-	@GetMapping("myPage")
-	public String getmyPage()throws Exception{
-		return"member/myPage";
-	}
-	
-	//--1:1 문의 페이지
-	@GetMapping("qnaList")
-	public String getQnaList(ModelAndView mv)throws Exception{
-		System.out.println("저길 오나");
-		return "board/qnaList"; 
-	}
-	
-	//--1:1 문의 ajax
-	@GetMapping("qnaListDate")
-	public ModelAndView getQnaListDate(ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
-		System.out.println("여길 오나");
-		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
-		System.out.println(ar.size());
-		mv.setViewName("board/qnaListajax");
-		mv.addObject("QList", ar);
-		mv.addObject("pager", pager);
-		return mv; 
-	}
-	
-	
-	
-	//----------------------------------------------------------------------------myPage_다영 추가 end
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
 	public ModelAndView checkId(HttpServletRequest request) {
@@ -148,4 +119,48 @@ public class MemberController {
 		mv.setViewName("member/common/Find_id");
 		return mv;
 	}
+	
+	
+
+	//----------------------------------------------------------------------------myPage_다영 추가 start
+	@GetMapping("myPage")
+	public String getmyPage()throws Exception{
+		return"member/myPage";
+	}
+	
+	//--1:1 문의 페이지
+	@GetMapping("qnaList")
+	public String getQnaList(ModelAndView mv)throws Exception{
+		System.out.println("저길 오나");
+		return "board/qnaList"; 
+	}
+	
+	//--1:1 문의 ajax
+	@GetMapping("qnaListDate")
+	public ModelAndView getQnaListDate(ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		System.out.println("여길 오나");
+		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
+		System.out.println(ar.size());
+		mv.setViewName("board/qnaListajax");
+		mv.addObject("QList", ar);
+		mv.addObject("pager", pager);
+		return mv; 
+	}
+	
+	//1:1문의 작성하기 
+	@GetMapping("addQna")
+	public String addQna()throws Exception{
+		return "board/addQna";
+	}
+	
+	@PostMapping("addQnaList")
+	public void setAddQna()throws Exception{
+		
+	}
+	
+	//----------------------------------------------------------------------------myPage_다영 추가 end
+	
+	
+	
+	
 }

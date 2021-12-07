@@ -37,7 +37,7 @@
 				<ul>
 					<li><a href="#">- 나의 상품후기</a></li>
 					<li><a href="#">- 나의 상품문의</a></li>
-					<li><a href="#">- 나의 1:1문의</a></li>
+					<li><a href="/member/qnaList">- 나의 1:1문의</a></li>
 				</ul>
 			</li>
 			<li>

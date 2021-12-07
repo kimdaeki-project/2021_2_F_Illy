@@ -51,7 +51,7 @@
 					</div>
 					<div class="board_zone_cont">
 						<div class="board_zone_list">
-								<button type="button" class="write_qna"><strong>1:1 문의하기</strong></button>
+								<button type="button" onclick="location.href='addQna'"class="write_qna"><strong>1:1 문의하기</strong></button>
 							<div class="search_box">
 								<h3>조회기간</h3>
 								<form action="./qnaList" method="get" id="qFrm">
@@ -108,12 +108,6 @@
 
 
 	<script type="text/javascript" src="/js/qnaList.js"></script>
-
-	
-
-
-
-
 
 
 

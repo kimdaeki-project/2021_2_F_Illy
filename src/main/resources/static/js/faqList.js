@@ -24,7 +24,7 @@ $('.pickFaq_type').click(function(){
 }); 
 
 /*이벤트 위임 : 페이지 번호 클릭했을때 실행*/
-$("#ajax").on('click','.pageBtn',function(){
+$("#showFaqList").on('click','.pageBtn',function(){
 	const num=$(this).attr("data-list-pn");
 	getList(num, kind,search);
 	btnCss(num);
@@ -41,6 +41,23 @@ function btnCss(pageNum) {
 	});
 }
 
+/*아코디언 기능*/
+$(function(){
+	var article=(".board_list_table .show");
+	/*이벤트 위임*/
+	$("#showFaqList").on('click','.pickList',function(){
+		var myArticle = $(this).parents().next("tr");	
+		if($(myArticle).hasClass('hide')){
+			$(article).removeClass('show').addClass('hide');
+			$(myArticle).removeClass('hide').addClass('show');
+		}else{
+			$(myArticle).addClass('hide').removeClass('show');	
+		}
+	});
+});
+
+
+
 
  
 function getList(pn,kind,search){
@@ -50,7 +67,7 @@ function getList(pn,kind,search){
 		data:{pn:pn,kind:kind,search:search},
 		success:function(data){
 			/*  $("#faq_list").empty(); */	 
-			 $("#ajax").empty();	 
+			 $("#showFaqList").empty();	 
 			//------ 검색하던 중이던 내용 계속 유지 시키기(페이지 넘겨도)
 			 $(".pickFaq_type").each(function(){
 				 $(this).addClass("pick");
@@ -60,7 +77,7 @@ function getList(pn,kind,search){
 			}); 
 			$("#kind").val(kind);
 			/*  $("#faq_list").append(data.trim());  */
-			 $("#ajax").append(data.trim()); 
+			 $("#showFaqList").append(data.trim()); 
 			 $('.pageBtn').each(function() {
 				 if($(this).attr("data-list-pn")!=pn){
 				 	 $(this).removeClass("on");

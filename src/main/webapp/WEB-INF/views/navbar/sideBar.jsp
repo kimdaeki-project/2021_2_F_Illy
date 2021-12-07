@@ -99,7 +99,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="/notice/faqList?pn=1&search=&kind=">
+							<a href="/notice/faqList">
 								<i class="xi-message"></i>
 								<span>FAQ</span>
 							</a>

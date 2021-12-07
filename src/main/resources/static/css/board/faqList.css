@@ -33,8 +33,8 @@ td.board_tit a{width:100%; height:20px; display:block; }
 td.board_tit strong{float:left; color:#333; font-weight:normal; }
 td.board_tit strong.on{font-weight:bold; }
 td.board_tit strong:hover{text-decoration:underline; }
-			
-		
-		
+#faq_list .faq_answer{background-color:#F8F8F8; color:#333; font-size:12px; padding:13px 10px 15px;}			
+#faq_list .faq_answer.hide{display:none;  }		
+#faq_list .faq_answer.show{display:table-row;  }		
 		
 		

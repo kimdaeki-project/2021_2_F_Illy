@@ -8,7 +8,6 @@ import lombok.Data;
 public class QnaVO {
 	private Integer qna_id; 
 	private String qna_type; 
-	private String qna_type_code; 
 	private String qna_title; 
 	private String qna_contents; 
 	private Date qna_regDate;
