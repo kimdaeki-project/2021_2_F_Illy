@@ -40,9 +40,6 @@
 		);
 	</insert>
 	
-	
-	
-	
 	<!-- ijy_point -->
 	<insert id="setAddBean" parameterType="MemberVO">
 		update member set member_point = #{member_point}
@@ -73,7 +70,14 @@
 		)
 	</insert>
 	
-	<select id="find_id_useEmail" parameterType="MemberVO" resultType="MemberVO">
-		select username from member where member_name = #{member_name} and member_email = #{member_email}
+	<select id="find_id" parameterType="MemberVO" resultType="MemberVO">
+		<choose>
+		<when test="member_email == null">
+			select username from member where member_name = #{member_name} and member_phone = #{member_phone}
+		</when>
+		<when test="member_phone == null">
+			select username from member where member_name = #{member_name} and member_email = #{member_email}
+		</when>
+		</choose>
 	</select>
 </mapper>

@@ -23,10 +23,6 @@
 			<div id="contents">
 				<div id="member_join_header">
 				<sec:authentication property="principal" var="user"/>
-					${user.member_id} <br>
-					${user.username} <br>
-					${user.password}	<br>	
-					${user.member_name}	
 					<h2>회원가입</h2>
 					<ol>
 						<li class="page_on">01 약관동의></li>

@@ -93,6 +93,10 @@
 		$("#find_id").click(function(){
 			location.href="./findId"
 		}) 
+		
+		$("#find_pw").click(function(){
+			location.href="./findPw"
+		}) 
 	</script>
 </body>
 </html>
