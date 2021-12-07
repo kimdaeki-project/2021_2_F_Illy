@@ -83,7 +83,7 @@ public class PaymentController {
 		
 		if(couponVO.getCoupon_id() != 0) {
 			//쿠폰 사용 시 쿠폰 상태 update
-			couponVO.setMember_id(paymentVO.getMember_id());
+			couponVO.setPayment_id(paymentVO.getPayment_id());
 			result = couponService.setUseState(couponVO);
 		}
 		

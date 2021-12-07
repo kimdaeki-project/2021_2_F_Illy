@@ -8,8 +8,10 @@ import lombok.Data;
 public class CouponVO {
 
 	private Integer coupon_id;
+	private Integer payment_id;
 	private String coupon_name;
 	private String coupon_state;
+	private String coupon_type;
 	private Integer coupon_discount;
 	private Date coupon_get;
 	private Date coupon_validity;

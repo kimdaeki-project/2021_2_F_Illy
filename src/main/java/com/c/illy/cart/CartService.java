@@ -3,12 +3,11 @@ package com.c.illy.cart;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.c.illy.coupon.CouponRepository;
 import com.c.illy.member.MemberRepository;
 import com.c.illy.member.MemberVO;
 import com.c.illy.payment.PaymentVO;
@@ -21,6 +20,8 @@ public class CartService {
 	private CartRepository cartRepository;
 	@Autowired
 	private MemberRepository memberRepository;
+	@Autowired
+	private CouponRepository couponRepository;
 
 	public List<CartProductVO> getNormalBasket(MemberVO memberVO) throws Exception {
 		return cartRepository.getNormalBasket(memberVO);
@@ -104,6 +105,8 @@ public class CartService {
 		memberVO.setMember_point(point);
 		memberRepository.setAddBean(memberVO); //포인트 차감 후 update
 		
+		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
+		
 		return cartRepository.setPaymentCancel(paymentVO);
 	}
 
@@ -112,6 +115,8 @@ public class CartService {
 		Integer point = memberVO.getMember_point() - Integer.parseInt(paymentVO.getPayment_add_point()); //구매할 때 적립받은 포인트 차감
 		memberVO.setMember_point(point);
 		memberRepository.setAddBean(memberVO); //포인트 차감 후 update
+		
+		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
 		
 		return cartRepository.setPaymentRefund(paymentVO);
 	}

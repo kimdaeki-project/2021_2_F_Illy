@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.c.illy.coupon.CouponService;
 import com.c.illy.member.MemberVO;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.util.Pager;
@@ -108,7 +109,7 @@ public class CartController {
 		return "cart/normalBasket";
 	}
 	
-	//주문취소 - point 감소
+	//주문취소 - point 감소, 쿠폰사용 취소
 	@GetMapping("setPaymentCancel")
 	public String setPaymentCancel(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
 		int result = cartService.setPaymentCancel(paymentVO, memberVO);
@@ -122,7 +123,7 @@ public class CartController {
 		return "member/myPageOrder/myPageOrderAjax";
 	}
 	
-	//환불 - point 감소
+	//환불 - point 감소, point 감소, 쿠폰사용 취소
 	@GetMapping("setPaymentRefund")
 	public String setPaymentRefund(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
 		int result = cartService.setPaymentRefund(paymentVO, memberVO);

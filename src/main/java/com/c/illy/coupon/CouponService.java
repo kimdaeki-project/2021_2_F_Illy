@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.c.illy.member.MemberVO;
+import com.c.illy.payment.PaymentVO;
 import com.c.illy.util.Pager;
 
 @Service

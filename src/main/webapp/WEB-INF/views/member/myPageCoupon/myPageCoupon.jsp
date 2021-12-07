@@ -182,7 +182,7 @@ function setStart(start_date,end_date,pn){
 		url:"./myPageCouponPager",
 		data: {
 			member_id : $('#memberID').val(),
-			coupon_state : 'cart',
+			coupon_state : 'unUse',
 			start_date : start_date,
 			end_date : end_date,
 			pn : pn

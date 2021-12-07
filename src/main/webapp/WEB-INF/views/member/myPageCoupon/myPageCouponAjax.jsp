@@ -79,8 +79,8 @@
 						<td>
 							<strong>
 								${list.coupon_discount}원
-								<c:if test="${list.coupon_state=='cart'}">상품</c:if>
-								<c:if test="${list.coupon_state=='delivery'}">배송비</c:if>
+								<c:if test="${list.coupon_type=='cart'}">상품</c:if>
+								<c:if test="${list.coupon_type=='delivery'}">배송비</c:if>
 								할인
 							</strong>
 						</td>

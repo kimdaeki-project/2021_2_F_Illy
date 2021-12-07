@@ -500,16 +500,16 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	<c:forEach items="${coupon}" var="coupon">
+																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																		<tr>
-																			<c:if test="${coupon.coupon_state eq 'delivery' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
+																			<%-- <c:if test="${coupon.coupon_type eq 'delivery'}">
 																				<c:if test="${status.first}">
 																				<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
 																																 font-size: 13px;
 																																 font-weight: 600;">상품 쿠폰이 없습니다.</td>
 																				</c:if>
-																			</c:if>
-																			<c:if test="${coupon.coupon_state eq 'cart'}" var="cart">
+																			</c:if> --%>
+																			<c:if test="${coupon.coupon_type eq 'cart'}" var="cart">
 																				<td>
 																					<span class="coupon_element">
 																						<input type="hidden" value="${coupon.coupon_id}" class="couponID">
@@ -545,14 +545,14 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																	<tr>
-																		<c:if test="${coupon.coupon_state eq 'cart' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
+																		<%-- <c:if test="${coupon.coupon_type eq 'cart'}">
 																			<c:if test="${status.first}">
 																			<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
 																															 font-size: 13px;
 																															 font-weight: 600;">배송지 쿠폰이 없습니다.</td>
 																			</c:if>
-																		</c:if>
-																		<c:if test="${coupon.coupon_state eq 'delivery'}" var="delivery">
+																		</c:if> --%>
+																		<c:if test="${coupon.coupon_type eq 'delivery'}" var="delivery">
 																			<td>
 																				<span class="coupon_element">
 																					<input type="hidden" value="${coupon.coupon_id}" class="couponID">
