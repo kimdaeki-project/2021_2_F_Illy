@@ -144,7 +144,7 @@ $('.delivery_add').find('#myDeliveryAdd').click(function(){
 		$('.check_s').removeClass('on');
 		$('#myDeliveryAdd').val('no');
 	}else {
-		$(this).next().addClass('on');
+		$('.check_s').addClass('on'); //**************************************************** */
 		$('#myDeliveryAdd').val('yes');
 	}
 });
@@ -447,7 +447,7 @@ $('.delivery_myAddress_chk').click(function(){
 
 //새 배송지 추가하기
 $('.new_delivery_add').click(function(){
-	let member_id= $('.member_id_modal').val();
+	let member_id= $('.member_id').val();
 	$.ajax({
 		type:"GET",
 		url:"../address/myAddressInsert",
