@@ -430,15 +430,15 @@ $('.delivery_myAddress_up').click(function(){
 
 //나의 배송지 선택하기
 $('.delivery_myAddress_chk').click(function(){
-	console.log($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
-	$('.delivery_name').val($(this).parent().next().next().next().next().next().find('.address_recipient_name_modal').val());
+	console.log($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
+	$('.delivery_name').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_name_modal').val());
 	$('.delivery_postcode').val($('.delivery_myAddress_up').find('.address_postcode_modal').val());
 	$('.address_reference').val(
-								$(this).parent().next().next().next().next().next().find('.main_address_modal').val() + ' ' +
-								$(this).parent().next().next().next().next().next().find('.address_reference_modal').val()
+								$(this).parent().siblings('.td_hidden_info').find('.main_address_modal').val() + ' ' +
+								$(this).parent().siblings('.td_hidden_info').find('.address_reference_modal').val()
 								);
-	$('.address_detail').val($(this).parent().next().next().next().next().next().find('.address_detail_modal').val());
-	$('.delivery_phone').val($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
+	$('.address_detail').val($(this).parent().siblings('.td_hidden_info').find('.address_detail_modal').val());
+	$('.delivery_phone').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
 	
 	$('.delivery_modal_list').addClass('dn'); //모달창 지우기
 	$("body").css("overflow","auto");//body 스크롤바 생성
