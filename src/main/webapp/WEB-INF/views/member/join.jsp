@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
 		<div id="container">
 			<div id="contents">
 				<div id="member_join_header">
+				<sec:authentication property="principal" var="user"/>
 					<h2>회원가입</h2>
 					<ol>
 						<li class="page_on">01 약관동의></li>
@@ -121,6 +123,8 @@
 				</form:form>
 			</div>
 		</div>
+		
+		
 		<c:import url="../navbar/footer.jsp"></c:import>
 	</div>
 	<script>

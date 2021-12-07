@@ -25,9 +25,9 @@
 			<div id="contents">
 			
 				<div class="member_wrap">
-					<h2>아이디 찾기</h2>
+					<h2>아이디찾기</h2>
 					<div class="member_con" id="find_member_con">
-					<form action="./findId" method="post">
+					<form action="find_id" method="get">
 						<div class="find_section">
 							<h3>회원 아이디찾기</h3>
 							<div class="find_label_sectoin">
@@ -52,15 +52,16 @@
 									</select>
 									<input id="find_input_member_phone" placeholder="휴대폰번호">
 								</div> <!-- find_account_input_section end -->
-								<button class="find_account">
+								<button type="button"class="find_account">
 									아이디 찾기
 								</button>
 							</div>
+							<div class="find_id_error_msg_section"></div>
 						</div> <!-- find_section end-->
 						</form>
 						<div class="btn_center_box">
-							<button class="btnDefault">비밀번호 찾기</button>
-							<button class="btnDefault red">회원가입 찾기</button>
+							<button class="btnDefault" id="find_password">비밀번호 찾기</button>
+							<button class="btnDefault red" id="join">회원가입</button>
 						</div> <!-- button_section end -->
 					</div> <!-- member_con end -->
 				</div><!-- member_wrap end -->
@@ -98,33 +99,50 @@
 		$(".find_account").click(function(){
 			if($(".find_email").is(":checked")){
 				$.ajax({
-					url : "./findId",
-					method : "POST",
+					url : "./find_id",
+					method : "get",
 					data: {
-						member_name : $("#find_input_member_name"),
-						member_email : $("#find_input_member_email")
+						member_name : $("#find_input_member_name").val(),
+						member_email : $("#find_input_member_email").val()
 					},
 					success: function(data) {
-						console.log(data)
+						if(data.trim() == '회원 정보를 찾을 수 없습니다.') {
+							$(".find_id_error_msg_section").html(data.trim())
+						}
+						else if(data.trim() != '회원 정보를 찾을 수 없습니다.') {
+							$(".find_section").html('<p class = "find_id_success_msg">'+$("#find_input_member_name").val() +' 회원님의 아이디는'+'<br>'+'<strong>'+data.trim()+'</strong>'+' 입니다'+'</p>')
+						}
 					}
 				})
 			}
 			else if($(".find_phone").is(":checked")) {
 				$.ajax({
-					url : "./findId",
-					method : "POST",
+					url : "./find_id",
+					method : "get",
 					data : {
 						member_name : $("#find_input_member_name").val(),
 						member_phone : $("#find_input_member_phone").val()
 					},
 					success : function(data) {
-						
+						console.log()
+						if(data.trim() == '회원 정보를 찾을 수 없습니다.') {
+							$(".find_id_error_msg_section").html(data.trim())
+						}
+						else if(data.trim() != '회원 정보를 찾을 수 없습니다.') {
+							$(".find_section").html('<p class = "find_id_success_msg">'+$("#find_input_member_name").val() +' 회원님의 아이디는'+'<br>'+'<strong>'+data.trim()+'</strong>'+' 입니다'+'</p>')
+						}
 					}
 				})
 			}
 		})
 			
-
+		$("#find_password").click(function(){
+			location.href="./findPw"
+		}) 
+		
+		$("#join").click(function(){
+			location.href="./join"
+		}) 
 	</script>
 </body>
 </html>

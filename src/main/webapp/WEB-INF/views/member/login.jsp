@@ -71,6 +71,7 @@
 							</a>
 							<a class="snsLogin">
 								<span>위메프 로그인</span>
+							
 							</a>
 						</div>
 						<!-- member_snsLogin_box end -->
@@ -91,6 +92,10 @@
 		
 		$("#find_id").click(function(){
 			location.href="./findId"
+		}) 
+		
+		$("#find_pw").click(function(){
+			location.href="./findPw"
 		}) 
 	</script>
 </body>

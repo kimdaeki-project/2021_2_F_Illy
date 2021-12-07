@@ -21,5 +21,5 @@ public interface MemberRepository {
 	
 	public MemberVO find_username(String username);
 	
-	public MemberVO find_id_useEmail(MemberVO memberVO);
+	public MemberVO find_id(MemberVO memberVO);
 }

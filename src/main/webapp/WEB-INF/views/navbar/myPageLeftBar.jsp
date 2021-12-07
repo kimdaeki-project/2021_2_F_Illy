@@ -50,7 +50,7 @@
 			<li>
 				<span style="border-top:1px solid #aaa;">회원</span><span>정보</span>
 				<ul>
-					<li><a href="#">- 회원정보 변경</a></li>
+					<li><a href="./changeMemberPassword">- 회원정보 변경</a></li>
 					<li><a href="#">- 배송지 관리</a></li>
 					<li><a href="#">- 회원 탈퇴</a></li>
 				</ul>

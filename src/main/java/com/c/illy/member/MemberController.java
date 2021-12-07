@@ -27,7 +27,7 @@ public class MemberController {
 
 	@Autowired
 	private AddressService addressService;
-	
+
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
 		ModelAndView mv = new ModelAndView();
@@ -58,31 +58,33 @@ public class MemberController {
 
 	// 회원가입 form 검증
 	@PostMapping("join")
-	public String join(@Valid AddressVO addressVO, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+	public String join(@Valid AddressVO addressVO, BindingResult bindingResult, HttpServletRequest request)
+			throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "/member/join";
 		}
-		
+
 		memberService.setInsert(addressVO);
-		
+
 		// api로 받아온 우편번호, 주소, 참고항목, 상세정보를 address 변수에 합침
-		addressService.setAddress(addressVO,request);
+		addressService.setAddress(addressVO, request);
 		return "redirect:/";
 	}
-	
 
-	//----------------------------------------------------------------------------myPage_다영 추가
+	// ----------------------------------------------------------------------------myPage_다영
+	// 추가
 	@GetMapping("myPage")
-	public String getmyPage()throws Exception{
-		return"member/myPage";
+	public String getmyPage() throws Exception {
+		return "member/myPage";
 	}
-	
-	//--1:1 문의 페이지
+
+	// --1:1 문의 페이지
 	@GetMapping("qnaList")
-	public ModelAndView getQnaList(ModelAndView mv)throws Exception{
+	public ModelAndView getQnaList(ModelAndView mv) throws Exception {
 		mv.setViewName("board/qnaList");
 		return mv;
 	}
+
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
 	public ModelAndView checkId(HttpServletRequest request) {
@@ -94,26 +96,62 @@ public class MemberController {
 		mv.addObject("checkId", memberVO);
 		return mv;
 	}
-	
+
 	@GetMapping("login")
 	public String login() {
 		return "member/login";
 	}
-	
+
+	@PostMapping("login")
+	public String login(HttpServletRequest httpServletRequest) {
+
+		return "member/login";
+	}
+
 	@GetMapping("findId")
 	public String findId() {
 		return "member/find_id";
 	}
-	
-	@PostMapping("findId")
+
+
+	@GetMapping("find_id")
 	public ModelAndView findId(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setMember_name(request.getParameter("member_name"));
-		memberVO.setMember_email(request.getParameter("member_email"));
-		memberVO = memberService.find_id_useEmail(memberVO);
+		
+		if(request.getParameter("member_phone") == null) {
+			memberVO.setMember_name(request.getParameter("member_name"));
+			memberVO.setMember_email(request.getParameter("member_email"));	
+		
+		}
+		else if (request.getParameter("member_email") == null) {
+			memberVO.setMember_name(request.getParameter("member_name"));
+			memberVO.setMember_phone(request.getParameter("member_phone"));
+		}
+		memberVO = memberService.find_id(memberVO);
 		mv.addObject("findId", memberVO);
 		mv.setViewName("member/common/Find_id");
+		return mv;
+	}
+	
+	@GetMapping("findPw")
+	public ModelAndView findPw() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/find_pw");
+		return mv;
+	}
+	
+	@GetMapping("changeMemberPassword")
+	public ModelAndView changeMemberPassword() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/change_member_password");
+		return mv;
+	}
+	
+	@GetMapping("changeMember")
+	public ModelAndView changeMember(@Valid AddressVO addressVO, BindingResult bindingResult) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/change_member");
 		return mv;
 	}
 }

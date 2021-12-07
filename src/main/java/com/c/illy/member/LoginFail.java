@@ -22,13 +22,10 @@ public class LoginFail implements AuthenticationFailureHandler {
 		  if (exception instanceof UsernameNotFoundException) {
 		  request.setAttribute("loginFailMsg", "존재하지 않는 사용자입니다."); }
 		  
-		  else if(exception instanceof BadCredentialsException) {
+		  if(exception instanceof BadCredentialsException) {
 			  request.setAttribute("loginFailMsg", "아이디나 비밀번호가 맞지 않습니다. 다시 확인해 주세요.");
 		  }
 
-		System.out.println(request.getParameter("username"));
-		
-		System.out.println(request.getMethod());
 		request.getRequestDispatcher("/member/login").forward(request, response);
 	}
 	

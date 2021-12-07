@@ -66,8 +66,8 @@ public class MemberService implements UserDetailsService{
 		return memberRepository.usernameSelect(memberVO);
 	}
 	
-	public MemberVO find_id_useEmail(MemberVO memberVO) {
-		return memberRepository.find_id_useEmail(memberVO);
+	public MemberVO find_id(MemberVO memberVO) {
+		return memberRepository.find_id(memberVO);
 	}
 	
 }
