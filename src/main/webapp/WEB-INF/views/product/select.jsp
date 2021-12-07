@@ -58,7 +58,7 @@
 						</div>
 						<button type="button" class="btnSquare">장바구니</button>
 						<button type="button" class="btnSquare wish">찜하기</button>
-						<button type="button" class="btnSquare black">바로 구매</button>
+						<button type="button" class="btnSquare black directPayment">바로 구매</button>
 						
 						<div class="payBox">
 							<div class="naverPay">
@@ -109,7 +109,7 @@
 							<div class="iconBox"></div>
 							<span class="productPrice pricePattern">${productVO.product_price}</span>
 							<button class="btnDefault red">장바구니</button>
-							<button class="btnDefault red">구매하기</button>
+							<button class="btnDefault relationDirectPayment red" data-product-id="${productVO.product_id}">구매하기</button>
 						</div>
 					</li>
 				</c:forEach>
@@ -226,6 +226,19 @@
 	}, function(){
 		$(this).find('button').css('display', 'none');
 	});
+	
+	// ijy ----------- 상품 바로구매하기 ------------
+	$('.directPayment').click(function(){
+		console.log('cart_cnt: '+$('.inputCnt').val());
+		
+		location.href="/payment/directPayment?cart_cnt="+$('.inputCnt').val()+"&product_id="+$('.productId').val();
+	});	
+	// 관련상품 - 바로구매하기 ------------- ----------
+	$('.relationDirectPayment').click(function(){
+		console.log('product_id: '+$(this).attr('data-product-id'));
+		
+		location.href="/payment/directPayment?cart_cnt=1"+"&product_id="+$(this).attr('data-product-id');
+	});	
 	
 </script>
 </html>

@@ -27,6 +27,10 @@ public class CartService {
 		return cartRepository.getNormalBasket(memberVO);
 	}
 	
+	public List<CartProductVO> getDirectPayment(MemberVO memberVO) throws Exception {
+		return cartRepository.getDirectPayment(memberVO);
+	}
+	
 	public List<PaymentVO> getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -83,8 +87,17 @@ public class CartService {
 		return cartRepository.setCheckAll(cartVO);
 	}
 
-	public int setPaymentID(PaymentVO paymentVO) throws Exception {
-		return cartRepository.setPaymentID(paymentVO);
+	public int setPaymentID(PaymentVO paymentVO, CartVO cartVO) throws Exception {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("payment", paymentVO);
+		map.put("cart", cartVO);
+		
+		System.out.println("========");
+		System.out.println("cart_state: " + cartVO.getCart_state()+", member_id: "+paymentVO.getMember_id()+", payment_id: "+paymentVO.getPayment_id());
+
+		return cartRepository.setPaymentID(map);
 	}
 
 	public int setCheckOne(CartVO cartVO) throws Exception {
@@ -119,5 +132,16 @@ public class CartService {
 		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
 		
 		return cartRepository.setPaymentRefund(paymentVO);
+	}
+	
+	public int setPaymentCart(CartVO cartVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		if(cartVO.getMember_id() == null) {
+			cartVO.setMember_id(memberVO.getMember_id());
+		}
+		return cartRepository.setPaymentCart(cartVO);
+	}
+	
+	public int setDirectPayment(MemberVO memberVO) throws Exception {
+		return cartRepository.setDirectPayment(memberVO);
 	}
 }

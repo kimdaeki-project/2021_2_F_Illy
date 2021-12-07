@@ -83,11 +83,13 @@
 									</tr>
 								</thead>
 								<tbody>
-<%-- 								<c:if test="${paymentList ne null}"> --%>
 									<c:forEach items="${paymentList}" var="carts" varStatus="status">
+										<c:if test="${status.first}">
+											<input type="hidden" value="${carts.product_name}" id="full_cartProduct"> <!-- 카카오페이 넘어갈 이름 -->
+											<input type="hidden" value="${carts.cart_state}" id="cartState">
+										</c:if>
 										<c:if test="${status.last}">
-											<input type="hidden" value="${carts.product_name}" id="full_cartProduct">
-											<input type="hidden" value="${status.index}" id="full_cartSize">
+											<input type="hidden" value="${status.index}" id="full_cartSize"> <!-- 카카오페이 넘어갈 물건 총 수량 -->
 										</c:if>
 											<tr class="sumTotal">
 												<td class="tb_product">
@@ -119,10 +121,6 @@
 												</c:if>
 											</tr>
 									</c:forEach>
-<%-- 								</c:if>
-								<c:if test="${paymentList eq null}">
-									
-								</c:if>	 --%>
 								</tbody>
 							</table>
 						</div> <!-- payment_table end -->

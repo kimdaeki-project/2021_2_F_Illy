@@ -71,8 +71,8 @@
 								
 								    elNaverPayBtn.addEventListener("click", function() {
 
-								    	let productId = $('.productId').val(); /* 수정하기 */
-								    	let cnt = Number($('input[name=cart_cnt]').val());
+								    	let productId = 1; /* 수정하기 */
+								    	let cnt = 1;
 								    	
 								    	let width = 750;
 								    	let heigth = 800;

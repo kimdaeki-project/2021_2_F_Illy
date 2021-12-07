@@ -85,7 +85,7 @@
 							<div class="iconBox"></div>
 							<span class="productPrice pricePattern">${productVO.product_price}</span>
 							<button class="btnDefault red">장바구니</button>
-							<button class="btnDefault red">구매하기</button>
+							<button class="btnDefault red directPayment" data-product-id="${productVO.product_id}">구매하기</button>
 						</div>
 					</li>
 				</c:forEach>
@@ -123,6 +123,14 @@
 			$(this).find('button').fadeIn( "fast" );
 		}, function(){
 			$(this).find('button').css('display', 'none');
+		});
+		
+		
+		/* ijy - 상품 바로구매하기 */
+		$('.directPayment').click(function(){
+			console.log('product_id: '+$(this).attr('data-product-id'));
+			
+			location.href="/payment/directPayment?cart_cnt=1&product_id="+$(this).attr('data-product-id');
 		});
 	</script>
 </html>
