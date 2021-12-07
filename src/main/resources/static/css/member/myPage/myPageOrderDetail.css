@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.order_num_view {
+	padding: 0 0 0 10px;
+    color: #329cff;
+    font-size: 12px;
+}
+
+.order_view_info h4 {
+	margin-top: 50px;
+}
+.orderer_info h4, .delivery_info h4, .payment_info h4 {
+	font-size: 16px;
+}
+.myPage_type_table .table_row {
+	border-top: 1px solid #999999;
+}
+
+.myPage_type_table .table_row th {
+	padding: 17px 10px 16px 20px;
+    border-top: none 0;
+    background: #f7f7f7;
+    text-align: left;
+}
+
+.myPage_type_table .table_row td {
+	height: 31px;
+    padding: 17px 10px 16px 15px;
+    text-align: left;
+}
+
+.benefit_total_sale dl {
+	float: left;
+    width: 100%;
+    margin: 5px 0 0 0;
+}
+
+.benefit_total_sale dt {
+	float: left;
+    width: 101px;
+}
+
+.benefit_total_sale dd {
+	float: left;
+    width: 75px;
+    text-align: right;
+}
+
+.order_view_info .total_payMoney {
+	font-size: 20px;
+}
+
+.pay_with_list {
+	color: #333333;
+}
+
+.pay_with_list .pay_block_type {
+	display: block;
+}
+.pay_with_list > strong {
+    font-size: 13px;
+}

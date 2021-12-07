@@ -121,11 +121,12 @@ $('#default').click(function(){
 $('#sameDelivery').click(function(){
 	let address = $('.address_read').text();
 	let text = address.substr(7,address.length);
-	console.log(text);
+	
 	$('.delivery_name').val($('.order_name').val());
 	$('.delivery_phone').val($('.order_phone').val());
 	$('#sample6_postcode').val(address.substr(1, 5));
-	$('#sample6_address').val(address.substr(7,address.length));
+	$('#sample6_address').val($('#full_main_address').val());
+	$('#sample6_detailAddress').val($('#full_address_detail').val());
 });
 
 //배송지 - 직접 입력
@@ -429,15 +430,15 @@ $('.delivery_myAddress_up').click(function(){
 
 //나의 배송지 선택하기
 $('.delivery_myAddress_chk').click(function(){
-	
-	$('.delivery_name').val($(this).prev().find('.address_recipient_name_modal').val());
-	$('.delivery_postcode').val($(this).prev().find('.address_postcode_modal').val());
+	console.log($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
+	$('.delivery_name').val($(this).parent().next().next().next().next().next().find('.address_recipient_name_modal').val());
+	$('.delivery_postcode').val($('.delivery_myAddress_up').find('.address_postcode_modal').val());
 	$('.address_reference').val(
-								$(this).prev().find('.main_address_modal').val() + ' ' +
-								$(this).prev().find('.address_reference_modal').val()
+								$(this).parent().next().next().next().next().next().find('.main_address_modal').val() + ' ' +
+								$(this).parent().next().next().next().next().next().find('.address_reference_modal').val()
 								);
-	$('.address_detail').val($(this).prev().find('.address_detail_modal').val());
-	$('.delivery_phone').val($(this).prev().find('.address_recipient_phone_modal').val());
+	$('.address_detail').val($(this).parent().next().next().next().next().next().find('.address_detail_modal').val());
+	$('.delivery_phone').val($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
 	
 	$('.delivery_modal_list').addClass('dn'); //모달창 지우기
 	$("body").css("overflow","auto");//body 스크롤바 생성
@@ -464,8 +465,7 @@ $('.new_delivery_add').click(function(){
 });
 
 //주문완료 insert 넣기
-$('.btn_center_order').click(function(){
-	
+function paymentEnd(){
 	let payment_comment=$('.long_cont').children().val();
 	let allBean = $('.all_beanUse').attr('data-member-point');
 	let payment_use_point=$('.read_bean').val();
@@ -534,44 +534,144 @@ $('.btn_center_order').click(function(){
 	let address_detail=$('.address_detail').val();
 	let address_myAddress=$('#myDeliveryAdd').val();
 	
+	$.ajax({
+							async : false,
+							type: "GET",
+							url: "./insertPayment",
+							data: {
+								//결제 insert parameter
+								payment_comment:payment_comment,
+								payment_use_point:payment_use_point,
+								payment_type:payment_type,
+								payment_total:payment_total,
+								payment_name:payment_name,
+								payment_email:payment_email,
+								payment_delivery:payment_delivery,
+								payment_phone:payment_phone,
+								payment_product_total:payment_product_total,
+								payment_use_coupon:discount,
+								payment_total_discount:total_discount,
+								payment_add_point:payment_add_point,
+								member_id:member_id,
+								member_point:member_point,
+								coupon_id:coupon_id,
+								//배송 insert parameter
+								address_name:address_name,
+								address_recipient_name:address_recipient_name,
+								address_recipient_phone:address_recipient_phone,
+								address_postcode:address_postcode,
+								main_address:main_address,
+								address_reference:address_reference,
+								address_detail:address_detail,
+								address_myAddress:address_myAddress,
+								address_default:0
+							},
+							success: function(result) {
+								result
+								location.href='./paymentEnd?payment_id=' + result;
+							}
+						});
+}
+
+$('.btn_center_order').click(function(){
+	let patternPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;  //핸드폰 번호 올바른 패턴 확인하기
+
+	//필수 동의 체크 여부
 	if($('.import_s').hasClass('on') == true){
-		$.ajax({
-			async : false,
-			type: "GET",
-			url: "./insertPayment",
-			data: {
-				//결제 insert parameter
-				payment_comment:payment_comment,
-				payment_use_point:payment_use_point,
-				payment_type:payment_type,
-				payment_total:payment_total,
-				payment_name:payment_name,
-				payment_email:payment_email,
-				payment_delivery:payment_delivery,
-				payment_phone:payment_phone,
-				payment_product_total:payment_product_total,
-				payment_use_coupon:discount,
-				payment_total_discount:total_discount,
-				payment_add_point:payment_add_point,
-				member_id:member_id,
-				member_point:member_point,
-				coupon_id:coupon_id,
-				//배송 insert parameter
-				address_name:address_name,
-				address_recipient_name:address_recipient_name,
-				address_recipient_phone:address_recipient_phone,
-				address_postcode:address_postcode,
-				main_address:main_address,
-				address_reference:address_reference,
-				address_detail:address_detail,
-				address_myAddress:address_myAddress,
-				address_default:0
-			},
-			success: function(result) {
-				result
-				location.href='./paymentEnd?payment_id=' + result;
+		if($('.order_name').val() == ''){
+			alert('주문하시는 분 정보를 입력해 주세요.');
+			$('.order_name').focus();
+		}else if($('.order_phone').val() == '') {
+			alert('주문하시는 분 휴대폰 번호 정보를 입력해 주세요.');
+			$('.order_phone').focus();
+		}else if($('.order_email').val() == '') {
+			alert('주문하시는 분 이메일 정보를 입력해 주세요.');
+			$('.order_email').focus();
+		}else if($('.delivery_name').val() == '') {
+			alert('받으실 분 정보를 입력해 주세요.');
+			$('.delivery_name').focus();
+		}else if($('.delivery_postcode').val() == '') {
+			alert('받으실 곳 우편번호 정보를 입력해 주세요.');
+			$('.delivery_postcode').focus();
+		}else if($('.delivery_phone').val() == '') {
+			alert('받으실 분 휴대폰 번호 정보를 입력해 주세요.');
+			$('.delivery_phone').focus();
+		}else if(!patternPhone.test($('.delivery_phone').val())) {
+			alert('[수취인]휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
+			$('.delivery_phone').focus();
+		}else if (!patternPhone.test($('.order_phone').val())) {
+			alert('[주문자]휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
+			$('.order_phone').focus();
+		}else {
+			
+			/* 카카오페이 API */
+			if($('#kakao').next().hasClass('on') == true){
+				let name = $('#full_cartProduct').val();
+				let cartSize = parseInt($('#full_cartSize').val()) + 1;
+				
+				if(cartSize == 1) {
+					name = name;
+				} else {
+					name = name+' 외 '+cartSize+'개';
+				}
+				
+				var IMP = window.IMP; // 생략가능
+		        IMP.init('imp77452768'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		        var msg;
+		        
+		        IMP.request_pay({
+		            pg : 'kakaopay',
+		            pay_method : 'card',
+		            merchant_uid : 'merchant_' + new Date().getTime(),
+		            name : name,
+		            amount : $('.total_total_sum').html(),
+		            buyer_email : $('.selectedMail').val(),
+		            buyer_name : $('.order_name').val(),
+		            buyer_tel : $('.order_phone').val(),
+		            buyer_addr : $('#full_address').val(),
+		            buyer_postcode : $('#full_postcode').val()
+		        },  function(rsp) {
+		            if ( rsp.success ) {
+		                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+		                jQuery.ajax({
+		                    url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+		                    type: 'POST',
+		                    dataType: 'json',
+		                    data: {
+		                        imp_uid : rsp.imp_uid
+		                        //기타 필요한 데이터가 있으면 추가 전달
+		                    }
+		                }).done(function(data) {
+		                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+		                    if ( everythings_fine ) {
+		                        msg = '결제가 완료되었습니다.';
+		                        msg += '\n고유ID : ' + rsp.imp_uid;
+		                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+		                        msg += '\결제 금액 : ' + rsp.paid_amount;
+		                        msg += '카드 승인번호 : ' + rsp.apply_num;
+		                        
+		                        alert(msg);
+		                    } else {
+		                        //[3] 아직 제대로 결제가 되지 않았습니다.
+		                        //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+		                    }
+		                });
+		                //성공시 이동할 페이지
+						paymentEnd();
+		            } else {
+		                msg = '결제에 실패하였습니다.';
+		                msg += '에러내용 : ' + rsp.error_msg;
+		                //실패할 경우
+		                alert(msg);
+		            }
+		        });
+			} else {
+				paymentEnd();			
 			}
-		});
+	
+		}
+
+		
 	}else {
 		if($('.order_name').val() == ''){
 			alert('주문하시는 분 정보를 입력해 주세요.');
@@ -591,6 +691,12 @@ $('.btn_center_order').click(function(){
 		}else if($('.delivery_phone').val() == '') {
 			alert('받으실 분 휴대폰 번호 정보를 입력해 주세요.');
 			$('.delivery_phone').focus();
+		}else if(!patternPhone.test($('.delivery_phone').val())){
+			alert('[수취인]휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
+			$('.delivery_phone').focus();
+		}else if (!patternPhone.test($('.order_phone').val())){
+			alert('[주문자]휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
+			$('.order_phone').focus();
 		}else {		
 			alert('청약의사 재확인을 동의해 주셔야 주문을 진행하실 수 있습니다.');
 		}

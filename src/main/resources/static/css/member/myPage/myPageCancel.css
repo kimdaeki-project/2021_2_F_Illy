@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.myPage_breakdown_tab{padding: 0; border-bottom: 1px solid #bbbbbb;}
+
+.myPage_breakdown_tab ul{float: none; width: 100%; height: 58px; margin: 0 auto; font-size: 0; padding: 0;}
+
+.myPage_breakdown_tab li{
+	display: inline-block;
+    position: relative;
+    min-width: 200px;
+    font-size: 12px;
+    text-align: center;
+    z-index: 10;
+}
+
+.myPage_breakdown_tab li a {
+	display: block;
+    margin: 0 0 0 -1px;
+    padding: 10px 20px 12px 20px;
+    color: #999999;
+    font-size: 13px;
+    border: 1px solid #dadada;
+    border-bottom: 1px solid #bbbbbb;
+    background: #ffffff;
+}
+
+.myPage_breakdown_tab .on {
+	z-index: 20;
+}
+.myPage_breakdown_tab .on a{
+	padding-top: 18px;
+    margin-top: 8px;
+    color: #333333;
+    font-weight: bold;
+    border: 1px solid #bbbbbb;
+    border-bottom: 1px solid #ffffff;
+}

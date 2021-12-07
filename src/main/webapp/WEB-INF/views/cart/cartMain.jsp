@@ -20,11 +20,27 @@
 						<c:if test="${count ne 0}">
 							<div id="cart_table">
  								<table>
+ 								<colgroup>
+ 									<col style="width:3%">
+ 									<!-- 체크박스 -->
+ 									<col>
+ 									<!-- 상품/옵션 정보 -->
+ 									<col style="width:15%">
+ 									<!-- 수량 -->
+ 									<col style="width:10%">
+ 									<!-- 상품금액 -->
+ 									<col style="width:9%">
+ 									<!-- 할인/적립 -->
+ 									<col style="width:10%">
+ 									<!-- 합계금액 -->
+ 									<col style="width:10%">
+ 									<!-- 배송비 -->
+ 								</colgroup>
 									<thead>
 										<tr>
 											<th>
 												<div class="tableCheck">
-													<input type="checkbox" id="allCheck" value="2" class="allCheck">
+													<input type="checkbox" id="allCheck" value="${member.member_id}" class="allCheck">
 													<label for="allCheck" class="check_s allCheck_s"></label>
 												</div>
 											</th>
@@ -54,7 +70,18 @@
 														<label for="cartCheckBox${carts.cart_id}" class="check_s"></label>
 													</div>
 												</td>
-												<td class="tb_product">${carts.product_name}</td>
+												<td class="tb_product">
+													<div class="product_name_file">
+														<span class="product_name_file_fileAdd">
+															<a>
+																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
+															</a>
+														</span>
+														<div class="product_name_file_nameAdd">
+															<a>${carts.product_name}</a>
+														</div>
+													</div>
+												</td>
 												<td class="tb_border">
 													<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus" value="-">
 	        										<input type="text" name="cart_cnt" class="cnt_cart" value="${carts.cart_cnt}" readonly="readonly"/>
@@ -82,7 +109,7 @@
 						</div> <!-- cart_list end -->
 						
 						<div id="btn_leftBox">
-							<a href="#">&lt; 쇼핑 계속하기</a>
+							<a href="http://localhost/product/list">&lt; 쇼핑 계속하기</a>
 						</div>
 						<div id="totalPrice">
 							<div id="totalPrice_rg">
@@ -230,10 +257,11 @@
 			},
 			success : function(){	
 				$('input').prop('checked', boolean);			
-				ajaxBasket();
 				allChecked();
 				count();
 				price();
+				ajaxBasket();
+				
 			},
 			error : function(xhr, status, error){
 				console.log("error");				
@@ -265,10 +293,11 @@
 				cart_id : cart_id
 			},
 			success : function(){
-				ajaxBasket();
 				allChecked();
 				count();
 				price();
+				ajaxBasket();
+
 			},
 			error : function(xhr, status, error){
 				console.log("error");				
@@ -282,20 +311,20 @@
 		let cart_id = $(this).attr('data-cart-id');
 		let cart_cnt = $(this).next().val();
 		cart_cnt -= 1;
+		let member_id=$('#memberIdHidden').val();
 		if(cart_cnt<1){
 			alert('해당 상품의 구매 가능한 최소수량은 1개 입니다.');
 			cart_cnt=1;
 		}
 		$(this).next().val(cart_cnt);
 		
-		console.log(cart_id);
-		console.log(cart_cnt);
 		$.ajax({
 			type: "GET",
 			url: "./updateCount",
 			data: {
 				cart_id:cart_id,
-				cart_cnt:cart_cnt
+				cart_cnt:cart_cnt,
+				member_id:member_id
 			},
 			success: function(result){
 				result=result.trim();
@@ -311,14 +340,15 @@
 		cart_cnt=Number(cart_cnt)+1;
 		$(this).prev().val(cart_cnt);
 		
-		console.log(cart_id);
-		console.log(cart_cnt);
+		let member_id=$('#memberIdHidden').val();
+		
 		$.ajax({
 			type: "GET",
 			url: "./updateCount",
 			data: {
 				cart_id:cart_id,
-				cart_cnt:cart_cnt
+				cart_cnt:cart_cnt,
+				member_id:member_id
 			},
 			success: function(result){
 				result=result.trim();

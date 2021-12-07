@@ -58,6 +58,20 @@
 						<div class="payment_table">
 						
 							<table>
+								<colgroup>
+ 									<col>
+ 									<!-- 상품/옵션 정보 -->
+ 									<col style="width:13%">
+ 									<!-- 수량 -->
+ 									<col style="width:10%">
+ 									<!-- 상품금액 -->
+ 									<col style="width:11%">
+ 									<!-- 할인/적립 -->
+ 									<col style="width:10%">
+ 									<!-- 합계금액 -->
+ 									<col style="width:10%">
+ 									<!-- 배송비 -->
+ 								</colgroup>
 								<thead>
 									<tr>
 										<th>상품/옵션정보</th>
@@ -69,10 +83,24 @@
 									</tr>
 								</thead>
 								<tbody>
+<%-- 								<c:if test="${paymentList ne null}"> --%>
 									<c:forEach items="${paymentList}" var="carts" varStatus="status">
+										<c:if test="${status.last}">
+											<input type="hidden" value="${carts.product_name}" id="full_cartProduct">
+											<input type="hidden" value="${status.index}" id="full_cartSize">
+										</c:if>
 											<tr class="sumTotal">
 												<td class="tb_product">
-													${carts.product_name}
+													<div class="product_name_file">
+														<span class="product_name_file_fileAdd">
+															<a>
+																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
+															</a>
+														</span>
+														<div class="product_name_file_nameAdd">
+															<a>${carts.product_name}</a>
+														</div>
+													</div>
 												</td>
 												<td class="tb_border">
 	        										${carts.cart_cnt}개
@@ -90,7 +118,11 @@
 													</td>
 												</c:if>
 											</tr>
-										</c:forEach>
+									</c:forEach>
+<%-- 								</c:if>
+								<c:if test="${paymentList eq null}">
+									
+								</c:if>	 --%>
 								</tbody>
 							</table>
 						</div> <!-- payment_table end -->
@@ -98,7 +130,7 @@
 					</div> <!-- payment_cont_list end -->
 					
 					<div id="btn_leftBox">
-						<a href="../cart/normalBasket?member_id=2">&lt; 장바구니 가기</a>
+						<a href="../cart/normalBasket">&lt; 장바구니 가기</a>
 					</div> <!-- btn_leftBox end -->
 					
 					<div id="price_sum">
@@ -134,21 +166,30 @@
 							</div>
 							<div class="order_info_table">
 								<table>
+								<colgroup>
+									<col style="width:15%">
+ 									<col style="width:85%">
+ 								</colgroup>
 									<tbody>
 										<tr>
-											<th scope="row"><span class="essential">주문하시는 분</span></th>
+											<th scope="row"><span class="essential" >주문하시는 분</span></th>
 											<td class="order_cont payment_name">
 												<input type="text" value="${memberVO.member_name}" class="order_name">
 											</td>
 										</tr>
 										<tr>
-											<th scope="row">주소</th>
-											<td class="address_read">[${addressDefault.address_postcode}]${addressDefault.main_address}&nbsp;${addressDefault.address_reference}&nbsp;${addressDefault.address_detail}</td>
+											<th scope="row">
+												주소
+												<input type="hidden" id="full_address" value="${addressJoin.main_address}&nbsp;${addressJoin.address_reference}&nbsp;${addressJoin.address_detail}">
+												<input type="hidden" id="full_main_address" value="${addressJoin.main_address}&nbsp;${addressJoin.address_reference}">
+												<input type="hidden" id="full_address_detail" value="${addressJoin.address_detail}">
+											</th>
+											<td class="address_read">[${addressJoin.address_postcode}]${addressJoin.main_address}&nbsp;${addressJoin.address_reference}&nbsp;${addressJoin.address_detail}</td>
 										</tr>
 										<tr>
 											<th scope="row"><span class="essential">휴대폰 번호</span></th>
 											<td class="order_cont">
-												<input type="text" value="${memberVO.member_phone}" class="order_phone">
+												<input type="text" value="${memberVO.member_phone}" class="order_phone" placeholder="EX) 010-1234-5678">
 											</td>
 										</tr>
 										<tr>
@@ -178,6 +219,10 @@
 							</div>
 							<div class="order_info_table">
 								<table>
+								<colgroup>
+									<col style="width:15%">
+ 									<col style="width:85%">
+ 								</colgroup>
 									<tbody>
 										<tr>
 											<th scope="row">배송지 확인</th>
@@ -186,7 +231,7 @@
 													<ul>
 														<li>
 															<input type="hidden" value="${addressDefault.address_recipient_name}"> <!-- 기본배송지 관련 hidden -->
-															<input type="hidden" value="${addressDefault.address_postcode}">
+															<input type="hidden" id="full_postcode" value="${addressDefault.address_postcode}">
 															<input type="hidden" value="${addressDefault.main_address}&nbsp;${addressDefault.address_reference}">
 															<input type="hidden" value="${addressDefault.address_detail}">
 															<input type="hidden" value="${addressDefault.address_recipient_phone}">
@@ -241,8 +286,8 @@
 										<tr>
 											<th scope="row"><span class="essential">휴대폰 번호</span></th>
 											<td class="order_cont">
-												<input type="hidden" value="${addressVO.address_recipient_phone}">
-												<input type="text" class="delivery_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}">
+												<input type="hidden" value="${addressVO.address_recipient_phone}" >
+												<input type="text" class="delivery_phone" placeholder="EX) 010-1234-5678">
 											</td>
 										</tr>
 										<tr>
@@ -271,6 +316,10 @@
 							</div>
 							<div class="order_info_table">
 								<table>
+								<colgroup>
+									<col style="width:15%">
+ 									<col style="width:85%">
+ 								</colgroup>
 									<tbody>
 										<tr>
 											<th scope="row">상품 합계 금액</th>
@@ -386,7 +435,7 @@
 												<div class="payment_pay">
 													<ul>
 														<li>
-															<input type="radio" class="pC" id="as_account">
+															<input type="radio" class="pC" id="as_account" value="계좌이체">
 															<label for="as_account" class="pay_s">계좌이체</label>
 														</li>
 													</ul>
@@ -453,7 +502,14 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon">
 																		<tr>
-																			<c:if test="${coupon.coupon_state eq 'cart'}">
+																			<c:if test="${coupon.coupon_state eq 'delivery' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
+																				<c:if test="${status.first}">
+																				<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
+																																 font-size: 13px;
+																																 font-weight: 600;">상품 쿠폰이 없습니다.</td>
+																				</c:if>
+																			</c:if>
+																			<c:if test="${coupon.coupon_state eq 'cart'}" var="cart">
 																				<td>
 																					<span class="coupon_element">
 																						<input type="hidden" value="${coupon.coupon_id}" class="couponID">
@@ -489,7 +545,14 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																	<tr>
-																		<c:if test="${coupon.coupon_state eq 'delivery'}">
+																		<c:if test="${coupon.coupon_state eq 'cart' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
+																			<c:if test="${status.first}">
+																			<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
+																															 font-size: 13px;
+																															 font-weight: 600;">배송지 쿠폰이 없습니다.</td>
+																			</c:if>
+																		</c:if>
+																		<c:if test="${coupon.coupon_state eq 'delivery'}" var="delivery">
 																			<td>
 																				<span class="coupon_element">
 																					<input type="hidden" value="${coupon.coupon_id}" class="couponID">
@@ -564,6 +627,21 @@
 																	</tr>
 																</thead>
 																<tbody>
+																<c:if test="${addressList.size() eq 0}">
+																	<tr>
+																		<td colspan="6">
+																			<div style="width: 100%;
+																						text-align: center;
+																						position: relative;
+																						padding: 50px 30px;
+																						font-size: 12px;
+																						color: #333;">
+																				배송지 내역이 없습니다.
+																			</div>
+																		</td>
+																	</tr>
+																</c:if>
+																<c:if test="${addressList.size() ne 0}">
 																	<c:forEach items="${addressList}" var="al">
 																		<c:if test="${al.address_default eq 1}">
 																			<tr>
@@ -643,6 +721,7 @@
 																			</tr>
 																		</c:if>
 																	</c:forEach>
+																</c:if>
 																</tbody>
 															</table>
 														</div>
@@ -705,5 +784,9 @@ function pointZero() {
 	}
 }
 </script>
+
+<!-- iamport.payment.js --> <!-- 카카오API -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+
 </body>
 </html>

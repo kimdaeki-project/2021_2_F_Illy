@@ -942,3 +942,34 @@ td.coupon_data_no {
 	background: #666666;
 	border: 1px solid #666666;
 }
+
+.product_name_file {
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.product_name_file .product_name_file_fileAdd {
+	display: table-cell;
+    width: 38px;
+    padding: 0 10px 0 0;
+    vertical-align: top;
+}
+
+.product_name_file_fileAdd img {
+	width: 42px;
+	height: 42px;
+	border: 1px solid #dbdbdb;
+    vertical-align: middle;
+}
+a:hover {
+	cursor: pointer;
+}
+.product_name_file_nameAdd {
+	display: table-cell;
+    padding: 0;
+    text-align: left;
+    vertical-align: middle;
+    word-break: break-all;
+    min-width: 250px;
+}

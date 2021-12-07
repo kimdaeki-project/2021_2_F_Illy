@@ -72,10 +72,10 @@ public class AddressController {
 	//update시 기본배송지 수정
 	@PostMapping("myDefaultAddressUpdate")
 	public ModelAndView setMyDefaultAddressUpdate(AddressVO addressVO, MemberVO memberVO) throws Exception {
-		/*
-		 * int result = addressService.setMyDefaultAddressInsert(addressVO); result =
-		 * addressService.setPaymentAddress(addressVO);
-		 */
+		
+		  int result = addressService.setMyDefaultAddressInsert(addressVO);  //기존 기본배송지 일반배송지로 변경
+		  result = addressService.setMyAddressUpdate(addressVO);
+		 
 		ModelAndView mv = new ModelAndView();
 		
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO);
@@ -112,7 +112,7 @@ public class AddressController {
 	//insert시 기본배송지 수정
 	@PostMapping("myDefaultAddressInsert")
 	public ModelAndView setMyDefaultAddressInsert(AddressVO addressVO, MemberVO memberVO) throws Exception {
-		int result = addressService.setMyDefaultAddressInsert(addressVO);
+		int result = addressService.setMyDefaultAddressInsert(addressVO); //기존 기본배송지 일반배송지로 변경
 		result = addressService.setPaymentAddress(addressVO);
 		
 		ModelAndView mv = new ModelAndView();

@@ -54,7 +54,9 @@
 					
 				</div> <!-- order_main end -->
 				<div id="order_bottom"><p>주문서 작성단계에서 할인/일리 포인트 적용을 하실 수 있습니다.</p></div>	
+				<div class="naver_pay_box">
 				
+				</div><!-- naver_pay_box end --> <!-- 네이버페이 API -->
 			</div> <!-- contetns end -->
 			
 		</div> <!-- container end -->
@@ -69,7 +71,7 @@
  	ajaxBasket();
  	function ajaxBasket() {
  		let member_id=$('#memberIdHidden').val();
- 		console.log(member_id);
+ 		console.log("member_id: "+member_id);
  		$.ajax({
  			type:"GET",
  			url:"./cartMain",
@@ -78,7 +80,8 @@
  			},
  			success: function(result){
  				result=result.trim();
- 				$('#cart_ajax').html(result);
+ 				
+				$('#cart_ajax').html(result);
  			}
  		});
  	}
@@ -86,7 +89,7 @@
  	//선택상품 삭제
 	function optionDel() {
 		let delArray = new Array();
-		
+		let member_id=$('#memberIdHidden').val();
 		
 		$("input:checkbox[name=chkDel]:checked").each(function(){
 			let cartId = $(this).prev().val();
@@ -99,19 +102,26 @@
 			alert('선택하신 상품이 없습니다.');
 			return false;
 		}else{
-			confirm('선택하신 상품을 장바구니에서 삭제 하시겠습니까?');
-			$.ajax({
-				type:"GET",
-				url:"./setDelete",
-				traditional : true,
-				data: {
-					delArray:delArray
-				},
-				success: function(result) {
-					result=result.trim();
-					$('#cart_ajax').html(result);
-				}
-			});
+			if(confirm('선택하신 상품을 장바구니에서 삭제 하시겠습니까?')){
+				$.ajax({
+					type:"GET",
+					url:"./setDelete",
+					traditional : true,
+					data: {
+						delArray:delArray,
+						member_id:member_id
+					},
+					success: function(result) {
+						result=result.trim();
+						$('#cart_ajax').empty();
+						$('#cart_ajax').html(result);
+					}
+				});
+			}else {
+				
+			}
+			
+
 		}
 	}
 	
@@ -131,8 +141,12 @@
 			alert("선택하신 상품이 없습니다.");
 			return false;
 		}else{
-			confirm('선택하신 상품만 주문합니다.');
-			location.href="../payment/paymentList";	
+			if(confirm('선택하신 상품만 주문합니다.')){
+				location.href="../payment/paymentList";
+			}else{
+				
+			}
+				
 		} 		
  	}
  	

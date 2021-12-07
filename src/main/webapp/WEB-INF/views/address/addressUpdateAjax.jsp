@@ -149,7 +149,6 @@ function defaultAddress() {
 	if(address_default == 1){
 		$('#ajaxDefaultAddress').prop('checked', true);
 		$('#ajaxDefaultAddress').next().addClass('on');
-		$('#ajaxDefaultAddress').prop('diabled', true);
 	}else {
 		$('#ajaxDefaultAddress').prop('checked', false);
 		$('#ajaxDefaultAddress').next().removeClass('on');
@@ -187,14 +186,22 @@ $('.delivery_a_close').click(function(){
 
 //기본배송지로 추가
 $('#ajaxDefaultAddress').click(function(){
-	if($(this).next().hasClass('on') == true){
+	let address_default=$(this).val();
+
+	if(address_default ==1 ){
 		$(this).prop('checked', true);
-		$(this).next().removeClass('on');
-		$('#address_default').val(0);
-	}else {
-		$(this).prop('checked', false);
 		$(this).next().addClass('on');
-		$('#address_default').val(1);
+		$('#ajaxDefaultAddress').prop('diabled', true);
+	}else {
+		if($(this).next().hasClass('on') == true){
+			$(this).prop('checked', false);
+			$(this).next().removeClass('on');
+			$('#address_default').val(0);
+		}else {
+			$(this).prop('checked', true);
+			$(this).next().addClass('on');
+			$('#address_default').val(1);
+		}
 	}
 });
 

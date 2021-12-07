@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.c.illy.member.MemberVO;
+import com.c.illy.payment.PaymentVO;
 
 @Mapper
 public interface AddressRepository {
@@ -26,6 +27,12 @@ public interface AddressRepository {
 	
 	//기본 배송지 가져오기
 	public AddressVO getDefaultAddress(MemberVO memberVO) throws Exception;
+	
+	//가입 시 내 정보에 들어가는 주소
+	public AddressVO getJoinAddress(MemberVO memberVO) throws Exception;
+	
+	//배송지 정보 가져오기
+	public AddressVO getAddressOrder(PaymentVO paymentVO) throws Exception;
 	
 	//나의배송지 주소 list 가져오기
 	public List<AddressVO> getAddressList(MemberVO memberVO) throws Exception;

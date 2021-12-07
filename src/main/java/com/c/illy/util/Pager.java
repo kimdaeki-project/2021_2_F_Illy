@@ -1,5 +1,7 @@
 package com.c.illy.util;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -16,8 +18,6 @@ public class Pager {
 		}
 		return this.search;
 	}
-	
-	
 	
 	// ---------------------------------------pager 관련 
 	private Integer pn; //페이지 번호 
