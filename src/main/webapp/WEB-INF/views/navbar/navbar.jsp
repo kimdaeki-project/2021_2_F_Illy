@@ -63,7 +63,7 @@
 					<img class="searchImg" alt="" src="/images/gnb/new-search.png">
 				</div>
 				<div class="memberWrap">
-					<img class="userImg" alt="" src="/images/gnb/new-user.png">
+					<a href="/member/login"><img class="userImg" alt="" src="/images/gnb/new-user.png"></a>
 					<a href="/cart/normalBasket"><img class="cartImg" alt="" src="/images/gnb/new-cart.png"></a>
 				</div>
 			</div>

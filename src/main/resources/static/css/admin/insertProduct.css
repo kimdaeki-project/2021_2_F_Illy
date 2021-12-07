@@ -37,7 +37,7 @@ input:read-only { color: #999; background: #f7f7f7; }
 .inputFileLable { width: 128px; height: 128px; background: url('/images/admin/ico_plus.svg') no-repeat; background-size:32px 32px; background-position: center; cursor: pointer; color: transparent; }
 .imgBoxWrap { display: inline-block; line-height: 0; }
 .imgBox { position: relative; display: inline-block; border: 1px solid #333; border-radius: 20px; margin-right: 10px; width: 128px; height: 128px; overflow: hidden; }
-.previewImg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); border-radius: 20px; width: 128px; }
+.previewImg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 128px; }
 .deleteFileBtn { position: absolute; right: 10px; top: 10px; padding: 0; border: 1px solid #333; border-radius: 20px; width: 20px; height: 20px; background: url('/images/admin/ico_x.svg') no-repeat; background-size: 12px; background-position: center ; background-color: #fff; visibility: hidden; cursor: pointer; }
 .deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
 

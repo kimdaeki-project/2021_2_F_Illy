@@ -29,7 +29,7 @@
 		.inputFileWrap .inputBox { height: 128px; }
 		.inputFileLable { width: 128px; height: 128px; background: url('/images/admin/ico_plus.svg') no-repeat; background-size:32px 32px; background-position: center; cursor: pointer; color: transparent; }
 		.imgBoxWrap { display: inline-block; line-height: 0; }
-		.imgBox { position: relative; display: inline-block; border: 1px solid #333; border-radius: 20px; margin-right: 10px; width: 128px; height: 128px; overflow: hidden; }
+		.imgBox { position: relative; display: inline-block; border: 1px solid #d6d6d6; margin-right: 10px; width: 128px; height: 128px; overflow: hidden; }
 		.previewImg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); border-radius: 20px; width: 128px; }
 		.deleteFileBtn { position: absolute; right: 10px; top: 10px; padding: 0; border: 1px solid #333; border-radius: 20px; width: 20px; height: 20px; background: url('/images/admin/ico_x.svg') no-repeat; background-size: 12px; background-position: center ; background-color: #fff; visibility: hidden; cursor: pointer; }
 		.deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
@@ -125,8 +125,8 @@
 									</tr>
 									<tr>
 										<th scope="row">첨부파일</th>
-										<td class="inputFileWrap" data-maximum_file_cnt="5" >
-											<input type="file" name="multipartFiles" multiple="multiple" data-file_cnt="0" hidden="">
+										<td class="inputFileWrap">
+											<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="5" data-file_cnt="0" hidden="">
 											
 											<div class="imgBoxWrap" data-img_cnt="0">
 											</div>
@@ -167,7 +167,64 @@
 	</div>
 
 
-
+	<!-- ************************************** -->
+	<script src="/js/util/inputFileWrap.js"></script>
+	<script type="text/javascript">
+	
+	/* ===== 상품사진 START ===== */ 
+	 	
+		$('.inputFileWrap').on('change', '.inputFile', function(){
+			let multipartFiles = $('input[name=multipartFiles]');
+			let imgBoxWrap = $('.imgBoxWrap');
+			let dataTransfer = new DataTransfer();
+			
+			addFiles(multipartFiles, this);	//inputFileWrap.js
+			addPeviewImg(multipartFiles, imgBoxWrap, this) //inputFileWrap.js
+			this.files = dataTransfer.files; //files 초기화
+			
+			printMultipartFiles(); //테스트용 함수
+		}); /********** 파일선택 **********/
+		
+		$('.inputFileWrap').on('click', '.deleteFileBtn', function(){
+			let multipartFiles = $('input[name=multipartFiles]');
+			
+			deleteFile($(this), multipartFiles); //inputFileWrap.js
+			deletePeviewImg($(this)); //inputFileWrap.js
+			let imgBox = $('.imgBox'); //setImgIndex() 호출 직전에 imgBox변수 선언
+			setImgIndex(imgBox) //inputFileWrap.js
+			
+			printMultipartFiles(); //테스트용 함수
+		}); /********** 파일 삭제버튼 **********/
+		
+		$('.inputFileWrap').on('mouseover', '.previewImg', function(){
+			let deleteFileBtn = $(this).siblings('.deleteFileBtn');		
+			deleteFileBtn.css('visibility', 'visible');
+		});
+		$('.inputFileWrap').on('mouseleave', '.previewImg', function(){
+			let deleteFileBtn = $(this).siblings('.deleteFileBtn');		
+			deleteFileBtn.css('visibility', 'hidden');
+		});
+		$('.inputFileWrap').on('mouseover', '.deleteFileBtn', function(){
+			$(this).css('visibility', 'visible');
+		});
+		
+		function printMultipartFiles() {
+			let multipartFiles = $('input[name=multipartFiles]');
+			let files = multipartFiles[0].files;
+			let index = 0;
+			console.log("/ ===== ===== ===== ===== ===== /");
+			for (let file of files){
+				console.log("[FILE INDEX "+(index++)+"] " + file.name);
+			}
+			console.log("[TOTAL COUNT] " + multipartFiles.data('file_cnt'));
+		} /********** 테스트용 함수 **********/
+		
+	/* ===== 상품사진 END ===== */
+	
+	</script>
+	
+	
+	
 	<script type="text/javascript">
 	$(function() {
 		$('#add_member_form').submit(function() {
