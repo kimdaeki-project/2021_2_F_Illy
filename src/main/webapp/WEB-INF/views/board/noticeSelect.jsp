@@ -73,7 +73,7 @@
 								<tr class="noticeEx" data-notice_id="${noticeVO.notice_id}">
 									<td scope="row"><img src="/images/board/icon_board_notice.png"></td>
 									<td scope="row" style="text-align:left;">
-										<a href="/board/noticeSelect?notice_id=">
+										<a href="#">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
 										</a>
 									</td>

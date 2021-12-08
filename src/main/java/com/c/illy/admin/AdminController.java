@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.c.illy.notice.NoticeService;
+import com.c.illy.notice.NoticeVO;
 import com.c.illy.product.ProductService;
 import com.c.illy.product.coffee.CoffeeService;
 import com.c.illy.product.coffee.CoffeeVO;
@@ -33,6 +35,8 @@ public class AdminController {
 	private CoffeeService coffeeService;
 	@Autowired
 	private MachineService machineService;
+	@Autowired
+	private NoticeService noticeService; 
 	
 	@GetMapping("adIndex")
 	public void main() {
@@ -82,5 +86,29 @@ public class AdminController {
 		
 		return "redirect:/admin/adIndex";
 	}
+	
+	
+	//--------------------------------다영 추가 
+	//공지사항 추가하기(경로매핑) 
+	@GetMapping("board/insertNotice")
+	public String insertNotice(@ModelAttribute NoticeVO noticeVO)throws Exception{
+		return "admin/board/insertNotice";
+	}
+	
+	//공지사항 추가하기 
+	@PostMapping("board/insertNotice")
+	public String addNotice(@Valid NoticeVO noticeVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
+		if(bindingResult.hasErrors()) {
+			return "admin/board/insertNotice";
+		}
+		noticeService.addNotice(noticeVO, multipartFiles);
+		return "redirect:/notice/list";
+	}
+	
+	
+	
+	
+	
+	
 	
 }

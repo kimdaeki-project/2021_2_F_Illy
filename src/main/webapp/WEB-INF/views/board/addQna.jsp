@@ -15,7 +15,7 @@
 		.qna_write tbody tr th{font-size:12px; line-height:1.5; color:#333; margin:0; border-bottom:1px solid #dbdbdb; padding:13px 0 13px 25px; font-weight:bold; background-color:#fbfbfb;text-align:left; vertical-align:top;  }
 		.qna_write tbody tr td{font-size:12px; line-height:1.5; color:#333;height:32px; margin:0; padding:7px 0 11px 15px; border-bottom:1px solid #dbdbdb; background-color:#fff;  }
 		.qna_write tbody tr input{width:320px; height:31px; padding:0 10px; border:1px solid #d6d6d6; color:#333; line-height:31px;  }
-		#qna_type{width:127px; height:31px; color:#717171; vertical-align:top; outline:none; font-size:12px; line-height:1.5; color:#333;  }
+		#qna_type{width:127px; height:31px; color:#717171; vertical-align:top; outline:none; font-size:12px; line-height:1.5; border:1px solid #dbdbdb;}
 		.pro_choice_btn{display:inline-block; width:80px; height:26px; margin-left:5px; line-height:24px; color:#fff; font-size:12px; border:1px solid #979797; background-color:#979797; text-align:center; vertical-align:center; cursor:pointer;}
 		.pro_choice_btn:hover{background-color:#626262; border:1px solid #626262; }
 		.qna_write tbody tr input.qna_phone{width:90%;}
@@ -140,8 +140,11 @@
 									<tr>
 										<th scope="row">자동등록방지</th>
 										<td>
-											 <div class="g-recaptcha" data-sitekey=6LeN34MdAAAAAPKUbkjmd0VH2dKXKwLW1EWdZwqu
-></div>
+											<!--구글 리캡챠v2 API-->
+											<div id="google_recaptha">
+												<script src='https://www.google.com/recaptcha/api.js'></script>
+												<div class="g-recaptcha" data-sitekey="6LeN34MdAAAAAPKUbkjmd0VH2dKXKwLW1EWdZwqu"></div>
+											</div>
 										</td>
 									</tr>
 								
@@ -222,51 +225,6 @@
 	/* ===== 상품사진 END ===== */
 	
 	</script>
-	
-	
-	
-	<script type="text/javascript">
-	$(function() {
-		$('#add_member_form').submit(function() {
-				var captcha = 1;
-				$.ajax({
-		            url: './VerifyRecaptcha',
-		            type: 'post',
-		            data: {
-		                recaptcha: $("#g-recaptcha-response").val()
-		            },
-		            success: function(data) {
-		                switch (data) {
-		                    case 0:
-		                        console.log("자동 가입 방지 봇 통과");
-		                        captcha = 0;
-		                		break;
-		                    case 1:
-		                        alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
-		                        break;
-		                    default:
-		                        alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
-		                   		break;
-		                }
-		            }
-		        });
-				if(captcha != 0) {
-					return false;
-				} 
-		});
-		});
-	
-	</script>
-
-	
-
-
-
-
-
-
-
-
 
 </body>
 </html>

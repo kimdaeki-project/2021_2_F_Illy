@@ -339,24 +339,6 @@ public class MemberController {
 		
 	}
 	
-	
-	@ResponseBody
-	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
-	public int VerifyRecaptcha(HttpServletRequest request) {
-	    com.c.illy.util.VerifyRecaptcha.setSecretKey("시크릿 코드");
-	    String gRecaptchaResponse = request.getParameter("recaptcha");
-	    try {
-	       if(com.c.illy.util.VerifyRecaptcha.verify(gRecaptchaResponse))
-	          return 0; // 성공
-	       else return 1; // 실패
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return -1; //에러
-	    }
-	}
-	
-	
-	
 	//----------------------------------------------------------------------------myPage_다영 추가 end
 	
 	

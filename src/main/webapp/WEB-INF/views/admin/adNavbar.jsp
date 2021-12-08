@@ -7,7 +7,12 @@
 <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="/css/navbar/navbar.css">
-
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	<style>
+		.backHome{display:inlien-block; position:relative; float:right; top:-50px; }
+		.backHome a:hover{color:#D12420;}
+	</style>
+	
 </head>
 <body>
 
@@ -33,7 +38,9 @@
 <!-- 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li> -->
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
 <!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
+					<li><a href="/admin/board/insertNotice">BOARD</a></li>
 				</ul>
+				<div class="backHome"><a href="/"><i class="xi-home">&nbsp;Go Client Page</i></a></div>
 			</div>
 			
 <!-- 			<div class="rightBox"> -->

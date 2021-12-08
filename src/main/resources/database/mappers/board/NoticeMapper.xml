@@ -34,8 +34,48 @@
 	LIKE CONCAT('%',#{search},'%')
 </select>
 
+<!-- 글 하나 조회하기  -->
+<select id="getSelectOne" parameterType="NoticeVO" resultMap="selectResult">
+	SELECT N.*,NF.* from
+	notice N
+		LEFT JOIN
+	noticefile NF
+	ON(N.notice_id=NF.notice_id)
+	WHERE N.notice_id=#{notice_id}	
+</select>
+
+<resultMap type="NoticeVO" id="selectResult">
+	<id column="notice_id" property="notice_id"/>
+	<result column="notice_title" property="notice_title"/>
+	<result column="notice_contents" property="notice_contents"/>
+	<result column="notice_regDate" property="notice_regDate"/>
+	<result column="notice_type" property="notice_type"/>
+	<result column="notice_hits" property="notice_hits"/>
+	<result column="notice_top" property="notice_top"/>
+	<collection property=""></collection>
+</resultMap>
 
 
+
+
+
+
+<!-- 공지사항 추가하기 -->
+<insert id="addNotice" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="notice_id">
+	INSERT INTO notice(notice_id,notice_title,notice_contents,notice_type,notice_regDate,notice_hits,notice_top)
+	VALUES(0,#{notice_title},#{notice_contents},#{notice_type},sysdate(),0,#{notice_top})
+</insert>
+
+<!--공지사항 파일-->
+<insert id="addFileInsert" parameterType="NoticeFileVO">
+	INSERT INTO noticefile(noticeFile_id,noticeFile_name,noticeFile_oriName,notice_id) 
+	VALUES(0,#{noticeFile_name},#{noticeFile_oriName},#{notice_id})
+</insert>
+
+<!-- 공지사항 삭제하기 -->
+<delete id="setDelete" parameterType="NoticeVO">
+	DELETE FROM notice WHERE notice_id=#{notice_id}
+</delete>
 
 
 

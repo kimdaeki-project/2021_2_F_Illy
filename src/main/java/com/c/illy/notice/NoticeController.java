@@ -37,7 +37,21 @@ public class NoticeController {
 		return mv; 	
 	}
 	
+	//공지사항 삭제 
+	@GetMapping("deleteNotice")
+	@ResponseBody
+	public void setDelete(NoticeVO noticeVO)throws Exception{
+		noticeService.setDelete(noticeVO);
+	}	
+	
+	//글 하나 조회(경로조회) 
+	@GetMapping("noticeSelect")
+	public ModelAndView noticeSelect(NoticeVO noticeVO,ModelAndView mv)throws Exception{
 		
+		
+		
+		return mv; 
+	}
 	
 	
 	
