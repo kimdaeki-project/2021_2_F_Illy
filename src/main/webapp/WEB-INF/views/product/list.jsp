@@ -84,7 +84,7 @@
 							</a>
 							<div class="iconBox"></div>
 							<span class="productPrice pricePattern">${productVO.product_price}</span>
-							<button class="btnDefault red">장바구니</button>
+							<button class="btnDefault red insertCart" data-product-id="${productVO.product_id}">장바구니</button>
 							<button class="btnDefault red directPayment" data-product-id="${productVO.product_id}">구매하기</button>
 						</div>
 					</li>
@@ -131,6 +131,27 @@
 			console.log('product_id: '+$(this).attr('data-product-id'));
 			
 			location.href="/payment/directPayment?cart_cnt=1&product_id="+$(this).attr('data-product-id');
+		});
+		
+		//장바구니 담기
+		$('.insertCart').click(function(){
+			console.log('product_id: '+$(this).attr('data-product-id'));
+			
+			$.ajax({
+				type:"GET",
+				url:"/cart/setCart",
+				data: {
+					product_id: $(this).attr('data-product-id'),
+					cart_cnt: 1
+				},
+				success: function(result) {
+					alert(result); //모달창 띄워서 장바구니로 가냐 마냐
+				},
+				error : function(xhr, status, error){
+					console.log(error);				
+				}
+			
+			});
 		});
 	</script>
 </html>

@@ -23,6 +23,16 @@ public class CartService {
 	@Autowired
 	private CouponRepository couponRepository;
 
+	
+	public int setCart(CartVO cartVO, MemberVO memberVO) throws Exception {
+		System.out.println(memberVO.getMember_id());
+		if(cartVO.getMember_id() == null) {
+			cartVO.setMember_id(memberVO.getMember_id());
+		}
+		
+		return cartRepository.setCart(cartVO);
+	}
+
 	public List<CartProductVO> getNormalBasket(MemberVO memberVO) throws Exception {
 		return cartRepository.getNormalBasket(memberVO);
 	}

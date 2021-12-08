@@ -10,6 +10,8 @@ import com.c.illy.payment.PaymentVO;
 
 @Mapper
 public interface CartRepository {
+	//장바구니 담기
+	public int setCart(CartVO cartVO) throws Exception;
 	
 	//일반배송 장바구니 리스트
 	public List<CartProductVO> getNormalBasket(MemberVO memberVO) throws Exception;

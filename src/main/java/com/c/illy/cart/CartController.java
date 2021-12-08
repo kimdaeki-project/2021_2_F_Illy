@@ -1,6 +1,5 @@
 package com.c.illy.cart;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.c.illy.coupon.CouponService;
 import com.c.illy.member.MemberVO;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.util.Pager;
@@ -25,6 +24,15 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
+	
+	/* @GetMapping("setCart") */
+	@RequestMapping("setCart")
+	@ResponseBody
+	public int setCart(CartVO cartVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		int result = cartService.setCart(cartVO, memberVO); // 장바구니에 상품 등록
+		
+		return result;
+	}
 	
 	//일반구매 - 장바구니 리스트
 	@GetMapping("normalBasket")

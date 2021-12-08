@@ -201,11 +201,11 @@
   				and payment_id=#{payment_id}
   	</update> <!-- 환불 후 장바구니 상태 변경 -->
   	
-  	<update id="setDirectPayment" parameterType="MemberVO">
-  		update cart set cart_state=null
+  	<delete id="setDirectPayment" parameterType="MemberVO">
+  		delete from cart
   		where cart_state='direct'
   				and member_id=#{member_id}
-  	</update> <!-- 바로구매 cart_state 변경 -->
+  	</delete> <!-- 바로구매 cart_state 변경 -->
   	
   	<delete id="setDelete" parameterType="CartVO">
   		delete from cart where cart_id=#{cart_id}

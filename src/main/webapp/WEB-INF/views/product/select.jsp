@@ -56,7 +56,7 @@
 							</div>
 							<span class="countPrice pricePattern">${productVO.product_price}</span>
 						</div>
-						<button type="button" class="btnSquare">장바구니</button>
+						<button type="button" class="btnSquare insertCart">장바구니</button>
 						<button type="button" class="btnSquare wish">찜하기</button>
 						<button type="button" class="btnSquare black directPayment">바로 구매</button>
 						
@@ -108,7 +108,7 @@
 							</a>
 							<div class="iconBox"></div>
 							<span class="productPrice pricePattern">${productVO.product_price}</span>
-							<button class="btnDefault red">장바구니</button>
+							<button class="btnDefault red relationInsertCart" data-product-id="${productVO.product_id}">장바구니</button>
 							<button class="btnDefault relationDirectPayment red" data-product-id="${productVO.product_id}">구매하기</button>
 						</div>
 					</li>
@@ -239,6 +239,48 @@
 		
 		location.href="/payment/directPayment?cart_cnt=1"+"&product_id="+$(this).attr('data-product-id');
 	});	
+	
+	//상품 장바구니 담기
+	$('.insertCart').click(function(){
+		console.log('product_id: '+$(this).attr('data-product-id'));
+		
+		$.ajax({
+			type:"GET",
+			url:"/cart/setCart",
+			data: {
+				product_id: $('.productId').val(),
+				cart_cnt: $('.inputCnt').val()
+			},
+			success: function(result) {
+				alert(result); //모달창 띄워서 장바구니로 가냐 마냐
+			},
+			error : function(xhr, status, error){
+				console.log(error);				
+			}
+		
+		});
+	});
+	
+	//관련상품 장바구니 담기
+	$('.relationInsertCart').click(function(){
+		console.log('product_id: '+$(this).attr('data-product-id'));
+		
+		$.ajax({
+			type:"GET",
+			url:"/cart/setCart",
+			data: {
+				product_id: $(this).attr('data-product-id'),
+				cart_cnt: 1
+			},
+			success: function(result) {
+				alert(result); //모달창 띄워서 장바구니로 가냐 마냐
+			},
+			error : function(xhr, status, error){
+				console.log(error);				
+			}
+		
+		});
+	});
 	
 </script>
 </html>
