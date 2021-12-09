@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.btn_wish_cart {
+	border: 0;
+    background: #d12420;
+    border-radius: 21px;
+    color: #fff;
+    display: inline-block;
+    min-width: 46px;
+    margin: 2px 1px 2px 1px;
+    padding: 3px 10px 4px 10px;
+    text-align: center;
+}
+.btn_wish_cart:hover { background: linear-gradient(100deg, #d12420, #902323); }
+
+.btn_wish_del {
+	border: 1px solid #63666a;
+    color: #333;
+    border-radius: 21px;
+    display: inline-block;
+    min-width: 46px;
+    min-height: 18px;
+    margin: 5px 0 0 0;
+    padding: 3px 10px 4px 10px;
+    background: #ffffff;
+    text-align: center;
+}
+.btn_wish_del:hover { border: 1px solid #d12420; color: #d12420; }
+
+.btn_choice_wish_del, .btn_choice_wish_cart {
+	margin: 10px 0 0 0;
+    display: inline-block;
+    min-width: 46px;
+    min-height: 18px;
+    padding: 3px 10px 4px 10px;
+    color: #626262;
+    border: 1px solid #a3a3a3;
+    background: #ffffff;
+    text-align: center;
+}

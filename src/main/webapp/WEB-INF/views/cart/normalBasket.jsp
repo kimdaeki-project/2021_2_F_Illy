@@ -54,7 +54,7 @@
 					
 				</div> <!-- order_main end -->
 				<div id="order_bottom"><p>주문서 작성단계에서 할인/일리 포인트 적용을 하실 수 있습니다.</p></div>	
-				<div class="naver_pay_box">
+ 				<div class="naver_pay_box">
 					<div class="payBox">
 							<div class="naverPay">
 								<link id="NAVER_PAY_STYLE" type="text/css" rel="stylesheet" href="https://img.pay.naver.net/static/css/button/button2.css?455213">
@@ -65,12 +65,12 @@
 								</div>
 								
 								<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>								
-								<script>								
+								<!-- <script>								
 								    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
 								    var elNaverPayBtn = document.getElementById("naverPayBtn");
 								
 								    elNaverPayBtn.addEventListener("click", function() {
-
+										
 								    	let productId = 1; /* 수정하기 */
 								    	let cnt = 1;
 								    	
@@ -84,10 +84,10 @@
 							            let option = "width = "+width+", height = "+heigth+", top = "+top+", left = "+left+", location = no"
 							            window.open(url/* , name, option */);
 								    });								
-								</script>
+								</script> -->
 							</div>
 						</div><!-- payBox end -->
-				</div><!-- naver_pay_box end --> <!-- 네이버페이 API -->
+				</div><!-- naver_pay_box end 네이버페이 API -->
 			</div> <!-- contetns end -->
 			
 		</div> <!-- container end -->

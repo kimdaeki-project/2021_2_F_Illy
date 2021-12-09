@@ -1,13 +1,20 @@
 package com.c.illy.cart;
 
+import java.net.http.HttpRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import com.c.illy.coupon.CouponRepository;
+import com.c.illy.license.LicenseRepository;
+import com.c.illy.license.LicenseVO;
 import com.c.illy.member.MemberRepository;
 import com.c.illy.member.MemberVO;
 import com.c.illy.payment.PaymentVO;
@@ -22,6 +29,8 @@ public class CartService {
 	private MemberRepository memberRepository;
 	@Autowired
 	private CouponRepository couponRepository;
+	@Autowired
+	private LicenseRepository licenseRepository;
 
 	
 	public int setCart(CartVO cartVO, MemberVO memberVO) throws Exception {
@@ -97,7 +106,33 @@ public class CartService {
 		return cartRepository.setCheckAll(cartVO);
 	}
 
-	public int setPaymentID(PaymentVO paymentVO, CartVO cartVO) throws Exception {
+	public int setPaymentID(PaymentVO paymentVO, CartVO cartVO, HttpServletRequest request) throws Exception {
+		//머신 구매 시 시리얼넘버 생성
+		String [] serialArray = request.getParameterValues("serialArray");
+		System.out.println(serialArray.length);
+		
+		Date date_now = new Date(System.currentTimeMillis());
+		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss"); //현재날짜(시간포함)
+		
+		for(int i=0; i<serialArray.length;i+=4) {
+			if(serialArray[i].substring(0, 3).equals("002")) {
+				Integer product_id = Integer.parseInt(serialArray[i+1]);
+				Integer member_id = Integer.parseInt(serialArray[i+2]);
+				Integer cart_id = Integer.parseInt(serialArray[i+3]);
+				
+				String serialNumber = "ILLY"+fourteen_format.format(date_now)+"M"+cart_id;
+				System.out.println("serialNumber: "+serialNumber);
+				LicenseVO licenseVO = new LicenseVO();
+				licenseVO.setSerial_number(serialNumber);
+				licenseVO.setProduct_id(product_id);
+				licenseVO.setMember_id(member_id);
+				licenseVO.setCart_id(cart_id);
+				
+				licenseRepository.setSerialNumber(licenseVO);
+			}
+			
+		}
+		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		

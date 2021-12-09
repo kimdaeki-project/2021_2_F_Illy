@@ -89,12 +89,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>
@@ -153,12 +153,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>

@@ -3,6 +3,8 @@ package com.c.illy.payment;
 import java.net.HttpURLConnection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.c.illy.address.AddressService;
@@ -90,10 +93,10 @@ public class PaymentController {
 		return "payment/paymentList";
 	}
 	
-	// 결제 완료
-	@RequestMapping("insertPayment")
+	// 결제 완료 - product 기계 구매했을 때 시리얼넘버 생성하기
+	@RequestMapping(value = "insertPayment",  method = RequestMethod.POST)
 	@ResponseBody
-	public Integer setPaymentInsert(CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO, CartVO cartVO) throws Exception {
+	public Integer setPaymentInsert(HttpServletRequest request, CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO, CartVO cartVO) throws Exception {
 		
 		addressVO.setMember_id(paymentVO.getMember_id());
 		int result = addressService.setPaymentAddress(addressVO); //배송받을 주소 insert
@@ -104,7 +107,7 @@ public class PaymentController {
 		
 		paymentVO = paymentService.getPaymentOne();
 		
-		result = cartService.setPaymentID(paymentVO, cartVO); //결제상태 update
+		result = cartService.setPaymentID(paymentVO, cartVO, request); //결제상태 update, serialNumber 생성
 		result = memberService.setAddBean(memberVO); //결제 후 포인트 적립
 		
 		if(couponVO.getCoupon_id() != 0) {
@@ -113,9 +116,14 @@ public class PaymentController {
 			result = couponService.setUseState(couponVO);
 		}
 		
+//		if() {
+//			//머신 구매 시 serial number 생성
+//		}
+		
 		return paymentVO.getPayment_id();
 	}
 	
+	//결제 완료
 	@GetMapping("paymentEnd")
 	public void getPaymentEnd(Model model, PaymentVO paymentVO) throws Exception {
 
@@ -126,6 +134,8 @@ public class PaymentController {
 		model.addAttribute("paymentVO", paymentService.getPaymentOne());
 	}
 	
+	
+	// 네이버페이로 구매했을 경우 - 일리랑 상관 X
 	@GetMapping("naverpay")
 	public void naverpayPopup(Model model, ProductVO productVO, Integer cnt) throws Exception {
 		model.addAttribute("productVO", productService.getSelectProductOne(productVO));

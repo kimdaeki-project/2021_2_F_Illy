@@ -93,14 +93,14 @@
 										</c:if>
 											<tr class="sumTotal">
 												<td class="tb_product">
-													<div class="product_name_file">
+													<div class="product_name_file" serial-product-id="${carts.product_id}" serial-cart-id="${carts.cart_id}" serial-product-categoryCode="${carts.product_categoryCode}">
 														<span class="product_name_file_fileAdd">
-															<a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">
 																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 															</a>
 														</span>
 														<div class="product_name_file_nameAdd">
-															<a>${carts.product_name}</a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">${carts.product_name}</a>
 														</div>
 													</div>
 												</td>
@@ -360,7 +360,7 @@
 													</li>
 													<li class="coupon_use_benefit_final">
 														<em>적립 일리 포인트 : 
-															<strong>(+) <b>0</b>콩</strong>
+															<strong>(+) <b class="add_bean"></b>콩</strong>
 														</em>
 													</li>
 												</ul>
@@ -763,7 +763,7 @@ function price() {
    
    let sd = sum+delivery;
    let bean=0;
-   bean=parseInt(sum)*0.012;
+   bean=parseInt(sum)*0.02;
 	sum=Number(sum).toLocaleString();
 	delivery=Number(delivery).toLocaleString();
 	sd=Number(sd).toLocaleString();

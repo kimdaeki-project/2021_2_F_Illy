@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.member.point.PointRepository">
+
+	<insert id="setPointHistory" parameterType="PointVO">
+		insert into point(point_id, member_id, point_date, point_type, point_history, point_addOrUse, point_totalPoint)
+			values(null, #{member_id}, #{point_date}, #{point_type}, #{point_history}, #{point_addOrUse}, #{point_totalPoint})
+	</insert> <!-- 포인트 내역 적립 -->
+	
+	<select id="getPointHistory" resultType="PointVO" parameterType="MemberVO">
+		select * from point
+			where member_id=#{member_id}
+			order by point_date desc
+	</select> <!-- 포인트 내역 출력 -->
+</mapper>

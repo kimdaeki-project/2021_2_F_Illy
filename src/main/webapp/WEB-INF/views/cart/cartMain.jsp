@@ -61,11 +61,11 @@
 														<input type="hidden" value="${carts.cart_id}">
 														<c:if test="${carts.cart_state eq 'checked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
-															data-cart-id="${carst.cart_id}" name="chkDel" class="checkOn chkBox" checked="checked">
+															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" name="chkDel" class="checkOn chkBox" checked="checked">
 														</c:if>
 														<c:if test="${carts.cart_state eq 'unChecked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
-															data-cart-id="${carst.cart_id}" name="chkDel" class="checkOn chkBox">
+															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" name="chkDel" class="checkOn chkBox">
 														</c:if>
 														<label for="cartCheckBox${carts.cart_id}" class="check_s"></label>
 													</div>
@@ -73,12 +73,12 @@
 												<td class="tb_product">
 													<div class="product_name_file">
 														<span class="product_name_file_fileAdd">
-															<a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">
 																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 															</a>
 														</span>
 														<div class="product_name_file_nameAdd">
-															<a>${carts.product_name}</a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">${carts.product_name}</a>
 														</div>
 													</div>
 												</td>
@@ -133,7 +133,7 @@
 										<dd><strong id="total_sum"></strong>원</dd>
 									</dl>
 								</div>
-								<em>적립예정 일리 포인트 : 0콩</em>
+								<em>적립예정 일리 포인트 : <strong>(+) <b class="add_bean"></b>콩</strong></em>
 							</div>
 						</div><!-- totalPrice end -->
 						
@@ -197,6 +197,8 @@
         }
         
         let sd = sum+delivery;
+        let bean=0;
+        bean=parseInt(sum)*0.02;
         
         count=Number(count).toLocaleString();
  		sum=Number(sum).toLocaleString();
@@ -206,6 +208,7 @@
         $(".ttPrice").html(sum);
         $('.deliveryPrice').html(delivery);
         $('#total_sum').html(sd);
+       	$('.add_bean').html(bean);
 	}
 	
 	function allChecked() {

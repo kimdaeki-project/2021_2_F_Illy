@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.c.illy.address.AddressRepository;
 import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
+import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartService;
 import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
@@ -31,6 +32,8 @@ import com.c.illy.payment.PaymentVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
 import com.c.illy.util.Pager;
+import com.c.illy.wish.WishService;
+import com.c.illy.wish.WishVO;
 
 @Controller
 @RequestMapping("member/**")
@@ -45,6 +48,8 @@ public class MemberController {
 	private CartService cartService;
 	@Autowired
 	private CouponService couponService;
+	@Autowired
+	private WishService wishService;
 
 	//--다영 
 	@Autowired
@@ -298,6 +303,45 @@ public class MemberController {
 		model.addAttribute("count", couponService.getCouponCount(couponVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageCoupon/myPageCouponNone";
+	}
+	
+	// 찜리스트
+	@GetMapping("myPage/myWishList")
+	public String getMyWishList(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		
+		model.addAttribute("member", memberVO);
+		return "member/myWishList/myWishList";
+	}
+	
+	//찜리스트 페이징처리 ajax
+	@GetMapping("myPage/myWishListAjax")
+	public String getMyWishListAjax(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		List<WishVO> list = wishService.getWishList(pager, memberVO);
+		
+		model.addAttribute("list", list);
+		return "member/myWishList/myWishListAjax";
+	}
+	
+	//콩포인트 내역
+	@GetMapping("myPage/myPagePoint")
+	public String getMyPagePoint(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		memberVO = memberService.getSelect(memberVO);
+
+		model.addAttribute("couponSize", couponService.getCouponList(memberVO).size());
+		model.addAttribute("member", memberVO);
+		return "member/myPoint/myPointList";
+	}
+	
+	//콩포인트 내역 - 사용
+	@GetMapping("myPage/myPagePointUse")
+	public String getMyPagePointUse() throws Exception {
+		return "member/myPoint/myPointAjaxUse";
+	}
+	
+	//콩포인트 내역 - 적립
+	@GetMapping("myPage/myPagePointAdd")
+	public String getMyPagePointAdd() throws Exception {
+		return "member/myPoint/myPointAjaxAdd";
 	}
 // ----------------------------------------------------- ijy end ------------------------------------------------
 

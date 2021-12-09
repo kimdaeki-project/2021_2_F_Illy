@@ -25,7 +25,6 @@ public class CartController {
 	private CartService cartService;
 	
 	
-	/* @GetMapping("setCart") */
 	@RequestMapping("setCart")
 	@ResponseBody
 	public int setCart(CartVO cartVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {

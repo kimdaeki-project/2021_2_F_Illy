@@ -95,7 +95,7 @@
 										<span><img alt="" src="/images/coupon/icon_mileage.png"></span>
 										<span>
 											<em>일리 포인트</em>
-											<a><strong>${member.member_point}</strong>콩</a>
+											<a href="/member/myPage/myPagePoint"><strong>${member.member_point}</strong>콩</a>
 										</span>
 									</li>
 								</ul>
@@ -176,7 +176,7 @@ setStart(start_date, end_date, 1);
 
 
 function setStart(start_date,end_date,pn){
-	let startendDate = $(".start").val() + ' ~ ' + $(".end").val();
+	let startendDate = $(".start").val() + '&nbsp;~&nbsp;' + $(".end").val();
 	$.ajax({
 		type:"GET",
 		url:"./myPageCouponPager",
@@ -220,6 +220,7 @@ function getDate(start_date,end_date,pn){
 		success: function(result){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());
+			$('#startendDate').empty();
 			$('#startendDate').html(startendDate);
 			
 		
@@ -335,7 +336,13 @@ $(".btn_board_search").click(function(){
 	console.log("--" + $(".start").val());
 	console.log("--" + $(".end").val());
 	
-	setStart($('.start').val(), $('.end').val(), 1);
+	if($('.setStart').hasClass('on') == true){
+		setStart($('.start').val(), $('.end').val(), 1);		
+	}
+	if($('.getCancel').hasClass('on') == true){
+		getDate($('.start').val(), $(".end").val(), 1);		
+	}
+	
 });
 
 /* 쿠폰사용가능 tab */

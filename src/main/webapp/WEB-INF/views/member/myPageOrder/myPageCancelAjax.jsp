@@ -18,7 +18,7 @@
 
 </div>
 <c:if test="${empty list}">
-	<span class="pick_list_num">주문목록 / 배송조회 목록 총 <strong>0</strong> 건</span>
+	<span class="pick_list_num">취소/반품/교환 내역 총 <strong>0</strong> 건</span>
 	<div class="myPage_type_table">
 		<table>
 		<colgroup>
@@ -44,7 +44,7 @@
 	</div>
 </c:if>		
 <c:if test="${!empty list}">												
- 		<span class="pick_list_num">주문목록 / 배송조회 목록 총 <strong>${count}</strong> 건</span>
+ 		<span class="pick_list_num">취소/반품/교환 내역 총 <strong>${count}</strong> 건</span>
 		<div class="myPage_type_table">
 			<table>
 			<colgroup>
@@ -89,12 +89,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>
@@ -153,12 +153,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>

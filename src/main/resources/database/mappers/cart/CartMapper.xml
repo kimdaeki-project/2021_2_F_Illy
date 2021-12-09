@@ -21,7 +21,7 @@
 		where C.member_id=#{member_id} and
 				(C.cart_state = 'checked' or C.cart_state = 'unChecked')
 	</select> <!-- 일반배송 장바구니 리스트 -->
-  	
+	
   	<select id="getCartListCheck" resultType="CartProductVO" parameterType="MemberVO">
   		select C.*, P.*, PF.* from cart C
 		join product P
@@ -76,6 +76,7 @@
 			<result column="product_price" property="product_price"/>
 			<result column="cart_state" property="cart_state"/>
 			<result column="cart_cnt" property="cart_cnt"/>
+			<result column="product_categoryCode" property="product_categoryCode"/>
 		</collection>
 		<collection property="addressVO" javaType="AddressVO">
 			<id column="address_id" property="address_id"/>

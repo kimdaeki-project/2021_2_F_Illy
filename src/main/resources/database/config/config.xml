@@ -13,7 +13,8 @@
   		<typeAlias type="com.c.illy.member.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.c.illy.member.RoleVO" alias="RoleVO"/>
 		<typeAlias type="com.c.illy.address.AddressVO" alias="AddressVO"/>
-		  
+  		<typeAlias type="com.c.illy.member.point.PointVO" alias="PointVO"/>
+  				  
   		<typeAlias type="com.c.illy.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.c.illy.product.ProductFileVO" alias="ProductFileVO"/>
   		<typeAlias type="com.c.illy.product.CategoryCntVO" alias="CategoryCntVO"/>
@@ -24,6 +25,9 @@
   		<typeAlias type="com.c.illy.cart.CartProductVO" alias="CartProductVO"/>
   		<typeAlias type="com.c.illy.payment.PaymentVO" alias="PaymentVO"/>
   		<typeAlias type="com.c.illy.coupon.CouponVO" alias="CouponVO"/>
+  		<typeAlias type="com.c.illy.wish.WishVO" alias="WishVO"/>
+  		<typeAlias type="com.c.illy.license.LicenseVO" alias="LicenseVO"/>
+
 
   	<!-- LDY board work start  -->
   		<typeAlias type="com.c.illy.notice.NoticeVO" alias="NoticeVO"/>

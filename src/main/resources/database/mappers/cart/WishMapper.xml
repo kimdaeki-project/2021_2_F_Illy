@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c.illy.wish.WishRepository">
+	
+	<resultMap type="WishVO" id="getWishListResult">
+		<id column="wish_id" property="wish_id"/>
+		<result column="member_id" property="member_id"/>
+		<result column="product_id" property="product_id"/>
+		<result column="wish_cnt" property="wish_cnt"/>
+		<collection property="productVO" javaType="ProductVO">
+			<id column="product_id" property="product_id"/>
+			<result column="product_name" property="product_name"/>
+			<result column="product_price" property="product_price"/>
+			<result column="product_categoryCode" property="product_categoryCode"/>
+		</collection>
+		<collection property="productFileVO" javaType="ProductFileVO">
+			<result column="productFile_name" property="productFile_name"/>
+		</collection>
+	</resultMap>
+	<select id="getWishList" resultMap="getWishListResult" parameterType="HashMap">
+		select * from wish W
+		join product P
+			on W.product_id = P.product_id
+        join productfile PF
+        	on W.product_id = PF.product_id
+		where W.member_id=#{member.member_id}
+		order by W.wish_id desc limit #{pager.startRow},#{pager.perPage}
+	</select> <!-- 찜 리스트 pager -->
+  	
+  	<select id="getWishListCount" resultType="Long" parameterType="MemberVO">
+		select count(*) from wish W
+		join product P
+			on W.product_id = P.product_id
+        join productfile PF
+        	on W.product_id = PF.product_id
+		where W.member_id=#{member_id}
+	</select> <!-- 찜 리스트 pager count -->
+	
+	
+	
+	
+	<insert id="setWish" parameterType="WishVO">
+		insert into wish(wish_id, member_id, product_id, wish_cnt)
+			values(null, #{member_id}, #{product_id}, #{wish_cnt});
+	</insert> <!-- 찜하기 추가 -->
+	
+	<update id="setCnt" parameterType="WishVO">
+  		update wish set wish_cnt=#{wish_cnt} where wish_id=#{wish_id}
+  	</update> <!-- 찜리스트 수량 변경 -->
+  	
+  	<delete id="setDelete" parameterType="WishVO">
+  		delete from wish where wish_id=#{wish_id}
+  	</delete> <!-- 찜리스트 물건 삭제 -->
+</mapper>
