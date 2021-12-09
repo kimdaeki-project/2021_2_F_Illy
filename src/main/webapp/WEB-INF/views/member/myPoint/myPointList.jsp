@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 										<span><img alt="" src="/images/coupon/icon_mileage.png"></span>
 										<span>
 											<em>일리 포인트</em>
-											<a href="/member/myPage/myPagePoint"><strong>${member.member_point}</strong>콩</a>
+											<a href="/member/myPage/myPagePoint"><strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${member.member_point}"/></strong>콩</a>
 										</span>
 									</li>
 								</ul>
@@ -182,7 +183,6 @@ function getUse(start_date,end_date,pn){
 		url:"./myPagePointUse",
 		data: {
 			member_id : $('#memberID').val(),
-			coupon_state : 'unUse',
 			start_date : start_date,
 			end_date : end_date,
 			pn : pn
@@ -201,52 +201,13 @@ function getUse(start_date,end_date,pn){
 			});
 		}
 	});	
-} /* 사용 list */
-
-
-function getAdd(start_date,end_date,pn){
-	let member_id = $("#memberID").val();
-	let startendDate = $(".start").val() + '~' + $(".end").val();
-	$.ajax({
-		type:"GET",
-		url:"./myPagePointAdd",
-		data: {
-			member_id:$('#memberID').val(),
-			coupon_state:'deadline',
-			start_date:start_date,
-			end_date:end_date,
-			pn:pn
-		},
-		success: function(result){
-			$(".myPage_lately_info_cont").empty();
-			$(".myPage_lately_info_cont").append(result.trim());
-			$('#startendDate').html(startendDate);
-			
-		
-			 $('.pageBtn').each(function() {
-				 if($(this).attr("data-list-pn")!=pn){
-				 	 $(this).removeClass("on");
-				 }else{
-					 $(this).addClass("on");
-				 }
-			});
-		
-		}
-	});	
-} /* 적립 list */
+} /* list */
 
 /* 페이지 넘기기 */
 $(".myPage_lately_info_cont").on('click','.pageBtn',function(){
 	const num=$(this).attr("data-list-pn");
-	console.log("pn--" + $('.start').val());
-	console.log("pnn--" + $('.end').val());
-	console.log("num--" + num);
 	
-	if($('.setStart').hasClass('on') == true ){
-		getUse($('.start').val(), $('.end').val(), num); 
-	}else{
-		getAdd($('.start').val(), $('.end').val(), num); 
-	}
+	getUse($('.start').val(), $('.end').val(), num);
 	btnCss(num);
 });
 
@@ -334,23 +295,8 @@ $(".pick_date").click(function(){
 $(".btn_board_search").click(function(){
 	console.log("--" + $(".start").val());
 	console.log("--" + $(".end").val());
-	
-	if($('.setStart').hasClass('on') == true){
-		getUse($('.start').val(), $('.end').val(), 1);		
-	}
-	if($('.getCancel').hasClass('on') == true){
-		getAdd($('.start').val(), $('.end').val(), 1);		
-	}
-
-});
-
-/* 포인트 사용내역 tab */
-$(".myPage_lately_info_cont").on('click','.setStart',function(){
 	getUse($('.start').val(), $('.end').val(), 1);
-});
-/* 포인트 적립내역 tab */
-$(".myPage_lately_info_cont").on('click','.getCancel',function(){
-	getAdd($('.start').val(), $(".end").val(), 1);
+
 });
 </script>
 </body>

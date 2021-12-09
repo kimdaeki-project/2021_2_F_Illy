@@ -8,9 +8,17 @@
 			values(null, #{member_id}, #{point_date}, #{point_type}, #{point_history}, #{point_addOrUse}, #{point_totalPoint})
 	</insert> <!-- 포인트 내역 적립 -->
 	
-	<select id="getPointHistory" resultType="PointVO" parameterType="MemberVO">
+	<select id="getPointHistory" resultType="PointVO" parameterType="HashMap">
 		select * from point
-			where member_id=#{member_id}
-			order by point_date desc
+			where member_id=#{point.member_id} and
+				DATE_FORMAT(point_date, '%Y-%m-%d') between #{point.start_date} and #{point.end_date}
+			order by point_id desc limit #{pager.startRow},#{pager.perPage}
 	</select> <!-- 포인트 내역 출력 -->
+	
+	<select id="getPointHistoryCount" resultType="Long" parameterType="HashMap">
+		select count(*) from point
+			where member_id=#{point.member_id} and
+				DATE_FORMAT(point_date, '%Y-%m-%d') between #{point.start_date} and #{point.end_date}
+	</select> <!-- 포인트 내역 출력 -->
+	
 </mapper>

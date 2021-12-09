@@ -17,6 +17,8 @@ import com.c.illy.license.LicenseRepository;
 import com.c.illy.license.LicenseVO;
 import com.c.illy.member.MemberRepository;
 import com.c.illy.member.MemberVO;
+import com.c.illy.member.point.PointRepository;
+import com.c.illy.member.point.PointVO;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.util.Pager;
 
@@ -31,6 +33,8 @@ public class CartService {
 	private CouponRepository couponRepository;
 	@Autowired
 	private LicenseRepository licenseRepository;
+	@Autowired
+	private PointRepository pointRepository;
 
 	
 	public int setCart(CartVO cartVO, MemberVO memberVO) throws Exception {
@@ -160,10 +164,39 @@ public class CartService {
 	public int setPaymentCancel(PaymentVO paymentVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		memberVO = memberRepository.getSelect(memberVO);
 		Integer point = memberVO.getMember_point() - Integer.parseInt(paymentVO.getPayment_add_point()); //구매할 때 적립받은 포인트 차감
+		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
+		
+		
+/********************************************** 콩포인트 내역 리스트 추가 코드 **********************************************/
+		java.sql.Date today= new java.sql.Date(new java.util.Date().getTime()); //오늘 날짜 표현
+		
+		PointVO pointVO = new PointVO();
+		if(!paymentVO.getPayment_add_point().equals("0")) {
+			pointVO.setMember_id(memberVO.getMember_id()); //로그인 한 아이디 넣기
+			pointVO.setPoint_date(today); //리뷰 적립 날짜 / 상품 취소 날짜 / 상품 구매 날짜 적기
+			pointVO.setPoint_type("use"); //적립은 "add", 차감은 "use"로 표현
+			pointVO.setPoint_history("(상품 취소) 적립 포인트 차감"); //(리뷰적립) 포인트 적립 이런 식으로
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point())); //얼마 적립해줄지
+			pointVO.setPoint_totalPoint(point); //기존포인트+적립포인트
+			
+			pointRepository.setPointHistory(pointVO);
+		}
+/********************************************** 콩포인트 내역 리스트 추가 코드 **********************************************/
+		
+		point = point + Integer.parseInt(paymentVO.getPayment_use_point()); //구매할 때 사용한 포인트 적립
 		memberVO.setMember_point(point);
 		memberRepository.setAddBean(memberVO); //포인트 차감 후 update
 		
-		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
+		if(!paymentVO.getPayment_use_point().equals("0")) {
+			pointVO.setMember_id(memberVO.getMember_id());
+			pointVO.setPoint_date(today);
+			pointVO.setPoint_type("add");
+			pointVO.setPoint_history("(상품 취소) 사용 포인트 적립");
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_use_point()));
+			pointVO.setPoint_totalPoint(point);
+			
+			pointRepository.setPointHistory(pointVO);
+		}
 		
 		return cartRepository.setPaymentCancel(paymentVO);
 	}
@@ -171,10 +204,36 @@ public class CartService {
 	public int setPaymentRefund(PaymentVO paymentVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		memberVO = memberRepository.getSelect(memberVO);
 		Integer point = memberVO.getMember_point() - Integer.parseInt(paymentVO.getPayment_add_point()); //구매할 때 적립받은 포인트 차감
+		
+		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
+		
+		java.sql.Date today= new java.sql.Date(new java.util.Date().getTime());
+		
+		PointVO pointVO = new PointVO();
+		if(!paymentVO.getPayment_add_point().equals("0")) {
+			pointVO.setMember_id(memberVO.getMember_id());
+			pointVO.setPoint_date(today);
+			pointVO.setPoint_type("use");
+			pointVO.setPoint_history("(상품 환불) 적립 포인트 차감");
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point()));
+			pointVO.setPoint_totalPoint(point);
+			
+			pointRepository.setPointHistory(pointVO);
+		}
+		point = point + Integer.parseInt(paymentVO.getPayment_use_point()); //구매할 때 사용한 포인트 적립
 		memberVO.setMember_point(point);
 		memberRepository.setAddBean(memberVO); //포인트 차감 후 update
 		
-		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
+		if(!paymentVO.getPayment_use_point().equals("0")) {
+			pointVO.setMember_id(memberVO.getMember_id());
+			pointVO.setPoint_date(today); //현재 날짜로 수정
+			pointVO.setPoint_type("add");
+			pointVO.setPoint_history("상품 환불 사용 포인트 적립");
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_use_point()));
+			pointVO.setPoint_totalPoint(point);
+			
+			pointRepository.setPointHistory(pointVO);
+		}
 		
 		return cartRepository.setPaymentRefund(paymentVO);
 	}

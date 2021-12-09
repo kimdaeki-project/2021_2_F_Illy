@@ -108,7 +108,7 @@ public class PaymentController {
 		paymentVO = paymentService.getPaymentOne();
 		
 		result = cartService.setPaymentID(paymentVO, cartVO, request); //결제상태 update, serialNumber 생성
-		result = memberService.setAddBean(memberVO); //결제 후 포인트 적립
+		result = memberService.setAddBean(memberVO, paymentVO); //결제 후 포인트 적립
 		
 		if(couponVO.getCoupon_id() != 0) {
 			//쿠폰 사용 시 쿠폰 상태 update

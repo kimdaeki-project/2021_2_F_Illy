@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 										<span><img alt="" src="/images/coupon/icon_mileage.png"></span>
 										<span>
 											<em>일리 포인트</em>
-											<a href="/member/myPage/myPagePoint"><strong>${member.member_point}</strong>콩</a>
+											<a href="/member/myPage/myPagePoint"><strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${member.member_point}"/></strong>콩</a>
 										</span>
 									</li>
 								</ul>

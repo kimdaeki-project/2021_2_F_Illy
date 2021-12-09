@@ -59,14 +59,16 @@
 										<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 										<c:if test="${carts.cart_state eq 'payment'}">
 											<div class="btn_claim">
-												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+														data-payment-usePoint="${list.payment_use_point}">
 													<a>주문취소</a>
 												</span>
 											</div>
 										</c:if>
 										<c:if test="${carts.cart_state eq 'done'}">
 											<div class="btn_claim">
-												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+														data-payment-usePoint="${list.payment_use_point}">
 													<a>환  불</a>
 												</span>
 											</div>
@@ -126,14 +128,16 @@
 											<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 											<c:if test="${carts.cart_state eq 'payment'}">
 												<div class="btn_claim">
-													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+															data-payment-usePoint="${list.payment_use_point}">
 														<a>주문취소</a>
 													</span>
 												</div>
 											</c:if>
 											<c:if test="${carts.cart_state eq 'done'}">
 												<div class="btn_claim">
-													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+															data-payment-usePoint="${list.payment_use_point}">
 														<a>환  불</a>
 													</span>
 												</div>

@@ -55,14 +55,16 @@
 															<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 															<c:if test="${carts.cart_state eq 'payment'}">
 																<div class="btn_claim">
-																	<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+																	<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																			data-payment-usePoint="${list.payment_use_point}">
 																		<a>주문취소</a>
 																	</span>
 																</div>
 															</c:if>
 															<c:if test="${carts.cart_state eq 'done'}">
 																<div class="btn_claim">
-																	<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+																	<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																			data-payment-usePoint="${list.payment_use_point}">
 																		<a>환  불</a>
 																	</span>
 																</div>
@@ -122,14 +124,16 @@
 																<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 																<c:if test="${carts.cart_state eq 'payment'}">
 																	<div class="btn_claim">
-																		<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+																		<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																				data-payment-usePoint="${list.payment_use_point}">
 																			<a>주문취소</a>
 																		</span>
 																	</div>
 																</c:if>
 																<c:if test="${carts.cart_state eq 'done'}">
 																	<div class="btn_claim">
-																		<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+																		<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																				data-payment-usePoint="${list.payment_use_point}">
 																			<a>환  불</a>
 																		</span>
 																	</div>
@@ -334,28 +338,15 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 	if(confirm('주문취소 처리를 하시겠습니까?')){
 		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentCancel",
+			url:"/cart/setPaymentCancelDetail",
 			data: {
-				start_date:start_date,
-				end_date:end_date,
-				pn:pn,
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),
-				cart_state:null
+				payment_use_point: $(this).attr('data-payment-usePoint')
 			},
 			success: function(result){
-				alert('주문취소가 정상처리 되었습니다.');
-				$(".myPage_lately_info_cont").empty();
-				$(".myPage_lately_info_cont").append(result.trim());	
-				
-			
-				 $('.pageBtn').each(function() {
-					 if($(this).attr("data-list-pn")!=pn){
-					 	 $(this).removeClass("on");
-					 }else{
-						 $(this).addClass("on");
-					 }
-				});
+				alert(result);
+				location.reload();
 			
 			}
 		});
@@ -371,28 +362,15 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 	if(confirm('환불 처리를 하시겠습니까?')){
  		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentRefund",
+			url:"/cart/setPaymentRefundDetail",
 			data: {
-				start_date:start_date,
-				end_date:end_date,
-				pn:pn,
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),
-				cart_state:null
+				payment_use_point: $(this).attr('data-payment-usePoint')
 			},
 			success: function(result){
-				alert('환불처리가 정상처리 되었습니다.');
-				$(".myPage_lately_info_cont").empty();
-				$(".myPage_lately_info_cont").append(result.trim());	
-				
-			
-				 $('.pageBtn').each(function() {
-					 if($(this).attr("data-list-pn")!=pn){
-					 	 $(this).removeClass("on");
-					 }else{
-						 $(this).addClass("on");
-					 }
-				});
+				alert(result);
+				location.reload();
 			
 			}
 		});

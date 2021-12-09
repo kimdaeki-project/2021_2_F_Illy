@@ -20,6 +20,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.c.illy.member.point.PointRepository;
+import com.c.illy.member.point.PointVO;
+import com.c.illy.payment.PaymentVO;
+
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -31,6 +35,9 @@ public class MemberService implements UserDetailsService{
 	
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private PointRepository pointRepository;
 
 
 	@Override
@@ -43,7 +50,33 @@ public class MemberService implements UserDetailsService{
 		return memberVO;
 	}
 	
-	public int setAddBean(MemberVO memberVO) throws Exception {
+	public int setAddBean(MemberVO memberVO, PaymentVO paymentVO) throws Exception {
+		int point = memberVO.getMember_point() + Integer.parseInt(paymentVO.getPayment_use_point()); // 사용 포인트 차감 전
+		PointVO pointVO = new PointVO();
+		
+		if(!paymentVO.getPayment_add_point().equals("0")) {
+			pointVO.setMember_id(paymentVO.getMember_id());
+			pointVO.setPoint_date(paymentVO.getPayment_date());
+			pointVO.setPoint_type("add");
+			pointVO.setPoint_history("(상품 구매) 포인트 적립");
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point()));
+			pointVO.setPoint_totalPoint(point);
+			
+			pointRepository.setPointHistory(pointVO);
+		}
+		point = point - Integer.parseInt(paymentVO.getPayment_use_point()); //구매할 때 사용한 포인트 차감
+		
+		if(!paymentVO.getPayment_use_point().equals("0")) {
+			pointVO.setMember_id(paymentVO.getMember_id());
+			pointVO.setPoint_date(paymentVO.getPayment_date());
+			pointVO.setPoint_type("use");
+			pointVO.setPoint_history("(상품 구매) 포인트 사용");
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_use_point()));
+			pointVO.setPoint_totalPoint(memberVO.getMember_point());
+			
+			pointRepository.setPointHistory(pointVO);
+		}
+		
 		return memberRepository.setAddBean(memberVO);
 	}
 	public MemberVO getSelect(MemberVO memberVO) throws Exception {

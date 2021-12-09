@@ -28,6 +28,8 @@ import com.c.illy.cart.CartService;
 import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
+import com.c.illy.member.point.PointService;
+import com.c.illy.member.point.PointVO;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
@@ -50,6 +52,8 @@ public class MemberController {
 	private CouponService couponService;
 	@Autowired
 	private WishService wishService;
+	@Autowired
+	private PointService pointService;
 
 	//--다영 
 	@Autowired
@@ -334,14 +338,12 @@ public class MemberController {
 	
 	//콩포인트 내역 - 사용
 	@GetMapping("myPage/myPagePointUse")
-	public String getMyPagePointUse() throws Exception {
+	public String getMyPagePointUse(@AuthenticationPrincipal MemberVO memberVO, PointVO pointVO, Model model, Pager pager) throws Exception {
+		List<PointVO> list = pointService.getPointHistory(memberVO, pointVO, pager);
+		
+		model.addAttribute("count", pointService.getPointHistoryCount(pointVO));
+		model.addAttribute("list", list);
 		return "member/myPoint/myPointAjaxUse";
-	}
-	
-	//콩포인트 내역 - 적립
-	@GetMapping("myPage/myPagePointAdd")
-	public String getMyPagePointAdd() throws Exception {
-		return "member/myPoint/myPointAjaxAdd";
 	}
 // ----------------------------------------------------- ijy end ------------------------------------------------
 
