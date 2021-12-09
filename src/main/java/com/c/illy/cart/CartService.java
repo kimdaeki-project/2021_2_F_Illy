@@ -161,6 +161,7 @@ public class CartService {
 		return cartRepository.setPaymentDone(paymentVO);
 	}
 
+	//상품 취소
 	public int setPaymentCancel(PaymentVO paymentVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		memberVO = memberRepository.getSelect(memberVO);
 		Integer point = memberVO.getMember_point() - Integer.parseInt(paymentVO.getPayment_add_point()); //구매할 때 적립받은 포인트 차감
@@ -175,7 +176,7 @@ public class CartService {
 			pointVO.setMember_id(memberVO.getMember_id()); //로그인 한 아이디 넣기
 			pointVO.setPoint_date(today); //리뷰 적립 날짜 / 상품 취소 날짜 / 상품 구매 날짜 적기
 			pointVO.setPoint_type("use"); //적립은 "add", 차감은 "use"로 표현
-			pointVO.setPoint_history("(상품 취소) 적립 포인트 차감"); //(리뷰적립) 포인트 적립 이런 식으로
+			pointVO.setPoint_history("(상품 취소) 적립 포인트 차감"); //(리뷰 등록) 포인트 적립 이런 식으로
 			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point())); //얼마 적립해줄지
 			pointVO.setPoint_totalPoint(point); //기존포인트+적립포인트
 			
