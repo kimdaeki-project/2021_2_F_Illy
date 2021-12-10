@@ -27,7 +27,6 @@
 			
 			<div class="menuWrap">
 				<ul>
-<!-- 					<li><a href="/product/list">ALL PRODUCT</a></li> -->
 					<li>
 						<a href="/admin/insertCoffee">COFFEE</a>						
 						<ul class="hoverMenu">
