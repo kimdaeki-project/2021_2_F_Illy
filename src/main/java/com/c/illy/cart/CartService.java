@@ -124,7 +124,8 @@ public class CartService {
 				Integer member_id = Integer.parseInt(serialArray[i+2]);
 				Integer cart_id = Integer.parseInt(serialArray[i+3]);
 				
-				String serialNumber = "ILLY"+fourteen_format.format(date_now)+"M"+cart_id;
+				String serialNumber = "ILLY"+fourteen_format.format(date_now)+"M"+cart_id; 
+									  //시리얼넘버 생성 기준 ILLY+구매날짜+시간(초까지)+M+카트아이디(PK라 중복X)
 				System.out.println("serialNumber: "+serialNumber);
 				LicenseVO licenseVO = new LicenseVO();
 				licenseVO.setSerial_number(serialNumber);
@@ -168,21 +169,26 @@ public class CartService {
 		couponRepository.setCouponUseCancel(paymentVO); //쿠폰 사용 취소
 		
 		
-/********************************************** 콩포인트 내역 리스트 추가 코드 **********************************************/
+
 		java.sql.Date today= new java.sql.Date(new java.util.Date().getTime()); //오늘 날짜 표현
 		
 		PointVO pointVO = new PointVO();
 		if(!paymentVO.getPayment_add_point().equals("0")) {
+			
+/************************************************* 콩포인트 내역 리스트 추가 코드 *************************************************/
+			
 			pointVO.setMember_id(memberVO.getMember_id()); //로그인 한 아이디 넣기
-			pointVO.setPoint_date(today); //리뷰 적립 날짜 / 상품 취소 날짜 / 상품 구매 날짜 적기
-			pointVO.setPoint_type("use"); //적립은 "add", 차감은 "use"로 표현
-			pointVO.setPoint_history("(상품 취소) 적립 포인트 차감"); //(리뷰 등록) 포인트 적립 이런 식으로
-			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point())); //얼마 적립해줄지
+			pointVO.setPoint_date(today); //리뷰 등록 날짜 / 상품 취소 날짜 / 상품 구매 날짜 적기
+			pointVO.setPoint_type("use"); //적립은 "add", 차감은 "use"로 표현 - 리뷰는 only 적립만..?
+			pointVO.setPoint_history("(상품 취소) 적립 포인트 차감"); //"(리뷰 등록) 포인트 적립" 이런 식으로
+			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_add_point())); //적립포인트 100, 200, 300 ...
 			pointVO.setPoint_totalPoint(point); //기존포인트+적립포인트
 			
 			pointRepository.setPointHistory(pointVO);
+			
+/************************************************* 콩포인트 내역 리스트 추가 코드 *************************************************/	
+			
 		}
-/********************************************** 콩포인트 내역 리스트 추가 코드 **********************************************/
 		
 		point = point + Integer.parseInt(paymentVO.getPayment_use_point()); //구매할 때 사용한 포인트 적립
 		memberVO.setMember_point(point);

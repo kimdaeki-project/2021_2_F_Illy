@@ -61,7 +61,9 @@
 														<input type="hidden" value="${carts.cart_id}">
 														<c:if test="${carts.cart_state eq 'checked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
-															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" name="chkDel" class="checkOn chkBox" checked="checked">
+															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" 
+															data-product-id="${carts.product_id}" data-wish-cnt="${carts.cart_cnt}"
+															name="chkDel" class="checkOn chkBox" checked="checked">
 														</c:if>
 														<c:if test="${carts.cart_state eq 'unChecked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
@@ -140,7 +142,7 @@
 						<div id="cart_bottom">
 							<span id="cart_btn_left">
 								<button class="cart_btn_left_del" onclick="optionDel()">선택 상품 삭제</button>
-								<button class="cart_btn_left_ch">선택 상품 찜</button>
+								<button class="cart_btn_left_ch" onclick="optionWish()">선택 상품 찜</button>
 								<button class="cart_btn_left_ch">견적서 출력</button>
 							</span>
 							

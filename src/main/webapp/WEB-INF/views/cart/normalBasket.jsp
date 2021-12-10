@@ -216,6 +216,41 @@
 			
  	}
  	
+ 	//선택상품 찜
+ 	function optionWish() {
+ 		let delArray = new Array();
+		
+		$("input:checkbox[name=chkDel]:checked").each(function(){
+			let product_id = $(this).attr('data-product-id');
+			let wish_cnt = $(this).attr('data-wish-cnt');
+			delArray.push(product_id, wish_cnt);
+		});
+		
+		if(delArray == ""){
+			alert('선택하신 상품이 없습니다.');
+			return false;
+		}else{
+			if(confirm('선택하신 상품을 찜리스트에 담으시겠습니까?')){
+				$.ajax({
+					type:"GET",
+					url:"/wish/wishInsert",
+					traditional : true,
+					data: {
+						delArray:delArray
+					},
+					success: function() {
+						alert('상품이 찜리스트에 저장되었습니다.');
+						location.reload();
+					}
+				});
+			}else {
+				
+			}
+			
+
+		}
+ 	}
+ 	
 </script>	
 </body>
 </html>

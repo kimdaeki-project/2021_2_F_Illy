@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartService;
@@ -27,11 +29,28 @@ public class WishController {
 	private CartService cartService;
 	
 	//찜하기
-	@GetMapping("wishInsert")
-	public String wishInsert(WishVO wishVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
-		wishService.setWish(wishVO, memberVO);
+	@RequestMapping("wishInsert")
+	@ResponseBody
+	public String wishInsert(HttpServletRequest request, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		
-		return "redirect:/member/myPage/myWishList";
+
+		WishVO wishVO = new WishVO();
+		
+		String [] wish = request.getParameterValues("delArray");
+		
+		System.out.println(wish.length);
+		for(int i=0; i<wish.length;i+=2) {
+			wishVO.setProduct_id(Integer.parseInt(wish[i]));
+			wishVO.setWish_cnt(Integer.parseInt(wish[i+1]));
+
+			if(wishVO.getMember_id() == null) {
+				wishVO.setMember_id(memberVO.getMember_id());
+			}
+			
+			int result = wishService.setWish(wishVO);
+		}
+		
+		return "/member/myPage/myWishList";
 	}
 	
 	//수량변경

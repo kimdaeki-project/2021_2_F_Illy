@@ -244,7 +244,9 @@
 		$(this).find('button').css('display', 'none');
 	});
 	
-	// ijy ----------- 상품 바로구매하기 ------------
+// ijy --------------------------------------------------
+
+	// 상품 바로구매하기 ------------
 	$('.directPayment').click(function(){
 		console.log('cart_cnt: '+$('.inputCnt').val());
 		
@@ -314,7 +316,20 @@
 		let product_id = $('.productId').val();
 		let wish_cnt = $('.inputCnt').val();
 		
-		location.href="/wish/wishInsert?product_id="+product_id+"&wish_cnt="+wish_cnt;
+		let delArray = new Array();
+		delArray.push(product_id, wish_cnt);
+		
+		$.ajax({
+			type:"GET",
+			url:"/wish/wishInsert",
+			traditional : true,
+			data: {
+				delArray:delArray
+			},
+			success: function(result) {
+				location.href=result;
+			}
+		});
 	});
 	
 </script>

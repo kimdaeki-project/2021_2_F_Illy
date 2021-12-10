@@ -3,6 +3,8 @@ package com.c.illy.wish;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +38,7 @@ public class WishService {
 		return wishRepository.getWishList(map);
 	}
 	
-	public int setWish(WishVO wishVO, MemberVO memberVO) throws Exception {
-		
-		if(wishVO.getMember_id() == null) {
-			wishVO.setMember_id(memberVO.getMember_id());
-		}
+	public int setWish(WishVO wishVO) throws Exception {
 		
 		return wishRepository.setWish(wishVO);
 	}
