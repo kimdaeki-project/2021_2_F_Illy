@@ -40,12 +40,6 @@
 						<h2>공지사항</h2>
 					</div>
 					
-					<!-- 관리자만 보이는 버튼  -->
-					<div id="updateNotice">
-						<a href="/admin/board/updateNotice?notice_id=${noticeVO.notice_id}">수정하기</a>			
-					</div>
-					<!-- 관리자만 보이는 버튼  -->
-					
 					<div class="board_zone_cont">
 						<table class="board_list_table" style="width:100%;">
 							<tbody>

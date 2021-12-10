@@ -19,7 +19,28 @@ public class FaqService {
 		pager.makeNum(totalCount);
 		return faqRepository.getFaqList(pager);
 	}
+	
+	//Faq 글 하나 조회하기 
+	public FaqVO faqSelectOne(FaqVO faqVO)throws Exception{
+		return faqRepository.faqSelectOne(faqVO);
+	}
 
+	//Faq 추가하기 
+	public int addFaq(FaqVO faqVO)throws Exception{
+		return faqRepository.addFaq(faqVO);
+	}
+	
+	//Faq 삭제하기
+	public int faqDelete(FaqVO faqVO)throws Exception{
+		return faqRepository.faqDelete(faqVO);
+	}
+	
+	//Faq 수정하기 
+	public int faqUpdate(FaqVO faqVO)throws Exception{
+		return faqRepository.faqUpdate(faqVO);
+	}
+	
+	
 	
 	
 }

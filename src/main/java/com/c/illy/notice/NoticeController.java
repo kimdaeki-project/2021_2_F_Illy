@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,13 +37,6 @@ public class NoticeController {
 		mv.addObject("pager", pager);
 		return mv; 	
 	}
-	
-	//공지사항 삭제 
-	@GetMapping("deleteNotice")
-	public String setDelete(NoticeVO noticeVO)throws Exception{
-		noticeService.setDelete(noticeVO);
-		return "board/noticeList";
-	}	
 	
 	//글 하나 조회
 	@GetMapping("noticeSelect")
@@ -84,8 +78,7 @@ public class NoticeController {
 		 mv.setViewName("board/faqList");
 		return mv;
 	}
-	
-	
+	//Faq 리스트 불러오기_ajax
 	@GetMapping("faqTypeList")
 	public ModelAndView getFaqTypeList(Pager pager,ModelAndView mv)throws Exception{
 		List<FaqVO> ar = faqService.getFaqList(pager); 
@@ -94,6 +87,7 @@ public class NoticeController {
 		mv.setViewName("board/faqTypeList");
 		return mv;
 	}
+
 	
 	
 	

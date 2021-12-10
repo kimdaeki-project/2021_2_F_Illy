@@ -41,8 +41,8 @@
 				</div>
 	
 				<div class="right_cont">			
-					<h2>INSERT FAQ</h2>
-					<form action="./insertFaq" id="faqAdFrm" method="post">
+					<h2>UPDATE FAQ</h2>
+					<form action="./updateFaq" id="faqAdFrm" method="post">
 						<table class="faq_write">
 							<colgroup>
 								<col style="width:143px">
@@ -52,38 +52,40 @@
 								<tr>
 									<th scope="row">질문 유형</th>
 									<td>
-										<select id="faq_type_code" name="faq_type_code">
-											<option>=선택=</option>
-											<option value="f_1">회원가입/회원혜택</option>
-											<option value="f_2">주문/결제/배송</option>
-											<option value="f_3">취소/교환/반품/환불</option>
-											<option value="f_4">상품문의</option>
-											<option value="f_5">머신안내(Y1.1)</option>
-											<option value="f_6">머신안내(Y3/Y3.2/Y3.3)</option>
-											<option value="f_7">머신안내(X7/X7.1)</option>
-											<option value="f_8">AS안내</option>
-											<option value="f_9">자가진단</option>
+										<select id="faq_type_code" name="faq_type_code" value="${faqVO.faq_type_code}">
+											<option class="pickType" value="f_1">회원가입/회원혜택</option>
+											<option class="pickType" value="f_2">주문/결제/배송</option>
+											<option class="pickType" value="f_3">취소/교환/반품/환불</option>
+											<option class="pickType" value="f_4">상품문의</option>
+											<option class="pickType" value="f_5">머신안내(Y1.1)</option>
+											<option class="pickType" value="f_6">머신안내(Y3/Y3.2/Y3.3)</option>
+											<option class="pickType" value="f_7">머신안내(X7/X7.1)</option>
+											<option class="pickType" value="f_8">AS안내</option>
+											<option class="pickType" value="f_9">자가진단</option>
 										</select>	
-										<input hidden="" id="faq_type" name="faq_type">									
+										<input hidden="" id="faq_type" name="faq_type" value="" >									
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">질문</th>
 									<td>
-										<input type="text" style="width:80%;" class="faq_title" name="faq_title">
+										<input hidden="" name="faq_id" value="${faqVO.faq_id}">
+										<input type="text" style="width:80%;" class="faq_title" name="faq_title" value="${faqVO.faq_title}">
 									</td>
 								</tr>
 								<tr>
 									<th scope="row">답변</th>
 									<td>
-										<textarea class="summernote" name="faq_contents" id="faq_contents" ></textarea>
+										<textarea class="summernote" name="faq_contents" id="faq_contents" >
+											${faqVO.faq_contents}
+										</textarea>
 									</td>
 								</tr>
 							</tbody>
 					
 						</table>
 						<div class="btn_wrap">
-							<button type="button" onclick="location.href='/notice/faqList'" class="goback boardBtn">이전</button>
+							<button type="button" onclick="location.href='./adFaqList'" class="goback boardBtn">이전</button>
 							<button type="button" class="upload boardBtn">저장</button>
 						</div>
 					</form>
@@ -115,6 +117,17 @@
 			['view', ['codeview']]
 		]
 	});
+	
+	//수정페이지 폼에 들어와있을때 원래 입력되어 있는 데이터 타입 선택되어있기
+	const faq_type_code='${faqVO.faq_type_code}';
+	$('.pickType').each(function(){
+		const value=$(this).val();
+		if(value==faq_type_code){
+			$(this).prop("selected",true);
+		}
+	});	
+	
+	
 	
 	//faq_type_code에 따라서 faq_type 도 db저장 해주는 작업 해주면서 form submit 해주기  
 	$(".upload").click(function(){

@@ -18,19 +18,16 @@
 <body>
 			
 	<div class="left_cont">
-		<h2>게시판 글쓰기</h2>		
+		<h2>게시판 <span style="font-size:14px; color:#d12140;">[관리자용]</span></h2>		
 		<ul class="left_cont_box">	
 			<li>
-				<a href="/admin/board/insertNotice">공지사항</a>
+				<a href="/admin/board/adNoticeList">공지사항</a>
 			</li>
 			<li>
-				<a href="/admin/board/insertFaq">FAQ</a>
+				<a href="/admin/board/adFaqList">FAQ</a>
 			</li>
 			<li>
-				<a href="/admin/board/answerQna">1:1문의</a>
-			</li>
-			<li>
-				<a href="/admin/board/insertEvent">이벤트</a>
+				<a href="/admin/board/adQnaList">1:1문의</a>
 			</li>
 		</ul>	
 	</div>

@@ -60,10 +60,6 @@ $(function(){
 
 });
 
-
-
-
-
  
 function getList(pn,kind,search){
 	$.ajax({
@@ -94,3 +90,54 @@ function getList(pn,kind,search){
 		}
 	});
 }
+
+
+ /*-- faq게시판 삭제 --*/
+ $("#showFaqList").on('mouseover','.deleteBtn',function(){
+	let pick = $(this).find("i");
+	pick.removeClass("xi-close-square-o"); 
+	pick.addClass("xi-close-square"); 
+});
+
+ $("#showFaqList").on('mouseout','.deleteBtn',function(){
+	let pick = $(this).find("i");
+	pick.removeClass("xi-close-square"); 
+	pick.addClass("xi-close-square-o"); 
+});
+
+
+ /*-- faq게시판 수정 --*/
+ $("#showFaqList").on('mouseover','.updateBtn',function(){
+	let pick = $(this).find("i");
+	pick.removeClass("xi-pen-o"); 
+	pick.addClass("xi-pen"); 
+});
+
+ $("#showFaqList").on('mouseout','.updateBtn',function(){
+	let pick = $(this).find("i");
+	$(this).children().removeClass("xi-pen"); 
+	$(this).children().addClass("xi-pen-o"); 
+});
+
+
+/*삭제 버튼 누르면 삭제*/
+$("#showFaqList").on('click','.deleteBtn',function(){
+	if(confirm("정말 삭제 하시겠습니까?")==true){
+		var faq_id=$(this).parents().data("faq_id");
+		$.ajax({
+			url:'./faqDelete',
+			type:'get',
+			data:{faq_id:faq_id},
+			success:function(data){
+				location.href="./adFaqList";
+			}
+		});
+	}else{
+		return false;
+	}
+});
+
+
+
+
+

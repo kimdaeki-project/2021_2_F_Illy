@@ -27,7 +27,7 @@
 		<div class="gnbBottom">
 		
 			<div class="logo">
-				<a href="/"><img alt="" src="/images/gnb/logo50.jpg"></a>
+				<a href="/"><img style="filter: grayscale(100%);" alt="" src="/images/gnb/logo50.jpg"></a>
 			</div>
 			
 			<div class="menuWrap">
@@ -38,7 +38,7 @@
 <!-- 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li> -->
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
 <!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
-					<li><a href="/admin/board/insertNotice">BOARD</a></li>
+					<li><a href="/admin/board/adNoticeList">BOARD</a></li>
 				</ul>
 				<div class="backHome"><a href="/"><i class="xi-home">&nbsp;Go Client Page</i></a></div>
 			</div>

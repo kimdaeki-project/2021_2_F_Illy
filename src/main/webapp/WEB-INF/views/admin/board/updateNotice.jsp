@@ -51,7 +51,7 @@
 									</colgroup>
 									<tbody>
 										<tr>
-											<th scope="row">말머리</th>
+											<th scope="row">공지 유형</th>
 											<td>
 												<select id="notice_type" name="notice_type"  value="${noticeVO.notice_type}">
 													<option>=선택=</option>

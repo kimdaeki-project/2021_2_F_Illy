@@ -37,12 +37,6 @@
 			<li>
 				<a href="/review/bestReview">상품후기</a>
 			</li>
-			<li>
-				<a href="#">이벤트</a>
-			</li>
-			<li>
-				<a href="#">고객지원</a>
-			</li>
 		</ul>	
 		<div class="cs_center">		
 			<div class="cs_f"><span>고객</span><span>상담센터</span></div>
