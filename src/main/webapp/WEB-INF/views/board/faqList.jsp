@@ -43,6 +43,8 @@
 					<div class="board_zone_cont">
 						<div class="board_zone_tit">
 							<h2>FAQ</h2>
+							<!--관리자용 버튼   -->
+							<a class="addFaq" href="/admin/board/insertFaq">FAQ 추가하기</a>
 						</div>
 						<div class="pickTab">
 							<ul>
@@ -102,7 +104,7 @@
 	</div>
 	
 	<script type="text/javascript" src="/js/faqList.js"></script>
-	
+	<script type="text/javascript" src="/js/board_icon.js"></script>
 	
 	
 </body>

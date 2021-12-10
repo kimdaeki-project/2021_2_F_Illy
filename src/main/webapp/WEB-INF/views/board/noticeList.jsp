@@ -27,6 +27,7 @@
 		.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
 		#addNotice{float:right; margin:-30px 0 10px; }
 		#addNotice a{padding:7px 7px; font-size:12px; background-color:#979797; border:none; color:#fff; cursor:pointer;  }
+		#addNotice a:hover{background-color:#aaa;}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>일리카페 코리아</title>
@@ -73,7 +74,7 @@
 								<tr class="noticeEx" data-notice_id="${noticeVO.notice_id}">
 									<td scope="row"><img src="/images/board/icon_board_notice.png"></td>
 									<td scope="row" style="text-align:left;">
-										<a href="/board/noticeSelect?notice_id=">
+										<a href="./noticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
 										</a>
 									</td>
@@ -90,7 +91,7 @@
 								<tr class="noticeEx" data-notice_id="${noticeVO.notice_id}">													
 									<td scope="row">${noticeVO.notice_id}</td>								
 									<td scope="row" style="text-align:left;">
-										<a href="#">
+										<a href="./noticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
 											<c:if test="${noticeVO.notice_hits > 100}">
 												<img src="/images/board/icon_board_hot.png">

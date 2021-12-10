@@ -8,7 +8,6 @@
  
  /*검색입력했을때 실행*/
  $('.btn_board_search').click(function(){
-	console.log("check");	
 	/*무조건 첫페이지 뿌려줘서 pn=1*/
 	search=$("#search").val();
 	getList(1,'',search);	
@@ -17,9 +16,6 @@
 /*faq_type tab 선택했을때 실행*/ 
 $('.pickFaq_type').click(function(){
 	kind=$(this).val();
-	console.log(pn);
-	console.log(kind);
-	
 	getList(1,kind,search);	
 }); 
 
@@ -47,14 +43,23 @@ $(function(){
 	/*이벤트 위임*/
 	$("#showFaqList").on('click','.pickList',function(){
 		var myArticle = $(this).parents().next("tr");	
+		var icon=$(this).find("img");
+		
+		$(".icon_open").attr("src","/images/board/icon_toggle_open.png");
+		
 		if($(myArticle).hasClass('hide')){
 			$(article).removeClass('show').addClass('hide');
 			$(myArticle).removeClass('hide').addClass('show');
+			icon.attr("src","/images/board/icon_toggle_close.png");
 		}else{
 			$(myArticle).addClass('hide').removeClass('show');	
+			icon.attr("src","/images/board/icon_toggle_open.png");
 		}
+		
 	});
+
 });
+
 
 
 

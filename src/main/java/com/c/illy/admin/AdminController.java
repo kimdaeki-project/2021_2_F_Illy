@@ -105,6 +105,22 @@ public class AdminController {
 		return "redirect:/notice/list";
 	}
 	
+	//공지사항 수정하기 
+	@GetMapping("board/updateNotice")
+	public String noticeUpdate(NoticeVO noticeVO, Model model)throws Exception{
+		noticeVO=noticeService.getSelectOne(noticeVO);
+		model.addAttribute("noticeVO", noticeVO);
+		return "admin/board/updateNotice";
+	}
+	
+	@PostMapping("board/updateNotice")
+	public String noticeUpdae(NoticeVO noticeVO)throws Exception{
+		int result=noticeService.noticeUpdate(noticeVO);
+		System.out.println(noticeVO.getNotice_id());
+		
+		
+		return "redirect:/notice/noticeSelect?notice_id="+noticeVO.getNotice_id();
+	}
 	
 	
 	

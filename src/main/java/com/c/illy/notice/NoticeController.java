@@ -39,17 +39,18 @@ public class NoticeController {
 	
 	//공지사항 삭제 
 	@GetMapping("deleteNotice")
-	@ResponseBody
-	public void setDelete(NoticeVO noticeVO)throws Exception{
+	public String setDelete(NoticeVO noticeVO)throws Exception{
 		noticeService.setDelete(noticeVO);
+		return "board/noticeList";
 	}	
 	
-	//글 하나 조회(경로조회) 
+	//글 하나 조회
 	@GetMapping("noticeSelect")
-	public ModelAndView noticeSelect(NoticeVO noticeVO,ModelAndView mv)throws Exception{
-		
-		
-		
+	public ModelAndView noticeSelect(NoticeVO noticeVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		noticeVO=noticeService.getSelectOne(noticeVO);
+		mv.setViewName("board/noticeSelect");
+		mv.addObject("noticeVO", noticeVO);
 		return mv; 
 	}
 	

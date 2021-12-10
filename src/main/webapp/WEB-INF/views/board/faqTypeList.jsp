@@ -20,19 +20,24 @@
 					<td>${faqVO.faq_type}</td>
 					<td class="board_tit">
 						<img class="icon_q" src="/images/board/icon_qna_q.png">
-						<a href="#" class="pickList">
+						<a class="pickList">
 							<span>
-								<strong class="btnView">${faqVO.faq_title}</strong>
+								<strong class="btnView">${faqVO.faq_title}</strong>	
+							<!--관리자용 삭제 수정 버튼-->
+								<button type="button" class="updateBtn adminBtn"><i class="xi-pen-o xi-x"></i></button>								
+								<button type="button" class="deleteBtn adminBtn"><i class="xi-close-square-o xi-x"></i></button>
+							<!--관리자용 삭제 수정 버튼-->
 							</span>
 							<span><img class="icon_open" src="/images/board/icon_toggle_open.png"></span>
 						</a>
 					</td>
 				</tr>
 				<tr class="faq_answer hide">
-					<td colspan="4">
-						<ul>
-							<li><img class="icon_q" src="/images/board/icon_qna_a.png">${faqVO.faq_contents}</li>						
-						</ul>
+					<td colspan="2" style="padding-left:200px; padding-right:0; vertical-align:top;">
+						<img style="margin-top:5px; " class="icon_q icon_a" src="/images/board/icon_qna_a.png">
+					</td>
+					<td colspan="2" class="cont_right">
+						<span>${faqVO.faq_contents}</span>						
 					</td>
 				</tr>
 			</c:forEach>

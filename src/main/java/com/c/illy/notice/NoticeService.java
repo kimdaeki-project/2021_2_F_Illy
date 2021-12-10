@@ -34,6 +34,12 @@ public class NoticeService {
 		return noticeRepository.getSelectList(pager);
 	}
 	
+	//공지사항 글 하나 조회하기 
+	public NoticeVO getSelectOne(NoticeVO noticeVO)throws Exception{
+		noticeRepository.setHitUpdate(noticeVO);
+		return noticeRepository.getSelectOne(noticeVO);
+	}
+	
 	//공지사항 추가하기 
 	public int addNotice(NoticeVO noticeVO,MultipartFile [] multipartFiles)throws Exception{
 		noticeRepository.addNotice(noticeVO);
@@ -51,6 +57,11 @@ public class NoticeService {
 			noticeRepository.addFileInsert(noticeFileVO);
 		}
 		return 0; 
+	}
+	
+	//공지사항 수정하기
+	public int noticeUpdate(NoticeVO noticeVO)throws Exception{
+		return noticeRepository.noticeUpdate(noticeVO);
 	}
 	
 	//공지사항 삭제하기
