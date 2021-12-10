@@ -7,15 +7,24 @@
   		INSERT INTO machine
 		VALUES(
 			#{product_id}
+			,#{machine_material}
 			,#{machine_pump}
 			,#{machine_size}
 			,#{machine_weight}
 			,#{machine_capacity}
-			,#{machine_safetyInfo}
 			,#{machine_powerV}
 			,#{machine_powerHz}
 			,#{machine_powerConsumption}
+			,#{machine_safetyInfo}
 		);
   	</insert>
+  	
+  	<select id="getSelectMachineOne" resultType="MachineVO" parameterType="ProductVO">
+	  	SELECT
+			*
+		FROM product
+			JOIN machine USING (product_id)
+		WHERE product_id = #{product_id};
+  	</select>
   
 </mapper>

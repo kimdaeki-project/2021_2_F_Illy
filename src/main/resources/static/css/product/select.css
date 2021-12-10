@@ -51,3 +51,7 @@
 .bodyInfoWrap .bodyInfoTab li { display: inline-block; width: 174px; border: 1px solid #dbdbdb; margin: 0 0 -1px -1px; color: #999; line-height: 40px; cursor: pointer; }
 .bodyInfoWrap .bodyInfoTab li.on { padding-top: 8px; border-bottom: 1px solid #fff; font-weight: bold; color: #333; }
 .bodyInfoWrap .detailInfo { text-align: center; }
+.bodyInfoWrap .essentialInfo { width: 100%; border-spacing: 0; border-collapse: collapse; }
+.bodyInfoWrap .essentialInfo tr { height: 52px; }
+.bodyInfoWrap .essentialInfo th { width: 20%; padding: 14px; border: 1px solid #dbdbdb; background: #f9f9f9; text-align: left; color: #555; }
+.bodyInfoWrap .essentialInfo td { width: 30%; padding: 14px; border: 1px solid #dbdbdb; text-align: left; color: #777; }

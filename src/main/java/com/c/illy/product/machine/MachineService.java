@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
+import com.c.illy.product.coffee.CoffeeVO;
 
 @Service
 public class MachineService extends ProductService {
@@ -15,6 +16,10 @@ public class MachineService extends ProductService {
 	@Override
 	public int setInsertProduct(ProductVO productVO) throws Exception {
 		return machineRepository.setInsertProduct(productVO);
+	}
+
+	public MachineVO getSelectMachineOne(ProductVO productVO) throws Exception {
+		return machineRepository.getSelectMachineOne(productVO);
 	}
 
 }

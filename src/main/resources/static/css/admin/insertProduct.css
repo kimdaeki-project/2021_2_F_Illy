@@ -3,47 +3,44 @@
 h2 { font-size: 28px; color: #222; width: 100%; padding-bottom: 20px; border-bottom: 1px solid #dbdbdb; }
 h3 { font-size: 18px; color: #d12420; font-weight: normal; padding: 70px 0 17px; }
 
-.formWrap { width: 1024px; margin: auto; }
-table { width: 100%; border-top: 1px solid #999; border-spacing: 0; font-size: 12px; color: #333; }
-th { text-align: left; padding: 10px 25px; border-bottom: 1px solid #dcdcdc; background: #fbfbfb;}
-td {  padding: 15px; border-bottom: 1px solid #dcdcdc; }
+.formWrap { width: 1200px; margin: auto; }
+.formWrap .essentialInfo { width: 100%; border-spacing: 0; border-collapse: collapse; }
+.formWrap .essentialInfo tr { height: 52px; }
+.formWrap .essentialInfo th { width: 20%; padding: 14px; border: 1px solid #dbdbdb; background: #f9f9f9; text-align: left; color: #555; }
+.formWrap .essentialInfo td { position: relative; width: 30%; padding: 14px; border: 1px solid #dbdbdb; text-align: left; color: #777; }
 
-.inputBox { position: relative; display: inline-block; line-height: 0; vertical-align: top; }
-.unit { position: absolute; top: 13px; right: 15px; line-height: initial; }
-.unit.number { right: 45px; }
+.inputBox { position: relative; display: inline-block; width: 100%; line-height: 0; vertical-align: top; }
+.inputBox.short { width: 49%; }
+.inputBox .inputText,.inputUnit,.inputNumber { border: 1px solid #dbdbdb; padding: 0 2px; }
+.inputBox .inputText { width: 100%; }
+.inputBox .inputUnit { width: 91%; display: inline-block; }
+.inputBox .inputNumber { width: 90%; }
+.selectBox + .inputBox { width: 94%; }
+.selectBox + .inputBox .inputText { width: 100%; }
+.selectBox { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; padding: 14px; }
+.selectBox .select { width: 100%; border: none; padding: 0; cursor: pointer; }
+.selectBox .select:focus { outline: none; }
 
-.inputText, .select, label { height: 40px; border: 1px solid #63666a; border-radius: 20px; padding: 0 20px; }
-.inputText { width: 380px; }
-.inputText.short { width: 150px; }
-.select { width: 280px; -webkit-appearance:none; }
-.select.short { width: 150px; }
-
+.unit { display:inline-block; width: 6%; text-align: center; line-height: initial; }
 
 /* input type="number" 화살표 항시 표시 */
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    opacity: 1;
-}
-
-.selectBox { position: relative; display: inline-block; }
-.selectArrow { position: absolute; top: 33%; right: 20px; transform: rotate(45deg); width: 10px; height: 10px; border: 1px solid #333; border-top: none; border-left: none; }
-
-input:checked + label { background: #333; color: #fff; font-weight: bold; }
-input + label { display: inline-block; line-height: 40px; cursor: pointer; }
-input:read-only { color: #999; background: #f7f7f7; }
+input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+input:read-only { border: none !important; color: #777; }
 
 .inputFileWrap { font-size: 0; }
-.inputFileWrap .inputBox { height: 128px; }
-.inputFileLable { width: 128px; height: 128px; background: url('/images/admin/ico_plus.svg') no-repeat; background-size:32px 32px; background-position: center; cursor: pointer; color: transparent; }
-.imgBoxWrap { display: inline-block; line-height: 0; }
-.imgBox { position: relative; display: inline-block; border: 1px solid #333; border-radius: 20px; margin-right: 10px; width: 128px; height: 128px; overflow: hidden; }
-.previewImg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 128px; }
-.deleteFileBtn { position: absolute; right: 10px; top: 10px; padding: 0; border: 1px solid #333; border-radius: 20px; width: 20px; height: 20px; background: url('/images/admin/ico_x.svg') no-repeat; background-size: 12px; background-position: center ; background-color: #fff; visibility: hidden; cursor: pointer; }
-.deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
+.inputFileWrap .imgBoxWrap { display: inline-block; line-height: 0; }
+.inputFileWrap .imgBoxWrap .imgBox { position: relative; display: inline-block; border: 1px solid #dbdbdb; margin-right: 10px; width: 128px; height: 128px; overflow: hidden; }
+.inputFileWrap .imgBoxWrap .imgBox .previewImg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 128px; }
+.inputFileWrap .imgBoxWrap .imgBox .deleteFileBtn { position: absolute; right: 10px; top: 10px; padding: 0; border: 1px solid #333; border-radius: 20px; width: 20px; height: 20px; background: url('/images/admin/ico_x.svg') no-repeat; background-size: 12px; background-position: center ; background-color: #fff; visibility: hidden; cursor: pointer; }
+.inputFileWrap .imgBoxWrap .imgBox .deleteFileBtn:hover { background-image: url('/images/admin/ico_xRed.svg'); border: 1px solid #d12420; }
+.inputFileWrap .inputBox { display: inline-block; width: 128px; height: 128px; }
+.inputFileWrap .inputFileLable { display: inline-block; width: 128px; height: 128px; border: 1px solid #dbdbdb; background: url('/images/admin/ico_plus.svg') no-repeat; background-size:32px 32px; background-position: center; cursor: pointer; color: transparent; }
+
 
 .summernote { width: 100%; }
-.note-editable { padding: 5px !important; }
+.summernote .note-frame { border-top: none !important; }
 
 .insertBtn { display: block; margin: 35px auto; }
 
-.error { display: inline-block; margin-top: 7px; color: #d12420; }
+.error { display: inline-block; margin-top: 7px; line-height: initial; color: #d12420; }

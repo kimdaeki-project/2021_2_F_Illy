@@ -17,4 +17,8 @@ public class CoffeeService extends ProductService {
 		return coffeeRepository.setInsertProduct(productVO);
 	}
 
+	public CoffeeVO getSelectCoffeeOne(ProductVO productVO) throws Exception {
+		return coffeeRepository.getSelectCoffeeOne(productVO);
+	}
+
 }

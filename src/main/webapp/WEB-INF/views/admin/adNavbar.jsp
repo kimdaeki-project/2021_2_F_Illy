@@ -28,11 +28,25 @@
 			<div class="menuWrap">
 				<ul>
 <!-- 					<li><a href="/product/list">ALL PRODUCT</a></li> -->
-					<li><a href="/admin/insertCoffee">COFFEE</a></li>
-					<li><a href="/admin/insertMachine">MACHINE</a></li>
-<!-- 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li> -->
+					<li>
+						<a href="/admin/insertCoffee">COFFEE</a>						
+						<ul class="hoverMenu">
+							<li>test</li>
+							<li>test</li>
+							<li>test</li>
+							<li>test</li>
+						</ul>
+					</li>
+					<li>
+						<a href="/admin/insertMachine">MACHINE</a>
+						<ul class="hoverMenu">
+							<li>test</li>
+							<li>test</li>
+							<li>test</li>
+							<li>test</li>
+						</ul>
+					</li>
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
-<!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
 				</ul>
 			</div>
 			

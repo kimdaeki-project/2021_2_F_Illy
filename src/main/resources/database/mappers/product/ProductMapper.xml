@@ -50,15 +50,22 @@
 		</collection>
   	</resultMap>
   	
+  	<select id="getCategoryAllCnt" resultType="CategoryCntVO" parameterType="ProductVO">
+	  	SELECT
+			CASE LEFT(product_categoryCode, 3)
+				WHEN '001' THEN '커피제품'
+				WHEN '002' THEN '캡슐머신'
+				WHEN '003' THEN '일리 악세서리'
+		    END AS name
+			,LEFT(product_categoryCode, 3) AS code
+		    ,COUNT(product_categoryCode) AS count
+		FROM product
+		WHERE product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+  	</select>
   	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="ProductVO">
   		SELECT
-  			CASE product_categoryCode
-				WHEN '001001' THEN '캡슐커피'
-				WHEN '001002' THEN '원두커피'
-				WHEN '001003' THEN '분쇄커피'
-				WHEN '001004' THEN '스틱원두커피'
-		    END AS name
-			,product_categoryCode AS code
+  			SUBSTRING_INDEX(product_categoryCode, '-', -1) AS name
+			,SUBSTRING_INDEX(product_categoryCode, '-', 1) AS code
 		    ,COUNT(product_categoryCode) AS count
 		FROM product
 		<if test="product_categoryCode != null">
@@ -71,8 +78,6 @@
   	<select id="getSelectProductOne" resultType="ProductVO" parameterType="ProductVO">
   		SELECT *
 		FROM product
-			LEFT JOIN coffee USING (product_id)
-			LEFT JOIN machine USING (product_id)
 		WHERE product_id = #{product_id};
   	</select>
   	<select id="getSelectProductFileList" resultType="ProductFileVO" parameterType="ProductVO">

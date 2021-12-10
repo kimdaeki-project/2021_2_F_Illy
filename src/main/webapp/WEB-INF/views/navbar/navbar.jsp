@@ -53,7 +53,7 @@
 					<li><a href="/product/list?product_categoryCode=002">MACHINES</a></li>
 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li>
 					<li><a href="javascript:;">ACCESSORIES</a></li>
-					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li>
+					<!-- <li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
 				</ul>
 			</div>
 			

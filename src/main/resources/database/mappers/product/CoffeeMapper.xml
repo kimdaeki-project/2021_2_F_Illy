@@ -7,11 +7,21 @@
   		INSERT INTO coffee
 		VALUES(
 			#{product_id}
-		    ,#{coffee_type}
 		    ,#{coffee_material}
 		    ,#{coffee_capacity}
 		    ,#{coffee_caffeine}
 		);
   	</insert>
+  	
+  	<select id="getSelectCoffeeOne" resultType="CoffeeVO" parameterType="ProductVO">
+	  	SELECT
+			product.*
+		    ,coffee_material
+		    ,coffee_caffeine
+		    ,TRIM(TRAILING '.0' FROM coffee_capacity) AS coffee_capacity
+		FROM product
+			JOIN coffee USING (product_id)
+		WHERE product_id = #{product_id};
+  	</select>
   
 </mapper>

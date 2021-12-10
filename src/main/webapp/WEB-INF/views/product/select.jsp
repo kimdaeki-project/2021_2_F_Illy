@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -130,6 +131,62 @@
 							<p>&nbsp;
 							${productVO.product_detail}
 						</div>
+						<h3>상품필수 정보</h3>
+						<table class="essentialInfo">
+							<tr>
+								<th>상품명</th><td>${productVO.product_name}</td>
+								<c:choose>
+								<c:when test="${fn:substring(productVO.product_categoryCode,0,3) eq 001}">
+								<!-- ********** 상품필수 정보 COFFEE **********	-->
+								<th>식품유형</th><td>커피</td>
+							</tr>
+							
+							<tr>
+								<th>용량</th>	<td>${productVO.coffee_capacity}</td>
+								<th>원재료명 및 함량</th><td>${productVO.coffee_material}</td>
+							</tr>
+							
+							<tr>
+								<th>카페인함량</th>	<td>&lt; ${productVO.coffee_caffeine} %</td>
+								<th>원산지</th><td>${productVO.product_origin}</td>
+							</tr>
+								</c:when>
+								<c:when test="${fn:substring(productVO.product_categoryCode,0,3) eq 002}">
+								<!-- ********** 상품필수 정보 MACHINE ********** -->
+								<th>소재</th><td>${productVO.machine_material}</td>
+							</tr>
+							
+							<tr>
+								<th>펌프</th><td>${productVO.machine_pump}bar</td>
+								<th>사이즈</th><td>${productVO.machine_size}mm</td>
+							</tr>
+							
+							<tr>
+								<th>무게</th><td>${productVO.machine_weight}kg</td>
+								<th>물탱크 용량</th><td>${productVO.machine_capacity}L</td>
+							</tr>
+							
+							<tr>
+								<th>정격전압</th><td>${productVO.machine_powerV}V/${productVO.machine_powerHz}Hz</td>
+								<th>소비전력</th><td>${productVO.machine_powerConsumption}W</td>
+							</tr>
+							
+							<tr>
+								<th>안전인증정보(KC안전인증)</th><td>${productVO.machine_safetyInfo}</td>
+								<th>제조국</th><td>${productVO.product_origin}</td>
+							</tr>
+								</c:when>
+								</c:choose>
+							
+							<tr>
+								<th>제조사</th><td>${productVO.product_manufacturer}</td>
+								<th>수입판매원</th>	<td>${productVO.product_importer}</td>
+							</tr>
+							
+							<tr>
+								<th>품질보증기준</th><td colspan="3" style="width: 80%;">관련법 및 소비자 분쟁 해결기준에 따름</td>
+							</tr>
+						</table>
 						
 					</div>
 									
@@ -181,11 +238,14 @@
 <script type="text/javascript">
 
 	$().ready(function(){
-		setPricePattern();
+		setNumberPattern();
 		$('.numberOnly').attr('oninput', "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\\..*)\\./g, '$1');") //숫자 정규식
 	});
 	
-	function setPricePattern() {
+	function setNumberPattern() {
+		$('.numberPattern').each(function(){
+			$(this).html(Number($(this).html()).toLocaleString());
+		})		
 		$('.pricePattern').each(function(){
 			$(this).html($(this).html().replace(/[^\.|^0(0)+|^0-9\.]/g, ''));
 			$(this).html(Number($(this).html()).toLocaleString() + '원');
@@ -209,7 +269,7 @@
 		}
 		
 		setCountPrice();
-		setPricePattern();
+		setNumberPattern();
 	}); /********** 상품개수 버튼 클릭 **********/
 	
 	function setCountPrice() {
