@@ -40,6 +40,11 @@ public class NoticeService {
 		return noticeRepository.getSelectOne(noticeVO);
 	}
 	
+	//파일 다운로드
+	public NoticeFileVO fileDown(NoticeFileVO noticeFileVO)throws Exception{
+		return noticeRepository.fileDown(noticeFileVO);
+	}
+	
 	//공지사항 추가하기 
 	public int addNotice(NoticeVO noticeVO,MultipartFile [] multipartFiles)throws Exception{
 		noticeRepository.addNotice(noticeVO);

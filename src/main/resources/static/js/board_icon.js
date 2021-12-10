@@ -1,13 +1,12 @@
 /**
  * 
  */
- 
- 
+
  /*-- 게시판 삭제 --*/
- $("#showFaqList").on('hover','.deleteBtn',function(){
-	const pick=$(this).children("i");
-	$(pick).removeClass("xi-close-square-o"); 
-	$(pick).addClass("xi-close-square"); 
+ $("#showFaqList").on('mouseover','.deleteBtn',function(){
+	let pick = $(this).find("i");
+	pick.removeClass("xi-close-square-o"); 
+	pick.addClass("xi-close-square"); 
 });
 
  $("#showFaqList").on('mouseout','.deleteBtn',function(){

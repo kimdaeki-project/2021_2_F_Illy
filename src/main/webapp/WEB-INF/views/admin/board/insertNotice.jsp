@@ -85,7 +85,7 @@
 										<tr>
 											<th scope="row">첨부파일</th>
 											<td>
-												 <input type="file" class="addFile" name="multipartFiles"> 	
+												 <input type="file" class="addFile" name="multipartFiles" multiple="multiple"> 	
 											</td>
 										</tr>
 									

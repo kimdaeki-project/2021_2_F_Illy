@@ -63,7 +63,13 @@
 								</tr>
 								<tr class="noticeEx">
 									<td scope="row">
-										<i class="xi-paperclip xi-flip-horizontal"></i><strong>첨부파일</strong>
+										<strong style="font-size:12px;">첨부파일</strong> 
+										<span style="font-size:11px; margin-left:5px;">|&nbsp;</span>
+										<c:forEach var="fileList" items="${noticeVO.fileList}">
+											 <i class="xi-paperclip xi-flip-horizontal"></i>
+											 <a href="/notice/fileDown?noticeFile_id=${fileList.noticeFile_id}" style="text-decoration: underline;">${fileList.noticeFile_oriName}</a>
+											 <span>&nbsp;&nbsp;&nbsp;</span>
+										</c:forEach>
 									</td>
 								</tr>
 								<tr class="noticeEx">

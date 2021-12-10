@@ -52,7 +52,7 @@
 	<result column="notice_type" property="notice_type"/>
 	<result column="notice_hits" property="notice_hits"/>
 	<result column="notice_top" property="notice_top"/>
-	<collection property="fileList" javaType="List" ofType="NoticeVO">
+	<collection property="fileList" javaType="List" ofType="NoticeFileVO">
 		<id column="noticeFile_id" property="noticeFile_id" />
 		<result column="noticeFile_name" property="noticeFile_name" />
 		<result column="noticeFile_oriName" property="noticeFile_oriName" />
@@ -65,11 +65,16 @@
 	VALUES(0,#{notice_title},#{notice_contents},#{notice_type},sysdate(),0,#{notice_top})
 </insert>
 
-<!--공지사항 파일-->
+<!--공지사항 파일업로드-->
 <insert id="addFileInsert" parameterType="NoticeFileVO">
 	INSERT INTO noticefile(noticeFile_id,noticeFile_name,noticeFile_oriName,notice_id) 
 	VALUES(0,#{noticeFile_name},#{noticeFile_oriName},#{notice_id})
 </insert>
+
+<!-- 공지사항 파일다운 -->
+<select id="fileDown" parameterType="NoticeFileVO" resultType="NoticeFileVO">
+	SELECT * FROM noticefile WHERE noticeFile_id=#{noticeFile_id}
+</select>
 
 <!-- 공지사항 수정하기 -->
 <update id="noticeUpdate" parameterType="NoticeVO">

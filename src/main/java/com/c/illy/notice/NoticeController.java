@@ -54,6 +54,22 @@ public class NoticeController {
 		return mv; 
 	}
 	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(NoticeFileVO noticeFileVO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		noticeFileVO = noticeService.fileDown(noticeFileVO);
+        
+        // FileDown 클래스 내에서 사용하는 Model의 키값과 동일한 이름 
+		mv.addObject("fileVO", noticeFileVO);
+        // FileDown 클래스 내에서 사용하는 Model의 키값과 동일한 이름 
+		mv.addObject("path", "/upload/notice/");
+		
+       //FileDown 클래스의 Bean의 이름과 동일한 이름으로 View name을 설정 
+        mv.setViewName("fileDown");
+		return mv;
+	}
+	
 	
 	
 // --------------------------------------------------------------------- Faq 영역	
