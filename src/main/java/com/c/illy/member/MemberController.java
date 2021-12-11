@@ -30,6 +30,7 @@ import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.member.point.PointService;
 import com.c.illy.member.point.PointVO;
+import com.c.illy.payment.PaymentService;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
@@ -54,6 +55,8 @@ public class MemberController {
 	private WishService wishService;
 	@Autowired
 	private PointService pointService;
+	@Autowired
+	private PaymentService paymentService;
 
 	//--다영 
 	@Autowired
@@ -183,7 +186,7 @@ public class MemberController {
 	@GetMapping("myPage/myPageOrderPager")
 	public String getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
 		
-		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		 List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 	
 			
 		PaymentVO paymentVO2 = new PaymentVO();
@@ -194,11 +197,11 @@ public class MemberController {
 			cartService.setPaymentDone(paymentVO2); //배송완료로 변경
 		}
 			
-		list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		  
 		
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}
@@ -207,7 +210,7 @@ public class MemberController {
 	/* my page - 주문목록/배송조회 : 상세페이지 */
 	@GetMapping("myPage/myPageOrderDetail")
 	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model) throws Exception {
-		paymentVO = cartService.getMyPageOrderDetail(paymentVO);
+		paymentVO = paymentService.getMyPageOrderDetail(paymentVO);
 		AddressVO addressDefault = addressService.getJoinAddress(memberVO);
 		AddressVO addressOrder = addressService.getAddressOrder(paymentVO);
 		
@@ -230,11 +233,11 @@ public class MemberController {
 	@GetMapping("myPage/myPageCancelPager")
 	public String getMyPageCancelPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
 		
-		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		 List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		  
 		
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageCancelAjax";
 	}
@@ -257,11 +260,11 @@ public class MemberController {
 	@GetMapping("myPage/myPageRefundPager")
 	public String getMyPageRefundPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
 		
-		 List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		 List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		  
 		
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageRefundAjax";
 	}

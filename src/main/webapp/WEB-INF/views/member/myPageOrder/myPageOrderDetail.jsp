@@ -338,7 +338,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 	if(confirm('주문취소 처리를 하시겠습니까?')){
 		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentCancelDetail",
+			url:"/payment/setPaymentCancelDetail",
 			data: {
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),
@@ -362,7 +362,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 	if(confirm('환불 처리를 하시겠습니까?')){
  		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentRefundDetail",
+			url:"/payment/setPaymentRefundDetail",
 			data: {
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),

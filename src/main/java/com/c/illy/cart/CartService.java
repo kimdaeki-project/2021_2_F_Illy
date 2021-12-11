@@ -54,48 +54,9 @@ public class CartService {
 		return cartRepository.getDirectPayment(memberVO);
 	}
 	
-	public List<PaymentVO> getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("payment", paymentVO);
-		map.put("cart", cartVO);
-		
-		pager.setPerPage(10);
-		pager.makeRow();
-
-		Long totalCount = cartRepository.getMyPageOrderCount(map);
-		pager.makeNum(totalCount);
-
-		map.put("pager", pager);
-		System.out.println("========");
-		System.out.println("member_id: " + paymentVO.getMember_id());
-		System.out.println("pn: " + pager.getPn());
-		System.out.println("totalCount: " + totalCount);
-
-		return cartRepository.getMyPageOrderPager(map);
-	}
-	
-	public Long getMyPageOrderCount(PaymentVO paymentVO, CartVO cartVO) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-
-		map.put("payment", paymentVO);
-		map.put("cart", cartVO);
-
-		return cartRepository.getMyPageOrderCount(map);
-	}
-	
-	public PaymentVO getMyPageOrderDetail(PaymentVO paymentVO) throws Exception {
-		return cartRepository.getMyPageOrderDetail(paymentVO);
-	}
-
 	public List<CartProductVO> getCartListCheck(MemberVO memberVO) throws Exception {
 
 		return cartRepository.getCartListCheck(memberVO);
-	}
-
-	public List<CartProductVO> getPaymentCart(PaymentVO paymentVO) throws Exception {
-		return cartRepository.getPaymentCart(paymentVO);
 	}
 
 	public int setUpdateNum(CartVO cartVO) throws Exception {
@@ -246,6 +207,9 @@ public class CartService {
 	}
 	
 	public int setPaymentCart(CartVO cartVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		
+		int result = cartRepository.setDirectPayment(memberVO); //cart_state 변경해주기
+		
 		if(cartVO.getMember_id() == null) {
 			cartVO.setMember_id(memberVO.getMember_id());
 		}

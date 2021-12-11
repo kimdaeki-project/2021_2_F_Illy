@@ -26,6 +26,7 @@ import com.c.illy.member.MemberService;
 import com.c.illy.member.MemberVO;
 import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
+import com.c.illy.util.Pager;
 
 @Controller
 @RequestMapping("/payment/**")
@@ -69,8 +70,9 @@ public class PaymentController {
 	// 바로구매를 통해서 온 목록
 	@GetMapping("directPayment")
 	public String getDirectPayment(@AuthenticationPrincipal MemberVO memberVO, CartVO cartVO, Model model) throws Exception {
-		int result = cartService.setDirectPayment(memberVO); //cart_state 변경해주기
-		result = cartService.setPaymentCart(cartVO, memberVO);
+		int /*
+			 * result = cartService.setDirectPayment(memberVO); //cart_state 변경해주기
+			 */result = cartService.setPaymentCart(cartVO, memberVO);
 		
 		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
 		
@@ -116,10 +118,6 @@ public class PaymentController {
 			result = couponService.setUseState(couponVO);
 		}
 		
-//		if() {
-//			//머신 구매 시 serial number 생성
-//		}
-		
 		return paymentVO.getPayment_id();
 	}
 	
@@ -127,12 +125,57 @@ public class PaymentController {
 	@GetMapping("paymentEnd")
 	public void getPaymentEnd(Model model, PaymentVO paymentVO) throws Exception {
 
-		List<CartProductVO> ar = cartService.getPaymentCart(paymentVO); //결제완료 상품 list
+		List<CartProductVO> ar = paymentService.getPaymentCart(paymentVO); //결제완료 상품 list
 		
 		model.addAttribute("cartList", ar);
 		model.addAttribute("addressVO", addressService.getAddressOne());
 		model.addAttribute("paymentVO", paymentService.getPaymentOne());
 	}
+	
+	//주문취소 - point 감소, 쿠폰사용 취소
+	@GetMapping("setPaymentCancel")
+	public String setPaymentCancel(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
+		int result = cartService.setPaymentCancel(paymentVO, memberVO);
+		
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
+					
+		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
+		return "member/myPageOrder/myPageOrderAjax";
+	}
+	
+	//환불 - point 감소, point 감소, 쿠폰사용 취소
+	@GetMapping("setPaymentRefund")
+	public String setPaymentRefund(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
+		int result = cartService.setPaymentRefund(paymentVO, memberVO);
+		
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
+					
+		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
+		return "member/myPageOrder/myPageOrderAjax";
+	}
+	
+	//주문취소 - point 감소, 쿠폰사용 취소 (상세페이지에서)
+	@RequestMapping("setPaymentCancelDetail")
+	@ResponseBody
+	public String setPaymentCancelDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO) throws Exception {
+		int result = cartService.setPaymentCancel(paymentVO, memberVO);
+		
+		return "주문취소가 정상처리 되었습니다.";
+	}
+	
+	//환불 - point 감소, point 감소, 쿠폰사용 취소 (상세페이지에서)
+	@RequestMapping("setPaymentRefundDetail")
+	@ResponseBody
+	public String setPaymentRefundDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO) throws Exception {
+		int result = cartService.setPaymentRefund(paymentVO, memberVO);
+		
+		return "환불처리가 정상처리 되었습니다.";
+	}
+	
+	
+	
 	
 	
 	// 네이버페이로 구매했을 경우 - 일리랑 상관 X

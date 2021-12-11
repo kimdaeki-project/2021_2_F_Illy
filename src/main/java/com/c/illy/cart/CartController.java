@@ -115,46 +115,4 @@ public class CartController {
 		
 		return "cart/normalBasket";
 	}
-	
-	//주문취소 - point 감소, 쿠폰사용 취소
-	@GetMapping("setPaymentCancel")
-	public String setPaymentCancel(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
-		int result = cartService.setPaymentCancel(paymentVO, memberVO);
-		
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
-		model.addAttribute("list", list);
-		model.addAttribute("pager", pager);
-		return "member/myPageOrder/myPageOrderAjax";
-	}
-	
-	//환불 - point 감소, point 감소, 쿠폰사용 취소
-	@GetMapping("setPaymentRefund")
-	public String setPaymentRefund(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
-		int result = cartService.setPaymentRefund(paymentVO, memberVO);
-		
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
-		model.addAttribute("list", list);
-		model.addAttribute("pager", pager);
-		return "member/myPageOrder/myPageOrderAjax";
-	}
-	
-	//주문취소 - point 감소, 쿠폰사용 취소
-	@RequestMapping("setPaymentCancelDetail")
-	@ResponseBody
-	public String setPaymentCancelDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO) throws Exception {
-		int result = cartService.setPaymentCancel(paymentVO, memberVO);
-		
-		return "주문취소가 정상처리 되었습니다.";
-	}
-	
-	//환불 - point 감소, point 감소, 쿠폰사용 취소
-	@RequestMapping("setPaymentRefundDetail")
-	@ResponseBody
-	public String setPaymentRefundDetail(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO) throws Exception {
-		int result = cartService.setPaymentRefund(paymentVO, memberVO);
-		
-		return "환불처리가 정상처리 되었습니다.";
-	}
 }
