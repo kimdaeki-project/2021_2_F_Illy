@@ -15,7 +15,7 @@ h2 { padding-bottom: 45px; font-size: 19px; font-weight: normal; color: #333; te
 .productPickList .pickListBox .sortLabel { padding-left: 20px; margin-left: 10px; cursor: pointer; }
 .productPickList .pickListBox .sortLabel.on { color: #000; font-weight: bold; background: url(/images/product/list/icon_sort_check.png) no-repeat left 5px; }
 
-.productList { display: table; padding-bottom: 65px; border-bottom: 1px solid #dbdbdb; }
+.productList { display: table; width: 100%; padding-bottom: 65px; border-bottom: 1px solid #dbdbdb; }
 .productList li { position: relative; display: inline-block; vertical-align: top; width: 300px; height: 430px; margin-bottom: 15px; }
 .productList .productWrap { height: 430px; padding: 55px 25px; border: 1px solid #eee; border-radius: 20px; margin: 0 7.5px; background-color: #fff; text-align: center; }
 .productList .productWrap:hover { position: absolute; z-index: 100; width: 285px; height: 500px; border-color: #d12420;}

@@ -15,6 +15,10 @@ public class CoffeeService extends ProductService {
 	@Override
 	public int setInsertProduct(ProductVO productVO) throws Exception {
 		return coffeeRepository.setInsertProduct(productVO);
+	}	
+	@Override
+	public int setUpdateProduct(ProductVO productVO) throws Exception {
+		return coffeeRepository.setUpdateProduct(productVO);
 	}
 
 	public CoffeeVO getSelectCoffeeOne(ProductVO productVO) throws Exception {

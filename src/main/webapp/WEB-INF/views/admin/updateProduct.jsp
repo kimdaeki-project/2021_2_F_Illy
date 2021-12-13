@@ -28,17 +28,18 @@
 			
 			
 			
-				<h2>INSERT PRODUCT</h2>
+				<h2>UPDATE PRODUCT</h2>
 				<div class="formWrap">
 				<form:form modelAttribute="${category}VO" enctype="multipart/form-data">
 					<h3>${fn:toUpperCase(category)}</h3>
 					
+					<form:input type="text" path="product_id" value="${productVO.product_id}" hidden="true"/>
 					<table class="essentialInfo">
 							<tr>
 								<th>가격</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit numberOnly" type="text" path="product_price"/>
+										<form:input class="inputUnit numberOnly" type="text" path="product_price" value="${productVO.product_price}"/>
 										<div class="unit">원</div>
 									</div>
 									<form:errors path="product_price" cssClass="error"/>
@@ -54,7 +55,7 @@
 										</select>
 									</div>
 									<div class="inputBox">
-										<form:input path="product_categoryCode" class="inputText"/>
+										<form:input path="product_categoryCode" class="inputText" value="${productVO.product_categoryCode}"/>
 									</div>
 									<form:errors path="product_categoryCode" cssClass="error"/>
 								</td>
@@ -63,7 +64,7 @@
 								<th>상품명</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="product_name"/>
+										<form:input class="inputText" type="text" path="product_name" value="${productVO.product_name}"/>
 									</div>
 									<form:errors path="product_name" cssClass="error"/>
 								</td>
@@ -76,7 +77,7 @@
 								<th>용량</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="coffee_capacity"/>
+										<form:input class="inputText" type="text" path="coffee_capacity" value="${productVO.coffee_capacity}"/>
 									</div>
 									<form:errors path="coffee_capacity" cssClass="error"/>
 								</td>
@@ -84,7 +85,7 @@
 								<th>원재료명 및 함량</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="coffee_material"/>
+										<form:input class="inputText" type="text" path="coffee_material" value="${productVO.coffee_material}"/>
 									</div>
 									<form:errors path="coffee_material" cssClass="error"/>
 								</td>
@@ -93,7 +94,7 @@
 								<th>카페인함량</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputNumber numberOnly" type="number" step="0.1" min="0" path="coffee_caffeine"/>
+										<form:input class="inputNumber numberOnly" type="number" step="0.1" min="0" path="coffee_caffeine" value="${productVO.coffee_caffeine}"/>
 										<div class="unit number">&lt;N%</div>
 									</div>
 									<form:errors path="coffee_caffeine" cssClass="error"/>
@@ -183,7 +184,7 @@
 							</c:choose>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="product_origin"/>
+										<form:input class="inputText" type="text" path="product_origin" value="${productVO.product_origin}"/>
 									</div>
 									<form:errors path="product_origin" cssClass="error"/>
 								</td>
@@ -192,7 +193,7 @@
 								<th>제조사</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="product_manufacturer"/>
+										<form:input class="inputText" type="text" path="product_manufacturer" value="${productVO.product_manufacturer}"/>
 									</div>
 									<form:errors path="product_manufacturer" cssClass="error"/>
 								</td>
@@ -216,6 +217,12 @@
 									<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="5" data-init_img_cnt="0" hidden="">
 									
 									<div class="imgBoxWrap" data-total_img_cnt="0" data-init_img_cnt="0">
+										<c:forEach var="productFileVO" items="${productFileVOList}" varStatus="index">
+											<div class='imgBox'>
+												<img alt='' src='/upload/product/${productFileVO.productFile_name}' class='previewImg' data-product_file_id="${productFileVO.productFile_id}">
+												<button type='button' class='deleteFileBtn'></button>
+											</div>
+										</c:forEach>
 									</div>
 									
 									<div class="inputBox">
@@ -242,12 +249,13 @@
 									['insert', [/* 'link',  */'picture'/* , 'video' */]],
 // 									['view', ['fullscreen', 'codeview', 'help']]
 									['view', ['codeview']]
-								]
+								],
 							});
+							$('#summernote').summernote('code', "${productVO.product_detail}");
 						</script>
 					</div>
 					
-					<form:button type="submit" onclick="return submitBtn()" class="btnDefault red insertBtn">상품등록</form:button>
+					<form:button type="submit" onclick="return submitBtn()" class="btnDefault red insertBtn">상품수정</form:button>
 					
 				</form:form>
 				</div>
@@ -278,6 +286,11 @@
 		$('input[name=machine_size]').attr('oninput', "this.value = this.value.replace(/[^0-9*]/g, '');") //사이즈(W*D*H) 입력제한
 		$('.error').siblings('.selectBox').css('top', '0');
 		$('.error').siblings('.selectBox').css('transform', 'none');
+		initProductImg();
+	});
+	
+	$().on('change', '.note-editable', function(){
+		console.log("hello");
 	});
 	
 	function submitBtn(){
@@ -314,6 +327,30 @@
 	}); /********** selectBox **********/
 	
 /********** 상품사진 START **********/ 	
+	function initProductImg() {
+		let multipartFiles = $('input[name=multipartFiles]');
+		let imgBoxWrap = $('.imgBoxWrap');
+		let imgBox = imgBoxWrap.find('.imgBox');
+
+		let index = 0;
+		imgBox.each(function(){
+			let imgTag = $(this).find('img')
+			let deleteFileBtn = $(this).find('.deleteFileBtn')
+			
+			imgTag.data('img_index', index);
+			deleteFileBtn.data('img_index', index);	
+			
+			index++;
+		});		
+		imgBoxWrap.data('total_img_cnt', index);	
+		imgBoxWrap.data('init_img_cnt', index);
+		
+		if(index == 5){
+			let inputBox = multipartFiles.siblings('.inputBox');
+			inputBox.css('display', 'none');
+		}
+	}
+
 	$('.inputFileWrap').on('change', '.inputFile', function(){
 		let multipartFiles = $('input[name=multipartFiles]');
 		let imgBoxWrap = $('.imgBoxWrap');
@@ -329,6 +366,9 @@
 	$('.inputFileWrap').on('click', '.deleteFileBtn', function(){
 		let multipartFiles = $('input[name=multipartFiles]');
 		
+		let productFile_id = $(this).siblings('img').data('product_file_id'); //삭제할 이미지 ID
+		$('#coffeeVO').prepend("<input type='text' name='productFile_id' value='"+productFile_id+"' hidden='true'/>")
+
 		deleteFile($(this), multipartFiles); //inputFileWrap.js
 		deletePeviewImg($(this), multipartFiles); //inputFileWrap.js
 		let imgBox = $('.imgBox'); //setImgIndex() 호출 직전에 imgBox변수 선언

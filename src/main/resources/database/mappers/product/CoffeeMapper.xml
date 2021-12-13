@@ -13,6 +13,15 @@
 		);
   	</insert>
   	
+  	<update id="setUpdateProduct" parameterType="CoffeeVO">
+  		UPDATE coffee
+  		SET
+  			coffee_material = #{coffee_material}
+  			,coffee_capacity = #{coffee_capacity}
+  			,coffee_caffeine = #{coffee_caffeine}
+  			WHERE product_id = #{product_id}
+  	</update>
+  	
   	<select id="getSelectCoffeeOne" resultType="CoffeeVO" parameterType="ProductVO">
 	  	SELECT
 			product.*
