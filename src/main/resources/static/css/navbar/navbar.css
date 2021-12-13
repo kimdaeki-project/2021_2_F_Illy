@@ -21,13 +21,14 @@
 .logo img { vertical-align: middle; }
 
 .menuWrap { display: block; width: 1200px; height: 100%; margin: 0 auto; }
-.menuWrap ul { height: 100%; font-size: 0px; }
-.menuWrap li { position: relative; display: inline-block; height: 100%; padding: 0 40px 0 5px; line-height: 80px; font-size: 13px; font-weight: normal; }
-.menuWrap li a { position: relative; display: block; }
-.menuWrap li:hover > a:before{content: ""; position: absolute; bottom: 24px;left:0;width: 100%; height: 1px; background-color:#d12420;}
+.menuWrap ul { font-size: 0px; }
+.menuWrap li { position: relative; display: inline-block; height: 100%; margin: 0 40px 0 5px; line-height: 80px; font-size: 13px; font-weight: normal; }
+.menuWrap li a { position: relative; display: inline-block; }
+.menuWrap li:hover > a:before{content: ""; position: absolute; bottom: 24px; left:0; width: 100%; height: 1px; background-color:#d12420;}
 
-.hoverMenu { position: absolute; display: block; }
-.hoverMenu li { display: block; height: 20px; padding-right: 0; }
+.hoverMenu { position: absolute; left: -10px; display: none; width: max-content; padding:10px; box-shadow: 0 10px 12px rgb(0 0 0 / 18%); line-height: 1.5; background: #fff; }
+.hoverMenu li { display: inline-block; margin: 0 5px; line-height: 52px; }
+.hoverMenu li:hover > a:before { bottom: 10px; }
 
 .rightBox { position: absolute; display: flex; align-items: center; top: 0; right: 55px; height: 100%; line-height: 80px; }
 .searchWrap { position: relative; width: 180px; height: 35px; margin-right: 10px; }

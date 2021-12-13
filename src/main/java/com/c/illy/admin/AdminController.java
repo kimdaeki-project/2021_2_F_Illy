@@ -79,11 +79,7 @@ public class AdminController {
 	@PostMapping("insertMachine")
 	public String setInsertMachine(@Valid MachineVO machineVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles) throws Exception {
 		if (bindingResult.hasErrors()) {
-			ProductVO productVO = new ProductVO();
-			productVO.setProduct_categoryCode("002");
-			model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
-			model.addAttribute("category", "machine");
-			return "admin/insertProduct";
+			return insertMachinesPage(model, machineVO);
 		}
 		
 		productService.setInsertProduct(machineVO, multipartFiles);

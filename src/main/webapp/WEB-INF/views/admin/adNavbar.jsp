@@ -27,22 +27,18 @@
 			
 			<div class="menuWrap">
 				<ul>
-					<li>
-						<a href="/admin/insertCoffee">COFFEE</a>						
+					<li class="menu">
+						<a href="/admin/insertCoffee">COFFEE</a>
 						<ul class="hoverMenu">
-							<li>test</li>
-							<li>test</li>
-							<li>test</li>
-							<li>test</li>
+							<li><a href="/admin/insertCoffee">상품등록</a></li>
+							<br><li><a href="javascript:;">상품수정/삭제</a></li>
 						</ul>
 					</li>
-					<li>
+					<li class="menu">
 						<a href="/admin/insertMachine">MACHINE</a>
 						<ul class="hoverMenu">
-							<li>test</li>
-							<li>test</li>
-							<li>test</li>
-							<li>test</li>
+							<li><a href="/admin/insertMachine">상품등록</a></li>
+							<br><li><a href="javascript:;">상품수정/삭제</a></li>
 						</ul>
 					</li>
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
@@ -70,7 +66,20 @@
 	
 	<script type="text/javascript">
 		/* 우클릭 방지 */
-		$("body").contextmenu(function() { return false; });		
+		$("body").contextmenu(function() { return false; });
+		
+		$('.menu').hover(
+			function(){
+				let hoverMenu = $(this).find('.hoverMenu')
+				if(!hoverMenu.is(':animated')) hoverMenu.slideDown('fast');
+// 				hoverMenu.slideDown('fast');
+			}
+			,function(){
+				let hoverMenu = $(this).find('.hoverMenu')
+// 				if(!hoverMenu.is(':animated')) hoverMenu.slideUp('fast');
+				hoverMenu.slideUp('fast');
+			}
+		)
 	</script>
 <!-- ===== ===== ===== jquery END ===== ===== ===== -->
 </html>
