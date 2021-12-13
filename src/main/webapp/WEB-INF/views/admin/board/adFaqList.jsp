@@ -41,7 +41,7 @@
 						<div class="board_zone_tit">
 							<h2 style="color:#333; font-size:24px; border:none;" >FAQ</h2>
 							<!--관리자용 버튼   -->
-							<a class="addFaq" style="top:170px;" href="/admin/board/insertFaq">FAQ 추가하기</a>
+							<a class="addFaq" style="top:175px;" href="/admin/board/insertFaq">FAQ 추가하기</a>
 						</div>
 						<div class="pickTab">
 							<ul>

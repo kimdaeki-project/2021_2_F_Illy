@@ -5,11 +5,11 @@
 
 changeDate(null,null,1);
  
-function changeDate(start_date,end_date,pn){
+function changeDate(start_date,end_date,pn,member_id){
 	$.ajax({
 		url:'./qnaListDate',
 		type:'get',
-		data:{start_date:start_date,end_date:end_date,pn:pn},
+		data:{start_date:start_date,end_date:end_date,pn:pn,member_id:member_id},
 		success:function(data){
 			$("#empty").empty();
 			$("#empty").append(data.trim());	

@@ -34,7 +34,7 @@
 	<!-- faq 추가하기 -->
 	<insert id="addFaq" parameterType="FaqVO">
 		INSERT INTO faq(faq_id,faq_title,faq_contents,faq_type_code,faq_type)
-		values(0,#{faq_title},#{faq_contents},#{faq_type_code},#{faq_type});
+		VALUES(0,#{faq_title},#{faq_contents},#{faq_type_code},#{faq_type});
 	</insert>
 	
 	<!-- faq 삭제하기 -->

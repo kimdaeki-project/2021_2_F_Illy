@@ -30,6 +30,7 @@
   		<typeAlias type="com.c.illy.notice.NoticeFileVO" alias="NoticeFileVO"/>
   		<typeAlias type="com.c.illy.faq.FaqVO" alias="FaqVO"/>
   		<typeAlias type="com.c.illy.qna.QnaVO" alias="QnaVO"/>
+  		<typeAlias type="com.c.illy.qna.QnaFileVO" alias="QnaFileVO"/>
   		<typeAlias type="com.c.illy.review.ReviewVO" alias="ReviewVO"/>
  		<typeAlias type="com.c.illy.util.Pager" alias="Pager"/>
   	<!-- LDY board work end  -->

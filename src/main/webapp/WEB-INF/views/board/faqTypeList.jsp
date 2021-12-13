@@ -26,10 +26,10 @@
 								<strong class="btnView">${faqVO.faq_title}</strong>	
 								
 							<!--관리자용 삭제 수정 버튼-->
-							<sec:authorize access="hasRole('ADMIN')">
+							<%-- <sec:authorize access="hasRole('ADMIN')"> --%>
 								<button type="button" class="updateBtn adminBtn" onclick="location.href='/admin/board/updateFaq?faq_id=${faqVO.faq_id}'"><i class="xi-pen-o xi-x"></i></button>								
 								<button type="button" class="deleteBtn adminBtn"><i class="xi-close-square-o xi-x"></i></button>
-							</sec:authorize>
+							<%-- </sec:authorize> --%>
 							<!--관리자용 삭제 수정 버튼-->
 							
 							</span>
@@ -48,10 +48,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
-			
+		<c:if test="${empty FList}">
+			<div class="emptyList"><span>게시글이 존재하지 않습니다.</span></div>
+		</c:if>	
 
+	<c:if test="${not empty FList}">
 	<div class="pagination">
-		
 		<div id="page">
 			<c:if test="${pager.curBlock>1}">
 				<button type="button" data-list-pn="${pager.curBlock=1}"  class="btnPage pageBtn">&#9001;&#9001; 맨앞</button>
@@ -66,4 +68,4 @@
 			</c:if>
 		</div>
 	</div>  
-
+	</c:if>

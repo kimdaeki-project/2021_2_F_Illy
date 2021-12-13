@@ -20,9 +20,10 @@
 					<td>${qnaVO.qna_regDate}</td>
 					<td>${qnaVO.qna_type}</td>
 					<td class="board_tit">
-						<a href="#">
+						<a href="./qnaSelect?qna_id=${qnaVO.qna_id}">
 							<span>
 								<strong class="btnView">${qnaVO.qna_title}</strong>
+								<input hidden="" name="member_id" value="${member.member_id}">
 							</span>
 						</a>
 					</td>
@@ -31,7 +32,13 @@
 			</c:forEach>					
 		</tbody>
 	</table>
+	<c:if test="${empty QList}">
+		<div class="emptyList" style=" margin-top:60px; padding-bottom:70px;"><span>1:1문의 내역이 존재하지 않습니다.</span></div>
+	</c:if>	
 	
+	
+	
+	<c:if test="${not empty QList}">
 	<div class="pagination">
 		<div id="page">
 			 <c:if test="${pager.curBlock>1}">
@@ -47,3 +54,4 @@
 			</c:if> 
 		</div>
 	</div>  
+	</c:if>

@@ -60,19 +60,19 @@
 									<tr>
 										<th scope="row">말머리</th>
 										<td>
-											<select id="qna_type" name="qna_type">
+											<select id="qna_type" name="qna_type" value="${qnaVO.qna_type}">
 												<option>문의내용</option>
-												<option value="커피머신 문의">커피머신 문의</option>
-												<option value="정품 인증">정품 인증</option>
-												<option value="커피 문의">커피 문의</option>
-												<option value="정기구독 주문/배송">정기구독 주문/배송</option>
-												<option value="정기구독 서비스 문의">정기구독 서비스 문의</option>
-												<option value="주문/배송 문의">주문/배송 문의</option>
-												<option value="★ 커피머신A/S 문의">★ 커피머신A/S 문의</option>
-												<option value="★ 반품 접수">★ 반품 접수</option>
-												<option value="★ 교환 접수">★ 교환 접수</option>
-												<option value="★ 지출증빙 접수">★ 지출증빙 접수</option>
-												<option value="기타 문의">기타 문의</option>
+												<option class="check" value="커피머신 문의">커피머신 문의</option>
+												<option class="check" value="정품 인증">정품 인증</option>
+												<option class="check" value="커피 문의">커피 문의</option>
+												<option class="check" value="정기구독 주문/배송">정기구독 주문/배송</option>
+												<option class="check" value="정기구독 서비스 문의">정기구독 서비스 문의</option>
+												<option class="check" value="주문/배송 문의">주문/배송 문의</option>
+												<option class="check" value="★ 커피머신A/S 문의">★ 커피머신A/S 문의</option>
+												<option class="check" value="★ 반품 접수">★ 반품 접수</option>
+												<option class="check" value="★ 교환 접수">★ 교환 접수</option>
+												<option class="check" value="★ 지출증빙 접수">★ 지출증빙 접수</option>
+												<option class="check" value="기타 문의">기타 문의</option>
 											</select>
 										</td>
 									</tr>
@@ -83,7 +83,7 @@
 									<tr>
 										<th scope="row">상품선택</th>
 										<td> 
-											<c:if test="${qnaVO.product_id ne null }">선택된 상품이 없습니다 </c:if>
+											<c:if test="${qnaVO.product_id eq null}">선택된 상품이 없습니다 </c:if>
 											<button type="button" class="pro_choice_btn" onclick="javascript:findProduct()">상품 선택</button>
 											<c:if test="${qnaVO.product_id ne null}">
 												<div style="width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;">
@@ -99,13 +99,13 @@
 									<tr>
 										<th scope="row">휴대폰</th>
 										<td>
-											<input type="text" class="qna_phone" name="qna_phone" placeholder="- - 없이 입력하세요" value="${member.member_phone}" >
+											<input type="text" class="qna_phone" name="qna_phone" placeholder="- - 없이 입력하세요" value="${qnaVO.qna_phone}" >
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">제목</th>
 										<td>
-											<input type="text" class="qna_title qna_phone" name="qna_title">
+											<input type="text" class="qna_title qna_phone" name="qna_title" value="${qnaVO.qna_title}">
 										</td>
 									</tr>
 									<tr>
@@ -119,7 +119,7 @@
 												<em>말머리 선택이 없거나 양식에 맞지 않을 경우 추가 요청으로 인해 처리 지연됩니다.</em>
 											</p>
 											 
-											 <textarea id="qna_contents" name="qna_contents"></textarea> 
+											 <textarea id="qna_contents" name="qna_contents">${qnaVO.qna_contents}</textarea> 
 										</td>
 									</tr>
 									<tr>
@@ -154,7 +154,7 @@
 							</table>
 							<div class="btn_wrap">
 								<button type="button" class="goback boardBtn">이전</button>
-								<button type="submit" class="upload boardBtn">저장</button>
+								<button type="button" class="upload boardBtn">저장</button>
 							</div>
 						</form>
 						
@@ -183,6 +183,24 @@
 		};
 		
 	
+		let qna_type='${qnaVO.qna_type}';
+		$(function(){
+			$(".check").each(function(){
+				if(qna_type==$(this).val()){
+					$(this).prop("selected",true);
+				}
+			});
+		});
+		
+		//리캡차 유효성 검사
+		$(".upload").click(function(){
+			if ($('.g-recaptcha-response').val() == "") {
+				alert("자동등록방지를 확인해 주십시오.");
+				return false;
+			}
+			$("#qnaFrm").submit();
+			
+		});
 		
 		
 		

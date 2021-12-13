@@ -29,6 +29,8 @@ import com.c.illy.product.coffee.CoffeeService;
 import com.c.illy.product.coffee.CoffeeVO;
 import com.c.illy.product.machine.MachineService;
 import com.c.illy.product.machine.MachineVO;
+import com.c.illy.qna.QnaService;
+import com.c.illy.qna.QnaVO;
 import com.c.illy.util.Pager;
 
 @Controller
@@ -46,6 +48,8 @@ public class AdminController {
 	private NoticeService noticeService; 
 	@Autowired
 	private FaqService faqService;
+	@Autowired
+	private QnaService qnaService;
 	
 	@GetMapping("adIndex")
 	public void main() {
@@ -213,6 +217,22 @@ public class AdminController {
 		faqService.faqUpdate(faqVO);
 		return "admin/board/adFaqList";
 	}
+	
+	
+	//----------------------------------------------------------------QNA
+	//qna list 불러오기 
+	@GetMapping("board/adQnaList")
+	public ModelAndView getQnaList(Pager pager,ModelAndView mv)throws Exception{
+		List<QnaVO> ar = qnaService.getAdQnaList(pager);
+		
+		mv.setViewName("admin/board/adQnaList");
+		mv.addObject("pager", pager);
+		mv.addObject("QList", ar);
+		return mv;
+	}
+	
+	
+	
 	
 	
 	

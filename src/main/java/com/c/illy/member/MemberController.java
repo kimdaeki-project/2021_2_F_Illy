@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.c.illy.address.AddressRepository;
@@ -28,8 +29,10 @@ import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.payment.PaymentVO;
+import com.c.illy.product.ProductVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
+import com.c.illy.review.ReviewVO;
 import com.c.illy.util.Pager;
 
 @Controller
@@ -312,32 +315,98 @@ public class MemberController {
 	//--1:1 문의 페이지
 	@GetMapping("qnaList")
 	public String getQnaList(ModelAndView mv)throws Exception{
-		System.out.println("저길 오나");
 		return "board/qnaList"; 
 	}
 	
 	//--1:1 문의 ajax
 	@GetMapping("qnaListDate")
-	public ModelAndView getQnaListDate(ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
-		System.out.println("여길 오나");
+	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO,ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		qnaVO.setMember_id(memberVO.getMember_id());
+		
 		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
-		System.out.println(ar.size());
 		mv.setViewName("board/qnaListajax");
 		mv.addObject("QList", ar);
 		mv.addObject("pager", pager);
 		return mv; 
 	}
 	
+	//--상품 선택 팝업 경로매핑
+	@GetMapping("findProduct")
+	public String findProduct()throws Exception{
+		return "board/findProduct";
+	}
+	
+	//상품 조회 리스트 ajax
+	@GetMapping("findProductAj")
+	public ModelAndView getQnaProduct(ModelAndView mv,Pager pager)throws Exception{	
+		List<ProductVO> ar = qnaService.getQnaProduct(pager);
+		mv.setViewName("board/findProductList");
+		mv.addObject("prdList",ar);
+		mv.addObject("pager",pager);
+		return mv; 
+	}
+	
+	//문의 1개글 조회하기
+	 @GetMapping("qnaSelect") 
+	 public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO)throws Exception{
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("member",memberVO);
+		 qnaVO=qnaService.qnaSelectOne(qnaVO);
+		 mv.setViewName("board/qnaSelect");
+		 mv.addObject("qnaVO",qnaVO);
+		 return mv;
+	 }
+	 
+	
+	
 	//1:1문의 작성하기 
 	@GetMapping("addQna")
-	public String addQna()throws Exception{
+	public String addQna(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
+		qnaVO.setMember_id(memberVO.getMember_id());
+		/* qnaVO.setProduct_id(1); */
+		System.out.println(qnaVO.getProduct_id());
+		model.addAttribute("member", memberVO);
 		return "board/addQna";
 	}
 	
 	@PostMapping("addQnaList")
-	public void setAddQna()throws Exception{
-		
+	public String setAddQna(@Valid QnaVO qnaVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
+		if(bindingResult.hasErrors()) {
+			System.out.println("여기로 오는거니?");
+			return "board/addQna";
+		}
+		qnaService.qnaInsert(qnaVO, multipartFiles);
+		return "board/qnaList";
 	}
+	
+	//qna수정하기(경로매핑)
+	@GetMapping("qnaUpdate")
+	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
+		model.addAttribute("member", memberVO);
+		qnaVO=qnaService.qnaSelectOne(qnaVO);
+		model.addAttribute("qnaVO", qnaVO);
+		return"board/qnaUpdate";
+	}
+	
+	
+	//qna삭제하기
+	@GetMapping("qnaDelete")
+	public String qnaDelete(QnaVO qnaVO)throws Exception{
+		qnaService.qnaDelete(qnaVO);
+		return "board/qnaList";
+	}
+	
+	
+	//---------------------------------------------review
+	//myPage_reviewList
+	@GetMapping("myReviewList")
+	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO,Model model)throws Exception{
+		model.addAttribute("member",memberVO);
+		return "review/myReviewList";
+	}
+	
+	
+	
 	
 	//----------------------------------------------------------------------------myPage_다영 추가 end
 	

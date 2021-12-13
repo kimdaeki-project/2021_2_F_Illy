@@ -9,6 +9,7 @@ public class Pager {
 	// --------------------------------------검색창 관련 
 	private String kind; //검색할때 조건 설정 
 	private String search; //검색어 
+	private String code;//상품 검색할때 사용 
 	
 	
 	//검색창에 값이 null 이어도 예외 발생 시키지 않기 
@@ -30,6 +31,7 @@ public class Pager {
 	//--변수로 추가한거(분리된 페이지 블럭의 현재 번호) 리스트 맨앞으로 보내기,맨뒤로 보내기 버튼때문에 필요함
 	private Long curBlock;
 	private Long totalPage; //마지막 페이지번호
+	private Long count; //totalCount 사용 할것 
 	
 	//페이지 번호 시작 1로 설정하기 
 	public Integer getPn() {

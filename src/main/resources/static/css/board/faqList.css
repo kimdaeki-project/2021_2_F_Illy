@@ -39,6 +39,8 @@ td.board_tit strong:hover{text-decoration:underline; }
 .pickList{cursor:pointer; }	
 .faq_answer td.cont_right span{float:left; line-height:20px; font-size:12px; text-align:left; padding-right:20px;  }
 .adminBtn{border:none; background:none; margin-left:2px; cursor:pointer;}
+.emptyList{width:100%; text-align:center;position:relative; border-bottom:1px solid #ccc; padding:13px 10px 15px; font-size:12px; color:#333; margin:-20px 0 100px;  }
+		
 .adminBtn.updateBtn{margin-left:10px;}		
 .addFaq{position:absolute; right:290px; top:320px; padding:7px 7px; font-size:12px; background-color:#979797; border:none; color:#fff; cursor:pointer;}
 .addFaq:hover{background-color:#aaa;}
