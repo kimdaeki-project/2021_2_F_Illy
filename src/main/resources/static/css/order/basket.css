@@ -280,7 +280,7 @@
 	background: url(/images/cart/check_over_small.png) no-repeat 1px 2px;
 } */
 
-.on {
+.check_s.on {
 	background: url(/images/cart/check_on_small.png) no-repeat 1px 2px;
 }
 
@@ -346,3 +346,9 @@ a:hover {
     margin: 10px 0 10px 0;
     text-align: right;
 }
+
+
+.payBox { float: right; width: 285px; margin: 20px 0; text-align: right; }
+.payBox .naverPay { position: relative; border-top: 2px solid #2b2f3a; }
+.payBox .naverPay .npay_btn_wrap { position: absolute; right: 3px; top: 11px; width: 191px; }
+.payBox .naverPay .npay_btn_wrap #naverPayBtn { width: 100%; cursor: pointer; }

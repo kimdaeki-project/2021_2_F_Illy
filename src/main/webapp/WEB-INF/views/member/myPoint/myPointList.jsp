@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
 	<link rel="stylesheet" href="/css/member/myPage/myPageCommon.css">
 	<link rel="stylesheet" href="/css/member/myPage/myPageOrder.css">
 	<link rel="stylesheet" href="/css/member/myPage/myPageCancel.css">
+	<link rel="stylesheet" href="/css/member/myPage/myPageCoupon.css"> <!-- 마이페이지 회원 요약정보 css 들어있는 곳 -->
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px; min-height: 500px;}
 		.myPage_cont {padding-bottom: 50px;}
@@ -32,9 +34,80 @@
 			<c:import url="/WEB-INF/views/navbar/myPageLeftBar.jsp"></c:import>	
 				<div id="right_content">
 					<div class="myPage_cont">
-						<div class="myPage_lately_info">						
+						
+						<!-- 마이페이지 회원 요약정보 -->
+						<div class="myPage_top_info">
+							<div class="myPage_top_text">
+								<div class="grade_text">
+									<p>${member.member_name}님의</p>
+									<p>회원등급은 <span>[일반회원등급]</span>입니다.</p>
+									<div class="grade_btn">
+										<span class="grade_btn_btn">
+											<a>
+												<em>등급혜택보기</em>
+											</a>
+										</span>
+										
+										<!-- 등급혜택 창 start -->
+										<div id="lyGrade" class="layer_area" style="display: none;">
+						                    <div class="ly_wrap grade_layer">
+						                        <div class="ly_tit">
+						                            <strong>등급혜택 안내</strong>
+						                        </div>
+						                        <div class="ly_cont">
+						                            <div class="grade_list">
+						                                <dl>
+						                                    <dt>회원 등급</dt>
+						                                    <dd>일반회원등급</dd>
+						                                </dl>
+						                                <dl>
+						                                    <dt>추가 할인</dt>
+						                                    <dd><strong>0원이상 구매시 상품 판매금액의 0.0% 추가 할인</strong></dd>
+						                                </dl>
+						                                <dl>
+						                                    <dt>중복 할인</dt>
+						                                    <dd><strong>0원이상 구매시 상품 판매금액의 0.0% 추가 할인</strong></dd>
+						                                </dl>
+						                                <dl>
+						                                    <dt>추가  적립</dt>
+						                                    <dd>0원이상 구매 시 구매금액당 0.0% 추가 적립</dd>
+						                                </dl>
+						                            </div>
+						                        </div>
+						                        <!-- //ly_cont -->
+						                        <a class="ly_close closeModal"><img src="/images/cart/btn_layer_close.png" alt="닫기"></a>
+						                    </div>
+						                </div> <!-- lyGrade end --><!-- 등급혜택 창 end -->
+						                
+									</div> <!-- grade_btn end -->
+									
+								</div> <!-- grade_text end -->
+							</div> <!-- myPage_top_text end -->
+							<div class="myPage_top_wallet">
+								<ul>
+									<li>
+										<span><img alt="" src="/images/coupon/icon_coupon.png"></span>
+										<span>
+											<em>쿠폰</em>
+											<a href="/member/myPage/myPageCoupon"><strong>${couponSize}</strong>장</a>
+										</span>
+									</li>
+									<li>
+										<span><img alt="" src="/images/coupon/icon_mileage.png"></span>
+										<span>
+											<em>일리 포인트</em>
+											<a href="/member/myPage/myPagePoint"><strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${member.member_point}"/></strong>콩</a>
+										</span>
+									</li>
+								</ul>
+							</div> <!-- myPage_top_wallet end -->
+							
+						</div> <!-- myPage_top_info --> <!-- 마이페이지 회원 요약정보 end -->
+						
+						<div class="myPage_lately_info">	
+												
 							<div class="myPage_zone_tit">
-								<h3>환불/입금 내역</h3>
+								<h3>일리 포인트</h3>
 								<input type="hidden" id="memberID" value="${member.member_id}">
 							</div>
 							<div class="date_check_box">
@@ -70,71 +143,71 @@
 	</div>
 
 <script type="text/javascript">
+
+/* 등급혜택보기 */
+$('.grade_btn_btn').click(function(){
+	$('#lyGrade').css({"display": "block"});
+	
+});
+
+$('.ly_close').click(function(){
+	$('#lyGrade').css({"display": "none"});
+}); /* 창닫기 */
+
+
+/* 자세히보기 */
+
+$('.myPage_lately_info_cont').on('click', '.coupon_layer_layer', function(){
+	$('#lyUseCase3100063').css({"display": "block"});
+});
+$('.myPage_lately_info_cont').on('click', '.ly_close', function(){
+	$('#lyUseCase3100063').css({"display": "none"});
+});/* 창닫기 */
+
 let firstDate = new Date();
 let end_date = getToday(firstDate);
 let start_date= new Date(firstDate.setDate(firstDate.getDate()-7));
 start_date=getToday(start_date);
 
-setStart();
+/*페이지 업로드시 오늘 날짜 date_picker에 입력되어있기*/
+$(".start").val(start_date);
+$(".end").val(end_date);
+$(".sevenDay").addClass("clickDay");
+getUse(start_date, end_date, 1);
 
-/* getDate(start_date, end_date, 1); */
 
-
-function setStart(){
+function getUse(start_date,end_date,pn){
+	let startendDate = $(".start").val() + ' ~ ' + $(".end").val();
 	$.ajax({
 		type:"GET",
-		url:"./myPageRefundNone",
-		success: function(result){
-			$(".myPage_lately_info_cont").empty();
-			$(".myPage_lately_info_cont").append(result.trim());	
-		
-		}
-	});	
-}/* 환불 신청내역 list */
-
-
-function getDate(start_date,end_date,pn){
-	let member_id = $("#memberID").val();
-	$.ajax({
-		type:"GET",
-		url:"./myPageRefundPager",
+		url:"./myPagePointUse",
 		data: {
-			start_date:start_date,
-			end_date:end_date,
-			pn:pn,
-			member_id:member_id,
-			cart_state:'refund'
+			member_id : $('#memberID').val(),
+			start_date : start_date,
+			end_date : end_date,
+			pn : pn
 		},
 		success: function(result){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());	
+			$('#startendDate').html(startendDate);
 			
-		
-			 $('.pageBtn').each(function() {
+			$('.pageBtn').each(function() {
 				 if($(this).attr("data-list-pn")!=pn){
 				 	 $(this).removeClass("on");
 				 }else{
 					 $(this).addClass("on");
 				 }
 			});
-		
 		}
 	});	
-} /* 환불/입금 처리현황 List */
-
-
-/*페이지 업로드시 오늘 날짜 date_picker에 입력되어있기*/
-$(".start").val(start_date);
-$(".end").val(end_date);
-$(".sevenDay").addClass("clickDay");
+} /* list */
 
 /* 페이지 넘기기 */
 $(".myPage_lately_info_cont").on('click','.pageBtn',function(){
 	const num=$(this).attr("data-list-pn");
-	console.log("pn--" + $('.start').val());
-	console.log("pnn--" + $('.end').val());
-	console.log("num--" + num);
-	getDate($('.start').val(), $('.end').val(), num);
+	
+	getUse($('.start').val(), $('.end').val(), num);
 	btnCss(num);
 });
 
@@ -215,8 +288,6 @@ $(".pick_date").click(function(){
 		$(this).addClass("clickDay");
 	}
 	
-	/* getDate($('.start').val(), $(".end").val(), 1); */
-	
 });
 	
 
@@ -224,20 +295,8 @@ $(".pick_date").click(function(){
 $(".btn_board_search").click(function(){
 	console.log("--" + $(".start").val());
 	console.log("--" + $(".end").val());
-	if($('.setStart').hasClass('on') == true){
-		setStart();		
-	}
-	if($('.getCancel').hasClass('on') == true){
-		getDate($('.start').val(), $(".end").val(), 1);		
-	}
-});
+	getUse($('.start').val(), $('.end').val(), 1);
 
-/* 환불/입금 tab */
-$(".myPage_lately_info_cont").on('click','.setStart',function(){
-	setStart();
-});
-$(".myPage_lately_info_cont").on('click','.getCancel',function(){
-	getDate($('.start').val(), $(".end").val(), 1);
 });
 </script>
 </body>

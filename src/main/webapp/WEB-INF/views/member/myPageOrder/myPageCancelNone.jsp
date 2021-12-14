@@ -18,7 +18,7 @@
 
 </div>
 
-	<span class="pick_list_num">주문목록 / 배송조회 목록 총 <strong>0</strong> 건</span>
+	<span class="pick_list_num">취소/반품/교환 내역 총 <strong>0</strong> 건</span>
 	<div class="myPage_type_table">
 		<table>
 		<colgroup>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 										<span><img alt="" src="/images/coupon/icon_mileage.png"></span>
 										<span>
 											<em>일리 포인트</em>
-											<a><strong>${member.member_point}</strong>콩</a>
+											<a href="/member/myPage/myPagePoint"><strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${member.member_point}"/></strong>콩</a>
 										</span>
 									</li>
 								</ul>
@@ -157,7 +158,14 @@ $('.ly_close').click(function(){
 /* 자세히보기 */
 
 $('.myPage_lately_info_cont').on('click', '.coupon_layer_layer', function(){
-	$('#lyUseCase3100063').css({"display": "block"});
+	if($(this).hasClass("block")){
+		$(this).removeClass("block");
+		$('#lyUseCase3100063').css({"display": "block"});
+	}else {
+		$(this).addClass("block");
+		$('#lyUseCase3100063').css({"display": "none"});
+	}
+	//$('#lyUseCase3100063').css({"display": "block"});
 });
 $('.myPage_lately_info_cont').on('click', '.ly_close', function(){
 	$('#lyUseCase3100063').css({"display": "none"});
@@ -176,13 +184,13 @@ setStart(start_date, end_date, 1);
 
 
 function setStart(start_date,end_date,pn){
-	let startendDate = $(".start").val() + ' ~ ' + $(".end").val();
+	let startendDate = $(".start").val() + '&nbsp;~&nbsp;' + $(".end").val();
 	$.ajax({
 		type:"GET",
 		url:"./myPageCouponPager",
 		data: {
 			member_id : $('#memberID').val(),
-			coupon_state : 'cart',
+			coupon_state : 'unUse',
 			start_date : start_date,
 			end_date : end_date,
 			pn : pn
@@ -220,6 +228,7 @@ function getDate(start_date,end_date,pn){
 		success: function(result){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());
+			$('#startendDate').empty();
 			$('#startendDate').html(startendDate);
 			
 		
@@ -335,7 +344,13 @@ $(".btn_board_search").click(function(){
 	console.log("--" + $(".start").val());
 	console.log("--" + $(".end").val());
 	
-	setStart($('.start').val(), $('.end').val(), 1);
+	if($('.setStart').hasClass('on') == true){
+		setStart($('.start').val(), $('.end').val(), 1);		
+	}
+	if($('.getCancel').hasClass('on') == true){
+		getDate($('.start').val(), $(".end").val(), 1);		
+	}
+	
 });
 
 /* 쿠폰사용가능 tab */

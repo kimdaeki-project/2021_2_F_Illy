@@ -78,7 +78,10 @@
 						</td>
 						<td>
 							<strong>
-								${list.coupon_discount}원 할인
+								${list.coupon_discount}원
+								<c:if test="${list.coupon_type=='cart'}">상품</c:if>
+								<c:if test="${list.coupon_type=='delivery'}">배송비</c:if>
+								할인
 							</strong>
 						</td>
 						<td>
@@ -114,7 +117,10 @@
 						<td></td>
 						<td>
 							<em class="coupon_date_day">${list.coupon_get}<br>~ ${list.coupon_validity}까지</em>
-							<span class="coupon_before_use">사용불가능</span>
+							<span class="coupon_before_use" style="border: 1px solid #cccccc; color: #5a5a5a;">
+								<c:if test="${list.coupon_state=='use'}">사용불가능<p style="padding-top: 3px;">(사용완료)</p></c:if>
+								<c:if test="${list.coupon_state=='deadline'}">사용불가능<p style="padding-top: 3px;">(기간만료)</p></c:if>
+							</span>
 						</td>
 						<td>${list.coupon_get}</td>
 					</tr>

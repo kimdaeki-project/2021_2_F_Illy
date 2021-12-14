@@ -83,22 +83,24 @@
 									</tr>
 								</thead>
 								<tbody>
-<%-- 								<c:if test="${paymentList ne null}"> --%>
 									<c:forEach items="${paymentList}" var="carts" varStatus="status">
+										<c:if test="${status.first}">
+											<input type="hidden" value="${carts.product_name}" id="full_cartProduct"> <!-- 카카오페이 넘어갈 이름 -->
+											<input type="hidden" value="${carts.cart_state}" id="cartState">
+										</c:if>
 										<c:if test="${status.last}">
-											<input type="hidden" value="${carts.product_name}" id="full_cartProduct">
-											<input type="hidden" value="${status.index}" id="full_cartSize">
+											<input type="hidden" value="${status.index}" id="full_cartSize"> <!-- 카카오페이 넘어갈 물건 총 수량 -->
 										</c:if>
 											<tr class="sumTotal">
 												<td class="tb_product">
-													<div class="product_name_file">
+													<div class="product_name_file" serial-product-id="${carts.product_id}" serial-cart-id="${carts.cart_id}" serial-product-categoryCode="${carts.product_categoryCode}">
 														<span class="product_name_file_fileAdd">
-															<a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">
 																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 															</a>
 														</span>
 														<div class="product_name_file_nameAdd">
-															<a>${carts.product_name}</a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">${carts.product_name}</a>
 														</div>
 													</div>
 												</td>
@@ -119,10 +121,6 @@
 												</c:if>
 											</tr>
 									</c:forEach>
-<%-- 								</c:if>
-								<c:if test="${paymentList eq null}">
-									
-								</c:if>	 --%>
 								</tbody>
 							</table>
 						</div> <!-- payment_table end -->
@@ -362,7 +360,7 @@
 													</li>
 													<li class="coupon_use_benefit_final">
 														<em>적립 일리 포인트 : 
-															<strong>(+) <b>0</b>콩</strong>
+															<strong>(+) <b class="add_bean"></b>콩</strong>
 														</em>
 													</li>
 												</ul>
@@ -500,16 +498,9 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	<c:forEach items="${coupon}" var="coupon">
+																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																		<tr>
-																			<c:if test="${coupon.coupon_state eq 'delivery' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
-																				<c:if test="${status.first}">
-																				<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
-																																 font-size: 13px;
-																																 font-weight: 600;">상품 쿠폰이 없습니다.</td>
-																				</c:if>
-																			</c:if>
-																			<c:if test="${coupon.coupon_state eq 'cart'}" var="cart">
+																			<c:if test="${coupon.coupon_type eq 'cart'}" var="cart">
 																				<td>
 																					<span class="coupon_element">
 																						<input type="hidden" value="${coupon.coupon_id}" class="couponID">
@@ -545,14 +536,7 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																	<tr>
-																		<c:if test="${coupon.coupon_state eq 'cart' and coupon.coupon_state ne 'use' and coupon.coupon_state ne 'deadline'}">
-																			<c:if test="${status.first}">
-																			<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
-																															 font-size: 13px;
-																															 font-weight: 600;">배송지 쿠폰이 없습니다.</td>
-																			</c:if>
-																		</c:if>
-																		<c:if test="${coupon.coupon_state eq 'delivery'}" var="delivery">
+																		<c:if test="${coupon.coupon_type eq 'delivery'}" var="delivery">
 																			<td>
 																				<span class="coupon_element">
 																					<input type="hidden" value="${coupon.coupon_id}" class="couponID">
@@ -656,7 +640,7 @@
 																				<td>${al.address_recipient_name}</td>
 																				<td class="td_address">[${al.address_postcode}] ${al.main_address} ${al.address_reference} ${al.address_detail}</td>
 																				<td class="td_phone">휴대폰 : ${al.address_recipient_phone}</td>
-																				<td>
+																				<td class="td_hidden_info">
 																					<span class="delivery_btn_click delivery_myAddress_up" data-address-id="${al.address_id}">
 																						<span>
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">
@@ -695,7 +679,7 @@
 																				<td>${al.address_recipient_name}</td>
 																				<td class="td_address">[${al.address_postcode}] ${al.main_address} ${al.address_reference} ${al.address_detail}</td>
 																				<td class="td_phone">휴대폰 : ${al.address_recipient_phone}</td>
-																				<td>
+																				<td class="td_hidden_info">
 																					<span class="delivery_btn_click delivery_myAddress_up" data-address-id="${al.address_id}">
 																						<span>
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">
@@ -765,7 +749,7 @@ function price() {
    
    let sd = sum+delivery;
    let bean=0;
-   bean=parseInt(sum)*0.012;
+   bean=parseInt(sum)*0.02;
 	sum=Number(sum).toLocaleString();
 	delivery=Number(delivery).toLocaleString();
 	sd=Number(sd).toLocaleString();

@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.c.illy.address.AddressRepository;
 import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
 import com.c.illy.cart.CartService;
 import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
+import com.c.illy.member.point.PointService;
+import com.c.illy.member.point.PointVO;
+import com.c.illy.payment.PaymentService;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
@@ -36,6 +36,8 @@ import com.c.illy.util.Pager;
 import com.sun.org.apache.xpath.internal.operations.NotEquals;
 
 import lombok.val;
+import com.c.illy.wish.WishService;
+import com.c.illy.wish.WishVO;
 
 @Controller
 @RequestMapping("member/**")
@@ -50,6 +52,12 @@ public class MemberController {
 	private CartService cartService;
 	@Autowired
 	private CouponService couponService;
+	@Autowired
+	private WishService wishService;
+	@Autowired
+	private PointService pointService;
+	@Autowired
+	private PaymentService paymentService;
 
 	// --다영
 	@Autowired
@@ -254,8 +262,8 @@ public class MemberController {
 
 	@GetMapping("myPage/myPageOrderPager")
 	public String getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 
 		PaymentVO paymentVO2 = new PaymentVO();
 
@@ -264,20 +272,19 @@ public class MemberController {
 			cartService.setPaymentDelivery(paymentVO2); // 배송중으로 변경
 			cartService.setPaymentDone(paymentVO2); // 배송완료로 변경
 		}
-
-		list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-
+			
+		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}
 
 	/* my page - 주문목록/배송조회 : 상세페이지 */
 	@GetMapping("myPage/myPageOrderDetail")
-	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model)
-			throws Exception {
-		paymentVO = cartService.getMyPageOrderDetail(paymentVO);
+	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model) throws Exception {
+		paymentVO = paymentService.getMyPageOrderDetail(paymentVO);
 		AddressVO addressDefault = addressService.getJoinAddress(memberVO);
 		AddressVO addressOrder = addressService.getAddressOrder(paymentVO);
 
@@ -299,11 +306,10 @@ public class MemberController {
 	/* my page - 취소/반품 처리 현황 tab */
 	@GetMapping("myPage/myPageCancelPager")
 	public String getMyPageCancelPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-
+		
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageCancelAjax";
 	}
@@ -325,11 +331,11 @@ public class MemberController {
 	/* my page - 환불 처리 현황 tab */
 	@GetMapping("myPage/myPageRefundPager")
 	public String getMyPageRefundPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-
+		
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
+		
 		model.addAttribute("list", list);
-		model.addAttribute("count", cartService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageRefundAjax";
 	}
@@ -373,6 +379,43 @@ public class MemberController {
 		model.addAttribute("count", couponService.getCouponCount(couponVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageCoupon/myPageCouponNone";
+	}
+	
+	// 찜리스트
+	@GetMapping("myPage/myWishList")
+	public String getMyWishList(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		
+		model.addAttribute("member", memberVO);
+		return "member/myWishList/myWishList";
+	}
+	
+	//찜리스트 페이징처리 ajax
+	@GetMapping("myPage/myWishListAjax")
+	public String getMyWishListAjax(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		List<WishVO> list = wishService.getWishList(pager, memberVO);
+		
+		model.addAttribute("list", list);
+		return "member/myWishList/myWishListAjax";
+	}
+	
+	//콩포인트 내역
+	@GetMapping("myPage/myPagePoint")
+	public String getMyPagePoint(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		memberVO = memberService.getSelect(memberVO);
+
+		model.addAttribute("couponSize", couponService.getCouponList(memberVO).size());
+		model.addAttribute("member", memberVO);
+		return "member/myPoint/myPointList";
+	}
+	
+	//콩포인트 내역 - AJAX
+	@GetMapping("myPage/myPagePointUse")
+	public String getMyPagePointUse(@AuthenticationPrincipal MemberVO memberVO, PointVO pointVO, Model model, Pager pager) throws Exception {
+		List<PointVO> list = pointService.getPointHistory(memberVO, pointVO, pager);
+		
+		model.addAttribute("count", pointService.getPointHistoryCount(pointVO));
+		model.addAttribute("list", list);
+		return "member/myPoint/myPointAjaxUse";
 	}
 // ----------------------------------------------------- ijy end ------------------------------------------------
 

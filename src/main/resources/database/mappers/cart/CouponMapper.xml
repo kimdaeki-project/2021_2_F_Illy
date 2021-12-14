@@ -6,14 +6,14 @@
 	<select id="getCouponList" parameterType="MemberVO" resultType="CouponVO"> 
 		select * from coupon
 			where member_id=#{member_id}
-				and coupon_state='cart' or coupon_state='delivery'
+				and coupon_state='unUse'
 	</select> <!-- coupon_list -->
 	
 	<select id="getCouponPager" parameterType="HashMap" resultType="CouponVO"> 
 		select * from coupon
 			where member_id=#{coupon.member_id}
-				<if test="coupon.coupon_state== 'deadline'">and coupon_state='deadline'</if>
-				<if test="coupon.coupon_state == 'cart'">and (coupon_state='cart' or coupon_state='delivery')</if>
+				<if test="coupon.coupon_state== 'deadline'">and (coupon_state='deadline' or coupon_state='use')</if>
+				<if test="coupon.coupon_state == 'unUse'">and coupon_state='unUse' and (coupon_type='cart' or coupon_type='delivery')</if>
 				
 				and
 				    DATE_FORMAT(coupon_get, '%Y-%m-%d') between #{coupon.start_date} and #{coupon.end_date}
@@ -23,19 +23,27 @@
 	<select id="getCouponCount" parameterType="HashMap" resultType="Long"> 
 		select count(*) from coupon
 			where member_id=#{coupon.member_id}
-				<if test="coupon.coupon_state== 'deadline'">and coupon_state='deadline'</if>
-				<if test="coupon.coupon_state == 'cart'">and (coupon_state='cart' or coupon_state='delivery')</if>
+				<if test="coupon.coupon_state== 'deadline'">and (coupon_state='deadline' or coupon_state='use')</if>
+				<if test="coupon.coupon_state == 'unUse'">and coupon_state='unUse' and (coupon_type='cart' or coupon_type='delivery')</if>
 				
 				and
 				    DATE_FORMAT(coupon_get, '%Y-%m-%d') between #{coupon.start_date} and #{coupon.end_date}
 	</select> <!-- My Page : coupon_list (pager) -->
 	
 	<update id="setUseState" parameterType="CouponVO">
-		update coupon set coupon_state='use' where coupon_id=#{coupon_id}
+		update coupon set coupon_state="use" 
+						  , payment_id=#{payment_id}
+		where coupon_id=#{coupon_id}
 	</update> <!-- 쿠폰 사용 후 상태변경 -->
 	
 	<update id="setDeadlineState">
 		update coupon set coupon_state='deadline' 
 			where DATEDIFF(coupon_validity, now()) <![CDATA[<]]> 0
+					and coupon_state='unUse'
 	</update> <!-- 쿠폰 사용기간 만료 후 상태변경 -->
+	
+	<update id="setCouponUseCancel" parameterType="PaymentVO">
+		update coupon set coupon_state='unUse', payment_id=null 
+			where coupon_state='use' and payment_id=#{payment_id}
+	</update> <!-- 주문취소 또는 환불 후 사용한 쿠폰 상태 변경 -->
 </mapper>

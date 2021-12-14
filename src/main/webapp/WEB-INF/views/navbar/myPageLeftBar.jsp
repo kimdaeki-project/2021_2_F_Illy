@@ -28,8 +28,8 @@
 					<li><a href="/member/myPage/myPageOrder">- 주문목록/배송조회</a></li>
 					<li><a href="/member/myPage/myPageCancel?cart_state=cancel">- 취소/반품/교환 내역</a></li>
 					<li><a href="/member/myPage/myPageRefund?cart_sate=refund">- 환불/입금 내역</a></li>
-					<li><a href="#">- 찜리스트</a></li>
-					<li><a href="http://localhost/cart/normalBasket">- 장바구니</a></li>
+					<li><a href="/member/myPage/myWishList">- 찜리스트</a></li>
+					<li><a href="/cart/normalBasket">- 장바구니</a></li>
 				</ul>
 			</li>
 			<li>
@@ -44,7 +44,7 @@
 				<span style="border-top:1px solid #aaa;">혜택</span><span>관리</span>
 				<ul>
 					<li><a href="/member/myPage/myPageCoupon">- 쿠폰</a></li>
-					<li><a href="#">- 콩포인트</a></li>
+					<li><a href="/member/myPage/myPagePoint">- 콩포인트</a></li>
 				</ul>
 			</li>
 			<li>
@@ -63,13 +63,13 @@
 					<li><a href="#">- 부품 구매</a></li>
 				</ul>
 			</li>
-			<li>
+<!-- 			<li> 
 				<span style="border-top:1px solid #aaa;">정기</span><span>배송관리</span>
 				<ul>
 					<li><a href="#">- 결제카드 관리</a></li>
 					<li><a href="#">- 정기배송 신청목록</a></li>
 				</ul>
-			</li>
+			</li> -->
 			<li>
 				<span style="border-top:1px solid #aaa;">나의 </span><span>플러스리뷰</span>
 				<ul>

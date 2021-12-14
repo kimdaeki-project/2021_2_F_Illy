@@ -54,9 +54,40 @@
 					
 				</div> <!-- order_main end -->
 				<div id="order_bottom"><p>주문서 작성단계에서 할인/일리 포인트 적용을 하실 수 있습니다.</p></div>	
-				<div class="naver_pay_box">
-				
-				</div><!-- naver_pay_box end --> <!-- 네이버페이 API -->
+ 				<div class="naver_pay_box">
+					<div class="payBox">
+							<div class="naverPay">
+								<link id="NAVER_PAY_STYLE" type="text/css" rel="stylesheet" href="https://img.pay.naver.net/static/css/button/button2.css?455213">
+								
+								<div class="npay_text"></div>
+								<div class="npay_btn_wrap">
+									<input type="button" id="naverPayBtn" value="" class="npay_btn_link npay_btn_pay btn_green">
+								</div>
+								
+								<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>								
+								<!-- <script>								
+								    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
+								    var elNaverPayBtn = document.getElementById("naverPayBtn");
+								
+								    elNaverPayBtn.addEventListener("click", function() {
+										
+								    	let productId = 1; /* 수정하기 */
+								    	let cnt = 1;
+								    	
+								    	let width = 750;
+								    	let heigth = 800;
+								    	let top = (window.screen.height / 2) - (heigth / 2);
+								    	let left = (window.screen.width  / 2) - (width / 2);
+								    	
+								    	let url = "/payment/naverpay?product_id="+productId+"&cnt="+cnt+"";
+							            let name = "naverpay";
+							            let option = "width = "+width+", height = "+heigth+", top = "+top+", left = "+left+", location = no"
+							            window.open(url/* , name, option */);
+								    });								
+								</script> -->
+							</div>
+						</div><!-- payBox end -->
+				</div><!-- naver_pay_box end 네이버페이 API -->
 			</div> <!-- contetns end -->
 			
 		</div> <!-- container end -->
@@ -89,39 +120,27 @@
  	//선택상품 삭제
 	function optionDel() {
 		let delArray = new Array();
-		let member_id=$('#memberIdHidden').val();
-		
+		let member_id = $('#memberIdHidden').val();
 		$("input:checkbox[name=chkDel]:checked").each(function(){
 			let cartId = $(this).prev().val();
 			delArray.push(cartId);
 		});
 		
-		console.log(delArray);
-		
-		if(delArray == ""){
-			alert('선택하신 상품이 없습니다.');
-			return false;
-		}else{
+		if(delArray == ""){ alert('선택하신 상품이 없습니다.'); return false; }
+		else{
 			if(confirm('선택하신 상품을 장바구니에서 삭제 하시겠습니까?')){
 				$.ajax({
 					type:"GET",
 					url:"./setDelete",
 					traditional : true,
-					data: {
-						delArray:delArray,
-						member_id:member_id
-					},
+					data: { delArray:delArray, member_id:member_id },
 					success: function(result) {
 						result=result.trim();
 						$('#cart_ajax').empty();
 						$('#cart_ajax').html(result);
 					}
 				});
-			}else {
-				
 			}
-			
-
 		}
 	}
 	
@@ -129,13 +148,10 @@
  	function optionOrder() {
 		let orderArray = new Array();
 		
-		
 		$("input:checkbox[name=chkDel]:checked").each(function(){
 			let cartId = $(this).prev().val();
 			orderArray.push(cartId);
 		});
-		
-		console.log(orderArray);
 		
 		if(orderArray == ""){
 			alert("선택하신 상품이 없습니다.");
@@ -183,6 +199,41 @@
 			}			
 		});	
 			
+ 	}
+ 	
+ 	//선택상품 찜
+ 	function optionWish() {
+ 		let delArray = new Array();
+		
+		$("input:checkbox[name=chkDel]:checked").each(function(){
+			let product_id = $(this).attr('data-product-id');
+			let wish_cnt = $(this).attr('data-wish-cnt');
+			delArray.push(product_id, wish_cnt);
+		});
+		
+		if(delArray == ""){
+			alert('선택하신 상품이 없습니다.');
+			return false;
+		}else{
+			if(confirm('선택하신 상품을 찜리스트에 담으시겠습니까?')){
+				$.ajax({
+					type:"GET",
+					url:"/wish/wishInsert",
+					traditional : true,
+					data: {
+						delArray:delArray
+					},
+					success: function() {
+						alert('상품이 찜리스트에 저장되었습니다.');
+						location.reload();
+					}
+				});
+			}else {
+				
+			}
+			
+
+		}
  	}
  	
 </script>	

@@ -430,15 +430,15 @@ $('.delivery_myAddress_up').click(function(){
 
 //나의 배송지 선택하기
 $('.delivery_myAddress_chk').click(function(){
-	console.log($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
-	$('.delivery_name').val($(this).parent().next().next().next().next().next().find('.address_recipient_name_modal').val());
-	$('.delivery_postcode').val($('.delivery_myAddress_up').find('.address_postcode_modal').val());
+	console.log($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
+	$('.delivery_name').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_name_modal').val());
+	$('.delivery_postcode').val($(this).parent().siblings('.td_hidden_info').find('.address_postcode_modal').val());
 	$('.address_reference').val(
-								$(this).parent().next().next().next().next().next().find('.main_address_modal').val() + ' ' +
-								$(this).parent().next().next().next().next().next().find('.address_reference_modal').val()
+								$(this).parent().siblings('.td_hidden_info').find('.main_address_modal').val() + ' ' +
+								$(this).parent().siblings('.td_hidden_info').find('.address_reference_modal').val()
 								);
-	$('.address_detail').val($(this).parent().next().next().next().next().next().find('.address_detail_modal').val());
-	$('.delivery_phone').val($(this).parent().next().next().next().next().next().find('.address_recipient_phone_modal').val());
+	$('.address_detail').val($(this).parent().siblings('.td_hidden_info').find('.address_detail_modal').val());
+	$('.delivery_phone').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
 	
 	$('.delivery_modal_list').addClass('dn'); //모달창 지우기
 	$("body").css("overflow","auto");//body 스크롤바 생성
@@ -534,43 +534,58 @@ function paymentEnd(){
 	let address_detail=$('.address_detail').val();
 	let address_myAddress=$('#myDeliveryAdd').val();
 	
+	let serialArray = new Array();
+	
+	$('.product_name_file').each(function(){
+		let product_id = $(this).attr('serial-product-id');
+		let cart_id = $(this).attr('serial-cart-id');
+		let product_categoryCode = $(this).attr('serial-product-categoryCode');
+
+		serialArray.push(product_categoryCode, product_id, member_id, cart_id);
+	});
+	
 	$.ajax({
-							async : false,
-							type: "GET",
-							url: "./insertPayment",
-							data: {
-								//결제 insert parameter
-								payment_comment:payment_comment,
-								payment_use_point:payment_use_point,
-								payment_type:payment_type,
-								payment_total:payment_total,
-								payment_name:payment_name,
-								payment_email:payment_email,
-								payment_delivery:payment_delivery,
-								payment_phone:payment_phone,
-								payment_product_total:payment_product_total,
-								payment_use_coupon:discount,
-								payment_total_discount:total_discount,
-								payment_add_point:payment_add_point,
-								member_id:member_id,
-								member_point:member_point,
-								coupon_id:coupon_id,
-								//배송 insert parameter
-								address_name:address_name,
-								address_recipient_name:address_recipient_name,
-								address_recipient_phone:address_recipient_phone,
-								address_postcode:address_postcode,
-								main_address:main_address,
-								address_reference:address_reference,
-								address_detail:address_detail,
-								address_myAddress:address_myAddress,
-								address_default:0
-							},
-							success: function(result) {
-								result
-								location.href='./paymentEnd?payment_id=' + result;
-							}
-						});
+		async : false,
+		traditional : true, //배열 넘기기 위해선 필수
+		type: "POST",
+		url: "./insertPayment",
+		data: {
+			//결제 insert parameter
+			payment_comment:payment_comment,
+			payment_use_point:payment_use_point,
+			payment_type:payment_type,
+			payment_total:payment_total,
+			payment_name:payment_name,
+			payment_email:payment_email,
+			payment_delivery:payment_delivery,
+			payment_phone:payment_phone,
+			payment_product_total:payment_product_total,
+			payment_use_coupon:discount,
+			payment_total_discount:total_discount,
+			payment_add_point:payment_add_point,
+			member_id:member_id,
+			member_point:member_point,
+			coupon_id:coupon_id,
+			//배송 insert parameter
+			address_name:address_name,
+			address_recipient_name:address_recipient_name,
+			address_recipient_phone:address_recipient_phone,
+			address_postcode:address_postcode,
+			main_address:main_address,
+			address_reference:address_reference,
+			address_detail:address_detail,
+			address_myAddress:address_myAddress,
+			address_default:0,
+			//cart_state 넘겨서 장바구니 통한 결제인지 바로구매 결제인지 구분 direct인지 아닌지
+			cart_state: $('#cartState').val(),
+			//serial 등록을 위한 배열
+			serialArray: serialArray
+		},
+		success: function(result) {
+			result
+			location.href='./paymentEnd?payment_id=' + result;
+		}
+	});
 }
 
 $('.btn_center_order').click(function(){
@@ -603,7 +618,6 @@ $('.btn_center_order').click(function(){
 			alert('[주문자]휴대폰 번호은(는) 전화번호형식에 맞지 않습니다.');
 			$('.order_phone').focus();
 		}else {
-			
 			/* 카카오페이 API */
 			if($('#kakao').next().hasClass('on') == true){
 				let name = $('#full_cartProduct').val();
@@ -666,7 +680,7 @@ $('.btn_center_order').click(function(){
 		            }
 		        });
 			} else {
-				paymentEnd();			
+				paymentEnd();
 			}
 	
 		}

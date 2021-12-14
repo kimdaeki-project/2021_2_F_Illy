@@ -224,22 +224,20 @@ $(".pick_date").click(function(){
 $(".btn_board_search").click(function(){
 	console.log("--" + $(".start").val());
 	console.log("--" + $(".end").val());
-	getDate($('.start').val(), $('.end').val(), 1);
+	
+	if($('.setStart').hasClass('on') == true){
+		setStart();		
+	}
+	if($('.getCancel').hasClass('on') == true){
+		getDate($('.start').val(), $(".end").val(), 1);		
+	}
 });
 
 /* 취소/반품 tab */
 $(".myPage_lately_info_cont").on('click','.setStart',function(){
-	$(".start").val(start_date);
-	$(".end").val(end_date);
-	$('.pick_date').removeClass("clickDay");
-	$(".sevenDay").addClass("clickDay");
 	setStart();
 });
 $(".myPage_lately_info_cont").on('click','.getCancel',function(){
-	$(".start").val(start_date);
-	$(".end").val(end_date);
-	$('.pick_date').removeClass("clickDay");
-	$(".sevenDay").addClass("clickDay");
 	getDate($('.start').val(), $(".end").val(), 1);
 });
 </script>

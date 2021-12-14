@@ -1,6 +1,5 @@
 package com.c.illy.cart;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.c.illy.member.MemberVO;
-import com.c.illy.payment.PaymentVO;
-import com.c.illy.util.Pager;
 
 @Controller
 @RequestMapping("/cart/**")
@@ -24,6 +21,14 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
+	
+	@RequestMapping("setCart")
+	@ResponseBody
+	public int setCart(CartVO cartVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		int result = cartService.setCart(cartVO, memberVO); // 장바구니에 상품 등록
+		
+		return result;
+	}
 	
 	//일반구매 - 장바구니 리스트
 	@GetMapping("normalBasket")
@@ -106,33 +111,5 @@ public class CartController {
 		model.addAttribute("count", cartService.getNormalBasket(memberVO).size());
 		
 		return "cart/normalBasket";
-	}
-	
-	//주문취소 - point 감소
-	@GetMapping("setPaymentCancel")
-	public String setPaymentCancel(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
-		int result = cartService.setPaymentCancel(paymentVO, memberVO);
-		
-		System.out.println("성공?: "+result);
-		
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
-		model.addAttribute("list", list);
-		model.addAttribute("pager", pager);
-		return "member/myPageOrder/myPageOrderAjax";
-	}
-	
-	//환불 - point 감소
-	@GetMapping("setPaymentRefund")
-	public String setPaymentRefund(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
-		int result = cartService.setPaymentRefund(paymentVO, memberVO);
-		
-		System.out.println("성공?: "+result);
-		
-		List<PaymentVO> list = cartService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
-		model.addAttribute("list", list);
-		model.addAttribute("pager", pager);
-		return "member/myPageOrder/myPageOrderAjax";
 	}
 }

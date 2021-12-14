@@ -199,8 +199,6 @@ $(".pick_date").click(function(){
 		$(this).addClass("clickDay");
 	}
 	
-	/* getDate($('.start').val(), $(".end").val(), 1); */
-	
 });
 	
 	
@@ -212,7 +210,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 	if(confirm('주문취소 처리를 하시겠습니까?')){
 		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentCancel",
+			url:"/payment/setPaymentCancel",
 			data: {
 				start_date:start_date,
 				end_date:end_date,
@@ -220,6 +218,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 				member_id:member_id,
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),
+				payment_use_point: $(this).attr('data-payment-usePoint'),
 				cart_state:null
 			},
 			success: function(result){
@@ -252,7 +251,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 	if(confirm('환불 처리를 하시겠습니까?')){
  		$.ajax({
 			type:"GET",
-			url:"/cart/setPaymentRefund",
+			url:"/payment/setPaymentRefund",
 			data: {
 				start_date:start_date,
 				end_date:end_date,
@@ -260,6 +259,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 				member_id:member_id,
 				payment_id:$(this).attr('data-payment-id'),
 				payment_add_point: $(this).attr('data-payment-addPoint'),
+				payment_use_point: $(this).attr('data-payment-usePoint'),
 				cart_state:null
 			},
 			success: function(result){

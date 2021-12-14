@@ -84,11 +84,28 @@
 							</a>
 							<div class="iconBox"></div>
 							<span class="productPrice pricePattern">${productVO.product_price}</span>
-							<button class="btnDefault red">장바구니</button>
-							<button class="btnDefault red">구매하기</button>
+							<button class="btnDefault red insertCart" data-product-id="${productVO.product_id}" data-product-name="${productVO.product_name}">장바구니</button>
+							<button class="btnDefault red directPayment" data-product-id="${productVO.product_id}">구매하기</button>
 						</div>
 					</li>
 				</c:forEach>
+				
+				<!-- 장바구니 구매 후 modal -->
+				<div id="addCartLayer" class="modal_wrap" style="display: none;">
+					<div class="add_cart_layer">
+						<div class="add_cart_layerView">
+				            <h2>장바구니 담기</h2>
+				            <div>
+				                <p id="productAddcartImages"><strong>상품이 장바구니에 담겼습니다.</strong><br>바로 확인하시겠습니까?</p>
+				            </div>
+				            <div class="add_cart_btn_box">
+				                <button class="add_cart_btn_cancel close_a_btn"><span>취소</span></button>
+				                <button class="add_cart_btn_move"><span>확인</span></button>
+				            </div>
+				            <a class="add_cart_top_cancel close_a_btn"><img src="/images/cart/btn_layer_close.png" alt="닫기"></a>
+						</div> <!-- add_cart_layerView end -->
+					</div>	<!-- add_cart_layer end -->			
+				</div> <!-- addCartLayer end --> <!-- 장바구니 구매 후 modal end -->
 				</ul>
 				
 				<div class="pagination">
@@ -124,5 +141,42 @@
 		}, function(){
 			$(this).find('button').css('display', 'none');
 		});
+		
+		
+		/* ijy - 상품 바로구매하기 */
+		$('.directPayment').click(function(){
+			console.log('product_id: '+$(this).attr('data-product-id'));
+			
+			location.href="/payment/directPayment?cart_cnt=1&product_id="+$(this).attr('data-product-id');
+		});
+		
+		//장바구니 담기
+		$('.insertCart').click(function(){
+			
+			$.ajax({
+				type:"GET",
+				url:"/cart/setCart",
+				data: {
+					product_id: $(this).attr('data-product-id'),
+					cart_cnt: 1
+				},
+				success: function(result) {
+					$('#addCartLayer').css("display", "block");//modal 띄우기
+					$("body").css("overflow","hidden");//body 스크롤바 없애기
+				},
+				error : function(xhr, status, error){
+					console.log(error);				
+				}
+			
+			});
+		});
+		
+		$('.add_cart_btn_move').click(function(){
+			location.href="/cart/normalBasket";
+		}); //확인버튼 클릭 시 장바구니로 이동
+		$('.close_a_btn').click(function(){
+			$('#addCartLayer').css("display", "none");//modal 없애기
+			$("body").css("overflow","auto");//body 스크롤바 생성
+		}); //취소 또는 X 버튼 클릭 시 장바구니로 이동
 	</script>
 </html>

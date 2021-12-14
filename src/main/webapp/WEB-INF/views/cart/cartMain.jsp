@@ -61,11 +61,13 @@
 														<input type="hidden" value="${carts.cart_id}">
 														<c:if test="${carts.cart_state eq 'checked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
-															data-cart-id="${carst.cart_id}" name="chkDel" class="checkOn chkBox" checked="checked">
+															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" 
+															data-product-id="${carts.product_id}" data-wish-cnt="${carts.cart_cnt}"
+															name="chkDel" class="checkOn chkBox" checked="checked">
 														</c:if>
 														<c:if test="${carts.cart_state eq 'unChecked'}">
 															<input type="checkbox" id="cartCheckBox${carts.cart_id}" value="${carts.product_price * carts.cart_cnt}" 
-															data-cart-id="${carst.cart_id}" name="chkDel" class="checkOn chkBox">
+															data-cart-id="${carst.cart_id}" data-product-name="${cart.product_name}" name="chkDel" class="checkOn chkBox">
 														</c:if>
 														<label for="cartCheckBox${carts.cart_id}" class="check_s"></label>
 													</div>
@@ -73,19 +75,19 @@
 												<td class="tb_product">
 													<div class="product_name_file">
 														<span class="product_name_file_fileAdd">
-															<a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">
 																<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 															</a>
 														</span>
 														<div class="product_name_file_nameAdd">
-															<a>${carts.product_name}</a>
+															<a href="/product/select?product_categoryCode=${carts.product_categoryCode }&product_id=${carts.product_id}">${carts.product_name}</a>
 														</div>
 													</div>
 												</td>
 												<td class="tb_border">
-													<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus" value="-">
+													<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus cntUp" data-cart-cnt="${carts.cart_cnt}" value="-">
 	        										<input type="text" name="cart_cnt" class="cnt_cart" value="${carts.cart_cnt}" readonly="readonly"/>
-	       											<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus" value="+">
+	       											<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus cntUp" data-cart-cnt="${carts.cart_cnt}" value="+">
 												</td>
 												<td class="tb_border productPrice" data-price="${carts.product_price}">
 													<fmt:formatNumber value="${carts.product_price}" pattern="###,###,###"/>원
@@ -133,14 +135,14 @@
 										<dd><strong id="total_sum"></strong>원</dd>
 									</dl>
 								</div>
-								<em>적립예정 일리 포인트 : 0콩</em>
+								<em>적립예정 일리 포인트 : <strong>(+) <b class="add_bean"></b>콩</strong></em>
 							</div>
 						</div><!-- totalPrice end -->
 						
 						<div id="cart_bottom">
 							<span id="cart_btn_left">
 								<button class="cart_btn_left_del" onclick="optionDel()">선택 상품 삭제</button>
-								<button class="cart_btn_left_ch">선택 상품 찜</button>
+								<button class="cart_btn_left_ch" onclick="optionWish()">선택 상품 찜</button>
 								<button class="cart_btn_left_ch">견적서 출력</button>
 							</span>
 							
@@ -197,6 +199,8 @@
         }
         
         let sd = sum+delivery;
+        let bean=0;
+        bean=parseInt(sum)*0.02;
         
         count=Number(count).toLocaleString();
  		sum=Number(sum).toLocaleString();
@@ -206,6 +210,7 @@
         $(".ttPrice").html(sum);
         $('.deliveryPrice').html(delivery);
         $('#total_sum').html(sd);
+       	$('.add_bean').html(bean);
 	}
 	
 	function allChecked() {
@@ -306,17 +311,18 @@
 		
 	});
 	
- 	// 수량변경 마이너스
-	$(".cnt_minus").click(function(){
+ 	// 수량변경
+	$(".cntUp").click(function(){
 		let cart_id = $(this).attr('data-cart-id');
-		let cart_cnt = $(this).next().val();
-		cart_cnt -= 1;
+		let cart_cnt = parseInt($(this).attr('data-cart-cnt'));
 		let member_id=$('#memberIdHidden').val();
+		if($(this).val() == '+') { cart_cnt += 1; } else { cart_cnt -= 1; }
+		
 		if(cart_cnt<1){
-			alert('해당 상품의 구매 가능한 최소수량은 1개 입니다.');
+			alert('해당 상품의 찜리스트에서 담을 수 있는 최소수량은 1개 입니다.');
 			cart_cnt=1;
 		}
-		$(this).next().val(cart_cnt);
+		$('.cnt_cart').val(cart_cnt);
 		
 		$.ajax({
 			type: "GET",
@@ -332,29 +338,5 @@
 			}
 		});
 	});
- 	
-	//수량변경 플러스
-	$(".cnt_plus").click(function(){
-		let cart_id = $(this).attr('data-cart-id');
-		let cart_cnt = $(this).prev().val();
-		cart_cnt=Number(cart_cnt)+1;
-		$(this).prev().val(cart_cnt);
-		
-		let member_id=$('#memberIdHidden').val();
-		
-		$.ajax({
-			type: "GET",
-			url: "./updateCount",
-			data: {
-				cart_id:cart_id,
-				cart_cnt:cart_cnt,
-				member_id:member_id
-			},
-			success: function(result){
-				result=result.trim();
-				$('#cart_ajax').html(result);
-			}
-		});
-	});	
 	
 </script>	

@@ -19,5 +19,6 @@ public class CartProductVO {
 	private String product_name;
 	private Integer product_price;
 	private String productFile_name;
+	private String product_categoryCode;	//(커피 : 001, 머신 : 002)
 	
 }

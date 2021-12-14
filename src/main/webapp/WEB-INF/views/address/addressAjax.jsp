@@ -46,7 +46,7 @@
 																				<td>${al.address_recipient_name}</td>
 																				<td class="td_address">[${al.address_postcode}] ${al.main_address} ${al.address_reference} ${al.address_detail}</td>
 																				<td class="td_phone">휴대폰 : ${al.address_recipient_phone}</td>
-																				<td>
+																				<td class="td_hidden_info">
 																					<span class="delivery_btn_click delivery_myAddress_up" data-address-id="${al.address_id}">
 																						<span>
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">
@@ -85,7 +85,7 @@
 																				<td>${al.address_recipient_name}</td>
 																				<td class="td_address">[${al.address_postcode}] ${al.main_address} ${al.address_reference} ${al.address_detail}</td>
 																				<td class="td_phone">휴대폰 : ${al.address_recipient_phone}</td>
-																				<td>
+																				<td class="td_hidden_info">
 																					<span class="delivery_btn_click delivery_myAddress_up" data-address-id="${al.address_id}">
 																						<span>
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">

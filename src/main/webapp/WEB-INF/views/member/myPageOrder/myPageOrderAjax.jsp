@@ -30,7 +30,7 @@
 	</div>
 </c:if>		
 <c:if test="${!empty list}">												
- 		<span class="pick_list_num">주문목록 / 배송조회 목록 총 <strong>${count}</strong> 건</span>
+ 		<span class="pick_list_num" data-total-count="${count}">주문목록 / 배송조회 목록 총 <strong>${count}</strong> 건</span>
 		<div class="myPage_type_table">
 			<table>
 			<colgroup>
@@ -59,14 +59,16 @@
 										<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 										<c:if test="${carts.cart_state eq 'payment'}">
 											<div class="btn_claim">
-												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+														data-payment-usePoint="${list.payment_use_point}">
 													<a>주문취소</a>
 												</span>
 											</div>
 										</c:if>
 										<c:if test="${carts.cart_state eq 'done'}">
 											<div class="btn_claim">
-												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+														data-payment-usePoint="${list.payment_use_point}">
 													<a>환  불</a>
 												</span>
 											</div>
@@ -75,12 +77,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>
@@ -126,14 +128,16 @@
 											<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 											<c:if test="${carts.cart_state eq 'payment'}">
 												<div class="btn_claim">
-													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+															data-payment-usePoint="${list.payment_use_point}">
 														<a>주문취소</a>
 													</span>
 												</div>
 											</c:if>
 											<c:if test="${carts.cart_state eq 'done'}">
 												<div class="btn_claim">
-													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}">
+													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+															data-payment-usePoint="${list.payment_use_point}">
 														<a>환  불</a>
 													</span>
 												</div>
@@ -143,12 +147,12 @@
 									<td class="td_left">
 										<div class="pick_add_cont">
 											<span class="pick_add_img">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<img alt="${carts.product_name}" src="/upload/product/${carts.productFile_name}">
 												</a>
 											</span>
 											<div class="pick_add_info">
-												<a>
+												<a href="/product/select?product_categoryCode=${carts.product_categoryCode}&product_id=${carts.product_id}">
 													<em>${carts.product_name}</em>
 												</a>
 											</div>
