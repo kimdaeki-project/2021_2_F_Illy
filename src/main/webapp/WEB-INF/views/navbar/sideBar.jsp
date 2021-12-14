@@ -71,7 +71,7 @@
 				<div class="right_link2">
 					<ul>
 						<li>
-							<a href="#">
+							<a href="/member/myPage/myWishList">
 								<i class="xi-heart"></i>
 								<span>WISH LIST</span>
 							</a>
@@ -83,7 +83,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="/member/myPage/myPageOrder">
 								<i class="xi-truck"></i>
 								<span>ORDER</span>
 							</a>

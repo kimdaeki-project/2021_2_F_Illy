@@ -10,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +49,7 @@ public class PaymentController {
 	public void getPaymentList(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
 		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
 		
-		List<CartProductVO> ar = cartService.getCartListCheck(memberVO); //상품List
+		List<CartProductVO> ar = cartService.getCartListCheck(memberVO); //선택 상품 List
 		List<CouponVO> coupon = couponService.getCouponList(memberVO); //modal - 쿠폰적용
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO); //modal _ 배송지관리
 		AddressVO addressVO = addressService.getAddressLatest(memberVO); //최근배송지
@@ -70,13 +69,11 @@ public class PaymentController {
 	// 바로구매를 통해서 온 목록
 	@GetMapping("directPayment")
 	public String getDirectPayment(@AuthenticationPrincipal MemberVO memberVO, CartVO cartVO, Model model) throws Exception {
-		int /*
-			 * result = cartService.setDirectPayment(memberVO); //cart_state 변경해주기
-			 */result = cartService.setPaymentCart(cartVO, memberVO);
+		int result = cartService.setPaymentCart(cartVO, memberVO);
 		
 		couponService.setDeadlineState(); //쿠폰상태 - 사용기간만료
 		
-		List<CartProductVO> ar = cartService.getDirectPayment(memberVO); //상품List
+		List<CartProductVO> ar = cartService.getDirectPayment(memberVO); //선택 상품 List
 		List<CouponVO> coupon = couponService.getCouponList(memberVO); //modal - 쿠폰적용
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO); //modal _ 배송지관리
 		AddressVO addressVO = addressService.getAddressLatest(memberVO); //최근배송지
@@ -98,7 +95,8 @@ public class PaymentController {
 	// 결제 완료 - product 기계 구매했을 때 시리얼넘버 생성하기
 	@RequestMapping(value = "insertPayment",  method = RequestMethod.POST)
 	@ResponseBody
-	public Integer setPaymentInsert(HttpServletRequest request, CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, Model model, AddressVO addressVO, CartVO cartVO) throws Exception {
+	public Integer setPaymentInsert(HttpServletRequest request, CouponVO couponVO, PaymentVO paymentVO, MemberVO memberVO, 
+			Model model, AddressVO addressVO, CartVO cartVO) throws Exception {
 		
 		addressVO.setMember_id(paymentVO.getMember_id());
 		int result = addressService.setPaymentAddress(addressVO); //배송받을 주소 insert
@@ -137,9 +135,10 @@ public class PaymentController {
 	public String setPaymentCancel(@AuthenticationPrincipal MemberVO memberVO, Model model, PaymentVO paymentVO, CartVO cartVO, Pager pager) throws Exception {
 		int result = cartService.setPaymentCancel(paymentVO, memberVO);
 		
-		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
+		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager); 
+		
 		model.addAttribute("list", list);
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}
@@ -150,8 +149,9 @@ public class PaymentController {
 		int result = cartService.setPaymentRefund(paymentVO, memberVO);
 		
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-					
+		
 		model.addAttribute("list", list);
+		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}

@@ -271,7 +271,8 @@
 				cart_cnt: $('.inputCnt').val()
 			},
 			success: function(result) {
-				alert(result); //모달창 띄워서 장바구니로 가냐 마냐
+				$('#addCartLayer').css("display", "block");//modal 띄우기
+				$("body").css("overflow","hidden");//body 스크롤바 없애기
 			},
 			error : function(xhr, status, error){
 				console.log(error);				

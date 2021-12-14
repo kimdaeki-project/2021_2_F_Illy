@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.c.illy.address.AddressRepository;
 import com.c.illy.address.AddressService;
 import com.c.illy.address.AddressVO;
-import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartService;
 import com.c.illy.cart.CartVO;
 import com.c.illy.coupon.CouponService;
@@ -198,7 +194,6 @@ public class MemberController {
 		}
 			
 		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-		  
 		
 		model.addAttribute("list", list);
 		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
@@ -261,7 +256,6 @@ public class MemberController {
 	public String getMyPageRefundPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
 		
 		 List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-		  
 		
 		model.addAttribute("list", list);
 		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
@@ -339,7 +333,7 @@ public class MemberController {
 		return "member/myPoint/myPointList";
 	}
 	
-	//콩포인트 내역 - 사용
+	//콩포인트 내역 - AJAX
 	@GetMapping("myPage/myPagePointUse")
 	public String getMyPagePointUse(@AuthenticationPrincipal MemberVO memberVO, PointVO pointVO, Model model, Pager pager) throws Exception {
 		List<PointVO> list = pointService.getPointHistory(memberVO, pointVO, pager);

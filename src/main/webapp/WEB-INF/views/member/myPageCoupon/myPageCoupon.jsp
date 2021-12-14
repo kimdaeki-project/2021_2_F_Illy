@@ -158,7 +158,14 @@ $('.ly_close').click(function(){
 /* 자세히보기 */
 
 $('.myPage_lately_info_cont').on('click', '.coupon_layer_layer', function(){
-	$('#lyUseCase3100063').css({"display": "block"});
+	if($(this).hasClass("block")){
+		$(this).removeClass("block");
+		$('#lyUseCase3100063').css({"display": "block"});
+	}else {
+		$(this).addClass("block");
+		$('#lyUseCase3100063').css({"display": "none"});
+	}
+	//$('#lyUseCase3100063').css({"display": "block"});
 });
 $('.myPage_lately_info_cont').on('click', '.ly_close', function(){
 	$('#lyUseCase3100063').css({"display": "none"});

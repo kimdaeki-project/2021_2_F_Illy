@@ -1,6 +1,5 @@
 package com.c.illy.cart;
 
-import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import com.c.illy.member.MemberVO;
 import com.c.illy.member.point.PointRepository;
 import com.c.illy.member.point.PointVO;
 import com.c.illy.payment.PaymentVO;
-import com.c.illy.util.Pager;
 
 @Service
 public class CartService {

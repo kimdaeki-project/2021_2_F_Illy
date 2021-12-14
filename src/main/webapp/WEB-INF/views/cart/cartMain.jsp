@@ -85,9 +85,9 @@
 													</div>
 												</td>
 												<td class="tb_border">
-													<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus" value="-">
+													<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus cntUp" data-cart-cnt="${carts.cart_cnt}" value="-">
 	        										<input type="text" name="cart_cnt" class="cnt_cart" value="${carts.cart_cnt}" readonly="readonly"/>
-	       											<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus" value="+">
+	       											<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus cntUp" data-cart-cnt="${carts.cart_cnt}" value="+">
 												</td>
 												<td class="tb_border productPrice" data-price="${carts.product_price}">
 													<fmt:formatNumber value="${carts.product_price}" pattern="###,###,###"/>원
@@ -311,17 +311,18 @@
 		
 	});
 	
- 	// 수량변경 마이너스
-	$(".cnt_minus").click(function(){
+ 	// 수량변경
+	$(".cntUp").click(function(){
 		let cart_id = $(this).attr('data-cart-id');
-		let cart_cnt = $(this).next().val();
-		cart_cnt -= 1;
+		let cart_cnt = parseInt($(this).attr('data-cart-cnt'));
 		let member_id=$('#memberIdHidden').val();
+		if($(this).val() == '+') { cart_cnt += 1; } else { cart_cnt -= 1; }
+		
 		if(cart_cnt<1){
-			alert('해당 상품의 구매 가능한 최소수량은 1개 입니다.');
+			alert('해당 상품의 찜리스트에서 담을 수 있는 최소수량은 1개 입니다.');
 			cart_cnt=1;
 		}
-		$(this).next().val(cart_cnt);
+		$('.cnt_cart').val(cart_cnt);
 		
 		$.ajax({
 			type: "GET",
@@ -337,29 +338,5 @@
 			}
 		});
 	});
- 	
-	//수량변경 플러스
-	$(".cnt_plus").click(function(){
-		let cart_id = $(this).attr('data-cart-id');
-		let cart_cnt = $(this).prev().val();
-		cart_cnt=Number(cart_cnt)+1;
-		$(this).prev().val(cart_cnt);
-		
-		let member_id=$('#memberIdHidden').val();
-		
-		$.ajax({
-			type: "GET",
-			url: "./updateCount",
-			data: {
-				cart_id:cart_id,
-				cart_cnt:cart_cnt,
-				member_id:member_id
-			},
-			success: function(result){
-				result=result.trim();
-				$('#cart_ajax').html(result);
-			}
-		});
-	});	
 	
 </script>	

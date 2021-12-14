@@ -120,39 +120,27 @@
  	//선택상품 삭제
 	function optionDel() {
 		let delArray = new Array();
-		let member_id=$('#memberIdHidden').val();
-		
+		let member_id = $('#memberIdHidden').val();
 		$("input:checkbox[name=chkDel]:checked").each(function(){
 			let cartId = $(this).prev().val();
 			delArray.push(cartId);
 		});
 		
-		console.log(delArray);
-		
-		if(delArray == ""){
-			alert('선택하신 상품이 없습니다.');
-			return false;
-		}else{
+		if(delArray == ""){ alert('선택하신 상품이 없습니다.'); return false; }
+		else{
 			if(confirm('선택하신 상품을 장바구니에서 삭제 하시겠습니까?')){
 				$.ajax({
 					type:"GET",
 					url:"./setDelete",
 					traditional : true,
-					data: {
-						delArray:delArray,
-						member_id:member_id
-					},
+					data: { delArray:delArray, member_id:member_id },
 					success: function(result) {
 						result=result.trim();
 						$('#cart_ajax').empty();
 						$('#cart_ajax').html(result);
 					}
 				});
-			}else {
-				
 			}
-			
-
 		}
 	}
 	
@@ -160,13 +148,10 @@
  	function optionOrder() {
 		let orderArray = new Array();
 		
-		
 		$("input:checkbox[name=chkDel]:checked").each(function(){
 			let cartId = $(this).prev().val();
 			orderArray.push(cartId);
 		});
-		
-		console.log(orderArray);
 		
 		if(orderArray == ""){
 			alert("선택하신 상품이 없습니다.");

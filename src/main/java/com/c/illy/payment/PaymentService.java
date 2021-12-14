@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.c.illy.cart.CartProductVO;
 import com.c.illy.cart.CartVO;
-import com.c.illy.member.MemberVO;
 import com.c.illy.util.Pager;
 
 @Service

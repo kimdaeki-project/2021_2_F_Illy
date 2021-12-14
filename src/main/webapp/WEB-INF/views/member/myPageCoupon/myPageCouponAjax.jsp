@@ -86,7 +86,7 @@
 						</td>
 						<td>
 							<div class="coupon_layer">
-								<span class="coupon_layer_layer">
+								<span class="coupon_layer_layer block">
 									<a><em>자세히보기</em></a>
 								</span>
 								

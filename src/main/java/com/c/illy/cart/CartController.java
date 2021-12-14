@@ -9,13 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.c.illy.member.MemberVO;
-import com.c.illy.payment.PaymentVO;
-import com.c.illy.util.Pager;
 
 @Controller
 @RequestMapping("/cart/**")

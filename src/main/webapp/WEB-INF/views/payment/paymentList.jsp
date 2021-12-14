@@ -500,13 +500,6 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																		<tr>
-																			<%-- <c:if test="${coupon.coupon_type eq 'delivery'}">
-																				<c:if test="${status.first}">
-																				<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
-																																 font-size: 13px;
-																																 font-weight: 600;">상품 쿠폰이 없습니다.</td>
-																				</c:if>
-																			</c:if> --%>
 																			<c:if test="${coupon.coupon_type eq 'cart'}" var="cart">
 																				<td>
 																					<span class="coupon_element">
@@ -543,13 +536,6 @@
 																<tbody>
 																	<c:forEach items="${coupon}" var="coupon" varStatus="status">
 																	<tr>
-																		<%-- <c:if test="${coupon.coupon_type eq 'cart'}">
-																			<c:if test="${status.first}">
-																			<td rowspan="${status.end+1}" colspan="4" style="padding: 30px 15px 28px;
-																															 font-size: 13px;
-																															 font-weight: 600;">배송지 쿠폰이 없습니다.</td>
-																			</c:if>
-																		</c:if> --%>
 																		<c:if test="${coupon.coupon_type eq 'delivery'}" var="delivery">
 																			<td>
 																				<span class="coupon_element">

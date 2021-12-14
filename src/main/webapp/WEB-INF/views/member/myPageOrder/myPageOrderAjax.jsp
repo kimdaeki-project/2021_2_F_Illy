@@ -30,7 +30,7 @@
 	</div>
 </c:if>		
 <c:if test="${!empty list}">												
- 		<span class="pick_list_num">주문목록 / 배송조회 목록 총 <strong>${count}</strong> 건</span>
+ 		<span class="pick_list_num" data-total-count="${count}">주문목록 / 배송조회 목록 총 <strong>${count}</strong> 건</span>
 		<div class="myPage_type_table">
 			<table>
 			<colgroup>

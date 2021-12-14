@@ -56,7 +56,7 @@ public class WishController {
 	//수량변경
 	@GetMapping("cntUpdate")
 	public String setCnt(WishVO wishVO, Model model, @AuthenticationPrincipal MemberVO memberVO, Pager pager) throws Exception {
-		int result = wishService.setCnt(wishVO);
+		int result = wishService.setCnt(wishVO); //수량변경
 		
 		List<WishVO> list = wishService.getWishList(pager, memberVO);
 		
@@ -93,9 +93,9 @@ public class WishController {
 			cartVO.setMember_id(Integer.parseInt(list[i]));
 			cartVO.setCart_cnt(Integer.parseInt(list[i+1]));
 			cartVO.setProduct_id(Integer.parseInt(list[i+2]));
-			int result = cartService.setCart(cartVO, memberVO);
+			int result = cartService.setCart(cartVO, memberVO); //장바구니에 상품 넣기
 			wishVO.setWish_id(Integer.parseInt(list[i+3]));
-			result = wishService.setDelete(wishVO);
+			result = wishService.setDelete(wishVO); //장바구니에 넣은 상품 찜리스트에서 삭제하기
 		}
 		
 		return "member/myWishList/myWishListAjax";
