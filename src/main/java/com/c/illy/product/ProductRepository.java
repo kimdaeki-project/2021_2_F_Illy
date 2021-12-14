@@ -16,5 +16,6 @@ public interface ProductRepository {
 	public ProductVO getSelectProductOne(ProductVO productVO) throws Exception;
 	public List<ProductFileVO> getSelectProductFileList(ProductVO productVO) throws Exception;
 	public int setDeleteProductFile(String productFile_id) throws Exception;
+	public int setupdateProductState(ProductVO productVO) throws Exception;
 
 }

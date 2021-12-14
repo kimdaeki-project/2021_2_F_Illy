@@ -71,15 +71,16 @@
 							<c:choose>
 								<c:when test="${categoryAllCnt.code eq 001}">
 									<button class="btnDefault red" onclick="location.href='/admin/updateCoffee?product_id=${productVO.product_id}'">상품수정</button>
+									<button class="btnDefault red" onclick="location.href='/admin/updateProductState?product_id=${productVO.product_id}&product_categoryCode=001'">상품삭제</button>
 								</c:when>
 								<c:when test="${categoryAllCnt.code eq 002}">
 									<button class="btnDefault red" onclick="location.href='/admin/updateMachine?product_id=${productVO.product_id}'">상품수정</button>
+									<button class="btnDefault red" onclick="location.href='/admin/updateProductState?product_id=${productVO.product_id}&product_categoryCode=002'">상품삭제</button>
 								</c:when>
 								<c:when test="${categoryAllCnt.code eq 003}">
 									<button class="btnDefault red" onclick="location.href='/admin/updateAccessories?product_id=${productVO.product_id}'">상품수정</button>
 								</c:when>
 							</c:choose>
-							<button class="btnDefault red">상품삭제</button>
 						</div>
 					</li>
 				</c:forEach>

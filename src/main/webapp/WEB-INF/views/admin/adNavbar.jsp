@@ -36,14 +36,14 @@
 						<a href="/admin/list?product_categoryCode=001">COFFEE</a>
 						<ul class="hoverMenu">
 							<li><a href="/admin/insertCoffee">상품등록</a></li>
-							<br><li><a href="/admin/list?product_categoryCode=001">상품수정/삭제</a></li>
+							<br><li><a href="/admin/list?product_categoryCode=001">상품목록(수정/삭제)</a></li>
 						</ul>
 					</li>
 					<li class="menu">
 						<a href="/admin/list?product_categoryCode=002">MACHINE</a>
 						<ul class="hoverMenu">
 							<li><a href="/admin/insertMachine">상품등록</a></li>
-							<br><li><a href="/admin/list?product_categoryCode=002">상품수정/삭제</a></li>
+							<br><li><a href="/admin/list?product_categoryCode=002">상품목록(수정/삭제)</a></li>
 						</ul>
 					</li>
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>

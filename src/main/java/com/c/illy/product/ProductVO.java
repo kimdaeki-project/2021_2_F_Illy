@@ -34,5 +34,6 @@ public class ProductVO {
     private String			product_importer;		//수입판매원
 
 	private List<ProductFileVO> productFileVOs;
+	private String 			product_state;			//sale, suspended, soldOut
 
 }

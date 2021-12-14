@@ -15,6 +15,7 @@
 		    ,#{product_manufacturer}
 		    ,#{product_origin}
 		    ,#{product_importer}
+		    ,'sale'
 		)
   	</insert>  
   	
@@ -32,8 +33,10 @@
 		SELECT product_id, product_name, product_price, product_categoryCode, productFile_id, productFile_name
 		FROM product
 		    JOIN productFile USING (product_id)
+		WHERE
+			product_state = 'sale'
 		<if test="product_categoryCode != null">
-			WHERE product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')
+			AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')				
 		</if>
 		GROUP BY product_id 
 		ORDER BY product_id DESC
@@ -60,7 +63,9 @@
 			,LEFT(product_categoryCode, 3) AS code
 		    ,COUNT(product_categoryCode) AS count
 		FROM product
-		WHERE product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+		WHERE
+			product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+			AND product_state = 'sale'
   	</select>
   	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="ProductVO">
   		SELECT
@@ -68,8 +73,10 @@
 			,SUBSTRING_INDEX(product_categoryCode, '-', 1) AS code
 		    ,COUNT(product_categoryCode) AS count
 		FROM product
+		WHERE
+			product_state = 'sale'
 		<if test="product_categoryCode != null">
-			WHERE product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+			AND product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')				
 		</if>
 		GROUP BY product_categoryCode
 		ORDER BY product_categoryCode
@@ -101,6 +108,11 @@
   			,product_origin = #{product_origin}
   			,product_importer = #{product_importer}
   		WHERE product_id = #{product_id}
+  	</update>
+  	
+  	<update id="setupdateProductState" parameterType="ProductVO">
+		UPDATE product
+		SET product_state = 'suspended' WHERE product_id = #{product_id}
   	</update>
   
 </mapper>

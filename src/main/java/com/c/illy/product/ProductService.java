@@ -123,5 +123,9 @@ public class ProductService {
 		}
 		return 0;
 	}
+	
+	public int setupdateProductState(ProductVO productVO) throws Exception {
+		return productRepository.setupdateProductState(productVO);
+	}
 
 }

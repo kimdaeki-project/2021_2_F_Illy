@@ -128,6 +128,12 @@ public class AdminController {
 	}
 ////////////////////////////////////////////////////////////////////////////////
 	
+	@GetMapping("updateProductState")
+	public String setupdateProductState(ProductVO productVO) throws Exception {
+		productService.setupdateProductState(productVO);
+		return "redirect:/admin/list?product_categoryCode="+productVO.getProduct_categoryCode();
+	}
+	
 //	
 //	@GetMapping("insertAccessories")
 //	public String insertAccessories(Model model, CoffeeVO coffeeVO) {
