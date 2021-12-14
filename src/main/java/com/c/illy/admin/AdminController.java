@@ -203,7 +203,7 @@ public class AdminController {
 			return "admin/board/insertNotice";
 		}
 		noticeService.addNotice(noticeVO, multipartFiles);
-		return "admin/board/adNoticeList";
+		return "redirect:/admin/board/adNoticeList";
 	}
 	
 	//공지사항 수정하기 
@@ -217,7 +217,7 @@ public class AdminController {
 	@PostMapping("board/updateNotice")
 	public String noticeUpdae(NoticeVO noticeVO)throws Exception{
 		int result=noticeService.noticeUpdate(noticeVO);
-		return "admin/board/adNoticeSelect?notice_id="+noticeVO.getNotice_id();
+		return "redirect:/admin/board/adNoticeSelect?notice_id="+noticeVO.getNotice_id();
 	}
 	
 	//----------------------------------------------------------------FAQ
