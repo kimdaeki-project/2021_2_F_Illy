@@ -85,15 +85,9 @@
 										<td> 
 											<c:if test="${qnaVO.product_id ne null }">선택된 상품이 없습니다 </c:if>
 											<button type="button" class="pro_choice_btn" onclick="javascript:findProduct()">상품 선택</button>
-											<c:if test="${qnaVO.product_id ne null}">
-												<div style="width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;">
-													<div style="display:inline-block;"><img style="width:82px; height:82px;" src=""></div>
-													<div class="prd_info">
-														<span>${productVO.product_name} 네임네임 <a class="deletePrd"><i class="xi-close-square-o xi-x"></i></a></span>
-														<span style="font-weight:bold;">${productVO.product_price} 가격가격</span>
-													</div>
-												</div>
-											</c:if>
+											<div class="pickPrd">
+											
+											</div>
 										</td>
 									</tr>
 									<tr>

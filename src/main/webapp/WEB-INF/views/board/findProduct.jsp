@@ -17,20 +17,22 @@
 		.prdSearch_box div input{height:27px; width:200px; font-size:13px; padding-left:5px; color:#717171; border:1px solid #ccc; }
 		.searchBtn{cursor:pointer; display:block; width:100px; height:31px; font-weight:bold; margin:20px auto; text-align:center; color:#fff; background-color:#000; border:none;  }
 		.searchBtn em{padding: 2px 20px 0 0;background-image: url(/images/board/btn_goods_search.png);background-position: right 3px; background-repeat: no-repeat;}
-		#prdList{display:block; overflow:auto; margin-bottom:15px;height:320px; padding-bottom:30px; border-top:1px solid #dbdbdb; border-bottom:1px solid #dbdbdb;}
+		#prdList{display:block; overflow:auto; margin-bottom:5px;height:300px;  border-top:1px solid #dbdbdb; border-bottom:1px solid #dbdbdb;}
 		#prdList .totalPrd{display:block; padding: 20px 0 10px 0; font-size:14px; }
 		#prdList .totalPrd strong{font-weight:bold;}
 		.product_list_table{border-collapse: collapse;}
-		.product_list_table th{ margin:0;font-size:12px;padding:9px 10px 10px 10px; color:#777; border-top:1px solid #999; border-bottom:1px solid #dbdbdb;background-color:#f7f7f7; border-right:none; border-left:none;}
-		.product_list_table tbody tr td.prd{text-align:left;}
-		.product_list_table tbody tr td{padding:15px 10px 14px;text-align:center; color:#777; font-size:12px; font-weight:bold;}
+		.product_list_table th{ margin:0;font-size:12px; height:57px;padding:9px 10px 10px 10px; color:#777; border-top:1px solid #999; border-bottom:1px solid #dbdbdb;background-color:#f7f7f7; border-right:none; border-left:none;}
+		.product_list_table tbody tr{border-bottom:1px solid #dbdbdb;}
+		.product_list_table tbody tr td.prd{text-align:left; position:relative; vertical-align:middle;}
+		.product_list_table tbody tr td.prd div{display:inline-block; }
+		.product_list_table tbody tr td{padding:15px 10px 14px;text-align:center; color:#777; font-size:12px; font-weight:bold; }
 		.pagination .btnPage{min-width:26px; background-color:#fff;border:1px solid #e0e0e0;cursor:pointer;color:#888; font-size:11px; padding: 6px 4px 10px 4px; }
 		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
-		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
-		.prdThumb{width:40px; height:40px; border:1px solid #333; display:inline-block;}
+		.pagination{padding-top:5px;text-align:center; cursor:pointer;  }
+		.prdThumb{width:40px; height:40px; vertical-align:middle; margin-right:5px; border:1px solid #dbdbdb; display:inline-block;}
 		.btnWrap{display:block;text-align:center;}
-		.subBtn{display:inline-block; min-width:80px; height:35px; padding: 0 10px; color:#333; font-weight:bold; font-size:14px; border-radius:21px; background-color:#fff;text-align:center; cursor:pointer; border:1px solid #ccc;}		
+		.subBtn{display:inline-block; min-width:80px; height:35px; padding: 0 10px; color:#333; font-weight:bold; font-size:14px; border-radius:21px; background-color:#fff;text-align:center; cursor:pointer; border:1px solid #ccc; margin-top:10px;}		
 		.subBtn.sub{color:#fff; background-color:#d12140; border:1px solid #d12140;}
 		.subBtn.sub:hover{ background: linear-gradient(90deg,#d12420,#d12420,#910d18)}
 	</style>

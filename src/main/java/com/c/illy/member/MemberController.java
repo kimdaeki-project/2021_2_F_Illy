@@ -339,6 +339,7 @@ public class MemberController {
 	//상품 조회 리스트 ajax
 	@GetMapping("findProductAj")
 	public ModelAndView getQnaProduct(ModelAndView mv,Pager pager)throws Exception{	
+		System.out.println("들어오나");
 		List<ProductVO> ar = qnaService.getQnaProduct(pager);
 		mv.setViewName("board/findProductList");
 		mv.addObject("prdList",ar);
@@ -356,18 +357,19 @@ public class MemberController {
 		 mv.addObject("qnaVO",qnaVO);
 		 return mv;
 	 }
-	 
-	
 	
 	//1:1문의 작성하기 
 	@GetMapping("addQna")
-	public String addQna(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
+	public String addQna(@AuthenticationPrincipal MemberVO memberVO,HttpServletRequest request,QnaVO qnaVO,Model model)throws Exception{
 		qnaVO.setMember_id(memberVO.getMember_id());
-		/* qnaVO.setProduct_id(1); */
-		System.out.println(qnaVO.getProduct_id());
+		String product_id=request.getParameter("product_id");
+		System.out.println(product_id);
 		model.addAttribute("member", memberVO);
 		return "board/addQna";
 	}
+	
+
+	
 	
 	@PostMapping("addQnaList")
 	public String setAddQna(@Valid QnaVO qnaVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{

@@ -19,10 +19,10 @@
 				<tr class="toggle_faq">
 					<td>${qnaVO.qna_regDate}</td>
 					<td>${qnaVO.qna_type}</td>
-					<td class="board_tit">
+					<td style="text-align:left;" class="board_tit">
 						<a href="./qnaSelect?qna_id=${qnaVO.qna_id}">
-							<span>
-								<strong class="btnView">${qnaVO.qna_title}</strong>
+							<span style="padding-left:10px;">
+								<i class="xi-lock-o"></i> <span class="btnView">${qnaVO.qna_title}</span>
 								<input hidden="" name="member_id" value="${member.member_id}">
 							</span>
 						</a>

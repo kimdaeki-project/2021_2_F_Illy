@@ -8,7 +8,7 @@
 
 	<link rel="stylesheet" href="/css/common.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px;}
 		.board_zone_tit h2{font-size:24px; color:#333333;padding-bottom:10px; margin-bottom:10px;   }
@@ -30,6 +30,7 @@
 		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
+		.board_zone_list .search_box .pick_date.clickDay {background-color:#aeaeae; color:#fff; }
 	</style>
 	
 
@@ -54,12 +55,8 @@
 								<button type="button" onclick="location.href='addQna'"class="write_qna"><strong>1:1 문의하기</strong></button>
 							<div class="search_box">
 								<h3>조회기간</h3>
-								<form action="./qnaList" method="get" id="qFrm">
-									<!-- <input type="hidden" name="start_date" value="" id="start_date">
-									<input type="hidden" name="end_date" value="" id="end_date"> -->
-								</form>
 								<button type="button" class="pick_date" data-term="1">오늘</button>
-								<button type="button" class="pick_date" data-term="2">7일</button>
+								<button type="button" class="pick_date sevenDay" data-term="2">7일</button>
 								<button type="button" class="pick_date" data-term="3">15일</button>
 								<button type="button" class="pick_date"data-term="4">1개월</button>
 								<button type="button" class="pick_date" data-term="5">3개월</button>

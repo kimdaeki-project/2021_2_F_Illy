@@ -18,12 +18,13 @@
 		<tbody>
 			<c:forEach items="${prdList}" var="productVO">
 				<tr>
+					<script type="text/javascript"> console.log("-------");</script>
 					<td><input type="radio" name="product_id" class="pick_prd" value="${productVO.product_id}"></td>
 					<td class="prd">
-						<img class="prdThumb" alt="" src="/upload/product/${productVO.productFile_name}"> 
-						${productVO.product_name}
+						<div><img class="prdThumb" alt="" src="/upload/product/${productVO.productFileVOs[0].productFile_name}"></div>
+						<div style="height:50px; width:250px; vertical-align:top;"><span style="vertical-align:middle;">${productVO.product_name}</span></div>
 					</td>
-					<td><fmt:formatNumber value="${productVO.product_price}" pattern="#,###"/>원</td>
+					<td class="product_price"><fmt:formatNumber value="${productVO.product_price}" pattern="#,###"/>원</td>
 				</tr>
 			</c:forEach>		
 		</tbody>

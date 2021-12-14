@@ -100,17 +100,10 @@ function btnCss(pageNum) {
 	});
 }
  
-var product_id='';
-$('.pick_prd').each(function() {
-	 if($(this).prop("selected",true)){
-		product_id=$(this).val();
-	}
-});
 
  
- 
 $(".subBtn.sub").click(function(){
-	$.ajax({
+	/*$.ajax({
 		url:'./addQna',
 		type:'get',
 		data:{product_id:product_id},
@@ -119,7 +112,35 @@ $(".subBtn.sub").click(function(){
 			opener.location.reload();
 			window.close();
 		}
-	});	
+	});	*/
+	
+	
+	
+	var product_id='';
+	var product_name='';
+	var product_price='';
+	var productFile_name='';
+	$('.pick_prd').each(function() {
+		 if($(this).is(":checked")){
+			product_id=$(this).val();
+			product_name=$(this).parents().children('.prd').children().find('span').text();
+			product_price=$(this).parents().children('.product_price').text();
+			productFile_name=$(this).parents().children('.prd').children().find('img').attr('src');
+		 }
+	});
+
+	$(opener.$(".pickPrd")).empty();
+	
+	let html
+	="<div style='width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;'>"
+	+"<div style='display:inline-block;'><img style='width:82px; height:82px;' src='"+productFile_name+"'></div>"
+	+"<div class='prd_info'>"
+	+"<span>"+product_name+"<a class='deletePrd'><i class='xi-close-square-o xi-x'></i></a></span>"
+	+"<span style='font-weight:bold;'>"+product_price+"</span>"
+	+"</div>"
+	+"</div>"
+	$(opener.$(".pickPrd")).append(html);
+	window.close();
 });
  
  
