@@ -35,8 +35,7 @@
 			<li>
 				<span style="border-top:1px solid #aaa;">리뷰</span><span>/Q&A</span>
 				<ul>
-					<li><a href="#">- 나의 상품후기</a></li>
-					<li><a href="#">- 나의 상품문의</a></li>
+					<li><a href="/member/myReviewList">- 나의 상품후기</a></li>
 					<li><a href="/member/qnaList">- 나의 1:1문의</a></li>
 				</ul>
 			</li>

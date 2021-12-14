@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

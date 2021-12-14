@@ -101,9 +101,8 @@
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
 	</div>
 	
-	<script type="text/javascript" src="/js/faqList.js"></script>
 	
-	
+<script type="text/javascript" src="/js/faqList.js"></script>		
 	
 </body>
 </html>

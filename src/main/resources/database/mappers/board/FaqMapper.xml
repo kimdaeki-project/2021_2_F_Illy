@@ -26,6 +26,29 @@
 		faq_title LIKE CONCAT('%',#{search},'%')
 	</select>
 	
+	<!-- faq 글 하나 조회하기 -->
+	<select id="faqSelectOne" parameterType="FaqVO" resultType="FaqVO">
+		SELECT * FROM faq WHERE faq_id=#{faq_id}
+	</select>
+	
+	<!-- faq 추가하기 -->
+	<insert id="addFaq" parameterType="FaqVO">
+		INSERT INTO faq(faq_id,faq_title,faq_contents,faq_type_code,faq_type)
+		VALUES(0,#{faq_title},#{faq_contents},#{faq_type_code},#{faq_type});
+	</insert>
+	
+	<!-- faq 삭제하기 -->
+	<delete id="faqDelete" parameterType="FaqVO">
+		DELETE FROM faq WHERE faq_id=#{faq_id}
+	</delete>
+	
+	<!-- faq 수정하기 -->
+	<update id="faqUpdate" parameterType="FaqVO">
+		UPDATE faq SET faq_title=#{faq_title},faq_contents=#{faq_contents},faq_type_code=#{faq_type_code},faq_type=#{faq_type}
+		WHERE faq_id=#{faq_id}
+	</update>
+
+
 
 
 </mapper>

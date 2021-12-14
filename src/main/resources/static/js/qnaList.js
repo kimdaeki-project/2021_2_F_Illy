@@ -1,15 +1,27 @@
 /**
  * 
  */
- 
 
-changeDate(null,null,1);
+/*날짜 정렬 선언*/
+let date_line = new Date();
+let today=getToday(date_line);
+let start_date= new Date(date_line.setDate(date_line.getDate()-7));
+start_date=getToday(start_date);
+
+
+changeDate(start_date,today,1);
+
+
+/*페이지 업로드시 오늘 날짜 date_picker에 입력되어있기*/
+$("#start_date").val(start_date);
+$("#end_date").val(today);
+$(".sevenDay").addClass("clickDay");
  
-function changeDate(start_date,end_date,pn){
+function changeDate(start_date,end_date,pn,member_id){
 	$.ajax({
 		url:'./qnaListDate',
 		type:'get',
-		data:{start_date:start_date,end_date:end_date,pn:pn},
+		data:{start_date:start_date,end_date:end_date,pn:pn,member_id:member_id},
 		success:function(data){
 			$("#empty").empty();
 			$("#empty").append(data.trim());	
@@ -47,17 +59,6 @@ function btnCss(pageNum) {
 }
 
 
-
-
-
-/*날짜 정렬 선언*/
-let date_line = new Date();
-let today=getToday(date_line);
-	
-/*페이지 업로드시 오늘 날짜 date_picker에 입력되어있기*/
-$("#start_date").val(today);
-$("#end_date").val(today);
-
 /*날짜 정렬 함수 선언*/
 function getToday(date){
 	var year=date.getFullYear();
@@ -69,40 +70,54 @@ function getToday(date){
 /*기간 검색 버튼 누를때 선언*/
 $(".pick_date").click(function(){
 	var pick_term=$(this).data('term');	
+	var date_line = new Date();
+	var today=getToday(date_line);
 	if(pick_term == 1){
 		$("#start_date").val(today);
 		$("#end_date").val(today);
 		console.log($("#start_date").val());
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}else if(pick_term == 2){
 		var sevenDay=new Date(date_line.setDate(date_line.getDate()-7));
 		sevenDay=getToday(sevenDay);
-		console.log(sevenDay);
+		console.log(date_line.getDate());
 		$("#start_date").val(sevenDay);
 		$("#end_date").val(today);
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}else if(pick_term==3){
 		var fifthDay=new Date(date_line.setDate(date_line.getDate()-15));
 		fifthDay=getToday(fifthDay);
 		console.log(fifthDay);
 		$("#start_date").val(fifthDay);
 		$("#end_date").val(today);
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}else if(pick_term==4){
 		var aMonth=new Date(date_line.setMonth(date_line.getMonth()-1));
 		aMonth=getToday(aMonth);
 		$("#start_date").val(aMonth);
 		console.log($("#start_date").val());
 		$("#end_date").val(today);
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}else if(pick_term==5){
 		var threeMonth=new Date(date_line.setMonth(date_line.getMonth()-3));
 		threeMonth=getToday(threeMonth);
 		$("#start_date").val(threeMonth);
 		console.log($("#start_date").val());
 		$("#end_date").val(today);
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}else if(pick_term==6){
 		var aYear=new Date(date_line.setFullYear(date_line.getFullYear()-1));
 		aYear=getToday(aYear);
 		$("#start_date").val(aYear);
 		console.log($("#start_date").val());
 		$("#end_date").val(today);
+		$('.pick_date').removeClass("clickDay");
+		$(this).addClass("clickDay");
 	}
 	
 	

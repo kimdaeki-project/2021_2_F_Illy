@@ -12,7 +12,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	<style>
+		.backHome{display:inlien-block; position:relative; float:right; top:-50px; }
+		.backHome a:hover{color:#D12420;}
+	</style>
 </head>
 <body>
 
@@ -27,7 +31,7 @@
 		<div class="gnbBottom">
 		
 			<div class="logo">
-				<a href="/"><img alt="" src="/images/gnb/logo50.jpg"></a>
+				<a href="/"><img style="filter: grayscale(100%);" alt="" src="/images/gnb/logo50.jpg"></a>
 			</div>
 			
 			<div class="menuWrap">
@@ -47,7 +51,9 @@
 						</ul>
 					</li>
 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
+					<li><a href="/admin/board/adNoticeList">BOARD</a></li>
 				</ul>
+				<div class="backHome"><a href="/"><i class="xi-home">&nbsp;Go Client Page</i></a></div>
 			</div>
 			
 <!-- 			<div class="rightBox"> -->
@@ -66,9 +72,7 @@
 	</div>
 
 </body>
-<!-- ===== ===== ===== jquery START ===== ===== ===== -->
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-	
+<!-- ===== ===== ===== jquery START ===== ===== ===== -->	
 	<script type="text/javascript">
 		/* 우클릭 방지 */
 		$("body").contextmenu(function() { return false; });

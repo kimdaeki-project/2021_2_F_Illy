@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.c.illy.address.AddressService;
@@ -30,8 +32,10 @@ import com.c.illy.member.point.PointService;
 import com.c.illy.member.point.PointVO;
 import com.c.illy.payment.PaymentService;
 import com.c.illy.payment.PaymentVO;
+import com.c.illy.product.ProductVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
+import com.c.illy.review.ReviewVO;
 import com.c.illy.util.Pager;
 
 import lombok.val;
@@ -427,51 +431,101 @@ public class MemberController {
 
 	// --1:1 문의 페이지
 	@GetMapping("qnaList")
-	public String getQnaList(ModelAndView mv) throws Exception {
-		System.out.println("저길 오나");
+	public String getQnaList(ModelAndView mv)throws Exception{
 		return "board/qnaList";
 	}
 
 	// --1:1 문의 ajax
 	@GetMapping("qnaListDate")
-	public ModelAndView getQnaListDate(ModelAndView mv, QnaVO qnaVO, Pager pager) throws Exception {
-		System.out.println("여길 오나");
+	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO,ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		qnaVO.setMember_id(memberVO.getMember_id());		
 		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
-		System.out.println(ar.size());
 		mv.setViewName("board/qnaListajax");
 		mv.addObject("QList", ar);
 		mv.addObject("pager", pager);
 		return mv;
 	}
-
-	// 1:1문의 작성하기
+	
+	//--상품 선택 팝업 경로매핑
+	@GetMapping("findProduct")
+	public String findProduct()throws Exception{
+		return "board/findProduct";
+	}
+	
+	//상품 조회 리스트 ajax
+	@GetMapping("findProductAj")
+	public ModelAndView getQnaProduct(ModelAndView mv,Pager pager)throws Exception{	
+		System.out.println("들어오나");
+		List<ProductVO> ar = qnaService.getQnaProduct(pager);
+		mv.setViewName("board/findProductList");
+		mv.addObject("prdList",ar);
+		mv.addObject("pager",pager);
+		return mv; 
+	}
+	
+	//문의 1개글 조회하기
+	 @GetMapping("qnaSelect") 
+	 public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO)throws Exception{
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("member",memberVO);
+		 qnaVO=qnaService.qnaSelectOne(qnaVO);
+		 mv.setViewName("board/qnaSelect");
+		 mv.addObject("qnaVO",qnaVO);
+		 return mv;
+	 }
+	
+	//1:1문의 작성하기 
 	@GetMapping("addQna")
-	public String addQna() throws Exception {
+	public String addQna(@AuthenticationPrincipal MemberVO memberVO,HttpServletRequest request,QnaVO qnaVO,Model model)throws Exception{
+		qnaVO.setMember_id(memberVO.getMember_id());
+		String product_id=request.getParameter("product_id");
+		System.out.println(product_id);
+		model.addAttribute("member", memberVO);
 		return "board/addQna";
 	}
+	
 
+	
+	
 	@PostMapping("addQnaList")
-	public void setAddQna() throws Exception {
-
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
-	public int VerifyRecaptcha(HttpServletRequest request) {
-		com.c.illy.util.VerifyRecaptcha.setSecretKey("시크릿 코드");
-		String gRecaptchaResponse = request.getParameter("recaptcha");
-		try {
-			if (com.c.illy.util.VerifyRecaptcha.verify(gRecaptchaResponse))
-				return 0; // 성공
-			else
-				return 1; // 실패
-		} catch (Exception e) {
-			e.printStackTrace();
-			return -1; // 에러
+	public String setAddQna(@Valid QnaVO qnaVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
+		if(bindingResult.hasErrors()) {
+			System.out.println("여기로 오는거니?");
+			return "board/addQna";
 		}
+		qnaService.qnaInsert(qnaVO, multipartFiles);
+		return "board/qnaList";
 	}
-
-	// ----------------------------------------------------------------------------myPage_다영
-	// 추가 end
-
+	
+	//qna수정하기(경로매핑)
+	@GetMapping("qnaUpdate")
+	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
+		model.addAttribute("member", memberVO);
+		qnaVO=qnaService.qnaSelectOne(qnaVO);
+		model.addAttribute("qnaVO", qnaVO);
+		return"board/qnaUpdate";
+	}
+	
+	
+	//qna삭제하기
+	@GetMapping("qnaDelete")
+	public String qnaDelete(QnaVO qnaVO)throws Exception{
+		qnaService.qnaDelete(qnaVO);
+		return "board/qnaList";
+	}
+	
+	
+	//---------------------------------------------review
+	//myPage_reviewList
+	@GetMapping("myReviewList")
+	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO,Model model)throws Exception{
+		model.addAttribute("member",memberVO);
+		return "review/myReviewList";
+	}
+	
+	
+	
+	
+	//----------------------------------------------------------------------------myPage_다영 추가 end
+	
 }

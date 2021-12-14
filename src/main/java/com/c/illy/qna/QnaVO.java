@@ -1,6 +1,10 @@
 package com.c.illy.qna;
 
 import java.sql.Date;
+import java.util.List;
+
+import javax.validation.constraints.Null;
+
 
 import lombok.Data;
 
@@ -13,7 +17,12 @@ public class QnaVO {
 	private Date qna_regDate;
 	private Integer product_id; 
 	private Integer member_id; 
+	private String qna_phone;
 	private String qna_state; 
+	private String qna_answer;
+	private Date qna_answer_regDate;
+	
+	private List<QnaFileVO> fileList; 
 	
 	//임의의 변수 선언(날짜 조회용)
 	private String start_date;

@@ -8,17 +8,12 @@
 
 	<link rel="stylesheet" href="/css/common.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px;}
 		.board_zone_tit h2{font-size:24px; color:#333333;padding-bottom:10px; margin-bottom:10px;   }
 		.board_zone_list{position:relative; }
 		.write_qna{width:91px; cursor:pointer;color:#fff; font-size:12px; background-color:#979797;border:none; height:31px; position:absolute; display:inline-block;  top:-42px; right:0px; padding:0 10px; line-height:33px;  }
-		.board_zone_list .search_box{width:960px; height:77px; padding:20px 20px 20px 30px; border:3px solid #eeeeee; margin-bottom:35px; }
-		.board_zone_list .search_box h3{float:left; padding:6px 15px 0 0 ; color:#777777; font-size:13px; }
-		.board_zone_list .search_box .pick_date{float:left; width:54px; height:31px; margin-left:-1px; color:#777; font-size:12px; border:1px solid #d6d6d6;background-color:#fff; }
-		.board_zone_list .search_box .pick_date:hover{background-color:#aeaeae; color:#fff; }
-		.date_picker{width:154px; height:31px; padding:0 10px; color:#333; border:1px solid #d6d6d6; line-height:31px; }
 		.btn_board_search{width:100px; height:31px;border:none;padding: 0 20px 0 20px; font-weight:bold; font-size:12px; color: #fff; border-radius: 21px;background: #d12420;line-height:1.5; cursor:pointer; margin-left:10px;  }
 		.btn_board_search:hover{background:linear-gradient(90deg,#d12420,#d12420,#910d18);border:0;background-size:100%;background-position-x:0;color:#fff;}
 		.btn_board_search em{padding: 0 20px 0 0;background-image: url(/images/board/btn_goods_search.png);background-position: right 3px; background-repeat: no-repeat;}
@@ -30,7 +25,10 @@
 		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
-		.board_zone_list .search_box .pick_date.clickDay {background-color:#aeaeae; color:#fff; }
+		.board_search_box{margin: 60px 0 30px 0;padding: 10px 10px 10px 10px;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8; background: #f7f7f7; text-align: center;}
+		#kind{width:90px; height:31px;  vertical-align:top; text-align:left; font-size:13px; border-color:#ccc; padding-left:3px; color:#717171; }
+		.text{width:162px; height:31px;  vertical-align:top; text-align:left; font-size:13px; border:1px solid #ccc; padding:0 10px;   }
+		
 	</style>
 	
 
@@ -47,28 +45,18 @@
 			<div id="contents">
 			<c:import url="/WEB-INF/views/navbar/myPageLeftBar.jsp"></c:import>	
 				<div id="right_content">
+					<div style="padding-bottom:20px; ">
+						<img style="width:100%;" src="/images/board/556675a65d0cf3db93a71fc75f82c0ca_143357.jpg">
+					</div>
 					<div class="board_zone_tit">
-						<h2>1:1문의</h2>
+						<h2>상품후기</h2>
 					</div>
 					<div class="board_zone_cont">
 						<div class="board_zone_list">
-								<button type="button" onclick="location.href='addQna'"class="write_qna"><strong>1:1 문의하기</strong></button>
-							<div class="search_box">
-								<h3>조회기간</h3>
-								<button type="button" class="pick_date" data-term="1">오늘</button>
-								<button type="button" class="pick_date sevenDay" data-term="2">7일</button>
-								<button type="button" class="pick_date" data-term="3">15일</button>
-								<button type="button" class="pick_date"data-term="4">1개월</button>
-								<button type="button" class="pick_date" data-term="5">3개월</button>
-								<button type="button"style="margin-right:10px;" class="pick_date" data-term="6">1년</button>
-								<input type="date" name="start_date" id="start_date" class="date_picker start" value="">
-								<span>~</span>
-								<input type="date" name="end_date" id="end_date" class="date_picker end" value="">
-								<button type="button" class="btn_board_search">조회<em></em></button>
-							</div>
+								<button type="button" onclick="location.href='addQna'"class="write_qna"><strong>글쓰기</strong></button>
 							<div class="list_zone" id="empty">
 								
-								<c:if test="${empty QList}">
+								<c:if test="${empty List}">
 								 	<table class="board_list_table" style="width:100%;">
 										<colgroup> <!-- table 간격 기본설정 -->
 											<col width="10%">
@@ -78,7 +66,7 @@
 										</colgroup>
 										<thead>
 											<tr>
-												<th>문의날짜</th><th>카테고리</th><th>제목</th><th>문의상태</th>
+												<th>번호</th><th>제목</th><th>날짜</th><th>작성자</th>
 											</tr>
 										</thead>
 										<tbody></tbody>
@@ -87,11 +75,20 @@
 								</c:if>		
 					
 							</div>
-						
-						
+					
 						
 						</div>
-			
+						<div class="board_search_box">
+							<form id="frmList" action="./list">
+								<input type="hidden" name="pn" value="1" id="pn">
+								<select id="kind" name="kind">
+									<option class="search_kind" value="notice_title">제목</option>
+									<option class="search_kind" value="notice_contents">내용</option>
+								</select>	
+								<input type="text" class="text" name="search" id="search">
+								<button type="submit" class="btn_board_search">검색</button>
+							</form>
+						</div>
 				
 					</div>
 				
@@ -104,7 +101,7 @@
 
 
 
-	<script type="text/javascript" src="/js/qnaList.js"></script>
+	<script type="text/javascript" src="/js/reviewList.js"></script>
 
 
 
