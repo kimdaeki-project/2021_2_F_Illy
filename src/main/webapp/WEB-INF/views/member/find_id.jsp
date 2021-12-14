@@ -31,9 +31,9 @@
 						<div class="find_section">
 							<h3>회원 아이디찾기</h3>
 							<div class="find_label_sectoin">
-								<input type="radio" class="find_email" name="check" value="email" checked="checked">
+								<input type="radio" id="find_email" name="find_id" value="email" checked="checked">
 								<label class="choice" for="find_email">이메일</label>
-								<input type="radio" class="find_phone" name="check" value="phone">
+								<input type="radio" id="find_phone" name="find_id" value="phone">
 								<label class="choice" for="find_phone">휴대폰번호</label>
 							</div> <!-- find_label_section end -->
 							<div class="find_con">
@@ -79,7 +79,7 @@
 		$(".select_email").show()
 	})
 	
-		$(".find_email").click(function(){
+		$("#find_email").click(function(){
 			$("#find_input_member_phone").attr("style","display:none !important")
 			$("#find_input_member_phone").attr("disabled", true)
 			$('#find_input_member_email').show()
@@ -87,7 +87,7 @@
 			$(".select_email").show()
 		})
 		
-		$(".find_phone").click(function(){
+		$("#find_phone").click(function(){
 			$("#find_input_member_email").attr("style", "display:none !important")
 			$("#find_input_member_email").attr("disabled", true)
 			$(".select_email").attr("style", "display:none !important")			
@@ -97,10 +97,10 @@
 		})
 		
 		$(".find_account").click(function(){
-			if($(".find_email").is(":checked")){
+			if($("#find_email").is(":checked")){
 				$.ajax({
 					url : "./find_id",
-					method : "get",
+					method : "POST",
 					data: {
 						member_name : $("#find_input_member_name").val(),
 						member_email : $("#find_input_member_email").val()
@@ -115,10 +115,10 @@
 					}
 				})
 			}
-			else if($(".find_phone").is(":checked")) {
+			else if($("#find_phone").is(":checked")) {
 				$.ajax({
 					url : "./find_id",
-					method : "get",
+					method : "POST",
 					data : {
 						member_name : $("#find_input_member_name").val(),
 						member_phone : $("#find_input_member_phone").val()

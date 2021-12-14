@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.c.illy.address.AddressVO;
+
 
 @Mapper
 public interface MemberRepository {
@@ -26,4 +28,12 @@ public interface MemberRepository {
 	public MemberVO find_username(String username);
 	
 	public MemberVO find_id(MemberVO memberVO);
+	
+	public MemberVO find_pw(MemberVO memberVO);
+	
+	public Integer update_member(AddressVO addressVO);
+	
+	public Integer delete_member(MemberVO memberVO);
+	
+	public Integer change_password(String old_password, String new_password);
 }

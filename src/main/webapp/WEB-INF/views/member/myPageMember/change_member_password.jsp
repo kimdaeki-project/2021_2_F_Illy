@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
@@ -28,21 +29,22 @@
 					</div>
 					
 					<strong><p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해 주세요.</p></strong>
-					
+					<sec:authentication property="principal" var="loginMember"/>
 					<form action="/" method="get">
 						<div id="change_member_check">
 							<dl>
 								<dt>아이디</dt>
-								<dd><strong>강동욱</strong></dd>
+								<dd ><strong id="username">${loginMember.username}</strong></dd>
 							</dl>
 							<dl>
 								<dt>비밀번호</dt>
-								<input type="password">
+								<input type="password" id="passwordCheck">
+								
 							</dl>
 						</div>
 						<div class="btn_center_box">
 							<button class="btnDefault">취소</button>
-							<button class="btnDefault red">인증하기</button>
+							<button class="btnDefault red" id="changeSubmit" type="button">인증하기</button>
 						</div>
 					</form>
 
@@ -52,5 +54,31 @@
 		</div>
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>		
 	</div>
+	<script type="text/javascript">
+
+		$("#changeSubmit").click(function(){
+			 if($('#passwordCheck').val() == ''){
+					$("#passwordCheck").focus();
+					alert("비밀번호를 입력하세요.")
+					return;
+				}
+			$.ajax({
+				url : "./checkPassword",
+				method : "POST",
+				data : {
+					username : $('#username').html(),
+					password : $('#passwordCheck').val()
+				},
+				success : function(data) {
+				if(data.trim() == "false") {
+						alert("비밀번호가 일치하지 않습니다.")
+					} 
+				else if (data.trim() == "true") {
+					location.href = "./changeMember"
+				}
+				}
+			})
+		})
+	</script>
 </body>
 </html>

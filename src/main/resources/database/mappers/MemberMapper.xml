@@ -82,4 +82,30 @@
 		</when>
 		</choose>
 	</select>
+	
+	<select id="find_pw" parameterType="MemberVO" resultType="MemberVO">
+		select * from member where username = #{username}
+	</select>
+	
+	<update id="update_member" parameterType="AddressVO" >
+		update member M inner join address A on M.member_id = A.member_id set
+		password = #{password},
+		member_email = #{member_email},
+		member_phone = #{member_phone},
+		address = #{main_address},
+		address_reference = #{address_reference},
+		address_detail = #{address_detail},
+		address_postcode = #{address_postcode},
+		where address_id = (select min(address_id) from member_id = #{member_id})
+	</update>
+	
+	<delete id="delete_member" parameterType="MemberVO">
+		delete from member where member_id = #{member_id}
+	</delete>
+	
+	<update id="change_password" parameterType="String">
+		update member
+		set password = #{new_password} 
+		where password = #{old_password}
+	</update>
 </mapper>

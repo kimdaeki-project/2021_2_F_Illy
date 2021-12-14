@@ -22,7 +22,7 @@
 		<div id="container">
 			<div id="contents">
 				<div id="member_join_header">
-				<sec:authentication property="principal" var="user"/>
+					<sec:authentication property="principal" var="user" />
 					<h2>회원가입</h2>
 					<ol>
 						<li class="page_on">01 약관동의></li>
@@ -58,8 +58,7 @@
 									<th><span>비밀번호 확인</span></th>
 									<td>
 										<input type="password" id="password_check">
-										<div class="errors_section" id="password_check_error">
-										</div>
+										<div class="errors_section" id="password_check_error"></div>
 									</td>
 								</tr>
 								<tr>
@@ -71,7 +70,7 @@
 										</div>
 									</td>
 								</tr>
-								
+
 								<tr>
 									<th><span>Email</span></th>
 									<td>
@@ -81,7 +80,7 @@
 										</div>
 									</td>
 								</tr>
-								
+
 								<tr>
 									<th><span>휴대폰번호</span></th>
 									<td>
@@ -115,16 +114,16 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
-					<div class="btn_center_box">
-						<button id="btn_cancel" class="submit_btn">취소</button>
-						<button id="btn_submit" class="submit_btn" type="button" class="submit_btn">회원가입</button>
+						<div class="btn_center_box">
+							<button id="btn_cancel" class="submit_btn">취소</button>
+							<button id="btn_submit" class="submit_btn" type="button" class="submit_btn">회원가입</button>
+						</div>
 					</div>
 				</form:form>
 			</div>
 		</div>
-		
-		
+
+
 		<c:import url="../navbar/footer.jsp"></c:import>
 	</div>
 	<script>
@@ -133,11 +132,10 @@
 			let year = now.getFullYear();
 			let month = now.getMonth() + 1;
 			let date = now.getDate();
-		    month = month >=10 ? month : "0" + month;
-		    date  = date  >= 10 ? date : "0" + date;
-		    
-			
-			$(".birth_input").val(""+year+"-"+ month+"-" + date)
+			month = month >= 10 ? month : "0" + month;
+			date = date >= 10 ? date : "0" + date;
+
+			$(".birth_input").val("" + year + "-" + month + "-" + date)
 		});
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
@@ -203,66 +201,59 @@
 		$(".submit_btn").click(function() {
 			$("#addressVO").submit();
 		})
-		
+
 		//아이디 중복검사 함수 
 		let idOverlapCheck = function() {
 			$.ajax({
-				type:"get",
-				url:"./checkId",
-				data:{
+				type : "get",
+				url : "./checkId",
+				data : {
 					username : $("#username").val()
 				},
 				success : function(data) {
-					if(data.trim()=="") {
+					if (data.trim() == "") {
 						console.log(data)
 						$("#username_error").html("사용 가능한 아이디 입니다.")
-					}
-					else {
+					} else {
 						console.log(data)
 						$("#username_error").html("이미 사용중인 아이디 입니다.")
 					}
 				}
 			})
 		}
-		
+
 		// 아이디란에 변경이벤트 발생시 아이디 중복확인
-		$("#username").change(function(){
-			if($("#username").val()=="") {
+		$("#username").change(function() {
+			if ($("#username").val() == "") {
 				$("#username_error").html("")
-			}
-			else {
-			idOverlapCheck();
+			} else {
+				idOverlapCheck();
 			}
 		})
-		
+
 		// 비밀번호 확인 함수
-		
+
 		let passwordCheck = function() {
-			if($("#password_check").val() == $("#password").val()) {
+			if ($("#password_check").val() == $("#password").val()) {
 				$("#password_check_error").html("일치하는 비밀번호 입니다.")
-			}
-			else {
+			} else {
 				$("#password_check_error").html("일치하지 않는 비밀번호 입니다.")
 			}
 		}
-		
-		
 
 		// 비밀번호 확인란에 변경사항이 생기면 비밀번호 확인 함수 실행
 		$("#password_check").change(function() {
-			 if($("#password").val() !="") {
-				 passwordCheck();
-			 }
-		})
-		
-		// 비밀번호란에 변경사항이 생기면 비밀번호 확인 함수 실행 =
-		$("#password").change(function() {
-			if($("#password_check").val() != "") {
+			if ($("#password").val() != "") {
 				passwordCheck();
 			}
 		})
-		
-	
+
+		// 비밀번호란에 변경사항이 생기면 비밀번호 확인 함수 실행 =
+		$("#password").change(function() {
+			if ($("#password_check").val() != "") {
+				passwordCheck();
+			}
+		})
 	</script>
 </body>
 </html>

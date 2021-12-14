@@ -106,6 +106,7 @@ body {
 	display: flex;
 	justify-content: center;
 	margin: 35px 0 0 0;
+	gap: 10px;
 }
 
 .service_title {
@@ -207,13 +208,18 @@ body {
 	margin: 0 0 20px 0;
 }
 
+#loginHeader {
+	display: flex;
+	justify-content: space-around;
+}
+
 .member_con {
 	padding: 70px 0;
 }
 
 .member_con_login {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	border-bottom: 1px solid #dbdbdb;
 	padding-bottom: 40px;
 }
@@ -237,14 +243,14 @@ login_inpit_con {
 }
 
 .login_input_con input {
-	display: block!important;
-	width: 100%!important;
-	height: 40px!important;
-	border: 1px solid #63666a!important;
-	border-radius: 21px!important;
-	padding: 0 20px!important;
-	margin: 0 0 15px!important;
-	width: 100%!important;
+	display: block !important;
+	width: 100% !important;
+	height: 40px !important;
+	border: 1px solid #63666a !important;
+	border-radius: 21px !important;
+	padding: 0 20px !important;
+	margin: 0 0 15px !important;
+	width: 100% !important;
 }
 
 .id_check {
@@ -258,8 +264,19 @@ login_inpit_con {
 	font-size: 15px !important;
 }
 
+#naverLoginBtn {
+	background-image: url("../images/login/naverLogin4.png");
+	background-position-y: center;
+	width: 150px;
+	height: 45px !important;
+	display: inline-block;
+	border: 0px;
+}
+
 .btn_box {
+	display: flex;
 	margin: 20px 0 0 0;
+	gap: 10px
 }
 
 .btn_box button {
@@ -420,8 +437,8 @@ login_inpit_con {
 	width: 370px;
 }
 
-.member_warning .find_id_error_msg_section{
-	margin: 0 0 0 100px!important;
+.member_warning .find_id_error_msg_section {
+	margin: 0 0 0 100px !important;
 }
 
 .find_id_error_msg_section p {
@@ -475,7 +492,7 @@ login_inpit_con {
 	color: #ab3e55;
 }
 
-#change_member_check dd strong{
+#change_member_check dd strong {
 	padding: 5px 0 0 0;
 }
 
@@ -496,33 +513,273 @@ input[type="password"] {
 	border: 1px solid #d6d6d6;
 }
 
-#right_content form .btn_center_box{
-	margin: 0px!important;
+#right_content form .btn_center_box {
+	margin: 0px !important;
 }
 
 #right_content form .btn_center_box button {
-	margin-top : 0px !important;
+	margin-top: 0px !important;
 }
 
-#right_content form .btn_center_box button:last-child{
-	margin-left : 10px!important;
+#right_content form .btn_center_box button:last-child {
+	margin-left: 10px !important;
 }
 
 /* chageMember css */
 .change_member_container {
-	 margin:0px;
-	 display:inline-block;
-	 padding : 0px 0px 0px 50px;
-	 width:950px;
-}
-
-.change_member_container table {
-	width:auto;
+	margin: 0px;
+	display: inline-block;
+	width: 950px;
+	padding: 0px !important;
 }
 
 .change_member_header {
-	padding : 0px 0px 10px 50px;
+	padding: 0px 0px 10px 0px;
 	margin: 0 0 50px 0;
-    font-size: 14px;
-    border-bottom: 1px solid #3c3c3c;
+	border-bottom: 1px solid #3c3c3c;
+}
+
+.change_member_header h2 {
+	font-size: 21px !important;
+	margin: 0 !important;
+}
+
+.change_password {
+	position: relative
+}
+
+.change_password input[type=password] {
+	width: 260px !important;
+}
+
+.change_password dl {
+	padding: 5px 0 5px 0;
+}
+
+.change_password dt {
+	display: inline-block;
+	width: 120px;
+	padding: 5px 0 0 0;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.change_password dd {
+	display: inline-block;
+	font-size: 12px;
+}
+
+.change_password em {
+	display: inline-block;
+	margin: 0 5px 0 0;
+	padding: 0px 20px 0 0;
+	vertical-align: middle;
+	line-height: 26px;
+}
+
+.change_password a {
+	display: inline-block;
+	border: 1px solid #dbdbdb;
+	padding: 0 0 0 11px;
+}
+
+.change_password a:last-child {
+	position: relative;
+}
+
+.change_password_input {
+	margin: 15px 0 0 0;
+}
+
+.modal {
+	width: 394px;
+	top: 43px;
+	left: 133px;
+	position: absolute;
+	border: 1px solid #999999;
+	background: #ffffff;
+}
+
+.modal_title {
+	padding: 13px 35px 11px 15px;
+	font-size: 12px;
+	background: #f4f4f4;
+}
+
+.modal_body {
+	padding: 0 15px 15px 15px;
+}
+
+.modal_body ul li :first-child {
+	border-top: 0px;
+}
+
+.modal_body ul li {
+	padding: 10px 0 10px 0;
+	color: #666666;
+	border-top: 1px solid #e8e8e8;
+}
+
+/* secessionHead */
+.secessionHead {
+	margin: 0 0 50px 0;
+	padding: 0 0 10px 0;
+	font-size: 14px;
+	border-bottom: 1px solid #999999;
+}
+
+.infoHead h3 {
+	margin: 0;
+	padding: 0 0 10px 0;
+	font-size: 16px;
+	border-bottom: none 0;
+	color: #d12420;
+}
+
+.infoBody {
+	margin: 0 0 40px 0;
+	padding: 15px 15px 15px 15px;
+	color: #717171;
+	border: 1px solid #dadada;
+}
+
+.secessionTable {
+	width: 100%;
+	border: 0;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.secessionTable th {
+	padding: 15px 10px 14px 20px;
+	border-top: none 0;
+	background: #f7f7f7;
+	text-align: left;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.secessionTable td {
+	height: 31px;
+	padding: 12px 10px 11px 15px;
+	text-align: left;
+	border-bottom: 1px solid #dbdbdb;
+	color: #777777;
+}
+
+.secessionTable li {
+	float: left;
+	width: 35%;
+	padding: 0 0 7px 0;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]+label {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	min-width: 20px;
+	min-height: 20px;
+	padding: 0 0 0 27px;
+	background: url(../images/myPageIcons/check_off.png) no-repeat 1px top;
+}
+
+input[type="checkbox"]:checked+label {
+	background: url(../images/myPageIcons/check_on.png) no-repeat 1px top;
+}
+
+input[type="radio"] {
+	display:none;
+}
+
+input[type="radio"]+label {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	min-width: 20px;
+	min-height: 20px;
+	padding: 0 0 0 27px;
+	background: url(../images/myPageIcons/radio_off_small.png) no-repeat 1px
+		top;
+}
+
+input[type="radio"]:checked+label {
+	background: url(../images/myPageIcons/radio_on_small.png) no-repeat 1px
+		top;
+}
+
+#comment {
+	width: 98%;
+	height: 100px;
+	border: 1px solid #d6d6d6;
+	padding: 5px;
+	color: #a9a9a9;
+}
+
+#comment:focus {
+	outline: none;
+	border: 1px solid #d6d6d6;
+}
+
+/* 배송지 관리 */
+.myPageTitle {
+	margin: 0 0 0 0;
+	padding: 0 0 10px 0;
+	font-size: 16px;
+}
+
+.myPageTitle h3 {
+	display: inline-block;
+}
+
+.myPageTitle span {
+	display: inline-block;
+	padding: 0 0 0 5px;
+	color: #777777;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.myPage_cont {
+	position: relative;
+}
+
+#addressTable table {
+	width: 100%;
+	border: 0;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#addressTable th {
+	padding: 9px 10px 10px 10px;
+	border-top: 1px solid #999999;
+	border-bottom: 1px solid #dbdbdb;
+	background: #f7f7f7;
+}
+
+#addressTable td {
+	height: 31px;
+	padding: 15px 10px 14px 10px;
+	color: #777777;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+#addressAddBtn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 30px;
+	padding: 0 10px;
+	line-height: 28px;
+	color: #fff;
+	border: 1px solid #979797;
+	background: #979797;
+	text-align: center;
 }

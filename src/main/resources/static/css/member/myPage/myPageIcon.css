@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.mypageMemberService{
+	display:flex;
+	flex-wrap: wrap;
+	gap:10px;
+}
+
+.icon_section {
+	display: inline-block;
+	width: 100%;
+	background: #F3F3F3;
+	padding: 30px 20px;
+	box-sizing: border-box;
+	text-align: center;
+	flex-basis: 32%;
+	flex-grow: 1;
+}
+
+.icon a {
+	box-sizing: content-box;
+	display: inline-block;
+	width: 110px;
+	border-radius: 50%;
+	background: #fff;
+	padding: 29px 20px;
+	text-align: center;
+}
+
+.icon_image img {
+	height: 60px;
+	line-height: 60px;
+}
+
+.icon_section p {
+	padding: 10px 0 0 0;
+    color: #d12420;
+    font-size: 14px;
+    font-weight: 600;
+}

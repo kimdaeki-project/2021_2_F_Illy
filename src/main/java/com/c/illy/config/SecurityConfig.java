@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.c.illy.member.LoginFail;
+import com.c.illy.member.LoginSuccess;
 import com.c.illy.member.MemberService;
 
 @Configuration
@@ -19,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private LoginFail loginFail;
+	@Autowired
+	private LoginSuccess loginSuccess;
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//정적자원 요청 URL은 Security 거치지 않고 통과
@@ -45,14 +49,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		  .disable()
 		  .authorizeRequests()
 		  .antMatchers("/**").permitAll()
+					/*
+					 * .antMatchers("/member/login").anonymous()
+					 * .antMatchers("/member/findPw").anonymous()
+					 * .antMatchers("/member/findId").anonymous()
+					 * .antMatchers("/member/find_id").anonymous()
+					 * .antMatchers("/member/join_agreement").anonymous()
+					 * .antMatchers("/member/join_agreement_detail").anonymous()
+					 * .antMatchers("/member/join_agreement_detail2").anonymous()
+					 * .antMatchers("/member/join").anonymous()
+					 * .antMatchers("/member/checkId").anonymous()
+					 * .antMatchers("/member/myPage/**").hasAnyRole("MEMBER")
+					 */
 		  .anyRequest().authenticated();
 		  http
 		  .formLogin()
 		  .loginPage("/member/login")
-		  .defaultSuccessUrl("/")
 		  .failureHandler(loginFail)
+		  .successHandler(loginSuccess)
 		  .usernameParameter("username") 
 		  .passwordParameter("password") 
+		  .defaultSuccessUrl("/")
 		  .permitAll()
 		  .and() 
 		  .logout() 

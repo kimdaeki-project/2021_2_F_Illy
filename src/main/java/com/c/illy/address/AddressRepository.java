@@ -41,4 +41,5 @@ public interface AddressRepository {
 	public int setMyDefaultAddressInsert(AddressVO addressVO) throws Exception;
 
 	public int setAddress(AddressVO AddressVO);
+	
 }
