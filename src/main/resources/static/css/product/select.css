@@ -52,7 +52,6 @@
 .bodyInfoWrap .bodyInfoTab li.on { padding-top: 8px; border-bottom: 1px solid #fff; font-weight: bold; color: #333; }
 .bodyInfoWrap .detailInfo { text-align: center; }
 
-/* ijy add */ 
 .modal_wrap { overflow-y: auto; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 210; background-color: rgba(0,0,0,0.4); } 
 
 .add_cart_layer { position: absolute; margin: 0px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; border: 2px solid #555; width: 405px; min-height: 312px; }
@@ -66,3 +65,9 @@
 .add_cart_layer .add_cart_layerView .add_cart_btn_box .add_cart_btn_move:hover { background: #343434; cursor: pointer; }
 .add_cart_layer .add_cart_layerView .add_cart_top_cancel { display: block; position: absolute; top: 0px; right: 0px; padding: 6px 0 20px 20px; }
 .add_cart_layer .add_cart_layerView .add_cart_top_cancel:hover { cursor: pointer; }
+
+.bodyInfoWrap .essentialInfo { width: 100%; border-spacing: 0; border-collapse: collapse; }
+.bodyInfoWrap .essentialInfo tr { height: 52px; }
+.bodyInfoWrap .essentialInfo th { width: 20%; padding: 14px; border: 1px solid #dbdbdb; background: #f9f9f9; text-align: left; color: #555; }
+.bodyInfoWrap .essentialInfo td { width: 30%; padding: 14px; border: 1px solid #dbdbdb; text-align: left; color: #777; }
+

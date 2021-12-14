@@ -15,6 +15,7 @@
 		    ,#{product_manufacturer}
 		    ,#{product_origin}
 		    ,#{product_importer}
+		    ,'sale'
 		)
   	</insert>  
   	
@@ -32,8 +33,10 @@
 		SELECT product_id, product_name, product_price, product_categoryCode, productFile_id, productFile_name
 		FROM product
 		    JOIN productFile USING (product_id)
+		WHERE
+			product_state = 'sale'
 		<if test="product_categoryCode != null">
-			WHERE product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')
+			AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')				
 		</if>
 		GROUP BY product_id 
 		ORDER BY product_id DESC
@@ -50,19 +53,30 @@
 		</collection>
   	</resultMap>
   	
-  	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="ProductVO">
-  		SELECT
-  			CASE product_categoryCode
-				WHEN '001001' THEN '캡슐커피'
-				WHEN '001002' THEN '원두커피'
-				WHEN '001003' THEN '분쇄커피'
-				WHEN '001004' THEN '스틱원두커피'
+  	<select id="getCategoryAllCnt" resultType="CategoryCntVO" parameterType="ProductVO">
+	  	SELECT
+			CASE LEFT(product_categoryCode, 3)
+				WHEN '001' THEN '커피제품'
+				WHEN '002' THEN '캡슐머신'
+				WHEN '003' THEN '일리 악세서리'
 		    END AS name
-			,product_categoryCode AS code
+			,LEFT(product_categoryCode, 3) AS code
 		    ,COUNT(product_categoryCode) AS count
 		FROM product
+		WHERE
+			product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+			AND product_state = 'sale'
+  	</select>
+  	<select id="getCategoryCnt" resultType="CategoryCntVO" parameterType="ProductVO">
+  		SELECT
+  			SUBSTRING_INDEX(product_categoryCode, '-', -1) AS name
+			,SUBSTRING_INDEX(product_categoryCode, '-', 1) AS code
+		    ,COUNT(product_categoryCode) AS count
+		FROM product
+		WHERE
+			product_state = 'sale'
 		<if test="product_categoryCode != null">
-			WHERE product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')
+			AND product_categoryCode LIKE CONCAT(LEFT(#{product_categoryCode}, 3), '%')				
 		</if>
 		GROUP BY product_categoryCode
 		ORDER BY product_categoryCode
@@ -71,8 +85,6 @@
   	<select id="getSelectProductOne" resultType="ProductVO" parameterType="ProductVO">
   		SELECT *
 		FROM product
-			LEFT JOIN coffee USING (product_id)
-			LEFT JOIN machine USING (product_id)
 		WHERE product_id = #{product_id};
   	</select>
   	<select id="getSelectProductFileList" resultType="ProductFileVO" parameterType="ProductVO">
@@ -80,5 +92,27 @@
   		FROM productFile
   		WHERE product_id = #{product_id}
   	</select>
+  	
+  	<delete id="setDeleteProductFile" parameterType="String">
+  		DELETE FROM productfile WHERE productFile_id = #{productFile_id};
+  	</delete>
+  	
+  	<update id="setUpdateProduct" parameterType="ProductVO">
+  		UPDATE product
+  		SET
+  			product_name = #{product_name}
+  			,product_price = #{product_price}
+  			,product_detail = #{product_detail}
+  			,product_categoryCode = #{product_categoryCode}
+  			,product_manufacturer = #{product_manufacturer}
+  			,product_origin = #{product_origin}
+  			,product_importer = #{product_importer}
+  		WHERE product_id = #{product_id}
+  	</update>
+  	
+  	<update id="setupdateProductState" parameterType="ProductVO">
+		UPDATE product
+		SET product_state = 'suspended' WHERE product_id = #{product_id}
+  	</update>
   
 </mapper>

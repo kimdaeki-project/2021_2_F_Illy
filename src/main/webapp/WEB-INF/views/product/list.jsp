@@ -20,24 +20,25 @@
 			<div id="contents">
 				
 				<c:choose>
-					<c:when test="${not empty cateCd.product_categoryCode}">	
+					<c:when test="${not empty parameterCateCode}">	
 					
 						<c:choose>
-							<c:when test="${cateCd.product_categoryCode eq 001}"><h2>COFFEE</h2></c:when>
-							<c:when test="${cateCd.product_categoryCode eq 002}"><h2>MACHINES</h2></c:when>
-							<c:when test="${cateCd.product_categoryCode eq 003}"><h2>COFFEE</h2></c:when>
-							<c:when test="${cateCd.product_categoryCode eq 004}"><h2>COFFEE</h2></c:when>
+							<c:when test="${parameterCateCode eq 001}"><h2>COFFEE</h2></c:when>
+							<c:when test="${parameterCateCode eq 002}"><h2>MACHINES</h2></c:when>
+							<c:when test="${parameterCateCode eq 003}"><h2>COFFEE</h2></c:when>
+							<c:when test="${parameterCateCode eq 004}"><h2>COFFEE</h2></c:when>
 						</c:choose>
 					
 						<c:forEach var="categoryCnt" items="${categoryCnt}">
-							<c:if test="${cateCd.product_categoryCode eq categoryCnt.code}">
+							<c:if test="${parameterCateCode eq categoryCnt.code}">
 								<h2>${categoryCnt.name}</h2>
 							</c:if>
 						</c:forEach>
 						
-						<img class="listMainImg" alt="" src="/images/product/list/productList_${cateCd.product_categoryCode}.jpg">
+						<img class="listMainImg" alt="" src="/images/product/list/productList_${parameterCateCode}.jpg">
 										
 						<div class="productCategory">
+							<a href="/product/list?product_categoryCode=${categoryAllCnt.code}">${categoryAllCnt.name} <span>(${categoryAllCnt.count})</span></a>
 							<c:forEach var="categoryCnt" items="${categoryCnt}">
 								<a href="/product/list?product_categoryCode=${categoryCnt.code}">${categoryCnt.name} <span>(${categoryCnt.count})</span></a>
 							</c:forEach>

@@ -15,11 +15,9 @@ import lombok.EqualsAndHashCode;
 public class CoffeeVO extends ProductVO {
 	
 	@NotBlank(message = "필수 항목 입니다")
-	private String			coffee_type;		//cap, bean, grind, stick
-	@NotBlank(message = "필수 항목 입니다")
 	private String			coffee_material;	//원재료명 및 함량
-	@NotNull(message = "필수 항목 입니다")
-    private Double			coffee_capacity;	//용량
+	@NotBlank(message = "필수 항목 입니다")
+    private String			coffee_capacity;	//용량
 	@NotNull(message = "필수 항목 입니다")
     private Double			coffee_caffeine;	//카페인함량
 	
