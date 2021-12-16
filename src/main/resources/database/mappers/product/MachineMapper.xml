@@ -19,6 +19,21 @@
 		);
   	</insert>
   	
+  	<update id="setUpdateProduct" parameterType="CoffeeVO">
+  		UPDATE machine
+  		SET
+  			machine_material = #{machine_material}
+  			,machine_pump = #{machine_pump}
+  			,machine_size = #{machine_size}
+  			,machine_weight = #{machine_weight}
+  			,machine_capacity = #{machine_capacity}
+  			,machine_powerV = #{machine_powerV}
+  			,machine_powerHz = #{machine_powerHz}
+  			,machine_powerConsumption = #{machine_powerConsumption}
+  			,machine_safetyInfo = #{machine_safetyInfo}
+  			WHERE product_id = #{product_id}
+  	</update>
+  	
   	<select id="getSelectMachineOne" resultType="MachineVO" parameterType="ProductVO">
 	  	SELECT
 			*

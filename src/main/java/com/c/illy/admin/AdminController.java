@@ -60,10 +60,7 @@ public class AdminController {
 	
 	@GetMapping("list")
 	public String list(Model model, ProductVO productVO) throws Exception {
-		model.addAttribute("listAllProduct", productService.getListProduct(productVO));
-		model.addAttribute("categoryAllCnt", productService.getCategoryAllCnt(productVO));
-		model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
-		model.addAttribute("parameterCateCode", productVO.getProduct_categoryCode());
+		model.addAttribute("product_categoryCode", productVO.getProduct_categoryCode());
 		return "/admin/adminListProduct";
 	}
 //━━━━━━━━━━━━━━━━━━━━━━━━━insertCoffee━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -112,38 +109,71 @@ public class AdminController {
 	}
 ////////////////////////////////////////////////////////////////////////////////
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━updateCoffee━━━━━━━━━━━━━━━━━━━━━━━━━
-	@GetMapping("updateCoffee")
-	public String updateCoffeePage(Model model, @ModelAttribute CoffeeVO coffeeVO) throws Exception{
-		ProductVO productVO = new ProductVO();
-		productVO.setProduct_categoryCode("001");
-		model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
-		model.addAttribute("category", "coffee");
-		model.addAttribute("productVO", coffeeService.getSelectCoffeeOne(coffeeVO));
-		model.addAttribute("productFileVOList", productService.getSelectProductFileList(coffeeVO));
-		
-		return "admin/updateProduct";
-	}	
-	@PostMapping("updateCoffee")
-	public String setUpdateCoffee(@Valid CoffeeVO coffeeVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles, String productFile_id) throws Exception{
-		if (bindingResult.hasErrors()) {
+	//━━━━━━━━━━━━━━━━━━━━━━━━━updateCoffee━━━━━━━━━━━━━━━━━━━━━━━━━
+		@GetMapping("updateCoffee")
+		public String updateCoffeePage(Model model, @ModelAttribute CoffeeVO coffeeVO) throws Exception{
 			ProductVO productVO = new ProductVO();
 			productVO.setProduct_categoryCode("001");
 			model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
 			model.addAttribute("category", "coffee");
-			model.addAttribute("productVO", productService.productDetailReplace(coffeeVO));
+			model.addAttribute("productVO", coffeeService.getSelectCoffeeOne(coffeeVO));
 			model.addAttribute("productFileVOList", productService.getSelectProductFileList(coffeeVO));
+			
 			return "admin/updateProduct";
-		}
-		
-		coffeeVO = productService.productDetailReplace(coffeeVO);
-		productService.setDeleteProductFile(productFile_id);
-		productService.setUpdateProduct(coffeeVO, multipartFiles);
-		coffeeService.setUpdateProduct(coffeeVO);
+		}	
+		@PostMapping("updateCoffee")
+		public String setUpdateCoffee(@Valid CoffeeVO coffeeVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles, String productFile_id) throws Exception{
+			if (bindingResult.hasErrors()) {
+				ProductVO productVO = new ProductVO();
+				productVO.setProduct_categoryCode("001");
+				model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
+				model.addAttribute("category", "coffee");
+				model.addAttribute("productVO", productService.productDetailReplace(coffeeVO));
+				model.addAttribute("productFileVOList", productService.getSelectProductFileList(coffeeVO));
+				return "admin/updateProduct";
+			}
+			
+			coffeeVO = productService.productDetailReplace(coffeeVO);
+			productService.setDeleteProductFile(productFile_id);
+			productService.setUpdateProduct(coffeeVO, multipartFiles);
+			coffeeService.setUpdateProduct(coffeeVO);
 
-		return "redirect:/admin/list?product_categoryCode=001";
-	}
-////////////////////////////////////////////////////////////////////////////////
+			return "redirect:/admin/list?product_categoryCode=001";
+		}
+	////////////////////////////////////////////////////////////////////////////////
+
+		//━━━━━━━━━━━━━━━━━━━━━━━━━updateCoffee━━━━━━━━━━━━━━━━━━━━━━━━━
+			@GetMapping("updateMachine")
+			public String updateMachinePage(Model model, @ModelAttribute MachineVO machineVO) throws Exception{
+				ProductVO productVO = new ProductVO();
+				productVO.setProduct_categoryCode("002");
+				model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
+				model.addAttribute("category", "machine");
+				model.addAttribute("productVO", machineService.getSelectMachineOne(machineVO));
+				model.addAttribute("productFileVOList", productService.getSelectProductFileList(machineVO));
+				
+				return "admin/updateProduct";
+			}	
+			@PostMapping("updateMachine")
+			public String setUpdateMachine(@Valid MachineVO machineVO, BindingResult bindingResult, Model model, MultipartFile[] multipartFiles, String productFile_id) throws Exception{
+				if (bindingResult.hasErrors()) {
+					ProductVO productVO = new ProductVO();
+					productVO.setProduct_categoryCode("002");
+					model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
+					model.addAttribute("category", "machine");
+					model.addAttribute("productVO", productService.productDetailReplace(machineVO));
+					model.addAttribute("productFileVOList", productService.getSelectProductFileList(machineVO));
+					return "admin/updateProduct";
+				}
+				
+				machineVO = productService.productDetailReplace(machineVO);
+				productService.setDeleteProductFile(productFile_id);
+				productService.setUpdateProduct(machineVO, multipartFiles);
+				machineService.setUpdateProduct(machineVO);
+
+				return "redirect:/admin/list?product_categoryCode=002";
+			}
+		////////////////////////////////////////////////////////////////////////////////
 	
 	@GetMapping("updateProductState")
 	public String setupdateProductState(ProductVO productVO) throws Exception {

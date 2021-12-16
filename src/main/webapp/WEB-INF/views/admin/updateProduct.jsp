@@ -107,7 +107,7 @@
 								<th>소재</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="machine_material"/>
+										<form:input class="inputText" type="text" path="machine_material" value="${productVO.machine_material}"/>
 									</div>
 									<form:errors path="machine_material" cssClass="error"/>
 								</td>
@@ -116,7 +116,7 @@
 								<th>펌프</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit numberOnly" type="text" path="machine_pump"/>
+										<form:input class="inputUnit numberOnly" type="text" path="machine_pump" value="${productVO.machine_pump}"/>
 										<div class="unit">bar</div>
 									</div>
 									<form:errors path="machine_pump" cssClass="error"/>
@@ -124,7 +124,7 @@
 								<th>사이즈</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit" type="text" path="machine_size"/>
+										<form:input class="inputUnit" type="text" path="machine_size" value="${productVO.machine_size}"/>
 										<div class="unit">mm</div>
 									</div>
 									<form:errors path="machine_size" cssClass="error"/>
@@ -134,7 +134,7 @@
 								<th>무게</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit numberOnly" type="text" path="machine_weight"/>
+										<form:input class="inputUnit numberOnly" type="text" path="machine_weight" value="${productVO.machine_weight}"/>
 										<div class="unit">kg</div>
 									</div>
 									<form:errors path="machine_weight" cssClass="error"/>
@@ -142,7 +142,7 @@
 								<th>물탱크 용량</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit numberOnly" type="text" path="machine_capacity"/>
+										<form:input class="inputUnit numberOnly" type="text" path="machine_capacity" value="${productVO.machine_capacity}"/>
 										<div class="unit">L</div>
 									</div>
 									<form:errors path="machine_capacity" cssClass="error"/>
@@ -152,12 +152,12 @@
 								<th>정격전압</th>
 								<td>
 									<div class="inputBox short">
-										<form:input class="inputUnit short numberOnly" type="text" path="machine_powerV"/>
+										<form:input class="inputUnit short numberOnly" type="text" path="machine_powerV" value="${productVO.machine_powerV}"/>
 										<div class="unit">V</div>
 										<form:errors path="machine_powerV" cssClass="error"/>
 									</div>
 									<div class="inputBox short">
-										<form:input class="inputUnit short numberOnly" type="text" path="machine_powerHz"/>
+										<form:input class="inputUnit short numberOnly" type="text" path="machine_powerHz" value="${productVO.machine_powerHz}"/>
 										<div class="unit">Hz</div>
 										<form:errors path="machine_powerHz" cssClass="error"/>
 									</div>
@@ -165,7 +165,7 @@
 								<th>소비전력</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputUnit numberOnly" type="text" path="machine_powerConsumption"/>
+										<form:input class="inputUnit numberOnly" type="text" path="machine_powerConsumption" value="${productVO.machine_powerConsumption}"/>
 										<div class="unit">W</div>
 									</div>
 									<form:errors path="machine_powerConsumption" cssClass="error"/>
@@ -175,7 +175,7 @@
 								<th>안전인증정보(KC안전인증)</th>
 								<td>
 									<div class="inputBox">
-										<form:input class="inputText" type="text" path="machine_safetyInfo"/>
+										<form:input class="inputText" type="text" path="machine_safetyInfo" value="${productVO.machine_safetyInfo}"/>
 									</div>
 									<form:errors path="machine_safetyInfo" cssClass="error"/>
 								</td>
@@ -367,7 +367,7 @@
 		let multipartFiles = $('input[name=multipartFiles]');
 		
 		let productFile_id = $(this).siblings('img').data('product_file_id'); //삭제할 이미지 ID
-		$('#coffeeVO').prepend("<input type='text' name='productFile_id' value='"+productFile_id+"' hidden='true'/>")
+		if(productFile_id != null){	$('form').prepend("<input type='text' name='productFile_id' value='"+productFile_id+"' hidden='true'/>") }
 
 		deleteFile($(this), multipartFiles); //inputFileWrap.js
 		deletePeviewImg($(this), multipartFiles); //inputFileWrap.js

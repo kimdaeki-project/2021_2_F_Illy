@@ -50,11 +50,13 @@
 						</dl>
 						<div class="countBox">
 							<span class="productName">${productVO.product_name}</span>
+							<c:if test="${prefixCode ne '002'}">
 							<div class="countBtnWrap">
 								<input type="text" name="cart_cnt" class="inputCnt numberOnly" value="1">
 								<button type="button" class="countBtn up"></button>
 								<button type="button" class="countBtn down"></button>
 							</div>
+							</c:if>
 							<span class="countPrice pricePattern">${productVO.product_price}</span>
 						</div>
 						<button type="button" class="btnSquare insertCart">장바구니</button>

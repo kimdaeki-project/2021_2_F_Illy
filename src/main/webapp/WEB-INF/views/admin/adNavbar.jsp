@@ -50,7 +50,7 @@
 							<br><li><a href="/admin/list?product_categoryCode=002">상품목록(수정/삭제)</a></li>
 						</ul>
 					</li>
-					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li>
+<!-- 					<li><a href="/admin/insertAccessories">ACCESSORIES</a></li> -->
 					<li><a href="/admin/board/adNoticeList">BOARD</a></li>
 				</ul>
 				<div class="backHome"><a href="/"><i class="xi-home">&nbsp;Go Client Page</i></a></div>

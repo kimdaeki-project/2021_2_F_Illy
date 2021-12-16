@@ -17,6 +17,10 @@ public class MachineService extends ProductService {
 	public int setInsertProduct(ProductVO productVO) throws Exception {
 		return machineRepository.setInsertProduct(productVO);
 	}
+	@Override
+	public int setUpdateProduct(ProductVO productVO) throws Exception {
+		return machineRepository.setUpdateProduct(productVO);
+	}
 
 	public MachineVO getSelectMachineOne(ProductVO productVO) throws Exception {
 		return machineRepository.getSelectMachineOne(productVO);

@@ -11,6 +11,7 @@ import com.c.illy.product.coffee.CoffeeRepository;
 import com.c.illy.product.coffee.CoffeeVO;
 import com.c.illy.product.machine.MachineVO;
 import com.c.illy.util.FileManager;
+import com.c.illy.util.Pager;
 
 @Service
 public class ProductService {
@@ -85,8 +86,11 @@ public class ProductService {
 		return 0;
 	};
 
-	public List<ProductVO> getListProduct(ProductVO productVO) throws Exception {
-		return productRepository.getListProduct(productVO);
+	public List<ProductVO> getListProduct(ProductVO productVO, Pager pager) throws Exception {
+		pager.setPerPage(8);
+		pager.makeRow();
+		pager.makeNum(productRepository.getTotalCount(productVO));
+		return productRepository.getListProduct(pager);
 	}
 
 	public CategoryCntVO getCategoryAllCnt(ProductVO productVO) throws Exception {

@@ -29,17 +29,31 @@
 		)
   	</insert>
   	
-  	<select id="getListProduct" resultMap="listAllProduct" parameterType="ProductVO">
-		SELECT product_id, product_name, product_price, product_categoryCode, productFile_id, productFile_name
+  	<select id="getTotalCount" resultType="Long" parameterType="ProductVO">
+  		SELECT COUNT(product_id)
 		FROM product
-		    JOIN productFile USING (product_id)
+        WHERE
+			product_state = 'sale'
+            AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')
+  	</select>
+  	<select id="getListProduct" resultMap="listAllProduct" parameterType="Pager">
+		SELECT
+			product_id
+			,product_name
+			,product_price
+			,SUBSTR(product_categoryCode, 1, 6) AS product_categoryCode
+			,productFile_id
+			,productFile_name
+		FROM product
+		    LEFT JOIN (SELECT * FROM productFile GROUP BY product_id) AS productFile USING (product_id)
 		WHERE
 			product_state = 'sale'
 		<if test="product_categoryCode != null">
-			AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')				
+			AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')
 		</if>
 		GROUP BY product_id 
 		ORDER BY product_id DESC
+		LIMIT #{perPage} OFFSET #{startRow}
   	</select>
   	<resultMap type="ProductVO" id="listAllProduct">
 		<id column="product_id" property="product_id"/>

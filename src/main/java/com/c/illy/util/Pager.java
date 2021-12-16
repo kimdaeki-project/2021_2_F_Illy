@@ -11,6 +11,7 @@ public class Pager {
 	private String search; //검색어 
 	private String code;//상품 검색할때 사용 
 	
+	private String product_categoryCode;
 	
 	//검색창에 값이 null 이어도 예외 발생 시키지 않기 
 	public String getSearch() {
