@@ -42,10 +42,6 @@ public class PaymentService {
 		pager.makeNum(totalCount);
 
 		map.put("pager", pager);
-		System.out.println("========");
-		System.out.println("member_id: " + paymentVO.getMember_id());
-		System.out.println("pn: " + pager.getPn());
-		System.out.println("totalCount: " + totalCount);
 
 		return paymentRepository.getMyPageOrderPager(map);
 	}
@@ -57,6 +53,15 @@ public class PaymentService {
 		map.put("cart", cartVO);
 
 		return paymentRepository.getMyPageOrderCount(map);
+	}
+	
+	public Long getMyPageTotalCount(PaymentVO paymentVO, CartVO cartVO) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("payment", paymentVO);
+		map.put("cart", cartVO);
+		
+		return paymentRepository.getMyPageTotalCount(map);
 	}
 	
 	public PaymentVO getMyPageOrderDetail(PaymentVO paymentVO) throws Exception {

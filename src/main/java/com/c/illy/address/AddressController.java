@@ -63,7 +63,6 @@ public class AddressController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println(memberVO.getMember_id());
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO);
-		
 		mv.addObject("addressList", ar2);
 		mv.setViewName("address/addressAjax");
 		return mv;
@@ -79,7 +78,6 @@ public class AddressController {
 		ModelAndView mv = new ModelAndView();
 		
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO);
-		
 		mv.addObject("addressList", ar2);
 		mv.setViewName("address/addressAjax");
 		return mv;
@@ -103,7 +101,6 @@ public class AddressController {
 		ModelAndView mv = new ModelAndView();
 		
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO);
-		
 		mv.addObject("addressList", ar2);
 		mv.setViewName("address/addressAjax");
 		return mv;
@@ -118,7 +115,6 @@ public class AddressController {
 		ModelAndView mv = new ModelAndView();
 		
 		List<AddressVO> ar2 = addressService.getAddressList(memberVO);
-		
 		mv.addObject("addressList", ar2);
 		mv.setViewName("address/addressAjax");
 		return mv;

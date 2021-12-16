@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 								<div class="myPage_type_table">
 									<table>
@@ -60,9 +61,16 @@
 													<td style="font-size: 12px; font-weight: normal;">
 														<strong><fmt:formatNumber value="${wish.productVO.product_price}" pattern="###,###,###"/>원</strong> / ${wish.wish_cnt}개
 														<div style="padding-top: 10px;">
-															<input type ="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_minus cntUp" value="-">
-			        										<input type="text" name="cart_cnt" class="cnt_cart" value="${wish.wish_cnt}" readonly="readonly"/>
-			       											<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_plus cntUp" value="+">
+															<c:if test="${fn:substring(wish.productVO.product_categoryCode, 0, 3) eq '001'}">
+																<input type ="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_minus cntUp" value="-">
+			        											<input type="text" name="cart_cnt" class="cnt_cart" value="${wish.wish_cnt}" readonly="readonly"/>
+			       												<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_plus cntUp" value="+">
+															</c:if>
+															<c:if test="${fn:substring(wish.productVO.product_categoryCode, 0, 3) eq '002'}">
+																<input type ="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_minus cntUp" value="-">
+			        											<input type="text" name="cart_cnt" class="cnt_cart" value="${wish.wish_cnt}" readonly="readonly"/>
+			       												<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_plus cntUp disabledCnt" value="+">
+															</c:if>
 		       											</div>
 													</td>
 													<td class="productPrice"></td>

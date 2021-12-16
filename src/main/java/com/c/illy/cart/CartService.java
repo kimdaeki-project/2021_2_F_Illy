@@ -102,9 +102,6 @@ public class CartService {
 		
 		map.put("payment", paymentVO);
 		map.put("cart", cartVO);
-		
-		System.out.println("========");
-		System.out.println("cart_state: " + cartVO.getCart_state()+", member_id: "+paymentVO.getMember_id()+", payment_id: "+paymentVO.getPayment_id());
 
 		return cartRepository.setPaymentID(map);
 	}
@@ -194,7 +191,7 @@ public class CartService {
 			pointVO.setMember_id(memberVO.getMember_id());
 			pointVO.setPoint_date(today); //현재 날짜로 수정
 			pointVO.setPoint_type("add");
-			pointVO.setPoint_history("상품 환불 사용 포인트 적립");
+			pointVO.setPoint_history("(상품 환불) 사용 포인트 적립");
 			pointVO.setPoint_addOrUse(Integer.parseInt(paymentVO.getPayment_use_point()));
 			pointVO.setPoint_totalPoint(point);
 			

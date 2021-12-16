@@ -23,6 +23,9 @@ public interface PaymentRepository {
 	// 주문/배송 조회 리스트 count
 	public Long getMyPageOrderCount(HashMap<String, Object> map) throws Exception;
 	
+	//주문/배송 취소/환불 총 건수
+	public Long getMyPageTotalCount(HashMap<String, Object> map) throws Exception;
+	
 	// 주문/배송 상세 리스트
 	public PaymentVO getMyPageOrderDetail(PaymentVO paymentVO) throws Exception;
 }

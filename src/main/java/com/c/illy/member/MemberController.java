@@ -279,7 +279,7 @@ public class MemberController {
 		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}
@@ -312,7 +312,7 @@ public class MemberController {
 		
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageCancelAjax";
 	}
@@ -338,7 +338,7 @@ public class MemberController {
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageRefundAjax";
 	}

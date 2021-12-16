@@ -32,11 +32,6 @@ public class CouponService {
 		pager.makeNum(totalCount);
 
 		map.put("pager", pager);
-		System.out.println("========");
-		System.out.println("member_id: " + couponVO.getMember_id());
-		System.out.println("pn: " + pager.getPn());
-		System.out.println("totalCount: " + totalCount);
-		System.out.println("coupon_state: "+couponVO.getCoupon_state());
 		
 		return couponRepository.getCouponPager(map);
 	}

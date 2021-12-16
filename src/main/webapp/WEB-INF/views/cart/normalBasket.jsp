@@ -64,27 +64,7 @@
 									<input type="button" id="naverPayBtn" value="" class="npay_btn_link npay_btn_pay btn_green">
 								</div>
 								
-								<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>								
-								<!-- <script>								
-								    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
-								    var elNaverPayBtn = document.getElementById("naverPayBtn");
-								
-								    elNaverPayBtn.addEventListener("click", function() {
-										
-								    	let productId = 1; /* 수정하기 */
-								    	let cnt = 1;
-								    	
-								    	let width = 750;
-								    	let heigth = 800;
-								    	let top = (window.screen.height / 2) - (heigth / 2);
-								    	let left = (window.screen.width  / 2) - (width / 2);
-								    	
-								    	let url = "/payment/naverpay?product_id="+productId+"&cnt="+cnt+"";
-							            let name = "naverpay";
-							            let option = "width = "+width+", height = "+heigth+", top = "+top+", left = "+left+", location = no"
-							            window.open(url/* , name, option */);
-								    });								
-								</script> -->
+								<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>	
 							</div>
 						</div><!-- payBox end -->
 				</div><!-- naver_pay_box end 네이버페이 API -->
@@ -102,8 +82,8 @@
  	ajaxBasket();
  	function ajaxBasket() {
  		let member_id=$('#memberIdHidden').val();
- 		console.log("member_id: "+member_id);
  		$.ajax({
+ 			async : false,
  			type:"GET",
  			url:"./cartMain",
  			data: {
@@ -111,8 +91,8 @@
  			},
  			success: function(result){
  				result=result.trim();
- 				
-				$('#cart_ajax').html(result);
+ 				$('#cart_ajax').empty();
+				$('#cart_ajax').append(result);
  			}
  		});
  	}

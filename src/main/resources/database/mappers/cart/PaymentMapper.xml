@@ -68,7 +68,7 @@
 	</resultMap>
   	
  	<select id="getMyPageOrderPager" parameterType="HashMap" resultMap="getMyPageOrderResult">
-	  	select * from cart C
+	  	select C.*, P.*, MIN(PF.productFile_name) as productFile_name, PM.* from cart C
 			join product P
 			on C.product_id = P.product_id
 			join productFile PF
@@ -86,29 +86,50 @@
 				<if test="cart.cart_state == 'refund'"> <!-- 환불 list 조회 조건 -->
 					and C.cart_state = 'refund'
 				</if>
-				order by PM.payment_date desc limit #{pager.startRow},#{pager.perPage}
+				GROUP BY C.cart_id
+				order by PM.payment_date desc, C.cart_id desc limit #{pager.startRow},#{pager.perPage}
   	</select> <!-- 주문/배송 list 조회 (pager처리 위함) -->
   	
   	<select id="getMyPageOrderCount" parameterType="HashMap" resultType="Long">
-  		select count(C.cart_id) from cart C
-			join product P
-			on C.product_id = P.product_id
-			join productFile PF
-			on P.product_id=PF.product_id
-			join payment PM
-	        on C.payment_id = PM.payment_id
-	        join address A
-        	on PM.address_id=A.address_id
-        		where PM.member_id=#{payment.member_id}
-        		and
-				     DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
-				<if test="cart.cart_state == 'cancel'"> <!-- 취소/반품 list 조회 조건 -->
-					and C.cart_state = 'cancel'
-				</if>
-        		<if test="cart.cart_state == 'refund'"> <!-- 환불 list 조회 조건 -->
-					and C.cart_state = 'refund'
-				</if>
+		select count(*) from 
+			(select C.cart_id from cart C
+					join product P
+					on C.product_id = P.product_id
+					join productFile PF
+					on P.product_id=PF.product_id
+					join payment PM
+			        on C.payment_id = PM.payment_id
+			        join address A
+		        	on PM.address_id=A.address_id
+		            where PM.member_id=#{payment.member_id}
+		        		and
+						     DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+						<if test="cart.cart_state == 'cancel'"> <!-- 취소/반품 list 조회 조건 -->
+							and C.cart_state = 'cancel'
+						</if>
+		        		<if test="cart.cart_state == 'refund'"> <!-- 환불 list 조회 조건 -->
+							and C.cart_state = 'refund'
+						</if>
+					GROUP BY C.cart_id
+			) as count
   	</select> <!-- 주문/배송 list 조회 count(pager처리 위함) -->
+  	
+  	<select id="getMyPageTotalCount" parameterType="HashMap" resultType="Long">
+  		select count(*) from (
+	  		select PM.payment_id from payment PM
+	  			join cart C on PM.payment_id=C.payment_id
+					where PM.member_id=#{payment.member_id}
+			        		and
+							     DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+							<if test="cart.cart_state == 'cancel'"> <!-- 취소/반품 list 조회 조건 -->
+								and C.cart_state = 'cancel'
+							</if>
+			        		<if test="cart.cart_state == 'refund'"> <!-- 환불 list 조회 조건 -->
+								and C.cart_state = 'refund'
+							</if>
+							group by PM.payment_id
+			) as c
+  	</select> <!-- 주문/배송 취소/환불 총 개수 -->
   	
   	<select id="getMyPageOrderDetail" parameterType="PaymentVO" resultMap="getMyPageOrderResult">
 	  	select * from cart C
@@ -121,6 +142,8 @@
 	        join address A
         	on PM.address_id=A.address_id
 				where PM.payment_id=#{payment_id}
+			GROUP BY C.cart_id
+			order by C.cart_id desc
   	</select><!-- 주문/배송 상세 조회 -->
   	  		
 </mapper>

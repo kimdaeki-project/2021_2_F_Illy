@@ -13,33 +13,37 @@
 	</insert> <!-- 바로구매 담기 -->
 
 	<select id="getNormalBasket" resultType="CartProductVO" parameterType="MemberVO">
-		select C.*, P.*, PF.* from cart C
+	
+		select C.*, P.*, PF.productFile_name from cart C
 		join product P
 			on C.product_id = P.product_id
         join productfile PF
         	on C.product_id = PF.product_id
 		where C.member_id=#{member_id} and
 				(C.cart_state = 'checked' or C.cart_state = 'unChecked')
+		GROUP BY C.cart_id ORDER BY C.cart_id DESC
 	</select> <!-- 일반배송 장바구니 리스트 -->
 	
   	<select id="getCartListCheck" resultType="CartProductVO" parameterType="MemberVO">
-  		select C.*, P.*, PF.* from cart C
+  		select C.*, P.*, PF.productFile_name from cart C
 		join product P
 			on C.product_id = P.product_id
         join productfile PF
         	on C.product_id = PF.product_id
 		where C.member_id=#{member_id} and
 			  C.cart_state='checked'
+		GROUP BY C.cart_id ORDER BY C.cart_id DESC
   	</select> <!-- 선택한 장바구니 리스트 --> <!-- 선택상품 주문 때 이용 -->
   	
   	<select id="getDirectPayment" resultType="CartProductVO" parameterType="MemberVO">
-  		select C.*, P.*, PF.* from cart C
+  		select C.*, P.*, PF.productFile_name from cart C
 		join product P
 			on C.product_id = P.product_id
         join productfile PF
         	on C.product_id = PF.product_id
 		where C.member_id=#{member_id} and
 			  C.cart_state='direct'
+		GROUP BY C.cart_id ORDER BY C.cart_id DESC	  
   	</select> <!-- 바로구매 통한 구매상품 리스트 출력 -->
   	
   	<update id="setCountUpdate" parameterType="CartVO">

@@ -136,9 +136,14 @@ $('.myPage_lately_info_cont').on('click', '.cntUp', function(){
  	let wish_id = $(this).attr('data-wish-id');
 	let wish_cnt = parseInt($(this).attr('data-wish-cnt'));
 	if($(this).val() == '+') {
-		wish_cnt += 1;
-	}else {
-		wish_cnt -= 1;
+		if($(this).hasClass('disabledCnt')) {
+			alert('해당 상품의 장바구니에서 담을 수 있는 최대수량은 1개 입니다.')
+		}else{
+			wish_cnt += 1; 
+			
+		}
+	} else {
+		wish_cnt -= 1; 
 	}
 	
 	if(wish_cnt<1){
@@ -176,7 +181,7 @@ function optionDel() {
 		if(confirm('선택하신 상품을 찜리스트에서 삭제 하시겠습니까?')){
  			$.ajax({
 				type:"GET",
-				url:"/wish/setDelete",
+				url:"/wish/setDeleteMany",
 				traditional : true,
 				data: {
 					delArray:delArray
