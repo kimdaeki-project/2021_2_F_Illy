@@ -10,8 +10,10 @@ public class Pager {
 	private String kind; //검색할때 조건 설정 
 	private String search; //검색어 
 	private String code;//상품 검색할때 사용 
-	
+
+	// --------------------------------------product select 관련 
 	private String product_categoryCode;
+	private String sort;
 	
 	//검색창에 값이 null 이어도 예외 발생 시키지 않기 
 	public String getSearch() {

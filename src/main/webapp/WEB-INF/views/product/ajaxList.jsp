@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
-			<input id="requestor" type="text" value="${requestor}" hidden="true">
 			
 			<c:choose>
 				<c:when test="${not empty parameterCateCode}">	
@@ -67,19 +64,19 @@
 					
 					<ul class="pickListBox">
 						<li>
-							<input type="radio" id="sort1" name="sort" checked="checked">
-							<label for="sort1" class="sortLabel on">등록일순</label>
+							<input type="radio" id="sort1" name="product_id DESC" onclick="javascript:getAjaxList(1, 'product_id DESC')">
+							<label for="sort1" class="sortLabel">등록일순</label>
 						</li>
 						<li>
 							<input type="radio" id="sort2" name="sort">
 							<label for="sort2" class="sortLabel">상품평순</label>
 						</li>
 						<li>
-							<input type="radio" id="sort3" name="sort">
+							<input type="radio" id="sort3" name="product_price ASC" onclick="javascript:getAjaxList(1, 'product_price ASC')">
 							<label for="sort3" class="sortLabel">낮은가격순</label>
 						</li>
 						<li>
-							<input type="radio" id="sort4" name="sort">
+							<input type="radio" id="sort4" name="product_price DESC" onclick="javascript:getAjaxList(1, 'product_price DESC')">
 							<label for="sort4" class="sortLabel">높은가격순</label>
 						</li>
 					</ul>
@@ -141,11 +138,11 @@
 				<div class="pagination">
 					<ul>						
 					<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" varStatus="i">
-						<c:if test="${pn eq pager.startNum + (i.count-1)}">
+						<c:if test="${pager.pn eq pager.startNum + (i.count-1)}">
 							<li><span>${pager.startNum + (i.count-1)}</span></li>
 						</c:if>
-						<c:if test="${pn ne pager.startNum + (i.count-1)}">
-							<li><a href="javascript:getAjaxList(${pager.startNum + (i.count-1)})">${pager.startNum + (i.count-1)}</a></li>
+						<c:if test="${pager.pn ne pager.startNum + (i.count-1)}">
+							<li><a href="javascript:getAjaxList(${pager.startNum + (i.count-1)}, '${pager.sort}')">${pager.startNum + (i.count-1)}</a></li>
 						</c:if>
 					</c:forEach>
 					</ul>
@@ -155,6 +152,26 @@
 			
 			
 <script type="text/javascript">
+
+	$().ready(function(){
+		setPricePattern();
+		sortRadioBoxCheck();
+	});
+
+	function setPricePattern() {
+		$('.pricePattern').each(function(){
+			$(this).html(Number($(this).html()).toLocaleString() + '원');
+		})			
+	}
+	
+	function sortRadioBoxCheck() {
+		$('input[type=radio]').each(function(){
+			if($(this).attr('name') == '${pager.sort}') {
+				$(this).prop('checked', true);
+				$(this).siblings('label').addClass('on');
+			}
+		});
+	}
 
 	$('input[type=radio]').change(function(){
 		$('.sortLabel').each(function(){ $(this).removeClass('on')})

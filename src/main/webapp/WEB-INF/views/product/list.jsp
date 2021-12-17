@@ -30,7 +30,11 @@
 </body>
 	<script type="text/javascript">
 	
-		function getAjaxList(pn) {			
+		$().ready(function(){
+			getAjaxList(1, "product_id DESC");
+		});
+	
+		function getAjaxList(pn, sort) {			
 			$.ajax({
 				async : false,
 				type : 'GET',
@@ -39,6 +43,7 @@
 					product_categoryCode	:	"${product_categoryCode}"
 					,requestor				:	"product"
 					,pn						:	pn
+					,sort					:	sort
 				},
 				success: function(result){
 					result = result.trim();
@@ -49,13 +54,6 @@
 				}		
 			});
 		}
-	
-		$().ready(function(){
-			getAjaxList(1);
-			$('.pricePattern').each(function(){
-				$(this).html(Number($(this).html()).toLocaleString() + '원');
-			})
-		});
 		
 	</script>
 </html>

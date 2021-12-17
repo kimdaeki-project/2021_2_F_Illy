@@ -50,13 +50,18 @@
 						</dl>
 						<div class="countBox">
 							<span class="productName">${productVO.product_name}</span>
-							<c:if test="${prefixCode ne '002'}">
 							<div class="countBtnWrap">
-								<input type="text" name="cart_cnt" class="inputCnt numberOnly" value="1">
-								<button type="button" class="countBtn up"></button>
-								<button type="button" class="countBtn down"></button>
+								<c:choose>
+									<c:when test="${prefixCode eq '002'}">
+										<input type="text" name="cart_cnt" class="inputCnt numberOnly" value="1" readonly="readonly">
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="cart_cnt" class="inputCnt numberOnly" value="1">
+										<button type="button" class="countBtn up"></button>
+										<button type="button" class="countBtn down"></button>
+									</c:otherwise>
+								</c:choose>
 							</div>
-							</c:if>
 							<span class="countPrice pricePattern">${productVO.product_price}</span>
 						</div>
 						<button type="button" class="btnSquare insertCart">장바구니</button>
@@ -290,6 +295,8 @@
 		setCountPrice();
 		setNumberPattern();
 	}); /********** 상품개수 버튼 클릭 **********/
+	
+	$('.')
 	
 	function setCountPrice() {
 		let countPrice = $('.countPrice')

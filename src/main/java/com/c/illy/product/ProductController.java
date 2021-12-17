@@ -33,7 +33,7 @@ public class ProductController {
 		model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
 		model.addAttribute("parameterCateCode", productVO.getProduct_categoryCode());
 		model.addAttribute("requestor", requestor);
-		model.addAttribute("pn", pager.getPn());
+		model.addAttribute("pager", pager);
 		return "product/ajaxList";
 	}
 	

@@ -30,13 +30,10 @@
 	<script type="text/javascript">
 	
 		$().ready(function(){
-			getAjaxList(1);
-			$('.pricePattern').each(function(){
-				$(this).html(Number($(this).html()).toLocaleString() + '원');
-			})
+			getAjaxList(1, "product_id DESC");
 		});
 	
-		function getAjaxList(pn) {
+		function getAjaxList(pn, sort) {
 			$.ajax({
 				async : false,
 				type : 'GET',
@@ -45,6 +42,7 @@
 					product_categoryCode	:	"${product_categoryCode}"
 					,requestor				:	"admin"
 					,pn						:	pn
+					,sort					:	sort
 				},
 				success: function(result){
 					result = result.trim();
