@@ -99,7 +99,8 @@ function getDate(start_date,end_date,pn){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());
 			
-			//refundState();
+			refundState();
+			refundCheck();
 			reviewState();
 		
 			 $('.pageBtn').each(function() {
@@ -234,6 +235,8 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 				$(".myPage_lately_info_cont").empty();
 				$(".myPage_lately_info_cont").append(result.trim());	
 				
+				refundState();
+				refundCheck();
 				reviewState();
 			
 				 $('.pageBtn').each(function() {
@@ -276,7 +279,10 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 				$(".myPage_lately_info_cont").empty();
 				$(".myPage_lately_info_cont").append(result.trim());	
 				
+				refundState();
+				refundCheck();
 				reviewState();
+				
 				 $('.pageBtn').each(function() {
 					 if($(this).attr("data-list-pn")!=pn){
 					 	 $(this).removeClass("on");
@@ -299,22 +305,29 @@ $(".btn_board_search").click(function(){
 	getDate($('.start').val(), $('.end').val(), 1);
 });
 
+//환불 불가능 날짜 계산하기 - 50일 이후에는 환불 불가
 function refundState(){
 	
 	let refund_date='';
 	$(".order_num_link").each(function(){
-		refund_date=$(this).attr('data-payment-id');//구매날짜
+		refund_date=$(this).attr('data-payment-date');//구매날짜
+		console.log(refund_date);
 		refund_date=new Date(refund_date);
 		let refund_date2=new Date();//오늘날짜
 		//오늘날짜-구매날짜 >50
 		let count=(refund_date2-refund_date)/(1000*60*60*24);
-		/* let cart_id=$(this).next('.cart_id').val();
-		let html="<a class='reviewBtn' href='/member/reviewInsert?cart_id="+cart_id+"'>리뷰쓰기</a>"
-		let html2="<span class='reviewBtnFin'>리뷰기간종료</span>" */
 		if(count>49){
 			$(this).siblings('div').empty();
 		}
 	});		
+}
+
+function refundCheck() {
+	$('.review_check_table').each(function(){
+		if($(this).children().hasClass('checkReview') == true){
+			$(this).parents().find('.refund_check').children().find('.btn_claim_refund').empty();
+		}
+	});
 }
 
 //다영추가 
