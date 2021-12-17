@@ -18,7 +18,6 @@
 		<tbody>
 			<c:forEach items="${prdList}" var="productVO">
 				<tr>
-					<script type="text/javascript"> console.log("-------");</script>
 					<td><input type="radio" name="product_id" class="pick_prd" value="${productVO.product_id}"></td>
 					<td class="prd">
 						<div><img class="prdThumb" alt="" src="/upload/product/${productVO.productFileVOs[0].productFile_name}"></div>

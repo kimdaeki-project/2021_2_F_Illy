@@ -19,7 +19,7 @@
 		#right_content{width:1000px;float:left;padding-left:40px;}
 		.board_zone_tit h2{font-size:24px; color:#333333;padding-bottom:10px; margin-bottom:9px;    }
 		.board_zone_cont{border-top:1px solid #999; width:100%; }
-		.notice_write tbody tr th{font-size:12px; line-height:1.5; color:#333; margin:0; border-bottom:1px solid #dbdbdb; padding:13px 0 13px 25px; font-weight:bold; background-color:#fbfbfb;text-align:left; vertical-align:top;  }
+		.notice_write tbody tr th{font-size:12px;  line-height:1.5; color:#333; margin:0; border-bottom:1px solid #dbdbdb; padding:13px 0 13px 25px; font-weight:bold; background-color:#fbfbfb;text-align:left; vertical-align:top;  }
 		.notice_write tbody tr td{font-size:12px; line-height:1.5; color:#333;height:32px; margin:0; padding:7px 0 11px 15px; border-bottom:1px solid #dbdbdb; background-color:#fff;  }
 		.notice_write tbody tr input{width:320px; height:31px; padding:0 10px; border:1px solid #d6d6d6; color:#333; line-height:31px;  }
 		#notice_type{width:127px; height:31px; color:#717171; vertical-align:top; outline:none; font-size:12px; line-height:1.5; border:1px solid #dbdbdb;  }
@@ -67,6 +67,7 @@
 										<tr>
 											<th scope="row" >게시글 상단 고정</th>
 											<td>
+												<input hidden="" class="cnt" value="${notice}">
 												<input type="checkbox" class="notice_top" name="notice_top" value="0">
 											</td>
 										</tr>
@@ -127,17 +128,39 @@
 		]
 	});
 	
-	
+	//유효성 검사
 	$(".upload").click(function(){
-		if($(".notice_top").prop('checked')){
-			$(".notice_top").val(1);			
-		}else{
-			$(".notice_top").val(0);
+		if($(".notice_type").val()==''){
+			alert("공지 유형을 선택하세요");
+			return false;
+		}
+		if($(".notice_title").val()==''){
+			alert("공지 제목은 필수 입력 사항입니다.");
+			return false;
 		}
 		
-		$("#noticeAdFrm").submit();
+		if($(".summernote").summernote('isEmpty')){
+			alert("본문은 필수 입력 사항입니다.");
+		}
 		
+		if(confirm('공지를 업로드 하시겠습니까?')){
+			if($(".notice_top").prop('checked')){
+				if($(".cnt").val()>4){
+					alert("상단고정게시글은 5개 이상 불가하므로 일반게시글로 업로드됩니다.");
+					$(".notice_top").val(0);				
+				}else{
+					$(".notice_top").val(1);			
+				}
+			}
+			$("#noticeAdFrm").submit();
+			
+		}else{
+			return false;
+		}
+			
 	});
+	
+	
 	
 	
 	

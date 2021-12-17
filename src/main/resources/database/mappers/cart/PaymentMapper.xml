@@ -49,6 +49,7 @@
 			<result column="productFile_name" property="productFile_name"/>
 			<result column="product_price" property="product_price"/>
 			<result column="cart_state" property="cart_state"/>
+			<result column="cart_review_state" property="cart_review_state"/>	
 			<result column="cart_cnt" property="cart_cnt"/>
 			<result column="product_categoryCode" property="product_categoryCode"/>
 		</collection>
@@ -145,5 +146,39 @@
 			GROUP BY C.cart_id
 			order by C.cart_id desc
   	</select><!-- 주문/배송 상세 조회 -->
-  	  		
+  	
+  	
+  	<!-- 리뷰작성가능리스트 _다영 -->
+  	<select id="myReviewList" parameterType="HashMap" resultMap="getMyPageOrderResult">
+	  	select C.*, P.*, MIN(PF.productFile_name) as productFile_name, PM.* from cart C
+			join product P
+			on C.product_id = P.product_id
+			join productFile PF
+			on P.product_id=PF.product_id
+			join payment PM
+	        on C.payment_id = PM.payment_id
+	       <!--  join address A
+        	on PM.address_id=A.address_id -->
+				where PM.member_id=#{payment.member_id}
+				and 
+					DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+				and C.cart_state = 'done'
+                and C.cart_review_state= #{cart.cart_review_state}
+				GROUP BY C.cart_id
+				order by PM.payment_date DESC, C.cart_id desc limit #{pager.startRow},#{pager.perPage}
+  	</select> <!-- 주문/배송 list 조회 (pager처리 위함) -->
+ 
+  	<select id="getMyReviewCount" parameterType="HashMap" resultType="Long">
+  		select count(*) from (
+	  		select PM.payment_id from payment PM
+	  			join cart C on PM.payment_id=C.payment_id
+					where PM.member_id=#{payment.member_id}
+			        		and
+							     DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+							and C.cart_state ='done'
+              			  	and C.cart_review_state=#{cart.cart_review_state}
+							group by PM.payment_id
+			) as c
+  	</select> <!-- myReviewlist 조회 count(pager처리 위함) -->
+  			
 </mapper>

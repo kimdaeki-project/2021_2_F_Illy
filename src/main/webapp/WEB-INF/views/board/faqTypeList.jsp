@@ -26,10 +26,10 @@
 								<strong class="btnView">${faqVO.faq_title}</strong>	
 								
 							<!--관리자용 삭제 수정 버튼-->
-							<%-- <sec:authorize access="hasRole('ADMIN')"> --%>
+							<sec:authorize access="hasRole('ADMIN')">
 								<button type="button" class="updateBtn adminBtn" onclick="location.href='/admin/board/updateFaq?faq_id=${faqVO.faq_id}'"><i class="xi-pen-o xi-x"></i></button>								
 								<button type="button" class="deleteBtn adminBtn"><i class="xi-close-square-o xi-x"></i></button>
-							<%-- </sec:authorize> --%>
+							</sec:authorize>
 							<!--관리자용 삭제 수정 버튼-->
 							
 							</span>

@@ -153,4 +153,10 @@ public class MemberService implements UserDetailsService {
 		return memberRepository.change_password(old_password, new_password);
 	}
 
+	//다영 추가
+	public MemberVO getSelectUsername(MemberVO memberVO)throws Exception{
+		return memberRepository.getSelectUsername(memberVO);
+	}
+	
+	
 }

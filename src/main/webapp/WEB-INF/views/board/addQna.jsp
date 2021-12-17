@@ -58,10 +58,10 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">말머리</th>
+										<th scope="row">문의 유형</th>
 										<td>
 											<select id="qna_type" name="qna_type">
-												<option>문의내용</option>
+												<option value="1">=선택=</option>
 												<option value="커피머신 문의">커피머신 문의</option>
 												<option value="정품 인증">정품 인증</option>
 												<option value="커피 문의">커피 문의</option>
@@ -78,16 +78,18 @@
 									</tr>
 									<tr>
 										<th scope="row">작성자</th>
-										<td><input hidden="" name="member_id" value="${member.member_name}">${member.member_name}</td>
+										<td><input hidden="" name="member_id" id="member_id" value="${member.member_id}">${member.member_name}</td>
 									</tr>
 									<tr>
 										<th scope="row">상품선택</th>
 										<td> 
-											<c:if test="${qnaVO.product_id ne null }">선택된 상품이 없습니다 </c:if>
+											<span class="info">선택된 상품이 없습니다 </span>
 											<button type="button" class="pro_choice_btn" onclick="javascript:findProduct()">상품 선택</button>
 											<div class="pickPrd">
-											
+												<!--상품 선택 팝업창에서 product_id 관련 데이터 받아옴-->
 											</div>
+											<input hidden="" name="qna_state" value="0">
+											<input hidden="" name="product_id" id="product_id">
 										</td>
 									</tr>
 									<tr>
@@ -148,7 +150,7 @@
 							</table>
 							<div class="btn_wrap">
 								<button type="button" class="goback boardBtn">이전</button>
-								<button type="submit" class="upload boardBtn">저장</button>
+								<button type="button" class="upload boardBtn">저장</button>
 							</div>
 						</form>
 						
@@ -168,16 +170,55 @@
 		function findProduct(){
 			var url = "./findProduct";
 			var name = "popup test";
-			var width = 475;
-			var height = 600;
+			var width = 525;
+			var height = 625;
 			var top = (window.innerHeight - height) / 2 + screenY;
 			var left = (window.innerWidth - width) / 2 + screenX;    
 			var option = "width = "+width+", height = "+height+", top = "+top+", left = "+left+", location = no, scrollbars = yes";
 			window.open(url, name, option);
-		};
+		}
+		
+		//상품 삭제 
+		function delPrd(){
+			let html="선택된 상품이 없습니다 ";
+			$(".pickPrd").empty();
+			$(".info").append(html);
+		}
 		
 	
-		
+		//유효성 검사
+		$(".upload").click(function(){
+			if($("#qna_type").val()==1){
+				alert("문의 유형을 선택하세요");
+				return false;
+			}
+			if($(".qna_phone").val()==''){
+				alert("연락 받으실 번호는 필수 입력 사항입니다.");
+				return false;
+			}
+			if($(".qna_title").val()==''){
+				alert("문의 제목은 필수 입력 사항입니다.");
+				return false;
+			}
+			if($("#qna_contents").val()==''){
+				alert("문의사항은 필수 입력 사항입니다.");
+				return false;
+			}
+			
+			if ($('.g-recaptcha-response').val() == "") {
+				alert("자동등록방지를 확인해 주십시오.");
+				return false;
+			}
+			
+			if(confirm('1:1문의를 업로드 하시겠습니까?')){
+				let product_id=$("#prdId").val();
+				$("#product_id").val(product_id);
+				$("#qnaFrm").submit();
+			}else{
+				return false;
+			}
+				
+		});
 		
 		
 		

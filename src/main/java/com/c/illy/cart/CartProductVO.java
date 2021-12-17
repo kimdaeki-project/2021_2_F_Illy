@@ -20,5 +20,5 @@ public class CartProductVO {
 	private Integer product_price;
 	private String productFile_name;
 	private String product_categoryCode;	//(커피 : 001, 머신 : 002)
-	
+	private Integer cart_review_state;
 }

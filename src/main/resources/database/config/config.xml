@@ -5,6 +5,7 @@
   
   	<typeAliases>
  		<typeAlias type="java.lang.Long" alias="Long"/>
+ 		<typeAlias type="java.lang.Integer" alias="Integer"/>
  		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="java.lang.String" alias="String"/>
 		<typeAlias type="java.util.HashMap" alias="HashMap"/>
@@ -36,6 +37,7 @@
   		<typeAlias type="com.c.illy.qna.QnaVO" alias="QnaVO"/>
   		<typeAlias type="com.c.illy.qna.QnaFileVO" alias="QnaFileVO"/>
   		<typeAlias type="com.c.illy.review.ReviewVO" alias="ReviewVO"/>
+  		<typeAlias type="com.c.illy.review.ReviewFileVO" alias="ReviewFileVO"/>
  		<typeAlias type="com.c.illy.util.Pager" alias="Pager"/>
   	<!-- LDY board work end  -->
 

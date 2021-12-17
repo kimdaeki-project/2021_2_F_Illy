@@ -28,4 +28,10 @@ public interface PaymentRepository {
 	
 	// 주문/배송 상세 리스트
 	public PaymentVO getMyPageOrderDetail(PaymentVO paymentVO) throws Exception;
+	
+	//작성가능리뷰리스트페이지 -다영
+	public List<PaymentVO> myReviewList(HashMap<String, Object> map)throws Exception;
+	public Long getMyReviewCount(HashMap<String, Object> map) throws Exception;
+	
+	
 }

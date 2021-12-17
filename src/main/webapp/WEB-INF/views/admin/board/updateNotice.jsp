@@ -145,7 +145,7 @@
 	});
 	
 	 //수정페이지 폼에 들어와있을때 원래 입력되어있는 데이터로 selected 되어있기 notice_type
-	 const notice_type = '${noticeVO.notice_type}';
+	 let notice_type = '${noticeVO.notice_type}';
 	 $('.pickType').each(function() {
 		 const value= $(this).val();
 		 if(value==notice_type){
