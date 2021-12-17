@@ -67,9 +67,9 @@
 			       												<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_plus cntUp" value="+">
 															</c:if>
 															<c:if test="${fn:substring(wish.productVO.product_categoryCode, 0, 3) eq '002'}">
-																<input type ="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_minus cntUp" value="-">
+																<input type ="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" disabled="disabled" class="cnt_minus cntUp" value="-">
 			        											<input type="text" name="cart_cnt" class="cnt_cart" value="${wish.wish_cnt}" readonly="readonly"/>
-			       												<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" class="cnt_plus cntUp disabledCnt" value="+">
+			       												<input type="button" data-wish-id="${wish.wish_id}" data-wish-cnt="${wish.wish_cnt}" disabled="disabled" class="cnt_plus cntUp" value="+">
 															</c:if>
 		       											</div>
 													</td>

@@ -57,22 +57,22 @@
 									<td rowspan="${list.carts.size()}" class="order_day_num">
 										<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
 										<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
-										<c:if test="${carts.cart_state eq 'payment'}">
-											<div class="btn_claim">
+										<div class="btn_claim">
+											<c:if test="${carts.cart_state eq 'payment'}">
 												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 														data-payment-usePoint="${list.payment_use_point}">
 													<a>주문취소</a>
 												</span>
-											</div>
-										</c:if>
-										<c:if test="${carts.cart_state eq 'done'}">
-											<div class="btn_claim">
+											</c:if>
+											<c:if test="${carts.cart_state eq 'done'}">
+											
 												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 														data-payment-usePoint="${list.payment_use_point}">
 													<a>환  불</a>
 												</span>
-											</div>
-										</c:if>
+											
+											</c:if>
+										</div>
 									</td>
 									<td class="td_left">
 										<div class="pick_add_cont">
@@ -126,22 +126,22 @@
 									<td rowspan="${list.carts.size()}" class="order_day_num">
 										<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
 											<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
-											<c:if test="${carts.cart_state eq 'payment'}">
-												<div class="btn_claim">
+											<div class="btn_claim">
+												<c:if test="${carts.cart_state eq 'payment'}">
 													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 															data-payment-usePoint="${list.payment_use_point}">
 														<a>주문취소</a>
 													</span>
-												</div>
-											</c:if>
-											<c:if test="${carts.cart_state eq 'done'}">
-												<div class="btn_claim">
+												</c:if>
+												<c:if test="${carts.cart_state eq 'done'}">
+												
 													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 															data-payment-usePoint="${list.payment_use_point}">
 														<a>환  불</a>
 													</span>
-												</div>
-											</c:if>
+												
+												</c:if>
+											</div>
 									</td>
 								</c:if>
 									<td class="td_left">

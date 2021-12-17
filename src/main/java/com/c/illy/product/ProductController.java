@@ -1,11 +1,13 @@
 package com.c.illy.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.c.illy.member.MemberVO;
 import com.c.illy.product.coffee.CoffeeService;
 import com.c.illy.product.machine.MachineService;
 
@@ -21,16 +23,17 @@ public class ProductController {
 	private MachineService machineService;
 	
 	@GetMapping("list")
-	public String list(Model model, ProductVO productVO) throws Exception {
+	public String list(Model model, ProductVO productVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		model.addAttribute("listAllProduct", productService.getListProduct(productVO));
 		model.addAttribute("categoryAllCnt", productService.getCategoryAllCnt(productVO));
 		model.addAttribute("categoryCnt", productService.getCategoryCnt(productVO));
 		model.addAttribute("parameterCateCode", productVO.getProduct_categoryCode());
+		model.addAttribute("member", memberVO);
 		return "/product/list";
 	}
 	
 	@GetMapping("select")
-	public String select(Model model, ProductVO productVO) throws Exception {
+	public String select(Model model, ProductVO productVO, @AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		String categoryCode = productVO.getProduct_categoryCode();
 		String prefixCode = categoryCode.substring(0, 3);
 		if (prefixCode.equals("001")) {	model.addAttribute("productVO", coffeeService.getSelectCoffeeOne(productVO)); }
@@ -38,6 +41,7 @@ public class ProductController {
 		
 		model.addAttribute("listAllProduct", productService.getListProduct(productVO));
 		model.addAttribute("productFileVOList", productService.getSelectProductFileList(productVO));
+		model.addAttribute("member", memberVO);
 		return "/product/select";
 	}
 

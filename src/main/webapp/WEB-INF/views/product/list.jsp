@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div id="wrapper">
+		<input type="hidden" value="${member.member_id}" id="member_id">
 		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>
 		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">
@@ -153,23 +154,28 @@
 		
 		//장바구니 담기
 		$('.insertCart').click(function(){
-			
-			$.ajax({
-				type:"GET",
-				url:"/cart/setCart",
-				data: {
-					product_id: $(this).attr('data-product-id'),
-					cart_cnt: 1
-				},
-				success: function(result) {
-					$('#addCartLayer').css("display", "block");//modal 띄우기
-					$("body").css("overflow","hidden");//body 스크롤바 없애기
-				},
-				error : function(xhr, status, error){
-					console.log(error);				
-				}
-			
-			});
+			if($('#member_id').val() == ''){
+				alert('로그인이 필요합니다.');
+				location.href="/member/login";
+			} else {
+				$.ajax({
+					type:"GET",
+					url:"/cart/setCart",
+					data: {
+						product_id: $(this).attr('data-product-id'),
+						cart_cnt: 1
+					},
+					success: function(result) {
+						$('#addCartLayer').css("display", "block");//modal 띄우기
+						$("body").css("overflow","hidden");//body 스크롤바 없애기
+					},
+					error : function(xhr, status, error){
+						console.log(error);				
+					}
+				
+				});
+				
+			}
 		});
 		
 		$('.add_cart_btn_move').click(function(){

@@ -94,9 +94,9 @@
 	       												<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus cntUp" data-cart-cnt="${carts.cart_cnt}" value="+">
 													</c:if>
 													<c:if test="${fn:substring(carts.product_categoryCode, 0, 3) eq '002'}">
-														<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus cntUp" data-cart-cnt="${carts.cart_cnt}" value="-">
+														<input type ="button" data-cart-id="${carts.cart_id}" class="cnt_minus cntUp" disabled="disabled" data-cart-cnt="${carts.cart_cnt}" value="-">
 	        											<input type="text" name="cart_cnt" class="cnt_cart" value="${carts.cart_cnt}" readonly="readonly"/>
-	       												<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus cntUp disabledCnt" data-cart-cnt="${carts.cart_cnt}" value="+">
+	       												<input type="button" data-cart-id="${carts.cart_id}" class="cnt_plus cntUp" disabled="disabled" data-cart-cnt="${carts.cart_cnt}" value="+">
 													</c:if>
 												</td>
 												<td class="tb_border productPrice" data-price="${carts.product_price}">
@@ -327,12 +327,7 @@
 		let cart_cnt = parseInt($(this).attr('data-cart-cnt'));
 		let member_id=$('#memberIdHidden').val();
 		if($(this).val() == '+') {
-			if($(this).hasClass('disabledCnt')) {
-				alert('해당 상품의 장바구니에서 담을 수 있는 최대수량은 1개 입니다.')
-			}else{
 				cart_cnt += 1; 
-				
-			}
 		} else {
 			cart_cnt -= 1; 
 		}

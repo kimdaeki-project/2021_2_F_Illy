@@ -93,6 +93,7 @@ function getDate(start_date,end_date,pn){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());	
 			
+			//refundState();
 		
 			 $('.pageBtn').each(function() {
 				 if($(this).attr("data-list-pn")!=pn){
@@ -289,6 +290,24 @@ $(".btn_board_search").click(function(){
 	console.log("--" + $(".end").val());
 	getDate($('.start').val(), $('.end').val(), 1);
 });
+
+/* function refundState(){
+	
+	let refund_date='';
+	$(".order_num_link").each(function(){
+		refund_date=$(this).attr('data-payment-id');//구매날짜
+		refund_date=new Date(refund_date);
+		let refund_date2=new Date();//오늘날짜
+		//오늘날짜-구매날짜 >50
+		let count=(refund_date2-refund_date)/(1000*60*60*24);
+		/* let cart_id=$(this).next('.cart_id').val();
+	let html="<a class='reviewBtn' href='/member/reviewInsert?cart_id="+cart_id+"'>리뷰쓰기</a>"
+	let html2="<span class='reviewBtnFin'>리뷰기간종료</span>" */
+	if(count>49){
+		$(this).siblings('btn_claim').empty();
+	}
+});		
+} */
 </script>
 </body>
 </html>
