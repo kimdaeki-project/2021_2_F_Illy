@@ -5,14 +5,150 @@
   
 <mapper namespace="com.c.illy.review.ReviewRepository">
 
-	<select id="getReviewList" resultType="ReviewVO">
-		SELECT * FROM review
-	</select>
+	<!--전체 리뷰 조회-->
+	<!-- <select id="getReviewList" parameterType="Pager" resultMap="selectTotal">
+		SELECT R.*,RF.*,C.* FROM 
+			review R JOIN reviewfile RF  
+			ON(R.review_id=RF.review_id)
+			JOIN cart C
+			ON(C.cart_id=R.cart_id)
+		WHERE
+	</select> 
 	
+	<resultMap type="ReviewVO" id="selectTotal">
+	
+	
+	
+	
+	</resultMap>
+	
+	
+	<resultMap type="PaymentVO" id="getMyPageOrderResult">
+		<id column="payment_id" property="payment_id"/>
+		<result column="member_id" property="member_id" />
+		<result column="address_id" property="address_id"/>
+		<result column="payment_comment" property="payment_comment"/>
+		<result column="payment_type" property="payment_type"/>
+		<result column="payment_date" property="payment_date"/>
+		<result column="payment_name" property="payment_name"/>
+		<result column="payment_delivery" property="payment_delivery"/>
+		<result column="payment_email" property="payment_email"/>
+		<result column="payment_phone" property="payment_phone"/>
+		<result column="payment_product_total" property="payment_product_total"/>
+		<result column="payment_use_point" property="payment_use_point"/>
+		<result column="payment_use_coupon" property="payment_use_coupon"/>
+		<result column="payment_add_point" property="payment_add_point"/>
+		<result column="payment_total_discount" property="payment_total_discount"/>
+		<result column="payment_total" property="payment_total"/>
+		<collection property="carts" javaType="List" ofType="CartProductVO">
+			<id column="cart_id" property="cart_id"/>
+			<result column="member_id" property="member_id"/>
+			<result column="product_id" property="product_id"/>
+			<result column="payment_id" property="payment_id"/>
+			<result column="product_name" property="product_name"/>
+			<result column="productFile_name" property="productFile_name"/>
+			<result column="product_price" property="product_price"/>
+			<result column="cart_state" property="cart_state"/>
+			<result column="cart_review_state" property="cart_review_state"/>	
+			<result column="cart_cnt" property="cart_cnt"/>
+			<result column="product_categoryCode" property="product_categoryCode"/>
+		</collection>
+		<collection property="addressVO" javaType="AddressVO">
+			<id column="address_id" property="address_id"/>
+			<result column="address_name" property="address_name"/>
+			<result column="address_recipient_name" property="address_recipient_name"/>
+			<result column="address_recipient_phone" property="address_recipient_phone"/>
+			<result column="address" property="address"/>
+			<result column="address_postcode" property="address_postcode"/>
+			<result column="main_address" property="main_address"/>
+			<result column="address_reference" property="address_reference"/>
+			<result column="address_detail" property="address_detail"/>
+			<result column="address_default" property="address_default"/>
+			<result column="address_myAddress" property="address_myAddress"/>
+		</collection>
+	</resultMap>
+  	
+ 	<select id="getMyPageOrderPager" parameterType="HashMap" resultMap="getMyPageOrderResult">
+	  	select C.*, P.*, MIN(PF.productFile_name) as productFile_name, PM.* from cart C
+			join product P
+			on C.product_id = P.product_id
+			join productFile PF
+			on P.product_id=PF.product_id
+			join payment PM
+	        on C.payment_id = PM.payment_id
+	        join address A
+        	on PM.address_id=A.address_id
+				where PM.member_id=#{payment.member_id}
+				and
+				    DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+				<if test="cart.cart_state == 'cancel'"> 취소/반품 list 조회 조건
+					and C.cart_state = 'cancel'
+				</if>
+				<if test="cart.cart_state == 'refund'"> 환불 list 조회 조건
+					and C.cart_state = 'refund'
+				</if>
+				GROUP BY C.cart_id
+				order by PM.payment_date desc, C.cart_id desc limit #{pager.startRow},#{pager.perPage}
+  	</select> 주문/배송 list 조회 (pager처리 위함)
+  	
+  	<select id="getMyPageOrderCount" parameterType="HashMap" resultType="Long">
+		select count(*) from 
+			(select C.cart_id from cart C
+					join product P
+					on C.product_id = P.product_id
+					join productFile PF
+					on P.product_id=PF.product_id
+					join payment PM
+			        on C.payment_id = PM.payment_id
+			        join address A
+		        	on PM.address_id=A.address_id
+		            where PM.member_id=#{payment.member_id}
+		        		and
+						     DATE_FORMAT(PM.payment_date, '%Y-%m-%d') between #{payment.start_date} and #{payment.end_date}
+						<if test="cart.cart_state == 'cancel'"> 취소/반품 list 조회 조건
+							and C.cart_state = 'cancel'
+						</if>
+		        		<if test="cart.cart_state == 'refund'"> 환불 list 조회 조건
+							and C.cart_state = 'refund'
+						</if>
+					GROUP BY C.cart_id
+			) as count
+  	</select> 주문/배송 list 조회 count(pager처리 위함)
+  	
+ -->
 
 
 
 
+	<!--내가 쓴 리뷰 조회-->
+<!-- 	<select id="getReviewListPersonal" resultMap="selectResult" parameterType="Pager">
+		SELECT R.*,RF.* FROM review R JOIN reviewfile RF
+		USING(review_id)
+		WHERE member_id=#{member_id} 
+	</select> -->
+
+	<!--리뷰 작성-->
+	<insert id="reviewInsert" parameterType="ReviewVO" useGeneratedKeys="true" keyProperty="review_id">
+		INSERT INTO review(review_id,review_title,review_contents,review_regDate,cart_id,review_star)
+		VALUES(0,#{review_title},#{review_contents},sysdate(),#{cart_id},#{review_star})
+	</insert>
+	
+	<!--리뷰 파일업로드-->
+	<insert id="reviewFileInsert" parameterType="ReviewFileVO">
+		INSERT INTO reviewfile(reviewFile_id,reviewFile_name,reviewFile_oriName,review_id)
+		VALUES(0,#{reviewFile_name},#{reviewFile_oriName},#{review_id})
+	</insert>
+	
+	<!-- 공지사항 수정하기 -->
+	<update id="reviewUpdate" parameterType="ReviewVO">
+		UPDATE review SET review_title=#{review_title},review_contents=#{review_contents},review_star=#{review_star} 
+		WHERE review_id=#{review_id}
+	</update>
+	
+	<!-- 공지사항 삭제하기 -->
+	<delete id="reviewDelete" parameterType="ReviewVO">
+		DELETE FROM review WHERE review_id=#{review_id}
+	</delete>
 
 
 

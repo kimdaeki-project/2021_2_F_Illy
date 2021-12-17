@@ -217,4 +217,15 @@ public class CartService {
 	public int setDirectPayment(MemberVO memberVO) throws Exception {
 		return cartRepository.setDirectPayment(memberVO);
 	}
+	
+	//카트 하나 조회해오기 --다영 
+	public Integer searchCart(CartVO cartVO)throws Exception{
+		return cartRepository.searchCart(cartVO);
+	}
+	
+	//리뷰작성후 상태 업데이트
+	public int stateUpdate(CartVO cartVO)throws Exception{
+		return cartRepository.stateUpdate(cartVO);
+	}
+	
 }

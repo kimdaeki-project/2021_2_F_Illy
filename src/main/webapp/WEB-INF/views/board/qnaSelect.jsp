@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,9 +21,14 @@
 		.board_list_table tbody tr:first-child{padding:10px 15px; border-bottom:1px solid #dbdbdb;font-weight:bold;font-size:12px; color:#333; line-height:1.5; }
 		.board_list_table tbody tr:first-child span{margin-right:5px;}
 		.board_list_table tbody tr.con{width:100%; position:relative;}
+		.board_list_table tbody tr.con2 .qna_contents{min-height:100px;}
 		.con td .view_q{position:absolute; top:30px; left:20px; color:#333; font-size:24px; }
 		.qna_contents{min-height:350px; padding:23px 15px 0 50px; display:block; line-height:1.8;}
 		.qnaBtn{height:28px; line-height:26px; margin-left:5px; padding:0 12px; color:#666; border:1px solid #a3a3a3; text-align:center; float:right;background-color:#fff; cursor:pointer;font-size:12px; font-weight:bold; }
+		.prd_title{display:inline-block;vertical-align:top; font-size:13px; font-weight:bold; color:#333; }
+		.prd_info{display:inline-block;position:absolute; margin-left:20px; }
+		.prd_info span{display:block; font-size:13px; color:#333; margin-bottom:5px; }
+		.pickPrd{border-bottom:1px solig #dbdbdb;}
 	</style>
 	
 
@@ -44,9 +50,7 @@
 					</div>
 					<div class="board_zone_cont">
 						<div class="board_zone_list">
-							
 								 	<table class="board_list_table" style="width:100%;">
-										
 										<thead>
 											<tr>
 												<td>[${qnaVO.qna_type}] ${qnaVO.qna_title}</td>
@@ -58,18 +62,54 @@
 													<span class="member_id">${member.username}</span> <span>| &nbsp;${qnaVO.qna_regDate}</span>
 												</td>
 											</tr>
+											<c:if test="${qnaVO.product_id ne null }">
+											<tr>
+												<td class="pickPrd">
+												<div>
+													<div style="width:100%; margin-top:10px; padding:10px 0 0 6px;">
+														<div class="prd_title">문의 상품 &nbsp;|</div>
+														<div style="display:inline-block;"><img style="width:82px; height:82px;" src="/upload/product/${productFileVOList[0].productFile_name}"></div>
+														<div class="prd_info">
+															<span>${productVO.product_name}</span>
+															<span style="font-weight:bold;"><fmt:formatNumber value="${productVO.product_price}" pattern="#,###"/>원</span>
+														</div> 
+													</div>
+												</div>
+												</td>
+											</tr>	
+											</c:if>
+											<c:if test="${qnaVO.qna_state eq 0}">
 											<tr class="con">
 												<td>
 													<strong class="view_q">Q.</strong>
 													<div class="qna_contents">${qnaVO.qna_contents}</div>
 												</td>
 											</tr>
+											</c:if>
+											<c:if test="${qnaVO.qna_state eq 1}">
+											<tr class="con con2">
+												<td>
+													<strong class="view_q">Q.</strong>
+													<div class="qna_contents">${qnaVO.qna_contents}</div>
+												</td>
+											</tr>
+											<tr class="con con2">
+												<td>
+													<strong class="view_q">A.</strong>
+													<div class="qna_contents">
+														<span style="font-size:14px; font-weight:bold;">안녕하세요 고객님,일리카페 입니다.</span></br>
+														<span style="font-size:12px;"><strong>관리자</strong> &nbsp;|&nbsp; ${qnaVO.qna_answer_regDate}</span>
+														<div style="border-top:1px solid #dbdbdb; margin-top:10px; margin-bottom:20px;padding-top:10px;">${qnaVO.qna_answer}</div>
+													</div>
+												</td>
+											</tr>
+											</c:if>
 										</tbody>
 									</table>
-									<c:if test="${qnaVO.qna_state=='접수'}">
 										<button class="goback qnaBtn" onclick="location.href='./qnaList'">목록</button>
-										<button class="goback qnaBtn" onclick="location.href='./qnaUpdate?qna_id='+${qnaVO.qna_id}">수정</button>
-										<button class="goback qnaBtn" onclick="location.href='./qnaDelete?qna_id='+${qnaVO.qna_id}">삭제</button>	
+									<c:if test="${qnaVO.qna_state==0}">
+										<button class="qnaBtn" onclick="location.href='./qnaUpdate?qna_id='+${qnaVO.qna_id}">수정</button>
+										<button class="goDel qnaBtn" >삭제</button>	
 									</c:if>
 						</div>
 			
@@ -92,7 +132,11 @@
 	});
 	
 	
-	
+	$(".goDel").click(function(){
+		if(confirm("해당 문의를 삭제하시겠습니까?")){
+			location.href='./qnaDelete?qna_id='+${qnaVO.qna_id};	
+		}
+	});
 	
 	
 	</script>

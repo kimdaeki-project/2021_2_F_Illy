@@ -121,7 +121,10 @@ function getList(pn,kind,search){
 
 
 /*삭제 버튼 누르면 삭제*/
-$("#showFaqList").on('click','.deleteBtn',function(){
+$("#showFaqList").on('click','.deleteBtn',function(e){
+	
+	e.stopPropagation();
+	
 	if(confirm("정말 삭제 하시겠습니까?")==true){
 		var faq_id=$(this).parents().data("faq_id");
 		$.ajax({

@@ -18,6 +18,11 @@
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 		.emptyList{width:100%; text-align:center;position:relative; padding:13px 10px 15px; font-size:12px; color:#333;}
+		.reviewBtn{border:1px solid #dbdbdb; font-size:12px;  background-color:#fff; padding:5px; cursor:pointer;}
+		.reviewBtn.goReview{background-color:#d12140; color:#fff;}
+		.reviewBtn:hover{background-color:#eee;color:#333;}
+		.reviewBtnFin{border:1px solid #dbdbdb; font-size:12px;  background-color:#fff; padding:5px;}
+		.checkReview{display:inline-block;padding-bottom:5px;}
 	</style>
 
 <title>일리카페 코리아</title>
@@ -73,7 +78,8 @@ let firstDate = new Date();
 let end_date = getToday(firstDate);
 let start_date= new Date(firstDate.setDate(firstDate.getDate()-7));
 start_date=getToday(start_date);
-
+let fin_review=new Date(firstDate.setMonth(firstDate.getMonth()-2));
+fin_review=getToday(fin_review);
 
 getDate(start_date, end_date, 1);
 
@@ -92,6 +98,8 @@ function getDate(start_date,end_date,pn){
 		success: function(result){
 			$(".myPage_lately_info_cont").empty();
 			$(".myPage_lately_info_cont").append(result.trim());	
+			
+			reviewState();
 			
 		
 			 $('.pageBtn').each(function() {
@@ -226,6 +234,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 				$(".myPage_lately_info_cont").empty();
 				$(".myPage_lately_info_cont").append(result.trim());	
 				
+				reviewState();
 			
 				 $('.pageBtn').each(function() {
 					 if($(this).attr("data-list-pn")!=pn){
@@ -267,7 +276,7 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 				$(".myPage_lately_info_cont").empty();
 				$(".myPage_lately_info_cont").append(result.trim());	
 				
-			
+				reviewState();
 				 $('.pageBtn').each(function() {
 					 if($(this).attr("data-list-pn")!=pn){
 					 	 $(this).removeClass("on");
@@ -289,6 +298,32 @@ $(".btn_board_search").click(function(){
 	console.log("--" + $(".end").val());
 	getDate($('.start').val(), $('.end').val(), 1);
 });
+
+//다영추가 
+function reviewState(){
+	
+	let state_date='';
+	$(".review_state_date").each(function(){
+		state_date=$(this).val();//구매날짜
+		let pay_date=new Date(state_date);
+		let state_date2=new Date();//오늘날짜
+		//오늘날짜-구매날짜 >50
+		let count=(state_date2-pay_date)/(1000*60*60*24);
+		let cart_id=$(this).next('.cart_id').val();
+	let html="<a class='reviewBtn' href='/member/reviewInsert?cart_id="+cart_id+"'>리뷰쓰기</a>"
+	let html2="<span class='reviewBtnFin'>리뷰기간종료</span>"
+	if(count<50){
+		$(this).siblings('div').empty();
+		$(this).siblings('div').append(html);
+	}else{
+		$(this).siblings('div').empty();
+		$(this).siblings('div').append(html2);
+	}
+});		
+}
+
+
+
 </script>
 </body>
 </html>

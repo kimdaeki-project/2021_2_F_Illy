@@ -113,7 +113,21 @@
 											<div style="margin-top: 5px;"><div>(택배)</div></div>
 										</c:if>
 									</td>
-									<td></td>
+									<td>
+										<c:if test="${carts.cart_state eq 'done'}">
+											<c:if test="${carts.cart_review_state eq 0}">
+												<input hidden="" class="review_state_date" value="${list.payment_date}">
+												<input hidden="" class="cart_id" value="${carts.cart_id}">	
+												<div class="reviewState">
+												
+												</div>															
+											</c:if>
+											<c:if test="${carts.cart_review_state eq 1}">
+												<span class="checkReview">"리뷰쓰기완료"</span>
+												<button class="reviewBtn goReview" type="button">보러가기</button>
+											</c:if>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 												
@@ -183,7 +197,21 @@
 											<div style="margin-top: 5px;"><div>(택배)</div></div>
 										</c:if>
 									</td>
-									<td></td>
+									<td>
+										<c:if test="${carts.cart_state eq 'done'}">
+											<c:if test="${carts.cart_review_state eq 0}">
+												<input hidden="" class="review_state_date" value="${list.payment_date}">
+												<input hidden="" class="cart_id" value="${carts.cart_id}">
+												<div class="reviewState">
+													
+												</div>	
+											</c:if>
+											<c:if test="${carts.cart_review_state eq 1}">
+												<span class="checkReview">"리뷰쓰기완료"</span>
+												<button class="reviewBtn goReview" type="button">보러가기</button>
+											</c:if>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 												

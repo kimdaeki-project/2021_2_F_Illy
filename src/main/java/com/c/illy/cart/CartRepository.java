@@ -54,4 +54,11 @@ public interface CartRepository {
 	
 	//바로구매 cart_state 변경
 	public int setDirectPayment(MemberVO memberVO) throws Exception;
+	
+	//카트 하나 조회해오기 _dy
+	public Integer searchCart(CartVO cartVO)throws Exception;
+	
+	//리뷰작성후 상태 업데이트
+	public int stateUpdate(CartVO cartVO)throws Exception;
+	
 }

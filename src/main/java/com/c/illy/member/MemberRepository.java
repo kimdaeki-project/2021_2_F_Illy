@@ -21,6 +21,10 @@ public interface MemberRepository {
 	public MemberVO getSelect(MemberVO memberVO) throws Exception;
 	/* ijy */
 	
+	/* ldy */
+	public MemberVO getSelectUsername(MemberVO memberVO) throws Exception;
+	/* ldy */
+	
 	public MemberVO usernameSelect(MemberVO memberVO);
 	
 	public int setMemberRoleInsert(Map<String, Object> map);

@@ -16,7 +16,7 @@ public class CartVO {
 	private Integer cart_cnt;
 	private String cart_state;
 	private Integer payment_id;
-	
+	private Integer cart_review_state;
 
 	
 	public String getCart_state() {

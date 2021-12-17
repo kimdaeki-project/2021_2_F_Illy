@@ -1,0 +1,222 @@
+@charset "UTF-8";
+
+#right_content {
+	width: 1000px;
+	float: left;
+	padding-left: 40px;
+}
+
+.board_zone_tit h2 {
+	font-size: 24px;
+	color: #333333;
+	padding-bottom: 10px;
+	margin-bottom: 9px;
+	border: none;
+}
+
+.board_zone_cont {
+	border-top: 1px solid #999;
+	width: 100%;
+}
+
+.qna_write tbody tr th {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	margin: 0;
+	border-bottom: 1px solid #dbdbdb;
+	padding: 13px 0 13px 25px;
+	font-weight: bold;
+	background-color: #fbfbfb;
+	text-align: left;
+	vertical-align: top;
+}
+
+.qna_write tbody tr td {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	height: 32px;
+	margin: 0;
+	padding: 7px 0 11px 15px;
+	border-bottom: 1px solid #dbdbdb;
+	background-color: #fff;
+}
+
+.qna_write tbody tr input {
+	width: 320px;
+	height: 31px;
+	padding: 0 10px;
+	border: 1px solid #d6d6d6;
+	color: #333;
+	line-height: 31px;
+}
+
+#qna_type {
+	width: 127px;
+	height: 31px;
+	color: #717171;
+	vertical-align: top;
+	outline: none;
+	font-size: 12px;
+	line-height: 1.5;
+	border: 1px solid #dbdbdb;
+}
+
+.pro_choice_btn {
+	display: inline-block;
+	width: 80px;
+	height: 26px;
+	margin-left: 5px;
+	line-height: 24px;
+	color: #fff;
+	font-size: 12px;
+	border: 1px solid #979797;
+	background-color: #979797;
+	text-align: center;
+	vertical-align: center;
+	cursor: pointer;
+}
+
+.pro_choice_btn:hover {
+	background-color: #626262;
+	border: 1px solid #626262;
+}
+
+.qna_write {
+	border-collapse: collapse;
+}
+
+.qna_write tbody tr input.qna_phone {
+	width: 90%;
+}
+
+.cont_ex {
+	color: #333;
+	font-size: 12px;
+}
+
+.cont_ex em {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.btn_wrap {
+	position: relative;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.boardBtn {
+	display: inline-block;
+	font-weight: bold;
+	background-color: #fff;
+	width: 100px;
+	height: 42px;
+	padding: 0 5px;
+	color: #3e3d3c;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	text-align: center;
+	cursor: pointer;
+}
+
+.boardBtn.upload {
+	background-color: #000;
+	color: #fff;
+	min-width: 90px;
+	padding: 0 10px;
+	border-color: 1px solid #000;
+	margin-left: 6px;
+}
+
+#qna_contents {
+	resize: none;
+	width: 90%;
+	min-height: 300px;
+	margin-top: 10px;
+	border: 1px solid #d6d6d6;
+	outline-color: #d6d6d6;
+	padding: 10px;
+}
+
+.inputBox {
+	position: relative;
+	display: inline-block;
+	line-height: 0;
+	vertical-align: top;
+}
+
+.prd_info {
+	display: inline-block;
+	position: absolute;
+	margin-left: 10px;
+}
+
+.prd_info span {
+	display: block;
+	font-size: 13px;
+	color: #333;
+	margin-bottom: 5px;
+}
+
+.pickPrd {
+	border-bottom: 1px solig #dbdbdb;
+}
+
+.board_zone_cont .rating_star_list {
+	margin: 6px 0 0 0;
+}
+
+.board_zone_cont .rating_star_list li {
+	display: inline-block;
+	margin: 0 10px 0 0;
+	vertical-align: middele;
+}
+
+.board_zone_cont .rating_star {
+	display: inline-block;
+	width: 88px;
+	height: 15px;
+	font-size: 18px;
+	color: #ffcc00;
+}
+
+.board_zone_cont .rating_star em {
+	color: #dbdbdb;
+}
+
+.board_zone_cont .rating_star span {
+	display: block;
+}
+
+.form_element {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+}
+
+.form_element .rating_star_list li input {
+	position: absolute;
+	top: 3px;
+	left: 1px;
+	width: 0;
+	z-index: -1;
+}
+
+.form_element input[type="radio"] {
+	height: 13px;
+	vertical-align: top;
+}
+
+.form_element label.choice_s.on {
+	background: url(/images/myPageIcons/radio_on_small.png) no-repeat 1px
+		50%;
+}
+
+.form_element label.choice_s {
+	min-width: 13px;
+	padding: 0 0 0 22px;
+	cursor: pointer;
+	background: url(/images/radio_off_small.png) no-repeat 1px 50%;
+}

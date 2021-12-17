@@ -32,6 +32,9 @@
 		#addNotice{float:right; margin:-30px 0 10px; }
 		#addNotice a{padding:7px 7px; font-size:12px; background-color:#979797; border:none; color:#fff; cursor:pointer;  }
 		#addNotice a:hover{background-color:#aaa;}	
+		.qna_title:hover{text-decoration:underline;}
+		.prevAnswer{font-size:12px;background-color:#eee; border:1px solid #dbdbdb; padding:2px 5px; cursor:pointer;}
+		.prevAnswer:hover{background-color:#dbdbdb;}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -56,15 +59,14 @@
 						<table class="board_list_table" style="width:100%;">
 							<colgroup> <!-- table 간격 기본설정 -->
 								<col width="6%">
-								<col width="40%">
-								<col width="15%">
-								<col width="7%">
+								<col width="50%">
+								<col width="20%">
 								<col width="10%">
-								<col width="5%">							
+								<col width="20%">							
 							</colgroup>
 							<thead>
 								<tr>
-									<th>번호</th><th>제목</th><th>날짜</th><th>회원ID</th><th>답변상태</th><th>답변날짜</th>
+									<th>번호</th><th>제목</th><th>날짜</th><th>답변 상태</th><th>답변 날짜</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -72,15 +74,14 @@
 								<tr class="noticeEx" data-qna_id="${qnaVO.qna_id}">
 									<td scope="row">${qnaVO.qna_id}</td>
 									<td scope="row" style="text-align:left; font-weight:bold;">
-										<a href="./adQnaSelect?qna_id=${qnaVO.qna_id}">
+										<a class="qna_title" href="./adQnaAnswer?qna_id=${qnaVO.qna_id}">
 											[${qnaVO.qna_type}] ${qnaVO.qna_title}&nbsp;
 										</a>
 									</td>
 									<td scope="row">${qnaVO.qna_regDate}</td>
-									<td scope="row">${qnaVO.member_id}</td>
 									<td scope="row">
-										<c:if test="${qnaVO.qna_state=='접수'}"><span style="color:red; font-weight:bold;">${qnaVO.qna_state}</span></c:if>
-										<c:if test="${qnaVO.qna_state!='접수'}"><span>${qnaVO.qna_state}</span></c:if>
+										<c:if test="${qnaVO.qna_state eq 0}"><span style="color:red; font-weight:bold;">접수</span></c:if>
+										<c:if test="${qnaVO.qna_state eq 1}"><span>답변완료</span></c:if>
 									</td>
 									<td scope="row">${qnaVO.qna_answer_regDate}</td>
 								</tr>

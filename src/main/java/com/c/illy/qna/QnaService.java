@@ -76,12 +76,15 @@ public class QnaService {
 		return qnaRepository.fileDown(qnaFileVO);
 	}
 	
+	//qna수정하기
+	public int qnaUpdate(QnaVO qnaVO)throws Exception{
+		return qnaRepository.qnaUpdate(qnaVO);
+	}
+	
 	//qna 삭제하기 
 	public int qnaDelete(QnaVO qnaVO)throws Exception{
 		return qnaRepository.qnaDelete(qnaVO);
 	}
-	
-	
 	
 	//----------------------------------------------------------------admin
 	public List<QnaVO> getAdQnaList(Pager pager)throws Exception{
@@ -91,6 +94,15 @@ public class QnaService {
 		return qnaRepository.getAdQnaList(pager);	
 	}
 	
+	//답변달기
+	public int writeAnswer(QnaVO qnaVO)throws Exception{
+		return qnaRepository.writeAnswer(qnaVO);
+	}
+	
+	//답변취소 
+	public int prevAnswer(QnaVO qnaVO)throws Exception{
+		return qnaRepository.prevAnswer(qnaVO);
+	}
 	
 
 }

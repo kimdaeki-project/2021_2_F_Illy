@@ -102,8 +102,8 @@ SELECT P.*,PF.* FROM
 
 <!-- Qna 추가하기 -->
 <insert id="qnaInsert" parameterType="QnaVO">
-	INSERT INTO qna(qna_id,qna_type,qna_title,qna_contents,product_id,qna_state)
-	VALUES(0,#{qna_type},#{qna_title},#{qna_contents},#{product_id},'접수');
+	INSERT INTO qna(qna_id,qna_type,qna_title,qna_contents,product_id,qna_state,qna_regDate,qna_phone,member_id)
+	VALUES(0,#{qna_type},#{qna_title},#{qna_contents},#{product_id},0,sysdate(),#{qna_phone},#{member_id})
 </insert>
 
 <!-- Qna 파일 업로드  -->
@@ -117,6 +117,11 @@ SELECT P.*,PF.* FROM
 	SELECT * FROM qnafile WHERE qnaFile_id=#{qnaFile_id}
 </select>
 
+<!--QNA 업데이트-->
+<update id="qnaUpdate" parameterType="QnaVO">
+	UPDATE qna SET qna_title=#{qna_title},product_id=#{product_id},qna_contents=#{qna_contents},qna_type=#{qna_type} 
+	WHERE qna_id=#{qna_id}
+</update>
 
  <!--Qna 삭제하기 -->
 <delete id="qnaDelete" parameterType="QnaVO">
@@ -135,7 +140,7 @@ SELECT P.*,PF.* FROM
 			<otherwise>member_id</otherwise>
 		</choose>
 		LIKE CONCAT ('%',#{search},'%')
-	ORDER BY qna_regDate DESC limit #{startRow},#{perPage}
+	ORDER BY qna_state, qna_id DESC limit #{startRow},#{perPage}
 </select>
 
 <!-- 어드민 qna list totalCount 불러오기  -->
@@ -148,5 +153,20 @@ SELECT P.*,PF.* FROM
 	</choose>
 	LIKE CONCAT ('%',#{search},'%')
 </select>
+
+<!--어드민 qna 답변 업데이트하기  -->
+<update id="writeAnswer" parameterType="QnaVO">
+	UPDATE qna SET qna_answer=#{qna_answer},qna_answer_regDate=sysdate(),qna_state=1
+	WHERE qna_id=#{qna_id}
+</update>
+
+<!--답변 취소하기-->
+<update id="prevAnswer" parameterType="QnaVO">
+	UPDATE qna SET qna_answer=null,qna_answer_regDate=null,qna_state=0
+	WHERE qna_id=#{qna_id}
+</update>
+
+
+
 
 </mapper>

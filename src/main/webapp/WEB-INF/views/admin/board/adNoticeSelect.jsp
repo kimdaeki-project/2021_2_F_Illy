@@ -48,7 +48,8 @@
 					
 					<!-- 관리자만 보이는 버튼  -->
 					<div id="updateNotice">
-						<a href="/admin/board/updateNotice?notice_id=${noticeVO.notice_id}">수정하기</a>			
+						<a href="/admin/board/deleteNotice2?notice_id=${noticeVO.notice_id}" onclick="return confirm('게시글을 삭제하시겠습니까?');">삭제</a>
+						<a href="/admin/board/updateNotice?notice_id=${noticeVO.notice_id}">수정</a>			
 					</div>
 					<!-- 관리자만 보이는 버튼  -->
 					

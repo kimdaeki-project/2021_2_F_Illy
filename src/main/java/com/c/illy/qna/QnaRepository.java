@@ -35,6 +35,9 @@ public interface QnaRepository {
 	//qna 파일 첨부
 	public int qnaFileInsert(QnaFileVO qnaFileVO)throws Exception;
 	
+	//qna 수정
+	public int qnaUpdate(QnaVO qnaVO)throws Exception;
+	
 	//qna 삭제 
 	public int qnaDelete(QnaVO qnaVO)throws Exception;
 	
@@ -42,6 +45,12 @@ public interface QnaRepository {
 	public List<QnaVO> getAdQnaList(Pager pager)throws Exception;
 	
 	public Long getAdTotalCount(Pager pager)throws Exception;
+	
+	//답변달기 
+	public int writeAnswer(QnaVO qnaVO)throws Exception;
+	
+	//답변취소
+	public int prevAnswer(QnaVO qnaVO)throws Exception;
 	
 }
 
