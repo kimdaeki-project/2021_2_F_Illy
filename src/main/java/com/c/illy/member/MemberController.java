@@ -567,6 +567,16 @@ public class MemberController {
 		return "redirect:/member/myReviewList";
 	}
 	
+	@GetMapping("myReviewSelect")
+	public String myReviewSelect(@AuthenticationPrincipal MemberVO memberVO,CartVO cartVO,Model model)throws Exception{
+		
+		model.addAttribute("member", memberVO);
+		Integer cart_id=cartVO.getCart_id();
+		model.addAttribute("reviewVO", reviewService.reviewSelectOne(cart_id));
+		
+		return "review/myReviewSelect";
+	}
+	
 	
 	
 	

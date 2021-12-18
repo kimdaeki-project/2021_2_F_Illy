@@ -38,7 +38,7 @@
 		<if test="product_categoryCode != null">
 			AND product_categoryCode LIKE CONCAT(#{product_categoryCode}, '%')				
 		</if>
-		GROUP BY product_id 
+		GROUP BY product_id  
 		ORDER BY product_id DESC
   	</select>
   	<resultMap type="ProductVO" id="listAllProduct">

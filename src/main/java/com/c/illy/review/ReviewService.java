@@ -15,6 +15,7 @@ import com.c.illy.member.point.PointVO;
 import com.c.illy.notice.NoticeFileVO;
 import com.c.illy.notice.NoticeVO;
 import com.c.illy.util.FileManager;
+import com.c.illy.util.Pager;
 
 @Service
 public class ReviewService {
@@ -32,10 +33,20 @@ public class ReviewService {
 	private FileManager fileManager;
 
 	// 전체 리뷰 조회하기
-	public List<ReviewVO> getReviewList() throws Exception {
-		return reviewRepository.getReviewList();
+	public List<ReviewVO> getReviewList(Pager pager) throws Exception {
+		pager.makeRow();
+		Long totalCount=reviewRepository.reviewTotalCount(pager);
+		pager.makeNum(totalCount);
+		System.out.println(totalCount);
+		return reviewRepository.getReviewList(pager);
 	}
 
+	//리뷰 하나 조회하기 
+	public List<ReviewVO> reviewSelectOne(Integer cart_id)throws Exception{
+		return reviewRepository.reviewSelectOne(cart_id);
+	}
+	
+	
 	// 리뷰 추가하기
 	public int reviewInsert(MemberVO memberVO,ReviewVO reviewVO, MultipartFile[] multipartFiles) throws Exception {
 		reviewRepository.reviewInsert(reviewVO);
@@ -53,15 +64,6 @@ public class ReviewService {
 			reviewRepository.reviewFileInsert(reviewFileVO);
 		}
 
-		
-		  /*CartVO cartVO=new CartVO(); 
-		  cartVO.setCart_id(reviewVO.getCart_id());
-		cartRepository.searchCart(cartVO); cartVO.getMember_id();
-		 
-		 MemberVO memberVO=new MemberVO();
-		 
-		  
-		  memberVO = memberRepository.getSelect(memberVO); */
 		  Integer point = memberVO.getMember_point() + 100; //구매할 때 적립받은 포인트 차감
 			
 		java.sql.Date today= new java.sql.Date(new java.util.Date().getTime());//오늘 날짜 표현
