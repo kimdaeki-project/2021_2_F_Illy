@@ -36,7 +36,7 @@
           "totalPayAmount": totalPrice,
           "taxScopeAmount": totalPrice,
           "taxExScopeAmount": "0",
-          "returnUrl": "http://localhost/payment/paymentEnd"
+          "returnUrl": "/"
         });
     });    						
 </script>

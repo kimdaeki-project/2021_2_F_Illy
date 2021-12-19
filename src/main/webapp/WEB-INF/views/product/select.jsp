@@ -295,8 +295,6 @@
 		setNumberPattern();
 	}); /********** 상품개수 버튼 클릭 **********/
 	
-	$('.')
-	
 	function setCountPrice() {
 		let countPrice = $('.countPrice')
 		let productPrice = Number($('.productPrice').data('product_price'));
@@ -330,7 +328,7 @@
 	//상품 장바구니 담기
 	$('.insertCart').click(function(){
 		if($('#member_id').val() == ''){
-			alert('로그인이 필요합니다.');
+// 			alert('로그인이 필요합니다.');
 			location.href="/member/login";
 		} else {
 			$.ajax({
@@ -356,7 +354,7 @@
 	$('.relationInsertCart').click(function(){
 		console.log('product_id: '+$(this).attr('data-product-id'));
 		if($('#member_id').val() == ''){
-			alert('로그인이 필요합니다.');
+// 			alert('로그인이 필요합니다.');
 			location.href="/member/login";
 		} else {
 			$.ajax({

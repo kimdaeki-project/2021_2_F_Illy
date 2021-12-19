@@ -16,7 +16,7 @@
 		.pagination .btnPage{min-width:26px; background-color:#fff;border:1px solid #e0e0e0;cursor:pointer;color:#888; font-size:11px; padding: 6px 4px 10px 4px; }
 		.pageNum{cursor:pointer; display:inline-block;  font-size:11px; color:#888; height:30px; width:30px; line-height:30px; vertical-align:middle;  }	
 		.pageNum.on{font-weight:bold; color:#fff; background-color:#7a7d81; border-radius:20px; }
-		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
+		.pagination{text-align:center; margin-top:60px; }
 		.emptyList{width:100%; text-align:center;position:relative; padding:13px 10px 15px; font-size:12px; color:#333;}
 		.reviewBtn{border:1px solid #dbdbdb; font-size:12px;  background-color:#fff; padding:5px; cursor:pointer;}
 		.reviewBtn.goReview{background-color:#d12140; color:#fff;}

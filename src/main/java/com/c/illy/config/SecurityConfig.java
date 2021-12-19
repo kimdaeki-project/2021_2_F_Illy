@@ -38,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/front/**")
 					.antMatchers("/member/common/**")
 					.antMatchers("/upload/**")
-					.antMatchers("/product/**")
 					;
 	}
 	
@@ -52,16 +51,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		  .disable()
 		  .authorizeRequests()
 		  .antMatchers("/").permitAll()
-					 .antMatchers("/member/login").anonymous()
-					 .antMatchers("/member/findPw").anonymous()
-					 .antMatchers("/member/findId").anonymous()
-					 .antMatchers("/member/find_id").anonymous()
-					 .antMatchers("/member/join_agreement").anonymous()
-					 .antMatchers("/member/join_agreement_detail").anonymous()
-					 .antMatchers("/member/join_agreement_detail2").anonymous()
-					 .antMatchers("/member/join").anonymous()
-					 .antMatchers("/member/checkId").anonymous()
-					 .antMatchers("/member/myPage/**").hasAnyRole("MEMBER")
+					.antMatchers("/member/login").anonymous()
+					.antMatchers("/member/findPw").anonymous()
+					.antMatchers("/member/findId").anonymous()
+					.antMatchers("/member/find_id").anonymous()
+					.antMatchers("/member/join_agreement").anonymous()
+					.antMatchers("/member/join_agreement_detail").anonymous()
+					.antMatchers("/member/join_agreement_detail2").anonymous()
+					.antMatchers("/member/join").anonymous()
+					.antMatchers("/member/checkId").anonymous()
+					.antMatchers("/member/myPage/**").hasAnyRole("MEMBER")
+					.antMatchers("/product/**").permitAll()
+					.antMatchers("/payment/naverpay").permitAll()
 		  .anyRequest().authenticated();
 		  http
 		  .formLogin()
