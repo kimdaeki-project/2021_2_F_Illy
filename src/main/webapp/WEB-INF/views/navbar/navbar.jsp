@@ -1,24 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
-	<link rel="stylesheet" href="/css/navbar/navbar.css">
+<link rel="stylesheet" href="/css/navbar/navbar.css">
 
 </head>
 <body>
 
 	<div class="gnbHeadWrap">
-		
-		<div class="gnbTop">	
-				
+
+		<div class="gnbTop">
+
 			<div class="slideWrap">
-			
+
 				<span class="slideBtn prev">◀</span>
-			
+
 				<div class="slideTrack" data-slide_content_cnt="4">
 					<c:forEach begin="0" end="3" varStatus="i">
 						<div class="slideContent">
@@ -31,21 +32,23 @@
 						</div>
 					</c:forEach>
 				</div>
-				
+
 				<span class="slideBtn next">▶</span>
-				
+
 			</div>
-			
+
 			<a href="/admin/adIndex" class="tempBtn">illy CAFFE</a>
-						
+
 		</div>
-		
+
 		<div class="gnbBottom">
-		
+
 			<div class="logo">
-				<a href="/"><img alt="" src="/images/gnb/logo50.jpg"></a>
+				<a href="/">
+					<img alt="" src="/images/gnb/logo50.jpg">
+				</a>
 			</div>
-			
+
 			<div class="menuWrap">
 				<ul>
 					<li><a href="/product/list">ALL PRODUCT</a></li>
@@ -56,20 +59,32 @@
 <!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
 				</ul>
 			</div>
-			
+
+
 			<div class="rightBox">
 <!-- 				<div class="searchWrap"> -->
 <!-- 					<input type="text"> -->
 <!-- 					<img class="searchImg" alt="" src="/images/gnb/new-search.png"> -->
 <!-- 				</div> -->
 				<div class="memberWrap">
-					<a href="/member/login"><img class="userImg" alt="" src="/images/gnb/new-user.png"></a>
-					<a href="/cart/normalBasket"><img class="cartImg" alt="" src="/images/gnb/new-cart.png"></a>
+					<sec:authorize access="isAnonymous()" var="d">
+						<a href="/member/login">
+							<img class="userImg" alt="" src="/images/gnb/new-user.png">
+						</a>
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()  " var="d">
+						<a href="/member/logout">
+							<img class="userImg" alt="" src="/images/gnb/new-user.png">
+						</a>
+					</sec:authorize>
+					<a href="/cart/normalBasket">
+						<img class="cartImg" alt="" src="/images/gnb/new-cart.png">
+					</a>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 	</div>
 
 </body>

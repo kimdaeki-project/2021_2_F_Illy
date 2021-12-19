@@ -25,9 +25,9 @@
 					<sec:authentication property="principal" var="user" />
 					<h2>회원가입</h2>
 					<ol>
-						<li class="page_on">01 약관동의></li>
-						<li>02 정보입력></li>
-						<li>03 가입완료</li>
+						<li><span>01</span> 약관동의<span><img src="../images/login/icon_join_step_on.png"></span></li>
+						<li class="page_on"><span>02</span> 정보입력 <span><img src="../images/login/icon_join_step_off.png"></span></li>
+						<li><span>03</span> 가입완료</li>
 					</ol>
 				</div>
 				<form:form modelAttribute="addressVO" enctype="multipart/form-data" method="post">
@@ -41,7 +41,7 @@
 									<td>
 										<form:input path="username" />
 										<div class="errors_section" id="username_error">
-											<form:errors path="username"></form:errors>
+											<form:errors path="username" cssClass="error"></form:errors>
 										</div>
 									</td>
 								</tr>
@@ -50,15 +50,17 @@
 									<td>
 										<form:input type="password" path="password" />
 										<div class="errors_section">
-											<form:errors path="password"></form:errors>
+											<form:errors path="password" cssClass="error"></form:errors>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th><span>비밀번호 확인</span></th>
 									<td>
-										<input type="password" id="password_check">
-										<div class="errors_section" id="password_check_error"></div>
+										<form:input path="passwordCheck" type="password" id="password_check" />
+										<div class="errors_section" id="password_check_error">
+											<form:errors path="passwordCheck" cssClass="error"></form:errors>
+										</div>
 									</td>
 								</tr>
 								<tr>
@@ -66,7 +68,7 @@
 									<td>
 										<form:input path="member_name" />
 										<div class="errors_section">
-											<form:errors path="member_name"></form:errors>
+											<form:errors path="member_name" cssClass="error"></form:errors>
 										</div>
 									</td>
 								</tr>
@@ -74,9 +76,19 @@
 								<tr>
 									<th><span>Email</span></th>
 									<td>
-										<form:input path="member_email" />
+										<form:input type="email" path="member_email" />
+									<select class="select_email">
+										<option value="">직접입력</option>
+										<option value="naver.com">naver.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="daum.net">daum.net</option>
+										<option value="nate.com">nate.com</option>
+										<option value="hotmail.com">hotmail.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="icloud.com">icloud.com</option>
+									</select>
 										<div class="errors_section">
-											<form:errors path="member_email"></form:errors>
+											<form:errors path="member_email" cssClass="error"></form:errors>
 										</div>
 									</td>
 								</tr>
@@ -84,9 +96,10 @@
 								<tr>
 									<th><span>휴대폰번호</span></th>
 									<td>
-										<form:input path="member_phone" />
+										<form:input path="member_phone" placeholder="-를 제외한 번호만 입력해주세요."/>
+										
 										<div class="errors_section">
-											<form:errors path="member_phone"></form:errors>
+											<form:errors path="member_phone" cssClass="error"></form:errors>
 										</div>
 									</td>
 								</tr>
@@ -94,7 +107,7 @@
 									<th><span>생일</span></th>
 									<td>
 										<form:input type="date" path="member_birth" cssClass="birth_input" />
-										<form:errors path="member_birth"></form:errors>
+										<form:errors path="member_birth" cssClass="error"></form:errors>
 									</td>
 								</tr>
 								<tr>
@@ -107,9 +120,6 @@
 										<br>
 										<form:input path="address_reference" class="address_input" placeholder="참고항목" id="sample6_extraAddress" readonly="true" />
 										<form:input path="address_detail" class="address_input" placeholder="상세주소" id="sample6_detailAddress" />
-										<div class="error_section">
-											<form:errors path="main_address"></form:errors>
-										</div>
 									</td>
 								</tr>
 							</tbody>
@@ -123,7 +133,7 @@
 			</div>
 		</div>
 
-
+		
 		<c:import url="../navbar/footer.jsp"></c:import>
 	</div>
 	<script>
@@ -137,6 +147,11 @@
 
 			$(".birth_input").val("" + year + "-" + month + "-" + date)
 		});
+		
+		$(".select_email").change(function(){
+			$("#member_email").val($("#member_email").val()+'@'+$(".select_email").val())
+		}) 
+		
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{
@@ -213,10 +228,10 @@
 				success : function(data) {
 					if (data.trim() == "") {
 						console.log(data)
-						$("#username_error").html("사용 가능한 아이디 입니다.")
+						$("#username_error").html("<span class='join_success_ment'>사용 가능한 아이디 입니다.</span>")
 					} else {
 						console.log(data)
-						$("#username_error").html("이미 사용중인 아이디 입니다.")
+						$("#username_error").html("<span class='join_fales_ment'>이미 사용중인 아이디 입니다.</span>")
 					}
 				}
 			})

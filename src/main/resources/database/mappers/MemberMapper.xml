@@ -12,6 +12,10 @@
 		resultType="MemberVO">
 		SELECT * FROM member WHERE username = #{username}
 	</select>
+	
+	<select id="findEmail" parameterType="MemberVO" resultType="MemberVO">
+		SELECT * FROM MEMBER WHERE username = #{username}
+	</select>
 
 	<select id="find_username" parameterType="String"
 		resultMap="getLoginResult">
@@ -88,20 +92,26 @@
 	</select>
 	
 	<update id="update_member" parameterType="AddressVO" >
-		update member M inner join address A on M.member_id = A.member_id set
-		password = #{password},
-		member_email = #{member_email},
-		member_phone = #{member_phone},
-		address = #{main_address},
+		update address set
+		address = #{address},
+		main_address = #{main_address},
 		address_reference = #{address_reference},
 		address_detail = #{address_detail},
-		address_postcode = #{address_postcode},
-		where address_id = (select min(address_id) from member_id = #{member_id})
+		address_postcode = #{address_postcode}
+		where address_id = (select min(B.address_id) from (select * from address) B where B.member_id = #{member_id}) ;
 	</update>
 	
-	<delete id="delete_member" parameterType="MemberVO">
-		delete from member where member_id = #{member_id}
-	</delete>
+	<update id="update_email" parameterType="memberVO">
+		update member set
+		member_email = #{member_email}
+		where member_id = #{member_id}
+	</update>
+	
+	<update id="delete_member" parameterType="MemberVO">
+		update member set
+		enabled = 0
+		where member_id = #{member_id}
+	</update>
 	
 	<update id="change_password" parameterType="String">
 		update member

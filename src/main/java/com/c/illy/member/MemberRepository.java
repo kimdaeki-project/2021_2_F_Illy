@@ -36,4 +36,8 @@ public interface MemberRepository {
 	public Integer delete_member(MemberVO memberVO);
 	
 	public Integer change_password(String old_password, String new_password);
+	
+	public MemberVO findEmail(MemberVO memberVO);
+
+	public Integer update_email(MemberVO memberVO);
 }

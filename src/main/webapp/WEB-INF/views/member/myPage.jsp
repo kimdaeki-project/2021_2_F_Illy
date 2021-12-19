@@ -172,7 +172,7 @@
 						<!-- 마이페이지 회원 요약정보 end -->
 						<div class="mypageMemberService">
 							<div class="icon icon_section" id="">
-								<a href="#">
+								<a href="./myPage/changeMemberPassword">
 									<div class="icon_image">
 										<img alt="asd" src="/images/myPageIcons/mypage_icon_member.png">
 									</div>
@@ -180,7 +180,7 @@
 								</a>
 							</div>
 							<div class="icon icon_section" id="">
-								<a href="#">
+								<a href="./myPage/myPageOrder">
 									<div class="icon_image">
 										<img alt="asd" src="/images/myPageIcons/mypage_icon_order.png">
 									</div>
@@ -188,21 +188,21 @@
 								</a>
 							</div>
 							<div class="icon icon_section" id="">
-								<a href="#">
+								<a href="./myPage/myPageCancel">
 									<div class="icon_image">
 										<img alt="asd" src="/images/myPageIcons/mypage_icon_wish.png">
 									</div>
 									<p>취소/반품/교환</p>
 								</a>
 							</div>
-							<div class="icon icon_section" id="">
+				<!-- 			<div class="icon icon_section" id="">
 								<a href="#">
 									<div class="icon_image">
 										<img alt="asd" src="/images/myPageIcons/mypage_icon_cancel.png">
 									</div>
 									<p>정품등록</p>
 								</a>
-							</div>				
+							</div> -->				
 							
 																								
 						</div>

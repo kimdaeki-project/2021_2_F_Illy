@@ -3,6 +3,7 @@ package com.c.illy.member;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -47,10 +48,8 @@ import com.c.illy.wish.WishVO;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-
 	@Autowired
 	private AddressService addressService;
-
 	@Autowired
 	private CartService cartService;
 	@Autowired
@@ -88,7 +87,11 @@ public class MemberController {
 	}
 
 	@GetMapping("join")
-	public String join(Model model, HttpSession httpSession) {
+	public String join(Model model, HttpSession httpSession, HttpServletRequest request) {
+		String referer = request.getHeader("REFERER");
+		if(referer == null) {
+			return "redirect:/warning/joinWarning";
+		}
 		AddressVO addressVO = new AddressVO();
 		model.addAttribute("addressVO", addressVO);
 		return "/member/join";
@@ -108,6 +111,17 @@ public class MemberController {
 		addressService.setAddress(addressVO, request);
 		return "redirect:/";
 	}
+	
+	
+	@PostMapping("sendCode")
+	public ModelAndView sendCode(HttpServletRequest request, HttpServletResponse response) {
+		String code = memberService.sendCode(request, response);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/member/common/code");
+		mv.addObject("code", code);
+		return mv;
+	}
+	
 
 	// Ajax 아이디 중복검사
 	@GetMapping("checkId")
@@ -163,6 +177,29 @@ public class MemberController {
 		return mv;
 	}
 
+	@PostMapping("findEmail")
+	public ModelAndView findEmail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(request.getParameter("username"));
+		memberVO = memberService.findEmail(memberVO);
+
+		try {
+			memberVO.getMember_email();
+		} catch (Exception e) {
+			mv.addObject("findEmail", memberVO);
+			mv.setViewName("member/common/findEmail");
+			return mv;
+		}
+		
+		 boolean check = memberService.sendMail(request, response, memberVO);
+		 mv.addObject("findEmail", memberVO);
+		 mv.addObject("sendSuccess", check);
+		 mv.setViewName("member/common/findEmail");
+		System.out.println(check);
+		return mv;
+	}
+
 	@GetMapping("myPage/changeMemberPassword")
 	public ModelAndView changeMemberPassword() {
 		ModelAndView mv = new ModelAndView();
@@ -171,13 +208,16 @@ public class MemberController {
 	}
 
 	@GetMapping("myPage/changeMember")
-	public ModelAndView changeMember(@AuthenticationPrincipal MemberVO memberVO) throws Exception {
+	public ModelAndView changeMember(@AuthenticationPrincipal MemberVO memberVO, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		String url = request.getHeader("REFERER");
+		if(url == null) {
+			mv.setViewName("/warning/urlRequest");
+			return mv;
+		}
 		AddressVO addressVO = new AddressVO();
-
 		addressVO = addressService.getJoinAddress(memberVO);
 		System.out.println(addressVO.getPassword());
-
 		mv.addObject("member", memberVO);
 		mv.addObject("addressVO", addressVO);
 		mv.setViewName("member/myPageMember/change_member");
@@ -200,22 +240,26 @@ public class MemberController {
 	}
 
 	@PostMapping("myPage/updateMember")
-	public void updateMember(HttpServletRequest request, @AuthenticationPrincipal MemberVO memberVO) {
+	public ModelAndView updateMember(HttpServletRequest request, @AuthenticationPrincipal MemberVO memberVO) {
 		AddressVO addressVO = new AddressVO();
-		memberService.update_member(addressVO, request, memberVO);
-
+		Integer updateMember = memberService.update_member(addressVO, request, memberVO);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/member/common/updateMember");
+		mv.addObject("updateMember", updateMember);
+		return mv;
 	}
 
 	@GetMapping("myPage/secession")
-	public ModelAndView secsession() {
+	public ModelAndView secsession(@AuthenticationPrincipal MemberVO memberVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/member/myPageMember/secession");
+		mv.setViewName("member/myPageMember/secession");
 		return mv;
 	}
 
 	@PostMapping("myPage/memberOut")
 	public ModelAndView memberOut(@AuthenticationPrincipal MemberVO memberVO, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(request.getParameter("password"));
 		boolean passwordCheck = memberService.delete_pw(request, memberVO);
 		mv.setViewName("/member/common/findPw");
 		mv.addObject("passwordCheck", passwordCheck);
@@ -223,9 +267,13 @@ public class MemberController {
 	}
 
 	@GetMapping("myPage/addressAdminster")
-	public ModelAndView addressAdminster() {
+	public ModelAndView addressAdminster(@AuthenticationPrincipal MemberVO memberVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/member/myPageMember/addressAdminster");
+		List<AddressVO> addresslist = addressService.getAddressList(memberVO);
+		System.out.println(addresslist.size());
+		mv.addObject("addressList",addresslist);
+		mv.addObject("addressVO", memberVO);
+		mv.setViewName("member/myPageMember/addressAdminster");
 		return mv;
 	}
 
@@ -240,14 +288,16 @@ public class MemberController {
 			mv.setViewName("/member/common/findPw");
 			return mv;
 		}
-		/*
-		 * if (oldPassword != newPassword) { System.out.println(oldPassword);
-		 * mv.addObject("changePassword", 3); mv.setViewName("/member/common/changePw");
-		 * return mv; }
-		 */
 
-		if (request.getParameter("password") == request.getParameter("checkNewPassword")) {
+		else if (oldPassword.equals(newPassword) == false) {
+			mv.addObject("changePassword", 3);
+			mv.setViewName("/member/common/changePw");
+			return mv;
+		}
+
+		else if (oldPassword.equals(newPassword)) {
 			Integer changePassword = memberService.change_password(memberVO, request);
+			System.out.println(changePassword);
 			mv.addObject("changePassword", changePassword);
 			mv.setViewName("/member/common/changePw");
 		}
@@ -258,14 +308,13 @@ public class MemberController {
 	/* my page - 주문목록/배송조회 */
 	@GetMapping("myPage/myPageOrder")
 	public String getMyPageOrder(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
-
 		model.addAttribute("member", memberVO);
 		return "member/myPageOrder/myPageOrder";
 	}
 
 	@GetMapping("myPage/myPageOrderPager")
 	public String getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-		
+
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 
 		PaymentVO paymentVO2 = new PaymentVO();
@@ -275,9 +324,9 @@ public class MemberController {
 			cartService.setPaymentDelivery(paymentVO2); // 배송중으로 변경
 			cartService.setPaymentDone(paymentVO2); // 배송완료로 변경
 		}
-			
+
 		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
@@ -286,7 +335,8 @@ public class MemberController {
 
 	/* my page - 주문목록/배송조회 : 상세페이지 */
 	@GetMapping("myPage/myPageOrderDetail")
-	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model) throws Exception {
+	public String getMyPageOrderDetail(@AuthenticationPrincipal MemberVO memberVO, PaymentVO paymentVO, Model model)
+			throws Exception {
 		paymentVO = paymentService.getMyPageOrderDetail(paymentVO);
 		AddressVO addressDefault = addressService.getJoinAddress(memberVO);
 		AddressVO addressOrder = addressService.getAddressOrder(paymentVO);
@@ -309,7 +359,7 @@ public class MemberController {
 	/* my page - 취소/반품 처리 현황 tab */
 	@GetMapping("myPage/myPageCancelPager")
 	public String getMyPageCancelPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-		
+
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		model.addAttribute("list", list);
 		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
@@ -334,9 +384,9 @@ public class MemberController {
 	/* my page - 환불 처리 현황 tab */
 	@GetMapping("myPage/myPageRefundPager")
 	public String getMyPageRefundPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
-		
+
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
@@ -383,25 +433,26 @@ public class MemberController {
 		model.addAttribute("pager", pager);
 		return "member/myPageCoupon/myPageCouponNone";
 	}
-	
+
 	// 찜리스트
 	@GetMapping("myPage/myWishList")
 	public String getMyWishList(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
-		
+
 		model.addAttribute("member", memberVO);
 		return "member/myWishList/myWishList";
 	}
-	
-	//찜리스트 페이징처리 ajax
+
+	// 찜리스트 페이징처리 ajax
 	@GetMapping("myPage/myWishListAjax")
-	public String getMyWishListAjax(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+	public String getMyWishListAjax(Pager pager, @AuthenticationPrincipal MemberVO memberVO, Model model)
+			throws Exception {
 		List<WishVO> list = wishService.getWishList(pager, memberVO);
-		
+
 		model.addAttribute("list", list);
 		return "member/myWishList/myWishListAjax";
 	}
-	
-	//콩포인트 내역
+
+	// 콩포인트 내역
 	@GetMapping("myPage/myPagePoint")
 	public String getMyPagePoint(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
 		memberVO = memberService.getSelect(memberVO);
@@ -410,12 +461,13 @@ public class MemberController {
 		model.addAttribute("member", memberVO);
 		return "member/myPoint/myPointList";
 	}
-	
-	//콩포인트 내역 - AJAX
+
+	// 콩포인트 내역 - AJAX
 	@GetMapping("myPage/myPagePointUse")
-	public String getMyPagePointUse(@AuthenticationPrincipal MemberVO memberVO, PointVO pointVO, Model model, Pager pager) throws Exception {
+	public String getMyPagePointUse(@AuthenticationPrincipal MemberVO memberVO, PointVO pointVO, Model model,
+			Pager pager) throws Exception {
 		List<PointVO> list = pointService.getPointHistory(memberVO, pointVO, pager);
-		
+
 		model.addAttribute("count", pointService.getPointHistoryCount(pointVO));
 		model.addAttribute("list", list);
 		return "member/myPoint/myPointAjaxUse";
@@ -425,107 +477,108 @@ public class MemberController {
 	// ----------------------------------------------------------------------------myPage_다영
 	// 추가 start
 	@GetMapping("myPage")
-	public String getmyPage() throws Exception {
-		return "member/myPage";
+	public ModelAndView getmyPage(@AuthenticationPrincipal MemberVO memberVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		couponService.getCouponList(memberVO).size();
+		mv.setViewName("/member/myPage");
+		mv.addObject("couponSize",couponService.getCouponList(memberVO).size());
+		mv.addObject("member", memberVO);
+		return mv;
 	}
 
 	// --1:1 문의 페이지
 	@GetMapping("qnaList")
-	public String getQnaList(ModelAndView mv)throws Exception{
+	public String getQnaList(ModelAndView mv) throws Exception {
 		return "board/qnaList";
 	}
 
 	// --1:1 문의 ajax
 	@GetMapping("qnaListDate")
-	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO,ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
-		qnaVO.setMember_id(memberVO.getMember_id());		
+	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO, ModelAndView mv, QnaVO qnaVO,
+			Pager pager) throws Exception {
+		qnaVO.setMember_id(memberVO.getMember_id());
 		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
 		mv.setViewName("board/qnaListajax");
 		mv.addObject("QList", ar);
 		mv.addObject("pager", pager);
 		return mv;
 	}
-	
-	//--상품 선택 팝업 경로매핑
+
+	// --상품 선택 팝업 경로매핑
 	@GetMapping("findProduct")
-	public String findProduct()throws Exception{
+	public String findProduct() throws Exception {
 		return "board/findProduct";
 	}
-	
-	//상품 조회 리스트 ajax
+
+	// 상품 조회 리스트 ajax
 	@GetMapping("findProductAj")
-	public ModelAndView getQnaProduct(ModelAndView mv,Pager pager)throws Exception{	
+	public ModelAndView getQnaProduct(ModelAndView mv, Pager pager) throws Exception {
 		System.out.println("들어오나");
 		List<ProductVO> ar = qnaService.getQnaProduct(pager);
 		mv.setViewName("board/findProductList");
-		mv.addObject("prdList",ar);
-		mv.addObject("pager",pager);
-		return mv; 
+		mv.addObject("prdList", ar);
+		mv.addObject("pager", pager);
+		return mv;
 	}
-	
-	//문의 1개글 조회하기
-	 @GetMapping("qnaSelect") 
-	 public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO)throws Exception{
-		 ModelAndView mv = new ModelAndView();
-		 mv.addObject("member",memberVO);
-		 qnaVO=qnaService.qnaSelectOne(qnaVO);
-		 mv.setViewName("board/qnaSelect");
-		 mv.addObject("qnaVO",qnaVO);
-		 return mv;
-	 }
-	
-	//1:1문의 작성하기 
+
+	// 문의 1개글 조회하기
+	@GetMapping("qnaSelect")
+	public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO, QnaVO qnaVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("member", memberVO);
+		qnaVO = qnaService.qnaSelectOne(qnaVO);
+		mv.setViewName("board/qnaSelect");
+		mv.addObject("qnaVO", qnaVO);
+		return mv;
+	}
+
+	// 1:1문의 작성하기
 	@GetMapping("addQna")
-	public String addQna(@AuthenticationPrincipal MemberVO memberVO,HttpServletRequest request,QnaVO qnaVO,Model model)throws Exception{
+	public String addQna(@AuthenticationPrincipal MemberVO memberVO, HttpServletRequest request, QnaVO qnaVO,
+			Model model) throws Exception {
 		qnaVO.setMember_id(memberVO.getMember_id());
-		String product_id=request.getParameter("product_id");
+		String product_id = request.getParameter("product_id");
 		System.out.println(product_id);
 		model.addAttribute("member", memberVO);
 		return "board/addQna";
 	}
-	
 
-	
-	
 	@PostMapping("addQnaList")
-	public String setAddQna(@Valid QnaVO qnaVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
-		if(bindingResult.hasErrors()) {
+	public String setAddQna(@Valid QnaVO qnaVO, BindingResult bindingResult, MultipartFile[] multipartFiles)
+			throws Exception {
+		if (bindingResult.hasErrors()) {
 			System.out.println("여기로 오는거니?");
 			return "board/addQna";
 		}
 		qnaService.qnaInsert(qnaVO, multipartFiles);
 		return "board/qnaList";
 	}
-	
-	//qna수정하기(경로매핑)
+
+	// qna수정하기(경로매핑)
 	@GetMapping("qnaUpdate")
-	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
+	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO, QnaVO qnaVO, Model model) throws Exception {
 		model.addAttribute("member", memberVO);
-		qnaVO=qnaService.qnaSelectOne(qnaVO);
+		qnaVO = qnaService.qnaSelectOne(qnaVO);
 		model.addAttribute("qnaVO", qnaVO);
-		return"board/qnaUpdate";
+		return "board/qnaUpdate";
 	}
-	
-	
-	//qna삭제하기
+
+	// qna삭제하기
 	@GetMapping("qnaDelete")
-	public String qnaDelete(QnaVO qnaVO)throws Exception{
+	public String qnaDelete(QnaVO qnaVO) throws Exception {
 		qnaService.qnaDelete(qnaVO);
 		return "board/qnaList";
 	}
-	
-	
-	//---------------------------------------------review
-	//myPage_reviewList
+
+	// ---------------------------------------------review
+	// myPage_reviewList
 	@GetMapping("myReviewList")
-	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO,Model model)throws Exception{
-		model.addAttribute("member",memberVO);
+	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+		model.addAttribute("member", memberVO);
 		return "review/myReviewList";
 	}
-	
-	
-	
-	
-	//----------------------------------------------------------------------------myPage_다영 추가 end
-	
+
+	// ----------------------------------------------------------------------------myPage_다영
+	// 추가 end
+
 }

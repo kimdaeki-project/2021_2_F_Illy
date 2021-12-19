@@ -32,26 +32,20 @@
 							<form action="/member/login" method="POST" id="login">
 								<div class="login_input_con">
 									<label>아이디</label>
-									<input type="text" placeholder="아이디" name="username">
+									<input type="text" placeholder="아이디" name="username" id="username" class="login_input">
 									<label>비밀번호</label>
-									<input type="password" placeholder="비밀번호" name="password">
-									<div>
-										<span>${loginFailMsg}</span>
+									<input type="password" placeholder="비밀번호" name="password" id="password" class="login_input">
+									<div class="loginFalesSection">
+										<span class="loginFalesMessage">${loginFailMsg}</span>
 									</div>
 								</div>
-								<!-- login_input_con end -->
-<!-- 								<div class="id_check">
-									<input type="checkbox" id="saveId">
-									<label for="saveId">아이디 저장</label>
-								</div> -->
-								<!-- id_check -->
 								<button type="button" class="submit_btn login_btn btnDefault red">로그인</button>
 								</form>
 								<div class="btn_box">
-									<button class="submit_btn btnDefault" id="naverLoginBtn"></button>
-									<button class="submit_btn btnDefault red" id="join">회원가입</button>
-									<button class="submit_btn btnDefault red" id="find_id">아이디 찾기</button>
-									<button class="submit_btn btnDefault red" id="find_pw">비밀번호 찾기</button>
+									<!-- <button class="submit_btn btnDefault" id="naverLoginBtn"></button> -->
+									<button type = "button"class="submit_btn btnDefault red" id="join">회원가입</button>
+									<button type = "button"class="submit_btn btnDefault red" id="find_id">아이디 찾기</button>
+									<button type = "button"class="submit_btn btnDefault red" id="find_pw">비밀번호 찾기</button>
 								</div>
 								<!-- btn_box end -->
 						</div>
@@ -69,11 +63,25 @@
 	</div>
 	<script type="text/javascript">
 		$(".login_btn").click(function() {
-			$("#login").submit()
+			let result = "true";
+			$('input[class="login_input"]').each(function(i, element) {
+				if(element.value == "") {
+					alert("빈칸없이 입력해주세요.");
+					element.focus();
+					result = "false"
+					return false;
+				}
+			})
+			if(result == "true"){
+				$("#login").submit()
+			}
+			else if(result == "false") {
+				return false;
+			}
 		})
 		
 		$("#join").click(function(){
-			location.href="./join"
+			location.href="./join_agreement"
 		})
 		
 		$("#find_id").click(function(){
@@ -83,6 +91,14 @@
 		$("#find_pw").click(function(){
 			location.href="./findPw"
 		}) 
+		
+		$('.login_input').on('keypress', function(e){
+			if(e.keyCode == '13'){
+				$('.login_btn').click();
+			}
+		})
+
+
 	</script>
 </body>
 </html>

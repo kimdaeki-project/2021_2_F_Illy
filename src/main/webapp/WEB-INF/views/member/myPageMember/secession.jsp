@@ -42,7 +42,7 @@
 					</div>
 					<div class="infoBody">
 						정기배송 주문 고객 1:1 문의를 통해서 <br> 정산을 마무리 하신 후에 탈퇴가 가능합니다 <br> <br>
-						<a href="/mypage/mypage_qa.php"> ■ 1:1 문의 바로가기 </a>
+						<a href="../qnaList"> ■ 1:1 문의 바로가기 </a>
 					</div>
 
 					<div class="infoHead">

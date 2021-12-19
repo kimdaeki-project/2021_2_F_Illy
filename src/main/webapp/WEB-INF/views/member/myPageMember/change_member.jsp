@@ -65,11 +65,11 @@
 										</div>
 									</div>
 									<div class="change_password_input">
-										<dl><dt>현재 비밀번호</dt> <dd><input type="password" id="check_password"></dd></dl>
+										<dl><dt>현재 비밀번호</dt> <dd><input type="password" id="check_password" class="inputChangePassword"></dd></dl>
 										<div id="password_check_message_section" id="nowPassword"></div>
-										<dl><dt>새 비밀번호</dt> <dd><form:password path="password"/></dd></dl>
+										<dl><dt>새 비밀번호</dt> <dd><input type="password" id="password" class="inputChangePassword"/></dd></dl>
 										<div id="password_new_message_section"></div>
-										<dl><dt>새 비밀번호 확인</dt> <dd><input type="password" id="checkNewPassword"> <button type="button" class="btnDefault red" id="change_password_btn">비밀번호 변경</button></dd></dl>
+										<dl><dt>새 비밀번호 확인</dt> <dd><input type="password" id="checkNewPassword" class="inputChangePassword"> <button type="button" class="btnDefault red" id="change_password_btn">비밀번호 변경</button></dd></dl>
 										<div id="password_overlap_message_section"></div>	
 					
 									</div>
@@ -88,7 +88,7 @@
 								<tr>
 									<th><span>이메일</span></th>
 									<td>
-										<form:input path="member_email" value="${member.member_email}" />
+										<form:input path="member_email" value="${member.member_email}" class="notNull" />
 										<div class="errors_section">
 											<form:errors path="member_email"></form:errors>
 										</div>
@@ -98,7 +98,7 @@
 								<tr>
 									<th><span>휴대폰번호</span></th>
 									<td>
-										<form:input path="member_phone" value="${member.member_phone}" />
+										<form:input path="member_phone" value="${member.member_phone}" readOnly="true" class="notNull"/>
 										<div class="errors_section">
 											<form:errors path="member_phone"></form:errors>
 										</div>
@@ -213,39 +213,69 @@
 		}
 	})
 	
-	// 현재 비밀번호와 동일한지 확인하는 함수
-	let passwordCheck = function() {
-		$.ajax({
-			url : "./myPage/checkPassword",
-			method : "POST",
-			data : {
-				username : $('#username').html(),
-				password : $('#check_password').val()
-			},
-			success : function(data) {
-				if(data.trim() == "false") {
-					alert("오류!")
-				}
+		
+	let notNull = function() {
+		let result = "";
+		$(".notNull").each(function(i, element) {
+			if(element.value == "") {
+				alert("빈칸없이 입력해주세요");
+				element.focus();
+				result = "false"
+				return false;
+			}
+			else if(element.value != ""){
+				result = "true";
 			}
 		})
+		return result;
 	}
 	
 	$("#btn_submit").click(function(){
-		$.ajax({
-			url : "./myPage/updateMember",
-			method : "post",
-			data : {
-				password : $("#password").val(),
-				member_email : $("#member_email").val(),
-				member_phone : $("#member_phone").val(),
-				address_reference : $("#sample6_extraAddress").val(),
-				address_detail : $("#sample6_detailAddress").val(),
-				address_postcode : $("#sample6_postcode").val(),
-			}
-		})
+		if(notNull() == "false") {
+			return false;
+		}
+		else if(notNull()== "true"){
+			$.ajax({
+				url : "./updateMember",
+				method : "post",
+				data : {
+					member_email : $("#member_email").val(),
+					main_address : $("#sample6_address").val(),
+					address_reference : $("#sample6_extraAddress").val(),
+					address_detail : $("#sample6_detailAddress").val(),
+					address_postcode : $("#sample6_postcode").val(),
+				},
+				success : function(data) {
+					if(data.trim() == "true") {
+						alert("회원정보 변경에 성공하였습니다.");
+					}
+					else {
+						alert("회원정보 변경에 실패하였습니다.");
+					}
+				}
+			})
+		}
 	})
 	
+	let passwordEmpty = function() {
+		let result = "true"
+		$(".inputChangePassword").each(function(i, element){
+			if(element.value == "") {
+				console.log(element.value)
+				element.focus();
+				alert("빈칸없이 입력해주세요.");
+				result = "false";
+				return false;
+			}	
+		})
+		return result;
+	}
+	
 	$("#change_password_btn").click(function(){
+		if(passwordEmpty() == "false") {
+			return false;
+		}
+		else if(passwordEmpty() == "true"){
 		$.ajax({
 			url : "./changePassword",
 			method : "POST",
@@ -269,6 +299,7 @@
 				}
 			}
 		})
+		}
 	})
 	
 	
