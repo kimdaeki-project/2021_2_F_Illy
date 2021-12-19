@@ -63,8 +63,6 @@ public class AddressService {
 		String address_detail = request.getParameter("address_detail");
 		String address_postcode = request.getParameter("address_postcode");
 		String address = address_postcode + main_address + address_reference + address_detail;
-		
-		
 		addressVO.setAddress_recipient_name(address_recipient_name);
 		addressVO.setAddress_recipient_phone(address_recipient_phone);
 		addressVO.setAddress_default(1);
@@ -73,6 +71,7 @@ public class AddressService {
 		addressVO.setAddress_detail(address_detail);
 		addressVO.setAddress_postcode(address_postcode);
 		addressVO.setAddress(address);
+		System.out.println(address);
 		return addressRepository.setAddress(addressVO);
 	}
 }

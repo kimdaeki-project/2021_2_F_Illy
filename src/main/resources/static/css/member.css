@@ -4,6 +4,22 @@ body {
 	line-height: 1.5;
 }
 
+.join_success_ment {
+	color: blue;
+}
+
+.join_fales_ment {
+	color: d12420;
+}
+
+.error {
+	color: #d12420;
+}
+
+.page_on {
+	color: #333 !important;
+}
+
 #member_join_header {
 	border-bottom: 1px solid #999999;
 	display: flex;
@@ -22,7 +38,19 @@ body {
 }
 
 #member_join_header ol li {
-	float: left
+	float: left;
+	font-size: 14px;
+	color: #d1d1d1;
+}
+
+#member_join_header ol li span {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#member_join_header ol li span img {
+	padding: 0 14px;
+	vertical-align: -1px;
 }
 
 .member_join_agreement_container {
@@ -100,6 +128,8 @@ body {
 	border-right: 1px solid #e6e6e6;
 	border-bottom: 1px solid #e6e6e6;
 	border-top: 1px solid #999999;
+	flex-direction: column;
+	gap: 20px
 }
 
 .btn_center_box {
@@ -131,6 +161,8 @@ body {
 }
 
 /* join form area */
+
+
 .member_join_table {
 	width: 100%;
 	font-size: 12px;
@@ -214,7 +246,7 @@ body {
 }
 
 .member_con {
-	padding: 70px 0;
+	padding: 0;
 }
 
 .member_con_login {
@@ -255,6 +287,16 @@ login_inpit_con {
 
 .id_check {
 	padding: 0 0 15px 0;
+}
+
+.loginFalesSection {
+	margin-bottom: 10px;
+}
+
+.loginFalesMessage {
+	color: #d12420;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 .login_btn {
@@ -693,7 +735,7 @@ input[type="checkbox"]:checked+label {
 }
 
 input[type="radio"] {
-	display:none;
+	display: none;
 }
 
 input[type="radio"]+label {
@@ -782,4 +824,25 @@ input[type="radio"]:checked+label {
 	border: 1px solid #979797;
 	background: #979797;
 	text-align: center;
+}
+
+input[type="email"] {
+	margin: 15px 0 10px 0;
+	padding: 0 0 0 8px;
+	border: 1px solid #d0d0d0;
+	color: #979d9d;
+	width: 170px !important;
+	display: inline-block !important;
+	margin-top: 9px !important;
+	height: 36px;
+}
+
+.input_authentication_email_section {
+	display: flex;
+	align-items: center;
+	gap : 5px;
+}
+
+.authentication_code_section {
+	display: none;
 }

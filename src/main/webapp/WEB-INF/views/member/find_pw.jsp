@@ -31,14 +31,17 @@
 									<div class="member_warning">
 										<div class="find_id_error_msg_section">
 											<input type="text" placeholder="아이디" id="find_pw_input">
-											<p>아이디를 모르시나요? <a href="./findId">아이디찾기</a></p>
+											<p>
+												아이디를 모르시나요?
+												<a href="./findId">아이디찾기</a>
+											</p>
 										</div>
-										
+
 										<div class="btn_center_box">
-											<button class="btnDefault red">확인</button>
+											<button class="btnDefault red" id="findEmail" type="button">확인</button>
 										</div>
 									</div>
-									<!-- member_warning end -->								
+									<!-- member_warning end -->
 								</div>
 							</div>
 							<!-- find_section end-->
@@ -52,5 +55,29 @@
 		</div>
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>
 	</div>
+	<script type="text/javascript">
+		$("#findEmail").click(function(){
+			$.ajax({
+				url : "findEmail",
+				method : "POST",
+				data : {
+					username : $("#find_pw_input").val()
+				},
+				success: function(data) {
+					console.log(data.trim())
+					if($("#find_pw_input").val()==""){
+						alert("아이디를 입력해주세요.")
+						return;
+					}
+					if(data.trim() == "false") {
+						alert("일치하지 않는 계정입니다.")
+					}
+					if(data.trim()=="success") {
+						alert("임시 비밀번호가 발급되었습니다.")
+					}
+				}
+			})
+		})
+	</script>
 </body>
 </html>

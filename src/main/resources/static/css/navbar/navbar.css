@@ -38,3 +38,7 @@
 .memberWrap { position:relative; height: 25px; } 
 .memberWrap img { float: left; padding: 0 10px; }
 .memberWrap img.cartImg { cursor: pointer; }
+
+.login-wrap-content {opacity: 0; z-index: -1; background: #d12420; border-radius: 10px; position: absolute; top: 80px; padding: 20px; right: 95px; -webkit-transition-duration: .3s;}
+.login-wrap-content a {display: block; width: 160px; border: 1px solid #fff; color: #fff; font-size: 12px; font-weight: 600; height: 40px; line-height: 40px; text-align: center;border-radius: 20px; padding: 0;background: #d12420;color: #fff;}
+.login-wrap-content a:last-child {background: #fff; color: #333; margin-top: 17px;}

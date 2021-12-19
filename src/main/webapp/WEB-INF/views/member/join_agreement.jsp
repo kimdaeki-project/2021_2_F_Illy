@@ -21,16 +21,16 @@
 				<div id="member_join_header">
 					<h2>회원가입</h2>
 					<ol>
-						<li class="page_on">01 약관동의></li>
-						<li>02 정보입력></li>
-						<li>03 가입완료</li>
+						<li class="page_on"><span>01</span> 약관동의<span><img src="../images/login/icon_join_step_on.png"></span></li>
+						<li><span>02</span> 정보입력 <span><img src="../images/login/icon_join_step_off.png"></span></li>
+						<li><span>03</span> 가입완료</li>
 					</ol>
 				</div>
 				<div class="member_join_agreement_container">
 					<h3>약관동의</h3>
 					<div id="member_join_agreement_contents">
 						<div id="member_join_agreement_check_all">
-							<input class="allAgree" type="checkbox">
+							<input id="allAgree" type="checkbox">
 							<label class="check" for="allAgree"> <em>일리카페 코리아의 모든 약관을 확인하고 전체 동의합니다.</em>
 							</label>
 							<span>(전체동의, 선택항목도 포함됩니다.)</span>
@@ -38,8 +38,8 @@
 
 						<div id="member_join_agreement_box">
 							<div class="form_element">
-								<input class="check_agree" type="checkbox">
-								<label class="check" for="check_agree"> <strong>(필수)</strong> 이용약관
+								<input id="check_agree1" class="checkAgree" type="checkbox">
+								<label class="check" for="check_agree1"> <strong>(필수)</strong> 이용약관
 								</label>
 								<span>
 									<a href="./join_agreement_detail">전체보기</a>
@@ -65,8 +65,8 @@
 
 						<div id="member_join_agreement_box">
 							<div class="form_element">
-								<input class="check_agree" type="checkbox">
-								<label class="check" for="check_agree"> <strong>(필수)</strong> 개인정보 수집 및 이용
+								<input id="check_agree2" class="checkAgree" type="checkbox">
+								<label class="check" for="check_agree2"> <strong>(필수)</strong> 개인정보 수집 및 이용
 								</label>
 								<span>
 									<a href="./join_agreement_detail2">전체보기</a>
@@ -81,14 +81,30 @@
 							</div>
 						</div>
 						<div class="join_certify_box">
-							<h3>본인 인증방법 선택</h3>
+							<h3>이메일로 본인 인증</h3>
 							<div class="join_certify_list">
-								<input type="radio" class="autoCellphone">
-								<label class="choice" for="autoCellphone">휴대폰 본인인증</label>
+							<div class="input_authentication_email_section">
+								<input type = "email" id="input_member_email" placeholder="이메일">
+									<select class="select_email">
+										<option value="">직접입력</option>
+										<option value="naver.com">naver.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="daum.net">daum.net</option>
+										<option value="nate.com">nate.com</option>
+										<option value="hotmail.com">hotmail.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="icloud.com">icloud.com</option>
+									</select>
+									<button type="button" class="btnDefault" id="code_submit">인증번호 전송</button>
+							</div>			
+									<div class="authentication_code_section">
+										<input type="password" id="authentication_email" placeholder="코드를 입력하세요">
+										<button type="button" class="btnDefault" id="submit_check">확인</button>
+									</div>
 							</div>
 						</div>
 						<div class="btn_center_box">
-							<button type="button" class="btn_member_next btnDefault red">다음단계</button>
+							
 						</div>
 					</div>
 				</div>
@@ -98,26 +114,58 @@
 	</div>
 	<script type="text/javascript">
 	// 전체 동의 체크
-		$(".allAgree").click(function() {
-			if($(".allAgree").is(':checked')) {
-				$("input:checkbox[class='check_agree']").prop("checked", true)
+		let code = "";
+		$("#allAgree").click(function(){
+			if($("#allAgree").is(":checked")) $("input[class='checkAgree']").prop("checked", true);
+			else $("input[class='checkAgree']").prop("checked", false)
+		})
+
+		
+		
+		$("#code_submit").click(function(){
+			$.ajax({
+				url : "./sendCode",
+				method : "post",
+				data : {
+					member_email : $("#input_member_email").val()
+				},
+				success : function(data) {
+					console.log(data.trim())
+					if(data.trim() == 'fales') {
+						alert('존재하지 않는 이메일 입니다.')
+					}
+					else {
+						alert('인증코드를 발송하였습니다. 코드를 입력후 확인을 눌러주세요.')
+						$(".input_authentication_email_section").css("display", "none")
+						$(".authentication_code_section").css("display", "block")
+						code = data.trim();
+					}
+				}
+			})
+		})
+		
+		$("#submit_check").click(function(){
+			if($("#authentication_email").val() == code) {
+				alert("옳은 코드입니다. 다음 단계로 진행하여 주세요.")
+				$(".btn_center_box").html("<button class='btnDefault red btn_member_next'>다음 단계</button>")
 			}
-			else {
-				$("input:checkbox[class='check_agree']").prop("checked", false)
+			else if($("#authentication_email").val() != code){
+				alert("코드가 옳지 않습니다.")
 			}
 		})
 		
-	
+		$(".select_email").change(function(){
+			$("#input_member_email").val($("#input_member_email").val()+'@'+$(".select_email").val())
+		}) 
+		
 	// 회원가입 페이지로 이동
-		$(".btn_member_next").click(function(){
-	/* 		if ($("input:checkbox[class='check_agree']").prop("checked") == true ) {
-				location.href = "./join"
-			} */
-			$(".check_agree").each(function(i, check) {
-				if($(check).is(":checked")) {
-					location.href = "./join"
-				}
-			})
+		$(".btn_center_box").click(function(){
+			if($(".checkAgree").is(":checked")) {
+				location.href = "./join";
+			}
+			else {
+				alert("모든 약관에 동의하여 주세요.")
+			}
 		})
 	</script>
 </body>
