@@ -44,8 +44,10 @@
 			,SUBSTR(product_categoryCode, 1, 6) AS product_categoryCode
 			,productFile_id
 			,productFile_name
+            ,COALESCE(review_star, 0) AS review_star
 		FROM product
 		    LEFT JOIN (SELECT * FROM productFile GROUP BY product_id) AS productFile USING (product_id)
+            LEFT JOIN (SELECT product_id, AVG(review_star) AS review_star FROM review JOIN cart USING(cart_id) group by product_id order by AVG(review_star) desc) AS review_star USING (product_id)
 		WHERE
 			product_state = 'sale'
 		<if test="product_categoryCode != null">
@@ -62,6 +64,7 @@
 		<result column="product_name" property="product_name"/> <!-- 상품명 -->
 		<result column="product_price" property="product_price"/> <!-- 가격 -->
 		<result column="product_categoryCode" property="product_categoryCode"/> <!-- 카테고리 코드 -->
+		<result column="review_star" property="review_star"/> <!-- 카테고리 코드 -->
 		
 		<collection ofType="ProductFileVO" property="productFileVOs" javaType="List">
 			<id column="productFile_id" property="productFile_id"/>

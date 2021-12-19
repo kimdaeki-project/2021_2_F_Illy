@@ -35,5 +35,7 @@ public class ProductVO {
 
 	private List<ProductFileVO> productFileVOs;
 	private String 			product_state;			//sale, suspended, soldOut
+	
+	private Integer			review_star;
 
 }

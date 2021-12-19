@@ -24,7 +24,7 @@
 		
 		<div class="gnbTop">
 			
-			<a class="tempBtn">illy CAFFE</a>
+			<a class="tempBtn" href="/admin/adIndex" style="filter: grayscale(100%);">illy CAFFE</a>
 						
 		</div>
 		

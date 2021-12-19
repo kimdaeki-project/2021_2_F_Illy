@@ -48,7 +48,7 @@
 
 .bodyInfoWrap h3 { padding: 45px 0 10px 0; font-size: 18px; }
 .bodyInfoWrap .bodyInfoTab { display: table; width: 1200px; border-bottom: 1px solid #dbdbdb; padding-top: 80px; text-align: center; }
-.bodyInfoWrap .bodyInfoTab li { display: inline-block; width: 174px; border: 1px solid #dbdbdb; margin: 0 0 -1px -1px; color: #999; line-height: 40px; cursor: pointer; }
+.bodyInfoWrap .bodyInfoTab li { display: inline-block; width: /* 174px */217px; border: 1px solid #dbdbdb; margin: 0 0 -1px -1px; color: #999; line-height: 40px; cursor: pointer; }
 .bodyInfoWrap .bodyInfoTab li.on { padding-top: 8px; border-bottom: 1px solid #fff; font-weight: bold; color: #333; }
 .bodyInfoWrap .detailInfo { text-align: center; }
 

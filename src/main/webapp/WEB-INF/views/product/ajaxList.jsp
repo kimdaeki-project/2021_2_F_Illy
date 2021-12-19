@@ -68,7 +68,7 @@
 							<label for="sort1" class="sortLabel">등록일순</label>
 						</li>
 						<li>
-							<input type="radio" id="sort2" name="sort">
+							<input type="radio" id="sort2" name="review_star DESC" onclick="javascript:getAjaxList(1, 'review_star DESC')">
 							<label for="sort2" class="sortLabel">상품평순</label>
 						</li>
 						<li>

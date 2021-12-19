@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.indexSlideWrap { position: relative; display: block; width: 1920px; height: 500px; margin: auto; overflow: hidden; }
+.indexSlideWrap span { position: absolute; top: 50%; transform: translateY(-50%); width: 27px; height: 44px; cursor: pointer; z-index: 10; text-align: center;}
+.indexSlideWrap span.prev { left: calc((100% - 1300px) /2); background: url("/images/index/indexSlidePrev.svg"); }
+.indexSlideWrap span.next { right: calc((100% - 1290px) /2); background: url("/images/index/indexSlideNext.svg"); }
+.indexSlideTrack { width: 11520px; height: 100%; transform: translateX(-1920px); }
+.indexSlideContent { display: block; width: 1920px; height: 100%; float: left; text-align: center; }
+
+.productListTtle { padding: 120px 0; font-size: 19px; font-weight: 600; text-align: center; }

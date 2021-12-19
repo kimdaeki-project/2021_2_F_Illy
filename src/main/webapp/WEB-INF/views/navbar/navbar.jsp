@@ -58,10 +58,10 @@
 			</div>
 			
 			<div class="rightBox">
-				<div class="searchWrap">
-					<input type="text">
-					<img class="searchImg" alt="" src="/images/gnb/new-search.png">
-				</div>
+<!-- 				<div class="searchWrap"> -->
+<!-- 					<input type="text"> -->
+<!-- 					<img class="searchImg" alt="" src="/images/gnb/new-search.png"> -->
+<!-- 				</div> -->
 				<div class="memberWrap">
 					<a href="/member/login"><img class="userImg" alt="" src="/images/gnb/new-user.png"></a>
 					<a href="/cart/normalBasket"><img class="cartImg" alt="" src="/images/gnb/new-cart.png"></a>
@@ -97,7 +97,7 @@
 			navInterval = setInterval(function(){slide(slideTrack, slideContent, 1300);}, 3300);
 			
 			slide(slideTrack, slideContent, 1300, $(this));
-		});		
+		});
 		
 		/* ===== hover event START ===== */
 		$('.searchImg').hover(
