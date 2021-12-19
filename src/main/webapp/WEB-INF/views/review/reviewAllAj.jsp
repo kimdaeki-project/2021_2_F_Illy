@@ -40,7 +40,7 @@
 											<img style="position:absolute; width:100%; top:50%; transform: translateY(-50%);" src="/upload/review/${reviewFileVO.reviewFile_name}"> 
 										</div>
 										<div class="show" style="display:none; width:500px; overflow:hidden; height:500px; background-color:#fff; border:1px solid #dbdbdb; position:absolute; ">
-											<img style="position:absolute; width:100%;top:50%; transform: translateY(-50%); " src="/upload/review/${reviewFileVO.reviewFile_name}">	
+											<img style="position:absolute; width:100%;top:50%; transform: translateY(-50%); z-index: 99;" src="/upload/review/${reviewFileVO.reviewFile_name}">	
 										</div>
 									</div>
 								</c:forEach> 

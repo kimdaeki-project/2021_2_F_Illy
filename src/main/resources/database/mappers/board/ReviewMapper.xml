@@ -18,6 +18,7 @@
 		ON(C.member_id=M.member_id)
 		WHERE P.product_name LIKE CONCAT('%',#{search},'%')
 		AND P.product_categoryCode LIKE CONCAT (#{code},'%')
+		GROUP BY R.review_id
 		ORDER BY 
 		<choose>
 			<when test="kind=='review_star'">R.review_star</when>

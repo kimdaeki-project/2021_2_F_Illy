@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -159,8 +160,8 @@
 											<img alt="" src="/images/coupon/icon_mileage.png">
 										</span> <span>
 											<em>일리 포인트</em>
-											<a>
-												<strong>${member.member_point}</strong>콩
+											<a href="/member/myPage/myPagePoint">
+												<strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${member.member_point}"/></strong>콩
 											</a>
 										</span></li>
 								</ul>
@@ -216,4 +217,15 @@
 		<c:import url="/WEB-INF/views/navbar/footer.jsp"></c:import>
 	</div>
 </body>
+<script type="text/javascript">
+	/* 등급혜택보기 */
+	$('.grade_btn_btn').click(function(){
+		$('#lyGrade').css({"display": "block"});
+		
+	});
+	
+	$('.ly_close').click(function(){
+		$('#lyGrade').css({"display": "none"});
+	}); /* 창닫기 */
+</script>
 </html>

@@ -54,14 +54,14 @@
 					<li><a href="/member/myPage/secession">- 회원 탈퇴</a></li>
 				</ul>
 			</li>
-			<li>
-				<span style="border-top:1px solid #aaa;">고객</span><span>지원</span>
-				<ul>
-					<li><a href="#">- 정품 등록</a></li>
-					<li><a href="#">- AS 접수</a></li>
-					<li><a href="#">- 부품 구매</a></li>
-				</ul>
-			</li>
+<!-- 			<li> -->
+<!-- 				<span style="border-top:1px solid #aaa;">고객</span><span>지원</span> -->
+<!-- 				<ul> -->
+<!-- 					<li><a href="#">- 정품 등록</a></li> -->
+<!-- 					<li><a href="#">- AS 접수</a></li> -->
+<!-- 					<li><a href="#">- 부품 구매</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</li> -->
 <!-- 			<li> 
 				<span style="border-top:1px solid #aaa;">정기</span><span>배송관리</span>
 				<ul>
@@ -69,12 +69,12 @@
 					<li><a href="#">- 정기배송 신청목록</a></li>
 				</ul>
 			</li> -->
-			<li>
-				<span style="border-top:1px solid #aaa;">나의 </span><span>플러스리뷰</span>
-				<ul>
-					<li><a href="#">- 나의 플러스리뷰</a></li>
-				</ul>
-			</li>
+<!-- 			<li> -->
+<!-- 				<span style="border-top:1px solid #aaa;">나의 </span><span>플러스리뷰</span> -->
+<!-- 				<ul> -->
+<!-- 					<li><a href="#">- 나의 플러스리뷰</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</li> -->
 		</ul>	
 		
 	</div>

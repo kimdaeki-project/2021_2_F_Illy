@@ -149,7 +149,6 @@
 							<a href="#detailInfo"><li class="on">상품상세정보</li></a>
 							<a href="#deliveryInfo"><li>배송안내</li></a>
 							<a href="#exchangeInfo"><li>교환 및 반품안내</li></a>
-							<a href="#reviews"><li>상품후기</li></a>
 						</ul>
 						<h3>상품상세정보</h3>
 						<div class="detailInfo">
@@ -220,7 +219,6 @@
 							<a href="#detailInfo"><li>상품상세정보</li></a>
 							<a href="#deliveryInfo"><li class="on">배송안내</li></a>
 							<a href="#exchangeInfo"><li>교환 및 반품안내</li></a>
-							<a href="#reviews"><li>상품후기</li></a>
 						</ul>
 						<h3>배송안내</h3>
 						<div class="admin_msg">
@@ -233,7 +231,6 @@
 							<a href="#detailInfo"><li>상품상세정보</li></a>
 							<a href="#deliveryInfo"><li>배송안내</li></a>
 							<a href="#exchangeInfo"><li class="on">교환 및 반품안내</li></a>
-							<a href="#reviews"><li>상품후기</li></a>
 						</ul>
 						
 						<h3>구매 전 유의사항</h3>

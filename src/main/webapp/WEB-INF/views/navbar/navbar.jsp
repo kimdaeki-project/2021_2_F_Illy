@@ -21,14 +21,18 @@
 				<span class="slideBtn prev">◀</span>
 
 				<div class="slideTrack" data-slide_content_cnt="4">
-					<c:forEach begin="0" end="3" varStatus="i">
+					<c:forEach begin="0" end="1">
 						<div class="slideContent">
-							<a href="javascript:;">Slider Content Index : ${i.count}</a>
+							<a href="javascript:;">[배송] 일부지역 배송중단 및 지연 안내</a>
 						</div>
-					</c:forEach>
-					<c:forEach begin="0" end="1" varStatus="i">
 						<div class="slideContent">
-							<a href="javascript:;">Slider Content Index : ${i.count}</a>
+							<a href="javascript:;">[안내] 정품등록 방법안내</a>
+						</div>
+						<div class="slideContent">
+							<a href="javascript:;">[정품] 일리 공식 인증마크 안내</a>
+						</div>
+						<div class="slideContent">
+							<a href="javascript:;">[안내] 시리얼 번호 확인방법</a>
 						</div>
 					</c:forEach>
 				</div>
@@ -37,7 +41,11 @@
 
 			</div>
 
-			<a href="/admin/adIndex" class="tempBtn">illy CAFFE</a>
+			<a href="" class="tempBtn">illy CAFFE</a>
+			<sec:authorize access="hasRole('ADMIN')">
+				<a href="/admin/adIndex" class="tempBtn">illy CAFFE</a>
+			</sec:authorize>
+
 
 		</div>
 
@@ -54,12 +62,12 @@
 					<li><a href="/product/list">ALL PRODUCT</a></li>
 					<li><a href="/product/list?product_categoryCode=001">COFFEE</a></li>
 					<li><a href="/product/list?product_categoryCode=002">MACHINES</a></li>
+					<li><a href="/review/reviewAll">REVIEW</a></li>
 <!-- 					<li><a href="javascript:;">ILLY ART COLLECTION</a></li> -->
 <!-- 					<li><a href="javascript:;">ACCESSORIES</a></li> -->
 <!-- 					<li><a href="javascript:;">SPECIALLY CURATED SET</a></li> -->
 				</ul>
 			</div>
-
 
 			<div class="rightBox">
 <!-- 				<div class="searchWrap"> -->

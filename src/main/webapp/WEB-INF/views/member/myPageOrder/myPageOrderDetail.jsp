@@ -14,6 +14,11 @@
 	<style type="text/css">
 		#right_content{width:1000px;float:left;padding-left:40px; min-height: 500px;}
 		.myPage_cont {padding-bottom: 50px;}
+		.reviewBtn{border:1px solid #dbdbdb; font-size:12px;  background-color:#fff; padding:5px; cursor:pointer;}
+		.reviewBtn.goReview{background-color:#d12140; color:#fff;}
+		.reviewBtn:hover{background-color:#eee;color:#333;}
+		.reviewBtnFin{border:1px solid #dbdbdb; font-size:12px;  background-color:#fff; padding:5px;}
+		.checkReview{display:inline-block;padding-bottom:5px;}
 	</style>
 
 <title>일리카페 코리아</title>
@@ -36,7 +41,13 @@
 							<div class="myPage_lately_info_cont">
 								<div class="myPage_type_table">
 									<table>
-									<colgroup></colgroup>
+									<colgroup>
+										<col style="width:15%"> <!-- 날짜/주문번호 -->
+										<col> <!-- 상품명/옵션 -->
+										<col style="width:15%"> <!-- 상품금액/수량 -->
+										<col style="width:15%"> <!-- 주문상태 -->
+										<col style="width:15%"> <!-- 확인/리뷰 -->
+									</colgroup>
 										<thead>
 											<tr>
 												<th>날짜/주문번호</th>
@@ -53,22 +64,22 @@
 														<td rowspan="${list.carts.size()}" class="order_day_num">
 															<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
 															<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
-															<c:if test="${carts.cart_state eq 'payment'}">
-																<div class="btn_claim">
+															<div class="btn_claim">
+																<c:if test="${carts.cart_state eq 'payment'}">
 																	<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 																			data-payment-usePoint="${list.payment_use_point}">
 																		<a>주문취소</a>
 																	</span>
-																</div>
-															</c:if>
-															<c:if test="${carts.cart_state eq 'done'}">
-																<div class="btn_claim">
-																	<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
-																			data-payment-usePoint="${list.payment_use_point}">
-																		<a>환  불</a>
-																	</span>
-																</div>
-															</c:if>
+																</c:if>
+																<c:if test="${carts.cart_state eq 'done'}">
+																	<c:if test="${carts.cart_review_state eq 0}">
+																		<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																				data-payment-usePoint="${list.payment_use_point}">
+																			<a>환  불</a>
+																		</span>
+																	</c:if>
+																</c:if>
+															</div>
 														</td>
 														<td class="td_left">
 															<div class="pick_add_cont">
@@ -109,14 +120,33 @@
 																<div style="margin-top: 5px;"><div>(택배)</div></div>
 															</c:if>
 														</td>
-														<td></td>
+														<td>
+															<c:if test="${carts.cart_state eq 'done'}">
+																<c:if test="${carts.cart_review_state eq 0}">
+																	<input hidden="" class="review_state_date" value="${list.payment_date}">
+																	<input hidden="" class="cart_id" value="${carts.cart_id}">	
+																	<div class="reviewState">
+																	
+																	</div>															
+																</c:if>
+																<c:if test="${carts.cart_review_state eq 1}">
+																	<span class="checkReview">"리뷰쓰기완료"</span>
+																	<button class="reviewBtn goReview" type="button">보러가기</button>
+																</c:if>
+															</c:if>
+														</td>
 													</tr>
 												</c:if>
 																	
 												<c:if test="${list.carts.size() ne 1}">
 													<c:choose>
 														<c:when test="${status.last}"><tr></c:when>
-														<c:otherwise><tr class="row_line"></c:otherwise>
+														<c:otherwise>
+															<c:choose>
+																<c:when test="${status.first}"><tr class="row_line refund_check"></c:when>
+																<c:otherwise><tr class="row_line"></c:otherwise>
+															</c:choose>
+														</c:otherwise>
 													</c:choose>
 													<c:if test="${status.first}">
 														<td rowspan="${list.carts.size()}" class="order_day_num">
@@ -131,12 +161,14 @@
 																	</div>
 																</c:if>
 																<c:if test="${carts.cart_state eq 'done'}">
-																	<div class="btn_claim">
-																		<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
-																				data-payment-usePoint="${list.payment_use_point}">
-																			<a>환  불</a>
-																		</span>
-																	</div>
+																	<c:if test="${carts.cart_review_state eq 0}">
+																		<div class="btn_claim btn_claim_refund">
+																			<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																					data-payment-usePoint="${list.payment_use_point}">
+																				<a>환  불</a>
+																			</span>
+																		</div>
+																	</c:if>
 																</c:if>
 														</td>
 													</c:if>
@@ -179,7 +211,21 @@
 																<div style="margin-top: 5px;"><div>(택배)</div></div>
 															</c:if>
 														</td>
-														<td></td>
+														<td class="review_check_table">
+															<c:if test="${carts.cart_state eq 'done'}">
+																<c:if test="${carts.cart_review_state eq 0}">
+																	<input hidden="" class="review_state_date" value="${list.payment_date}">
+																	<input hidden="" class="cart_id" value="${carts.cart_id}">
+																	<div class="reviewState">
+																		
+																	</div>	
+																</c:if>
+																<c:if test="${carts.cart_review_state eq 1}">
+																	<span class="checkReview">"리뷰쓰기완료"</span>
+																	<button class="reviewBtn goReview" type="button">보러가기</button>
+																</c:if>
+															</c:if>
+														</td>
 													</tr>
 												</c:if>
 																	
@@ -331,6 +377,10 @@
 	</div> <!-- wrapper end -->
 
 <script type="text/javascript">
+refundState();
+refundCheck();
+reviewState();
+
 /*  주문취소 */
 $('.myPage_lately_info_cont').on('click', '.btn_order_cancel', function(){
 	console.log($(this).attr('data-payment-id'));
@@ -378,6 +428,54 @@ $('.myPage_lately_info_cont').on('click', '.btn_order_refund', function(){
 		
 	}
 });
+
+//환불 불가능 날짜 계산하기 - 50일 이후에는 환불 불가
+function refundState(){
+	
+	let refund_date='';
+	$(".order_num_link").each(function(){
+		refund_date=$(this).attr('data-payment-date');//구매날짜
+		console.log(refund_date);
+		refund_date=new Date(refund_date);
+		let refund_date2=new Date();//오늘날짜
+		//오늘날짜-구매날짜 >50
+		let count=(refund_date2-refund_date)/(1000*60*60*24);
+		if(count>49){
+			$(this).siblings('div').empty();
+		}
+	});		
+}
+
+function refundCheck() {
+	$('.review_check_table').each(function(){
+		if($(this).children().hasClass('checkReview') == true){
+			$(this).parents().find('.refund_check').children().find('.btn_claim_refund').empty();
+		}
+	});
+}
+
+//다영추가 
+function reviewState(){
+	
+	let state_date='';
+	$(".review_state_date").each(function(){
+		state_date=$(this).val();//구매날짜
+		let pay_date=new Date(state_date);
+		let state_date2=new Date();//오늘날짜
+		//오늘날짜-구매날짜 >50
+		let count=(state_date2-pay_date)/(1000*60*60*24);
+		let cart_id=$(this).next('.cart_id').val();
+		let html="<a class='reviewBtn' href='/member/reviewInsert?cart_id="+cart_id+"'>리뷰쓰기</a>"
+		let html2="<span class='reviewBtnFin'>리뷰기간종료</span>"
+		if(count<50){
+			$(this).siblings('div').empty();
+			$(this).siblings('div').append(html);
+		}else{
+			$(this).siblings('div').empty();
+			$(this).siblings('div').append(html2);
+		}
+	});		
+}
 </script>
 </body>
 </html>

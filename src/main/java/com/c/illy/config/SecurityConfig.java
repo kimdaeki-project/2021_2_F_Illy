@@ -36,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/favicon*/**")
 					.antMatchers("/resources/**")
 					.antMatchers("/front/**")
-					.antMatchers("/member/common/**")
 					.antMatchers("/upload/**")
 					;
 	}
@@ -61,8 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/member/join").anonymous()
 					.antMatchers("/member/checkId").anonymous()
 					.antMatchers("/member/myPage/**").hasAnyRole("MEMBER")
+//					.antMatchers("/admin/**").hasAnyRole("ADMIN")
 					.antMatchers("/product/**").permitAll()
 					.antMatchers("/payment/naverpay").permitAll()
+					.antMatchers("/review/**").permitAll()
+					.antMatchers("/notice/**").permitAll()
+					.antMatchers("/member/sendCode").anonymous()
+		  			.antMatchers("/member/findEmail").anonymous()
 		  .anyRequest().authenticated();
 		  http
 		  .formLogin()

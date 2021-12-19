@@ -502,6 +502,7 @@ public class MemberController {
 	// --1:1 문의 ajax
 	@GetMapping("qnaListDate")
 	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO,ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		System.out.println(qnaVO.getQna_state());
 		pager.setPerPage(10);
 		qnaVO.setMember_id(memberVO.getMember_id());
 		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
