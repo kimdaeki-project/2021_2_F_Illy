@@ -17,7 +17,7 @@
 		.board_zone_tit{margin-bottom:10px; padding-bottom:10px;}
 		.board_zone_tit h2{color:#d12420; font-size:24px;}
 		.board_list_table{width:100%;margin:0 0 20px 0;border-spacing:0;border-collapse:collapse;border-top:1px solid #999999;text-align:center;}
-		.board_list_table th{padding:10px 10px 10px 14px; font-size:12px;background:#fbfbfb;}
+		.board_list_table th{padding:10px 10px 10px 14px; font-size:12px;background:#fbfbfb; text-align:center;}
 		.board_list_table td{padding:13px 10px 15px 10px; border-bottom:1px solid #dbdbdb;}
 		tbody tr td{font-weight:normal; font-size:12px; color:#333;}
 		.board_search_box{margin: 60px 0 30px 0;padding: 10px 10px 10px 10px;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8; background: #f7f7f7; text-align: center;}
@@ -73,18 +73,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${ListTop}" var="noticeVO">
+								<c:forEach items="${ListTop}" var="noticeVO" begin="0" end="4">
 								<tr class="noticeEx" data-notice_id="${noticeVO.notice_id}">
 									<td scope="row"><img src="/images/board/icon_board_notice.png"></td>
 									<td scope="row" style="text-align:left;">
 										<a href="./adNoticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
+											<c:if test="${noticeVO.fileList[0].noticeFile_id ne null}">
+											<i class="xi-paperclip xi-flip-horizontal"></i>
+											</c:if>
 										</a>
 									</td>
 									<td scope="row">${noticeVO.notice_regDate}</td>
 									<td scope="row">관리자</td>
 									<td scope="row">${noticeVO.notice_hits}</td>
-									<td><a class="deleteBtn" href="#"><i class="xi-close-square-o xi-x"></i></a></td>
+									<td><a class="deleteBtn"><i class="xi-close-square-o xi-x"></i></a></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -96,6 +99,9 @@
 									<td scope="row" style="text-align:left;">
 										<a href="./adNoticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
+											<c:if test="${noticeVO.fileList[0].noticeFile_id ne null}">
+											<i class="xi-paperclip xi-flip-horizontal"></i>
+											</c:if>
 											<c:if test="${noticeVO.notice_hits > 100}">
 												<img src="/images/board/icon_board_hot.png">
 											</c:if>

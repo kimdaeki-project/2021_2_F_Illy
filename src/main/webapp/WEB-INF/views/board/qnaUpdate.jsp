@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@
 						<h2>1:1문의</h2>
 					</div>
 					<div class="board_zone_cont">
-						<form action="./addQnaList" id="qnaFrm" method="post" enctype="multipart/form-data">
+						<form action="./qnaUpdate" id="qnaFrm" method="post" enctype="multipart/form-data">
 							<table class="qna_write">
 								<colgroup>
 									<col style="width:143px">
@@ -58,10 +59,10 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">말머리</th>
+										<th scope="row">문의 유형</th>
 										<td>
 											<select id="qna_type" name="qna_type" value="${qnaVO.qna_type}">
-												<option>문의내용</option>
+												<option value="1">=선택=</option>
 												<option class="check" value="커피머신 문의">커피머신 문의</option>
 												<option class="check" value="정품 인증">정품 인증</option>
 												<option class="check" value="커피 문의">커피 문의</option>
@@ -78,22 +79,27 @@
 									</tr>
 									<tr>
 										<th scope="row">작성자</th>
-										<td><input hidden="" name="member_id" value="${member.member_name}">${member.member_name}</td>
+										<td>
+											<input hidden="" name="member_id" value="${member.member_id}">${member.member_name}
+											<input hidden="" name="qna_id" value="${qnaVO.qna_id}">
+										</td>
 									</tr>
 									<tr>
 										<th scope="row">상품선택</th>
 										<td> 
-											<c:if test="${qnaVO.product_id eq null}">선택된 상품이 없습니다 </c:if>
+											<span class="info"><c:if test="${qnaVO.product_id eq null}">선택된 상품이 없습니다 </c:if></span>
 											<button type="button" class="pro_choice_btn" onclick="javascript:findProduct()">상품 선택</button>
-											<c:if test="${qnaVO.product_id ne null}">
-												<div style="width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;">
-													<div style="display:inline-block;"><img style="width:82px; height:82px;" src=""></div>
-													<div class="prd_info">
-														<span>${productVO.product_name} 네임네임 <a class="deletePrd"><i class="xi-close-square-o xi-x"></i></a></span>
-														<span style="font-weight:bold;">${productVO.product_price} 가격가격</span>
+											<div class="pickPrd">
+												<c:if test="${qnaVO.product_id ne null}">
+													<div style="width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;">
+														<div style="display:inline-block;"><img style="width:82px; height:82px;" src="/upload/product/${productFileVOList[0].productFile_name}"></div>
+														<div class="prd_info">
+															<span>${productVO.product_name}&nbsp;<a class="deletePrd" onClick="delPrd()"><i class="xi-close-square-o xi-x"></i></a></span>
+															<span style="font-weight:bold;"><fmt:formatNumber value="${productVO.product_price}" pattern="#,###"/>원</span>
+														</div> 
 													</div>
-												</div>
-											</c:if>
+												</c:if>
+											</div>
 										</td>
 									</tr>
 									<tr>
@@ -186,21 +192,55 @@
 		let qna_type='${qnaVO.qna_type}';
 		$(function(){
 			$(".check").each(function(){
-				if(qna_type==$(this).val()){
+				const value=$(this).val();
+				if(qna_type==value){
 					$(this).prop("selected",true);
 				}
 			});
 		});
 		
-		//리캡차 유효성 검사
+		//상품 삭제 
+		function delPrd(){
+			let html="선택된 상품이 없습니다 ";
+			$(".pickPrd").empty();
+			$(".info").append(html);
+		}
+		
+		
+		//유효성 검사
 		$(".upload").click(function(){
+			if($("#qna_type").val()==1){
+				alert("문의 유형을 선택하세요");
+				return false;
+			}
+			if($(".qna_phone").val()==''){
+				alert("연락 받으실 번호는 필수 입력 사항입니다.");
+				return false;
+			}
+			if($(".qna_title").val()==''){
+				alert("문의 제목은 필수 입력 사항입니다.");
+				return false;
+			}
+			if($("#qna_contents").val()==''){
+				alert("문의사항은 필수 입력 사항입니다.");
+				return false;
+			}
+			
 			if ($('.g-recaptcha-response').val() == "") {
 				alert("자동등록방지를 확인해 주십시오.");
 				return false;
 			}
-			$("#qnaFrm").submit();
 			
+			if(confirm('1:1문의를 수정 하시겠습니까?')){
+				let product_id=$("#prdId").val();
+				$("#product_id").val(product_id);
+				$("#qnaFrm").submit();
+			}else{
+				return false;
+			}
+				
 		});
+		
 		
 		
 		

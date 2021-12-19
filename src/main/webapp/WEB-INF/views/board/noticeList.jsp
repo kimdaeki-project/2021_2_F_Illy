@@ -63,12 +63,15 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${ListTop}" var="noticeVO">
+								<c:forEach items="${ListTop}" var="noticeVO" begin="0" end="4">
 								<tr class="noticeEx" data-notice_id="${noticeVO.notice_id}">
 									<td scope="row"><img src="/images/board/icon_board_notice.png"></td>
 									<td scope="row" style="text-align:left;">
 										<a href="./noticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
+											<c:if test="${noticeVO.fileList[0].noticeFile_id ne null}">
+											<i class="xi-paperclip xi-flip-horizontal"></i>
+											</c:if>
 										</a>
 									</td>
 									<td scope="row">${noticeVO.notice_regDate}</td>
@@ -85,6 +88,9 @@
 									<td scope="row" style="text-align:left;">
 										<a href="./noticeSelect?notice_id=${noticeVO.notice_id}">
 											[${noticeVO.notice_type}] ${noticeVO.notice_title}&nbsp;
+											<c:if test="${noticeVO.fileList[0].noticeFile_id ne null}">
+											<i class="xi-paperclip xi-flip-horizontal"></i>
+											</c:if>
 											<c:if test="${noticeVO.notice_hits > 100}">
 												<img src="/images/board/icon_board_hot.png">
 											</c:if>

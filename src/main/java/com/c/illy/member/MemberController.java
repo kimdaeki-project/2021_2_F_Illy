@@ -31,11 +31,15 @@ import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.member.point.PointService;
 import com.c.illy.member.point.PointVO;
+import com.c.illy.notice.NoticeVO;
 import com.c.illy.payment.PaymentService;
 import com.c.illy.payment.PaymentVO;
+import com.c.illy.product.ProductFileVO;
+import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
+import com.c.illy.review.ReviewService;
 import com.c.illy.review.ReviewVO;
 import com.c.illy.util.Pager;
 
@@ -60,10 +64,14 @@ public class MemberController {
 	private PointService pointService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private ProductService productService;
 
 	// --다영
 	@Autowired
 	private QnaService qnaService;
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping("join_agreement")
 	public ModelAndView join_agreement() {
@@ -316,7 +324,6 @@ public class MemberController {
 	public String getMyPageOrderPager(PaymentVO paymentVO, CartVO cartVO, Pager pager, Model model) throws Exception {
 
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
-
 		PaymentVO paymentVO2 = new PaymentVO();
 
 		for (Integer i = 0; i < list.size(); i++) {
@@ -328,7 +335,7 @@ public class MemberController {
 		list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageOrderAjax";
 	}
@@ -362,7 +369,7 @@ public class MemberController {
 
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageCancelAjax";
 	}
@@ -388,7 +395,7 @@ public class MemberController {
 		List<PaymentVO> list = paymentService.getMyPageOrderPager(paymentVO, cartVO, pager);
 
 		model.addAttribute("list", list);
-		model.addAttribute("count", paymentService.getMyPageOrderCount(paymentVO, cartVO));
+		model.addAttribute("count", paymentService.getMyPageTotalCount(paymentVO, cartVO));
 		model.addAttribute("pager", pager);
 		return "member/myPageOrder/myPageRefundAjax";
 	}
@@ -494,8 +501,8 @@ public class MemberController {
 
 	// --1:1 문의 ajax
 	@GetMapping("qnaListDate")
-	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO, ModelAndView mv, QnaVO qnaVO,
-			Pager pager) throws Exception {
+	public ModelAndView getQnaListDate(@AuthenticationPrincipal MemberVO memberVO,ModelAndView mv,QnaVO qnaVO,Pager pager)throws Exception{
+		pager.setPerPage(10);
 		qnaVO.setMember_id(memberVO.getMember_id());
 		List<QnaVO> ar = qnaService.getQnaList(pager, qnaVO);
 		mv.setViewName("board/qnaListajax");
@@ -512,58 +519,65 @@ public class MemberController {
 
 	// 상품 조회 리스트 ajax
 	@GetMapping("findProductAj")
-	public ModelAndView getQnaProduct(ModelAndView mv, Pager pager) throws Exception {
-		System.out.println("들어오나");
+	public ModelAndView getQnaProduct(ModelAndView mv,Pager pager)throws Exception{	
 		List<ProductVO> ar = qnaService.getQnaProduct(pager);
 		mv.setViewName("board/findProductList");
 		mv.addObject("prdList", ar);
 		mv.addObject("pager", pager);
 		return mv;
 	}
-
-	// 문의 1개글 조회하기
-	@GetMapping("qnaSelect")
-	public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO, QnaVO qnaVO) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("member", memberVO);
-		qnaVO = qnaService.qnaSelectOne(qnaVO);
-		mv.setViewName("board/qnaSelect");
-		mv.addObject("qnaVO", qnaVO);
-		return mv;
-	}
-
-	// 1:1문의 작성하기
+	
+	//문의 1개글 조회하기
+	 @GetMapping("qnaSelect") 
+	 public ModelAndView getQnaSelect(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,ProductVO productVO)throws Exception{
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("member",memberVO);
+		 qnaVO=qnaService.qnaSelectOne(qnaVO);
+		 productVO.setProduct_id(qnaVO.getProduct_id());
+		 mv.addObject("productFileVOList", productService.getSelectProductFileList(productVO));
+		 mv.addObject("productVO", productService.getSelectProductOne(productVO));
+		 mv.setViewName("board/qnaSelect");
+		 mv.addObject("qnaVO",qnaVO);
+		 return mv;
+	 }
+	
+	//1:1문의 작성하기 
 	@GetMapping("addQna")
-	public String addQna(@AuthenticationPrincipal MemberVO memberVO, HttpServletRequest request, QnaVO qnaVO,
-			Model model) throws Exception {
+	public String addQna(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,Model model)throws Exception{
 		qnaVO.setMember_id(memberVO.getMember_id());
-		String product_id = request.getParameter("product_id");
-		System.out.println(product_id);
 		model.addAttribute("member", memberVO);
 		return "board/addQna";
 	}
-
+	
 	@PostMapping("addQnaList")
-	public String setAddQna(@Valid QnaVO qnaVO, BindingResult bindingResult, MultipartFile[] multipartFiles)
-			throws Exception {
-		if (bindingResult.hasErrors()) {
-			System.out.println("여기로 오는거니?");
-			return "board/addQna";
+	public String setAddQna(@Valid QnaVO qnaVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
+		if(bindingResult.hasErrors()) {
+			return "admin/board/addQna";
 		}
 		qnaService.qnaInsert(qnaVO, multipartFiles);
-		return "board/qnaList";
+		return "redirect:/member/qnaList";
 	}
 
 	// qna수정하기(경로매핑)
 	@GetMapping("qnaUpdate")
-	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO, QnaVO qnaVO, Model model) throws Exception {
+	public String qnaUpdate(@AuthenticationPrincipal MemberVO memberVO,QnaVO qnaVO,ProductVO productVO,Model model)throws Exception{
 		model.addAttribute("member", memberVO);
-		qnaVO = qnaService.qnaSelectOne(qnaVO);
+		qnaVO=qnaService.qnaSelectOne(qnaVO);
+		productVO.setProduct_id(qnaVO.getProduct_id());
+		model.addAttribute("productFileVOList", productService.getSelectProductFileList(productVO));
+		model.addAttribute("productVO", productService.getSelectProductOne(productVO));
 		model.addAttribute("qnaVO", qnaVO);
 		return "board/qnaUpdate";
 	}
-
-	// qna삭제하기
+	
+	//qna수정하기 
+	@PostMapping("qnaUpdate")
+	public String qnaUpdate(QnaVO qnaVO)throws Exception{
+		qnaService.qnaUpdate(qnaVO);
+		return "redirect:/member/qnaSelect?qna_id="+qnaVO.getQna_id();
+	}
+	
+	//qna삭제하기
 	@GetMapping("qnaDelete")
 	public String qnaDelete(QnaVO qnaVO) throws Exception {
 		qnaService.qnaDelete(qnaVO);
@@ -573,12 +587,39 @@ public class MemberController {
 	// ---------------------------------------------review
 	// myPage_reviewList
 	@GetMapping("myReviewList")
-	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO, Model model) throws Exception {
+	public String myReviewList(@AuthenticationPrincipal MemberVO memberVO, Model model)throws Exception{
 		model.addAttribute("member", memberVO);
 		return "review/myReviewList";
 	}
-
-	// ----------------------------------------------------------------------------myPage_다영
-	// 추가 end
-
+	
+	//myPage_reviewList(Ajax)
+	@GetMapping("myReviewListAj")
+	public ModelAndView myReviewListAj(PaymentVO paymentVO, CartVO cartVO, Pager pager, ModelAndView mv)throws Exception{
+		List<PaymentVO> ar = paymentService.myReviewList(paymentVO, cartVO, pager);
+		mv.addObject("list", ar);
+		mv.addObject("count", paymentService.getMyReviewCount(paymentVO, cartVO));
+		mv.addObject("pager", pager);
+		mv.setViewName("review/myReviewListAjax");
+		return mv;		
+	}
+	
+	@GetMapping("reviewInsert")
+	public String reviewInsert(@AuthenticationPrincipal MemberVO memberVO,Model model,CartVO cartVO,ProductVO productVO)throws Exception{
+		model.addAttribute("member", memberVO);
+		productVO.setProduct_id(cartService.searchCart(cartVO));
+		model.addAttribute("cartVO", cartVO);
+		model.addAttribute("productFileVOList", productService.getSelectProductFileList(productVO));
+		model.addAttribute("productVO", productService.getSelectProductOne(productVO));
+		return "/review/reviewInsert";
+	}
+	
+	@PostMapping("reviewInsert")
+	public String reviewInsert(@AuthenticationPrincipal MemberVO memberVO,@Valid ReviewVO reviewVO, CartVO cartVO,BindingResult bindingResult,MultipartFile[] multipartFiles)throws Exception{
+		if(bindingResult.hasErrors()) {
+			return "review/reviewInsert";
+		}
+		cartService.stateUpdate(cartVO);
+		reviewService.reviewInsert(memberVO,reviewVO, multipartFiles);
+		return "redirect:/member/myReviewList";
+	}
 }

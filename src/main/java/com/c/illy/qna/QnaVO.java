@@ -18,7 +18,7 @@ public class QnaVO {
 	private Integer product_id; 
 	private Integer member_id; 
 	private String qna_phone;
-	private String qna_state; 
+	private	Integer qna_state; 
 	private String qna_answer;
 	private Date qna_answer_regDate;
 	

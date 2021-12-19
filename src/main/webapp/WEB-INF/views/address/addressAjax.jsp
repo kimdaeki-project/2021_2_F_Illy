@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<div class="delivery_modal_tit">
+												<h4>나의 배송지 관리</h4>
+											</div>
+											<div class="delivery_modal_cont">
 												<div class="delivery_modal_scroll">
 													<h5>배송지 목록</h5>
 													<div class="delivery_add_list">
@@ -37,6 +40,7 @@
 																		<c:if test="${al.address_default eq 1}">
 																			<tr>
 																				<td>
+																					
 																					<span class="delivery_btn_click delivery_myAddress_chk"><a>선택</a></span>
 																				</td>
 																				<td>
@@ -52,13 +56,13 @@
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">
 																							<input type="hidden" value="${al.address_default}" class="address_default_modal">
 																							<input type="hidden" value="${al.member_id}" class="member_id_modal">
-																							<input type="hidden" value="${al.address_id}" class="address_id_modal">
-																							<input type="hidden" value="${al.address_recipient_name}" class="address_recipient_name_modal">
-																							<input type="hidden" value="${al.address_postcode}" class="address_postcode_modal">
-																							<input type="hidden" value="${al.main_address}" class="main_address_modal">
-																							<input type="hidden" value="${al.address_reference}" class="address_reference_modal">
-																							<input type="hidden" value="${al.address_detail}" class="address_detail_modal">
-																							<input type="hidden" value="${al.address_recipient_phone}" class="address_recipient_phone_modal">
+																							<input type="hidden" value="${al.address_id}" class="address_id_modal d_id">
+																							<input type="hidden" value="${al.address_recipient_name}" class="address_recipient_name_modal d_name">
+																							<input type="hidden" value="${al.address_postcode}" class="address_postcode_modal d_postcode">
+																							<input type="hidden" value="${al.main_address}" class="main_address_modal d_main">
+																							<input type="hidden" value="${al.address_reference}" class="address_reference_modal d_reference">
+																							<input type="hidden" value="${al.address_detail}" class="address_detail_modal d_detail">
+																							<input type="hidden" value="${al.address_recipient_phone}" class="address_recipient_phone_modal d_phone">
 																						</span>
 																						<a>수정</a>
 																					</span>
@@ -118,6 +122,7 @@
 														<a class="new_delivery_add">+ 새 배송지 추가</a>
 													</div> <!-- delivery_add_list end  -->
 												</div> <!-- delivery_modal_scroll end -->
-															
+											</div><!-- delivery_modal_cont end -->
+											<a class="modal_close delivery_a_close"><img src="/images/cart/btn_layer_close.png" alt="닫기"></a>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/js/cart/payment.js"></script>

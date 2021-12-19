@@ -34,8 +34,11 @@ public class ReviewController {
 	}
 	
 	@GetMapping("reviewAll")
-	public String getSelecReviewAll()throws Exception{
-		return "review/reviewAll";
+	public ModelAndView getSelecReviewAll(ModelAndView mv)throws Exception{
+		//List<ReviewVO> ar = reviewService.getReviewList();
+		mv.setViewName("review/reviewAll");
+		//mv.addObject("RList", ar);
+		return mv; 
 	}
 	
 	@GetMapping("reviewAllAj")

@@ -106,7 +106,4 @@
 		DELETE FROM review WHERE review_id=#{review_id}
 	</delete>
 
-
-
-
 </mapper>

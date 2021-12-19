@@ -2,7 +2,6 @@
  * 
  */
  
- 
  /*전역변수 선언 */
 let kind='';
 let search='';
@@ -51,7 +50,8 @@ $("#smallCate04").on('change',function(){
 	/*무조건 첫페이지 뿌려줘서 pn=1*/
 	search=$("#search").val();
 	kind=$("#kind").val();
-	getList(1,kind,search,$("#findPrdCode").val());
+	code=$("#findPrdCode").val();
+	getList(1,kind,search,code);
 }); 
 
 /*이벤트 위임 : 페이지 번호 클릭했을때 실행*/
@@ -86,7 +86,7 @@ function btnCss(pageNum) {
 				}
 			}); 
 			$("#search").val(search);
-		
+			$("#findPrdCode").val(code);
 			 $("#prdList").append(data.trim()); 
 			 $('.pageBtn').each(function() {
 				 if($(this).attr("data-list-pn")!=pn){
@@ -103,19 +103,6 @@ function btnCss(pageNum) {
 
  
 $(".subBtn.sub").click(function(){
-	/*$.ajax({
-		url:'./addQna',
-		type:'get',
-		data:{product_id:product_id},
-		success:function(data){
-			console.log(data);
-			opener.location.reload();
-			window.close();
-		}
-	});	*/
-	
-	
-	
 	var product_id='';
 	var product_name='';
 	var product_price='';
@@ -128,22 +115,28 @@ $(".subBtn.sub").click(function(){
 			productFile_name=$(this).parents().children('.prd').children().find('img').attr('src');
 		 }
 	});
-
-	$(opener.$(".pickPrd")).empty();
 	
-	let html
-	="<div style='width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;'>"
-	+"<div style='display:inline-block;'><img style='width:82px; height:82px;' src='"+productFile_name+"'></div>"
-	+"<div class='prd_info'>"
-	+"<span>"+product_name+"<a class='deletePrd'><i class='xi-close-square-o xi-x'></i></a></span>"
-	+"<span style='font-weight:bold;'>"+product_price+"</span>"
-	+"</div>"
-	+"</div>"
-	$(opener.$(".pickPrd")).append(html);
-	window.close();
-});
+	
+	if(product_id != ''){
+		$(opener.$(".pickPrd")).empty();
+		$(opener.$(".info")).empty();
+		let html
+		="<div style='width:100%; border-top:1px solid #ccc; margin-top:10px; padding:10px 0 0 6px;'>"
+		+"<input hidden='' name='product_id' id='prdId' value='"+product_id+"'>"
+		+"<div style='display:inline-block;'><img style='width:82px; height:82px;' src='"+productFile_name+"'></div>"
+		+"<div class='prd_info'>"
+		+"<span>"+product_name+"&nbsp;<a class='deletePrd' onClick='delPrd()'><i class='xi-close-square-o xi-x'></i></a></span>"
+		+"<span style='font-weight:bold;'>"+product_price+"</span>"
+		+"</div>"
+		+"</div>"
+		$(opener.$(".pickPrd")).append(html);
+		window.close();	
+	}else{
+		window.close();	
+	}
+	
  
- 
+ });
  
  
  

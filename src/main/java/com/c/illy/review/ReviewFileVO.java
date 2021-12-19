@@ -10,5 +10,4 @@ public class ReviewFileVO {
 	private String reviewFile_oriName; 
 	private Integer review_id; 
 	
-	
 }

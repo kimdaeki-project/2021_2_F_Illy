@@ -23,11 +23,16 @@
 						<a href="./qnaSelect?qna_id=${qnaVO.qna_id}">
 							<span style="padding-left:10px;">
 								<i class="xi-lock-o"></i> <span class="btnView">${qnaVO.qna_title}</span>
-								<input hidden="" name="member_id" value="${member.member_id}">
+								<input hidden="" name="member_id" value="${qnaVO.member_id}">
 							</span>
 						</a>
 					</td>
-					<td>${qnaVO.qna_state}</td>
+					<td>
+						<c:choose>
+							<c:when test="${qnaVO.qna_state eq 0}">접수</c:when>
+							<c:otherwise>답변완료</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>					
 		</tbody>

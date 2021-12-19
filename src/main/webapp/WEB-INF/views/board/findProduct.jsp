@@ -17,7 +17,7 @@
 		.prdSearch_box div input{height:27px; width:200px; font-size:13px; padding-left:5px; color:#717171; border:1px solid #ccc; }
 		.searchBtn{cursor:pointer; display:block; width:100px; height:31px; font-weight:bold; margin:20px auto; text-align:center; color:#fff; background-color:#000; border:none;  }
 		.searchBtn em{padding: 2px 20px 0 0;background-image: url(/images/board/btn_goods_search.png);background-position: right 3px; background-repeat: no-repeat;}
-		#prdList{display:block; overflow:auto; margin-bottom:5px;height:300px;  border-top:1px solid #dbdbdb; border-bottom:1px solid #dbdbdb;}
+		#prdList{display:block; min-width:525px; overflow:auto; margin-bottom:5px;height:300px;  border-top:1px solid #dbdbdb; border-bottom:1px solid #dbdbdb;}
 		#prdList .totalPrd{display:block; padding: 20px 0 10px 0; font-size:14px; }
 		#prdList .totalPrd strong{font-weight:bold;}
 		.product_list_table{border-collapse: collapse;}
@@ -65,11 +65,13 @@
 					<option value="001">캡슐커피</option>
 					<option value="002">원두커피</option>
 					<option value="003">분쇄커피</option>
+					<option value="004">스틱커피</option>
 				</select>
 				<select class="select_box sCate" id="smallCate04" style="display:none;">
 					<option value="">=카테고리 선택=</option>
-					<option value="001">캡슐머신</option>
+					<option value="001">X1 Anniversary</option>
 					<option value="002">X7.1</option>
+					<option value="003">Y3.3</option>
 				</select>
 				<input hidden="" id="FCode" value="">		
 				<input hidden="" id="BCode" value="">

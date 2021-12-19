@@ -228,12 +228,12 @@
 												<div class="delivery_control">
 													<ul>
 														<li>
-															<input type="hidden" value="${addressDefault.address_recipient_name}"> <!-- 기본배송지 관련 hidden -->
+															<input type="hidden" class="addressDefault_name" value="${addressDefault.address_recipient_name}"> <!-- 기본배송지 관련 hidden -->
 															<input type="hidden" id="full_postcode" value="${addressDefault.address_postcode}">
-															<input type="hidden" value="${addressDefault.main_address}&nbsp;${addressDefault.address_reference}">
-															<input type="hidden" value="${addressDefault.address_detail}">
-															<input type="hidden" value="${addressDefault.address_recipient_phone}">
-															<input type="hidden" value="${addressDefault.address_id}">
+															<input type="hidden" class="addressDefault_main" value="${addressDefault.main_address}&nbsp;${addressDefault.address_reference}">
+															<input type="hidden" class="addressDefault_detail" value="${addressDefault.address_detail}">
+															<input type="hidden" class="addressDefault_phone" value="${addressDefault.address_recipient_phone}">
+															<input type="hidden" class="addressDefault_id" value="${addressDefault.address_id}">
 															<input type="radio" id="default" class="dC">
 															<label for="default" class="choice_s">기본 배송지</label>
 														</li>
@@ -646,13 +646,13 @@
 																							<input type="hidden" value="${al.address_name}" class="address_name_modal">
 																							<input type="hidden" value="${al.address_default}" class="address_default_modal">
 																							<input type="hidden" value="${al.member_id}" class="member_id_modal">
-																							<input type="hidden" value="${al.address_id}" class="address_id_modal">
-																							<input type="hidden" value="${al.address_recipient_name}" class="address_recipient_name_modal">
-																							<input type="hidden" value="${al.address_postcode}" class="address_postcode_modal">
-																							<input type="hidden" value="${al.main_address}" class="main_address_modal">
-																							<input type="hidden" value="${al.address_reference}" class="address_reference_modal">
-																							<input type="hidden" value="${al.address_detail}" class="address_detail_modal">
-																							<input type="hidden" value="${al.address_recipient_phone}" class="address_recipient_phone_modal">
+																							<input type="hidden" value="${al.address_id}" class="address_id_modal d_id">
+																							<input type="hidden" value="${al.address_recipient_name}" class="address_recipient_name_modal d_name">
+																							<input type="hidden" value="${al.address_postcode}" class="address_postcode_modal d_postcode">
+																							<input type="hidden" value="${al.main_address}" class="main_address_modal d_main">
+																							<input type="hidden" value="${al.address_reference}" class="address_reference_modal d_reference">
+																							<input type="hidden" value="${al.address_detail}" class="address_detail_modal d_detail">
+																							<input type="hidden" value="${al.address_recipient_phone}" class="address_recipient_phone_modal d_phone">
 																						</span>
 																						<a>수정</a>
 																					</span>

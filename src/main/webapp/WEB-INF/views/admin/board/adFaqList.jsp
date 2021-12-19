@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/css/board/faqList.css">
    
 	<style type="text/css">
-		.board_zone_tit{margin-top:0;margin-bottom:10px; padding-bottom:10px;}
+		.board_zone_tit{margin-top:0;margin-bottom:10px; padding-bottom:10px; position:relative;}
 		.board_zone_tit h2{color:#d12420; font-size:24px;}
 		.right_content{width:1000px;float:left;padding-left:40px;}
 		.board_search_box{margin: 60px 0 30px 0;padding: 10px 10px 10px 10px;border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8; background: #f7f7f7; text-align: center;height:55px;}
@@ -41,7 +41,7 @@
 						<div class="board_zone_tit">
 							<h2 style="color:#333; font-size:24px; border:none;" >FAQ</h2>
 							<!--관리자용 버튼   -->
-							<a class="addFaq" style="top:175px;" href="/admin/board/insertFaq">FAQ 추가하기</a>
+							<a class="addFaq" style="top:10px; right:0;" href="/admin/board/insertFaq">FAQ 추가하기</a>
 						</div>
 						<div class="pickTab">
 							<ul>

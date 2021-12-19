@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div id="wrapper">
+		<input type="hidden" value="${member.member_id}" id="member_id">
 		<c:import url="/WEB-INF/views/navbar/navbar.jsp"></c:import>
 		<c:import url="/WEB-INF/views/navbar/sideBar.jsp"></c:import>
 		<div id="container">

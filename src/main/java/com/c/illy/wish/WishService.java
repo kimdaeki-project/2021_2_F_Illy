@@ -30,10 +30,6 @@ public class WishService {
 		pager.makeNum(totalCount);
 
 		map.put("pager", pager);
-		System.out.println("========");
-		System.out.println("member_id: " + memberVO.getMember_id());
-		System.out.println("pn: " + pager.getPn());
-		System.out.println("totalCount: " + totalCount);	
 		
 		return wishRepository.getWishList(map);
 	}

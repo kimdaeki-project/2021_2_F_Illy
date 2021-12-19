@@ -56,23 +56,23 @@
 								<tr>
 									<td rowspan="${list.carts.size()}" class="order_day_num">
 										<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
-										<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
-										<c:if test="${carts.cart_state eq 'payment'}">
-											<div class="btn_claim">
+										<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}" data-payment-date="${list.payment_date}"><span>${list.payment_id}</span></a>
+										<div class="btn_claim">
+											<c:if test="${carts.cart_state eq 'payment'}">
 												<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
 														data-payment-usePoint="${list.payment_use_point}">
 													<a>주문취소</a>
 												</span>
-											</div>
-										</c:if>
-										<c:if test="${carts.cart_state eq 'done'}">
-											<div class="btn_claim">
-												<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
-														data-payment-usePoint="${list.payment_use_point}">
-													<a>환  불</a>
-												</span>
-											</div>
-										</c:if>
+											</c:if>
+											<c:if test="${carts.cart_state eq 'done'}">
+												<c:if test="${carts.cart_review_state eq 0}">
+													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+															data-payment-usePoint="${list.payment_use_point}">
+														<a>환  불</a>
+													</span>
+												</c:if>
+											</c:if>
+										</div>
 									</td>
 									<td class="td_left">
 										<div class="pick_add_cont">
@@ -113,19 +113,39 @@
 											<div style="margin-top: 5px;"><div>(택배)</div></div>
 										</c:if>
 									</td>
-									<td></td>
+									<td>
+										<c:if test="${carts.cart_state eq 'done'}">
+											<c:if test="${carts.cart_review_state eq 0}">
+												<input hidden="" class="review_state_date" value="${list.payment_date}">
+												<input hidden="" class="cart_id" value="${carts.cart_id}">	
+												<div class="reviewState">
+												
+												</div>															
+											</c:if>
+											<c:if test="${carts.cart_review_state eq 1}">
+												<span class="checkReview">"리뷰쓰기완료"</span>
+												<button class="reviewBtn goReview" type="button">보러가기</button>
+											</c:if>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 												
 							<c:if test="${list.carts.size() ne 1}">
 								<c:choose>
 									<c:when test="${status.last}"><tr></c:when>
-									<c:otherwise><tr class="row_line"></c:otherwise>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${status.first}"><tr class="row_line refund_check"></c:when>
+											<c:otherwise><tr class="row_line"></c:otherwise>
+										</c:choose>
+									</c:otherwise>
 								</c:choose>
 								<c:if test="${status.first}">
 									<td rowspan="${list.carts.size()}" class="order_day_num">
 										<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
-											<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
+											<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-date="${list.payment_date}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
+											
 											<c:if test="${carts.cart_state eq 'payment'}">
 												<div class="btn_claim">
 													<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
@@ -135,12 +155,14 @@
 												</div>
 											</c:if>
 											<c:if test="${carts.cart_state eq 'done'}">
-												<div class="btn_claim">
-													<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
-															data-payment-usePoint="${list.payment_use_point}">
-														<a>환  불</a>
-													</span>
-												</div>
+												<c:if test="${carts.cart_review_state eq 0}">
+													<div class="btn_claim btn_claim_refund">
+														<span class="btn_order_refund" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
+																data-payment-usePoint="${list.payment_use_point}">
+															<a>환  불</a>
+														</span>
+													</div>
+												</c:if>
 											</c:if>
 									</td>
 								</c:if>
@@ -183,7 +205,21 @@
 											<div style="margin-top: 5px;"><div>(택배)</div></div>
 										</c:if>
 									</td>
-									<td></td>
+									<td class="review_check_table">
+										<c:if test="${carts.cart_state eq 'done'}">
+											<c:if test="${carts.cart_review_state eq 0}">
+												<input hidden="" class="review_state_date" value="${list.payment_date}">
+												<input hidden="" class="cart_id" value="${carts.cart_id}">
+												<div class="reviewState">
+													
+												</div>	
+											</c:if>
+											<c:if test="${carts.cart_review_state eq 1}">
+												<span class="checkReview">"리뷰쓰기완료"</span>
+												<button class="reviewBtn goReview" type="button">보러가기</button>
+											</c:if>
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 												

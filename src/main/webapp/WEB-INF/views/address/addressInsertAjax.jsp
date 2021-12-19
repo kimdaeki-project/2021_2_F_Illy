@@ -3,8 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="/css/address/addressInsert.css">
+<link rel="stylesheet" href="/css/order/payment.css">
 
 <form method="post" name="myAddressInsert">
+<div class="delivery_modal_tit">
+												<h4>나의 배송지 관리</h4>
+											</div>
+											<div class="delivery_modal_cont">
 	<div class="ajax_scroll">
 		<h5>배송지 등록</h5>
 		
@@ -65,13 +70,15 @@
 	</div><!-- ajax_scroll end -->
 	
 	<div class="btn_center_box">
-		<button type="button" class="btn_cancel_box delivery_a_close">
+		<button type="button" class="btn_cancel_box delivery_a_close_ajax">
 			<strong>취소</strong>
 		</button>
 		<button type="button" class="btn_coupon_chk delivery_a_add">
 			<strong>저장</strong>
 		</button>	
 	</div>
+		</div><!-- delivery_modal_cont end -->
+<a class="modal_close delivery_a_close_ajax"><img src="/images/cart/btn_layer_close.png" alt="닫기"></a>
 </form>
 
 <script type="text/javascript">
@@ -134,8 +141,7 @@ function postcode() {
 }
 
 //배송지관리 모달창 없애기
-$('.delivery_a_close').click(function(){
-	
+$('.delivery_a_close_ajax').click(function(){
 	let member_id = $("#member_id").val();
 	console.log(member_id);
 	
@@ -147,15 +153,12 @@ $('.delivery_a_close').click(function(){
 		},
 		success: function(result){
 			result=result.trim();
-			$('.delivery_modal_cont').html(result);
-
-			location.href="http://localhost/payment/paymentList";
+			$('.delivery_window').html(result);
 		},
 		error:function(xhr, status, error){
 			console.log('error');
 		}
 	});
-	
 	
 	$('.delivery_modal_list').addClass('dn'); 
 	$("body").css("overflow","auto");//body 스크롤바 생성
@@ -226,7 +229,14 @@ $('.delivery_a_add').click(function(){
 				},
 				success: function(result){
 					result=result.trim();
-					$('.delivery_modal_cont').html(result);
+					$('.delivery_window').html(result);
+					
+					$('.addressDefault_name').val($('.d_name').val());
+					$('#full_postcode').val($('.d_postcode').val());
+					$('.addressDefault_main').val($('.d_main').val() + ' ' + $('.d_reference').val());
+					$('.addressDefault_detail').val($('.d_detail').val());
+					$('.addressDefault_phone').val($('.d_phone').val());
+					$('.addressDefault_id').val($('.d_id').val());
 				},
 				error:function(xhr, status, error){
 					console.log('error');
@@ -251,7 +261,14 @@ $('.delivery_a_add').click(function(){
 				},
 				success: function(result){
 					result=result.trim();
-					$('.delivery_modal_cont').html(result);
+					$('.delivery_window').html(result);
+					
+					$('.addressDefault_name').val($('.d_name').val());
+					$('#full_postcode').val($('.d_postcode').val());
+					$('.addressDefault_main').val($('.d_main').val() + ' ' + $('.d_reference').val());
+					$('.addressDefault_detail').val($('.d_detail').val());
+					$('.addressDefault_phone').val($('.d_phone').val());
+					$('.addressDefault_id').val($('.d_id').val());
 				},
 				error:function(xhr, status, error){
 					console.log('error');

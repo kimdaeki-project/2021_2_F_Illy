@@ -53,7 +53,7 @@
 									<th scope="row">질문 유형</th>
 									<td>
 										<select id="faq_type_code" name="faq_type_code">
-											<option>=선택=</option>
+											<option value="1">=선택=</option>
 											<option value="f_1">회원가입/회원혜택</option>
 											<option value="f_2">주문/결제/배송</option>
 											<option value="f_3">취소/교환/반품/환불</option>
@@ -140,8 +140,40 @@
 			$("#faq_type").val("자가진단");
 		}
 		
-		$("#faqAdFrm").submit();
+		if(code=="1"){
+			alert("문의 유형을 선택하세요");
+			return false;
+		}
+		
+		if($(".faq_title").val()==''){
+			alert("질문은 필수 입력 사항입니다.");
+			return false;
+		}
+		
+		if($(".summernote").summernote('isEmpty')){
+			alert("답변은 필수 입력 사항입니다.");
+		}
+		
+		if(confirm('공지를 업로드 하시겠습니까?')){
+			if($(".notice_top").prop('checked')){
+				if($(".cnt").val()>4){
+					alert("상단고정게시글은 5개 이상 불가하므로 일반게시글로 업로드됩니다.");
+					$(".notice_top").val(0);				
+				}else{
+					$(".notice_top").val(1);			
+				}
+			}
+			$("#faqAdFrm").submit();			
+		}else{
+			return false;
+		}
+		
 	});
+	
+	
+	
+	
+	
 	
 	
 	

@@ -6,8 +6,6 @@
 function optionChange(value) {
 	let selectedMail = $('.selectedMail').val();
 	selectedMail = selectedMail.split('@', 1);
-	
-	console.log(selectedMail+value);
 	$('.selectedMail').val(selectedMail+value);
 }
 
@@ -185,18 +183,26 @@ $('.coupon_element').on('click', '.delivery_one', function(){
 	coupon_delivery_sale = coupon_delivery_sale.toLocaleString();
 	
 	
-	let sum = $('.total_sum').html();
+	let sum = $('.ttPrice').html();
 	sum = sum.replace(/,/g, "");
-	sum = parseInt(sum);
+	sum = parseInt(sum); //무료 배송 구분
    	
+   	
+   	let totalPrice = parseInt($('.total_total_sum').html().replace(/,/g, ""))-parseInt($(this).val());
 	
 	if ($(this).is(':checked') == true) { //쿠폰선택
 		$('.couponCheck_delivery').removeClass('on');
 		$('.couponCheck_cart').removeClass('on');
 		$(this).next().addClass('on');
 		if(sum>0 && sum<50000) {
-			$('.coupon_delivery_sale').html(coupon_delivery_sale);
-			$('.coupon_product_sale').html(0);
+			if(totalPrice<0){
+				$('.coupon_delivery_sale').html(0);
+				$('.coupon_product_sale').html(0);
+			}else {
+				$('.coupon_delivery_sale').html(coupon_delivery_sale);
+				$('.coupon_product_sale').html(0);
+			}
+			
    		} else {
    			$('.coupon_delivery_sale').html(0);
    			$('.coupon_product_sale').html(0);
@@ -212,15 +218,25 @@ $('.coupon_element').on('click', '.delivery_one', function(){
 
 //쿠폰 체크 - cart
 $('.coupon_element').on('click', '.cart_one', function(){
-	let coupon_product_sale = parseInt($(this).val());
-	coupon_product_sale = coupon_product_sale.toLocaleString();
+	let coupon_product_sale_int = parseInt($(this).val());
+	let coupon_product_sale = coupon_product_sale_int.toLocaleString();
+	
+	let sum = $('.total_total_sum').html();
+	sum = sum.replace(/,/g, "");
+	sum = parseInt(sum);
 	
 	if ($(this).is(':checked') == true) { //쿠폰선택
 		$('.couponCheck_delivery').removeClass('on');
 		$('.couponCheck_cart').removeClass('on');
 		$(this).next().addClass('on');
-		$('.coupon_product_sale').html(coupon_product_sale);
-		$('.coupon_delivery_sale').html(0);
+		if(sum-coupon_product_sale_int>0) {
+			$('.coupon_delivery_sale').html(0);
+			$('.coupon_product_sale').html(coupon_product_sale);
+   		} else {
+   			$('.coupon_delivery_sale').html(0);
+   			$('.coupon_product_sale').html(0);
+	
+		}
 	}
 	else { //쿠폰선택해제
 		$(this).next().removeClass('on');
@@ -239,8 +255,6 @@ $('.close_a_btn').click(function(){
 $('.close_a_btn_coupon').click(function(){
 	let deliverySale;
 	let produdctSale;
-	let ttPrice = $('.total_sum').html();
-	ttPrice = ttPrice.replace(/,/g, "");
 	
 	$('.coupon_modal_list').addClass('dn');
 	
@@ -257,18 +271,27 @@ $('.close_a_btn_coupon').click(function(){
 			productSale= productSale.replace(/,/g, "");			
 			deliverySale = deliverySale.replace(/,/g, "");
 			
-			ttPrice = parseInt(ttPrice)-parseInt(productSale)-parseInt(deliverySale)-$('.read_bean').val();
-			$('.total_total_sum').html(ttPrice.toLocaleString());
+			let totalPrice = parseInt($('.total_sum').html().replace(/,/g, ""))-parseInt(productSale)-parseInt(deliverySale)-$('.read_bean').val();
+			
+			$('.total_total_sum').html(totalPrice.toLocaleString());
 			
 			return false; 
 			
 		} else {
-			$('.coupon_use_ul').addClass('dn');
+			$('.coupon_use_ul').removeClass('dn');
+			
+			deliverySale=$('.coupon_delivery_sale').html();
+			productSale=$('.coupon_product_sale').html();
+			
 			$('.productSale').html(0);
 			$('.deliverySale').html(0);
 			
-			ttPrice = parseInt(ttPrice)-$('.read_bean').val();
-			$('.total_total_sum').html(ttPrice.toLocaleString());
+			productSale= productSale.replace(/,/g, "");			
+			deliverySale = deliverySale.replace(/,/g, "");
+			
+			let totalPrice = parseInt($('.total_sum').html().replace(/,/g, ""))-parseInt(productSale)-parseInt(deliverySale)-$('.read_bean').val();
+			
+			$('.total_total_sum').html(totalPrice.toLocaleString());
 		}
 	
 	});
@@ -280,7 +303,7 @@ $('.close_a_btn_coupon').click(function(){
 //포인트 전액 사용하기
 $('#allBeanUse').click(function(){
 	let allBean = parseInt($('.all_beanUse').attr('data-member-point'));
-   let ttPrice = $('.total_sum').html();
+    let ttPrice = $('.total_sum').html();
 	ttPrice = ttPrice.replace(/,/g, "");
 	ttPrice = parseInt(ttPrice);
 	let productSale = $('.productSale').html();
@@ -295,19 +318,26 @@ $('#allBeanUse').click(function(){
 		$('.read_bean').attr('readonly', true);
 		$('#allBeanUse').attr('disabled', true);
 	}else {
-		if($(this).next().hasClass('on') == true){
-			$(this).next().removeClass('on');
+		if($('.allBeanUse').hasClass('on') == true){
+			$('.allBeanUse').removeClass('on');
 			$(this).prop('checked', false);
 			$('.read_bean').val('');
 			ttPrice = ttPrice-productSale-deliverySale;
 			ttPrice=ttPrice.toLocaleString();
 			$('.total_total_sum').html(ttPrice);
 		}else {
-			$(this).next().addClass('on');
+			$('.allBeanUse').addClass('on');
 			$(this).prop('checked', true);
-			$('.read_bean').val(allBean);
-			ttPrice -= allBean;
 			ttPrice = ttPrice-productSale-deliverySale;
+			//보유 포인트가 총 합계금액보다 많을 경우
+			if(ttPrice-allBean<0){
+				alert('포인트 사용은 최종 결제 금액보다 클 수 없습니다.');
+				$('.read_bean').val(ttPrice);
+				ttPrice -= ttPrice;
+			}else {
+				$('.read_bean').val(allBean);
+				ttPrice -= allBean;
+			}
 			ttPrice=ttPrice.toLocaleString();
 			$('.total_total_sum').html(ttPrice);
 		}
@@ -318,7 +348,7 @@ $('#allBeanUse').click(function(){
 });
 
 //포인트 사용하기
-$('.read_bean').mouseleave(function(){
+$('.read_bean').keyup(function(){
 	let allBean = parseInt($('.all_beanUse').attr('data-member-point'));
    let ttPrice = $('.total_sum').html();
 	ttPrice = ttPrice.replace(/,/g, "");
@@ -330,8 +360,6 @@ $('.read_bean').mouseleave(function(){
 	deliverySale = deliverySale.replace(/,/g, "");
 	deliverySale = parseInt(deliverySale);
 	
-	console.log($('.read_bean').val());
-	
 	//- 보유 포인트보다 많은 포인트를 적었을 때
 	if($('.read_bean').val()>allBean){
 		alert('보유 일리 포인트는 '+allBean+'콩 입니다.');
@@ -341,9 +369,16 @@ $('.read_bean').mouseleave(function(){
 		ttPrice=ttPrice.toLocaleString();
 		$('.total_total_sum').html(ttPrice);
 	} else{
-		ttPrice -= $('.read_bean').val();
 		ttPrice = ttPrice-productSale-deliverySale;
-		console.log(ttPrice);
+		//보유 포인트가 총 합계금액보다 많을 경우
+		if(ttPrice-$('.read_bean').val()<0){
+			alert('포인트 사용은 최종 결제 금액보다 클 수 없습니다.');
+			$('.read_bean').val(ttPrice);
+			ttPrice -= ttPrice;
+		}else {
+			$('.read_bean').val($('.read_bean').val());
+			ttPrice -= $('.read_bean').val();
+		}
 		ttPrice=ttPrice.toLocaleString();
 		$('.total_total_sum').html(ttPrice);
 	}
@@ -361,6 +396,13 @@ $('.delivery_myAddress').click(function(){
 
 //배송지관리 모달창 없애기
 $('.delivery_a_close').click(function(){
+	if($('#default').next().hasClass('on') == true){
+		$('.delivery_name').val($('.d_name').val());
+		$('#sample6_postcode').val($('.d_postcode').val());
+		$('#sample6_address').val($('.d_main').val() + ' ' + $('.d_reference').val());
+		$('#sample6_detailAddress').val($('.d_detail').val());
+		$('.delivery_phone').val($('.d_phone').val());
+	}
 	$('.delivery_modal_list').addClass('dn'); 
 	$("body").css("overflow","auto");//body 스크롤바 생성
 });
@@ -380,14 +422,14 @@ $('.delivery_myAddress_del').click(function(){
 		if(confirm('나의 배송지 ['+address_name+']을(를) 정말로 삭제하시겠습니까?')){
 			$.ajax({
 				type:"GET",
-				url:"../address/myAddressDel",
+				url:"/address/myAddressDel",
 				data: {
 					address_id:address_id,
 					member_id:member_id
 				},
 				success: function(result){
 					result=result.trim();
-					$('.delivery_modal_cont').html(result);
+					$('.delivery_window').html(result);
 				},
 				error:function(xhr, status, error){
 					console.log('error');
@@ -402,10 +444,10 @@ $('.delivery_myAddress_del').click(function(){
 
 //나의 배송지 수정하기
 $('.delivery_myAddress_up').click(function(){
-	console.log($(this).attr('data-address-id'));
 	$.ajax({
+		async : false,
 		type:"GET",
-		url:"../address/myAddressUpdate",
+		url:"/address/myAddressUpdate",
 		data: {
 			address_id:$(this).attr('data-address-id'),
 			address_name:$(this).find('.address_name_modal').val(),
@@ -419,8 +461,9 @@ $('.delivery_myAddress_up').click(function(){
 			member_id:$(this).find('.member_id_modal').val()
 		},
 		success: function(result) {
+			$('.delivery_window').empty();
 			result = result.trim();
-			$('.delivery_modal_cont').html(result);
+			$('.delivery_window').html(result);
 		},
 		error:function(xhr, status, error){
 			console.log('error');
@@ -430,7 +473,6 @@ $('.delivery_myAddress_up').click(function(){
 
 //나의 배송지 선택하기
 $('.delivery_myAddress_chk').click(function(){
-	console.log($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
 	$('.delivery_name').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_name_modal').val());
 	$('.delivery_postcode').val($(this).parent().siblings('.td_hidden_info').find('.address_postcode_modal').val());
 	$('.address_reference').val(
@@ -439,6 +481,13 @@ $('.delivery_myAddress_chk').click(function(){
 								);
 	$('.address_detail').val($(this).parent().siblings('.td_hidden_info').find('.address_detail_modal').val());
 	$('.delivery_phone').val($(this).parent().siblings('.td_hidden_info').find('.address_recipient_phone_modal').val());
+	
+	$('.addressDefault_name').val($('.d_name').val());
+	$('#full_postcode').val($('.d_postcode').val());
+	$('.addressDefault_main').val($('.d_main').val() + ' ' + $('.d_reference').val());
+	$('.addressDefault_detail').val($('.d_detail').val());
+	$('.addressDefault_phone').val($('.d_phone').val());
+	$('.addressDefault_id').val($('.d_id').val());
 	
 	$('.delivery_modal_list').addClass('dn'); //모달창 지우기
 	$("body").css("overflow","auto");//body 스크롤바 생성
@@ -449,14 +498,15 @@ $('.delivery_myAddress_chk').click(function(){
 $('.new_delivery_add').click(function(){
 	let member_id= $('.member_id').val();
 	$.ajax({
+		async : false,
 		type:"GET",
-		url:"../address/myAddressInsert",
+		url:"/address/myAddressInsert",
 		data: {
 			member_id:member_id
 		},
 		success: function(result){
 			result = result.trim();
-			$('.delivery_modal_cont').html(result);
+			$('.delivery_window').html(result);
 		},
 		error:function(xhr, status, error){
 			console.log('error');
