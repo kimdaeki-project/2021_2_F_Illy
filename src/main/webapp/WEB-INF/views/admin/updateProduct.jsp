@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/admin/insertProduct.css">
 
-<title>Insert title here</title>
+<title>일리카페 코리아</title>
 </head>
 <body>
 	<div id="wrapper">
