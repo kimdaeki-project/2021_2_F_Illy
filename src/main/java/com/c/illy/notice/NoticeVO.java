@@ -3,6 +3,8 @@ package com.c.illy.notice;
 import java.sql.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Data;
 
 @Data

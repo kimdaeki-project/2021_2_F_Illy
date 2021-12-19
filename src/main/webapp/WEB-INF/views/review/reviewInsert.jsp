@@ -106,19 +106,17 @@
 									<tr>
 										<th>첨부파일</th>
 										<td colspan="3" style="width: 80%;" class="inputFileWrap">
-											<input type="file" name="multipartFiles" multiple="multiple"
-											data-maximum_file_cnt="5" data-init_img_cnt="0" hidden="">
-
-											<div class="imgBoxWrap" data-total_img_cnt="0"
-												data-init_img_cnt="0"></div>
-
-											<div class="inputBox">
-												<input type="file" id="inputFile" class="inputFile"
-													multiple="multiple" hidden=""> <label
-													for="inputFile" class="inputFileLable"></label>
+											<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="5" data-init_img_cnt="0" hidden="">
+											
+											<div class="imgBoxWrap" data-total_img_cnt="0" data-init_img_cnt="0">
 											</div>
+											
+											<div class="inputBox">
+												<input type="file" id="inputFile" class="inputFile" multiple="multiple" hidden="">
+												<label for="inputFile" class="inputFileLable"></label>
+											</div>								
 										</td>
-									</tr>
+											</tr>
 									<tr>
 										<th scope="row">자동등록방지</th>
 										<td>
@@ -151,6 +149,7 @@
 	</div>
 
 
+	<script src="/js/util/inputFileWrap.js"></script>	
 	<script type="text/javascript">
 		//별점 선택 
 		$(".choice_s").click(function(){
@@ -199,7 +198,6 @@
 			}
 			
 			if(confirm('리뷰를 업로드 하시겠습니까?')){
-				alert($("#review_star").val());
 				$("#qnaFrm").submit();
 			}else{
 				return false;
@@ -207,7 +205,7 @@
 				
 		});
 		
-		/********** 상품사진 START **********/ 	
+		/********** 상품사진 START **********/ 
 		$('.inputFileWrap').on('change', '.inputFile', function(){
 			let multipartFiles = $('input[name=multipartFiles]');
 			let imgBoxWrap = $('.imgBoxWrap');

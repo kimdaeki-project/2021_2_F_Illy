@@ -34,9 +34,9 @@
 			<li>
 				<a href="/member/qnaList">1:1문의</a>
 			</li>
-			<li>
+			<!-- <li>
 				<a href="/review/bestReview">상품후기</a>
-			</li>
+			</li> -->
 		</ul>	
 		<div class="cs_center">		
 			<div class="cs_f"><span>고객</span><span>상담센터</span></div>

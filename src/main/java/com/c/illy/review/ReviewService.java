@@ -45,7 +45,8 @@ public class ReviewService {
 	public List<ReviewVO> reviewSelectOne(Integer cart_id)throws Exception{
 		return reviewRepository.reviewSelectOne(cart_id);
 	}
-
+	
+	
 	// 리뷰 추가하기
 	public int reviewInsert(MemberVO memberVO,ReviewVO reviewVO, MultipartFile[] multipartFiles) throws Exception {
 		reviewRepository.reviewInsert(reviewVO);

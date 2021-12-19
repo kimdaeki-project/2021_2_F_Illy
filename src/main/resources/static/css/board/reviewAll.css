@@ -1,8 +1,9 @@
 @charset "UTF-8";
 		.board_zone_tit h2{color:#D12420; font-size:24px;}
-		.select_box{padding-left:20px; }
-		.search_cate{width:246px;  padding-left:10px;cursor:pointer; margin-right:10px; height:31px;color: #717171;vertical-align: top;outline: none;border: 1px solid #cccccc;}
+		.search_cate{padding-left:20px; width:250px; height:31px; font-size:13px; padding:5px; cursor:pointer; color:#717171;vertical-align:top; border:1px solid #ccc;}
 		.search_kind{line-height:30px;}
+		#search{width:300px;}
+		.select_box_wrap{text-align:center; }
 		.review_search{  width:100%;padding:15px 10px; border-bottom:1px solid #ccc;}
 		.review_list{width:100%;   padding:0px 10px;margin:15px 0; }
 		.review_one{min-height:226px; width:100%;  padding:15px 0; border-bottom:1px solid #ccc;   }
@@ -14,16 +15,33 @@
 		.pagination{text-align:center; margin-top:60px;  cursor:pointer;  }
 		.btn_board_search{line-height: 31px;background: #666666;  width: 93px;text-align: center; border:none; color:#fff; font-size:13px; font-weight:bold; }
 		.btn_board_search img{width:17px; height:17px; line-height:31px; vertical-align:middle; position:relative; bottom:2px; left:2px;   }
-		.buy_product{background-color:#eee; width:100px; height:100px;  }
-		.review_star{background-color:yellow; width:140px; height:30px;  }
+		.buy_product{width:100px; height:100px;  }
+		.review_star{width:140px; height:30px;  }
 		.review_info{width:140px; height:100px; }
 		.review_info span{display:block; padding:5px 0;}
 		.buy_product_name strong{font-size:13px; }
 		.buy_product_name{ padding-bottom:10px;}
-		.review_one .review_right .buy_product_detail{min-height:41px; width:100%; background-color:#F8F8F8; margin-bottom:10px; }
-		.review_content{min-height:50px; margin:10px 0; background-color:#eee;}
+		.review_one .review_right .buy_product_detail{min-height:41px; width:100%; padding:10px 0 0 10px; margin-bottom:10px; }
+		.review_content{min-height:50px; margin:10px 0; background-color:#F8F8F8;padding:10px 0 0 20px;}
 		.review_photo{width:102px; height:102px; background-color:#F8F8F8;}
 		.review_hits{padding:10px 0; }
 		.review_hits span{font-size:12p; color:#000000;}
 		.review_hits a{width:62px; height:21px; background-color:#000000; color:#fff; padding:1px 5px 2px; margin-left:10px;}
+		.review_search_option div .select_box{padding-left:20px; width:250px; height:31px; font-size:13px; padding:5px; cursor:pointer; color:#717171;vertical-align:top; border:1px solid #ccc;}
+		.review_search_option div .select_box option{height:31px; font-size:13px; }
+		.review_search_option div input{height:27px; width:200px; font-size:13px; padding-left:5px; color:#717171; border:1px solid #ccc; }
+		
+	
+	
+	 .rating_star {
+		display: inline-block;
+		width: 88px;
+		height: 15px;
+		font-size: 18px;
+		color: #ffcc00;
+	}
+	
+	.rating_star em {
+		color: #dbdbdb;
+	}
 	

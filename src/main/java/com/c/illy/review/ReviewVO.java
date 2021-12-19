@@ -24,4 +24,5 @@ public class ReviewVO {
 	private CartVO cartVO;
 	private ProductVO productVO;
 	private MemberVO memberVO;
+	
 }
