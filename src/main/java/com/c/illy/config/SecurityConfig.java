@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		  .csrf()
 		  .disable()
 		  .authorizeRequests()
-		  .antMatchers("/").permitAll()
+		  .antMatchers("/**").permitAll()
 					/*
 					 * .antMatchers("/member/login").anonymous()
 					 * .antMatchers("/member/findPw").anonymous()
@@ -62,9 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					 * .antMatchers("/member/checkId").anonymous()
 					 * .antMatchers("/member/myPage/**").hasAnyRole("MEMBER")
 					 */
-		  .antMatchers("/product/**").permitAll()
-		  .antMatchers("/member/login").permitAll()
-		  .antMatchers("/member/join").permitAll()
 		  .anyRequest().authenticated();
 		  http
 		  .formLogin()
