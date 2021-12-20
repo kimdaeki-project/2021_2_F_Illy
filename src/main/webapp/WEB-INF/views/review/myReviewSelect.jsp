@@ -30,7 +30,7 @@
 		.prd_info{display:inline-block;position:absolute; margin-left:20px; }
 		.prd_info span{display:block; font-size:13px; color:#333; margin-bottom:5px; }
 		.pickPrd{border-bottom:1px solig #dbdbdb;}
-		.review_photo{ position:relative; display:inline-block;width:200px; height:200px; background-color:#ccc; overflow:hidden; margin-right:25px; }
+		.review_photo{ position:relative; display:inline-block;width:200px; height:200px; overflow:hidden; margin-right:25px; }
 		.review_photo img{position:absolute; width:100%; top:50%; transform: translateY(-50%);}	
 	</style>
 	

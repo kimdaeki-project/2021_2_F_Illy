@@ -131,7 +131,7 @@
 																</c:if>
 																<c:if test="${carts.cart_review_state eq 1}">
 																	<span class="checkReview">"리뷰쓰기완료"</span>
-																	<button class="reviewBtn goReview" type="button">보러가기</button>
+																	<button class="reviewBtn goReview" type="button" onClick="location.href='./myReviewSelect?cart_id=${carts.cart_id}'">보러가기</button>
 																</c:if>
 															</c:if>
 														</td>
@@ -222,7 +222,7 @@
 																</c:if>
 																<c:if test="${carts.cart_review_state eq 1}">
 																	<span class="checkReview">"리뷰쓰기완료"</span>
-																	<button class="reviewBtn goReview" type="button">보러가기</button>
+																	<button class="reviewBtn goReview" type="button" onClick="location.href='./myReviewSelect?cart_id=${carts.cart_id}'">보러가기</button>
 																</c:if>
 															</c:if>
 														</td>
