@@ -184,14 +184,14 @@ public class MemberService implements UserDetailsService {
 		SimpleEmail email1 = new SimpleEmail();
 		email1.setHostName("smtp.naver.com");
 		email1.setSmtpPort(465);
-		email1.setAuthentication("zhzhdkspt", "keykang123");
+		email1.setAuthentication("[naverID]", "[password]");
 		email1.setSSLOnConnect(true);
 		email1.setStartTLSEnabled(true);
 		String response1 = "fail";
 		boolean result = false;
 
 		try {
-			email1.setFrom("zhzhdkspt@naver.com", "강동욱", "utf-8");
+			email1.setFrom("[naverID]@naver.com", "[name]", "utf-8");
 			email1.addTo(memberVO.getMember_email(), memberVO.getMember_name(), "utf-8");
 			email1.setSubject("임시 비밀번호 입니다.");
 			email1.setMsg("새로운 임시 비밀번호 입니다. " + randomePassword);
