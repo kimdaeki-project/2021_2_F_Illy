@@ -63,7 +63,7 @@
 													<tr>
 														<td rowspan="${list.carts.size()}" class="order_day_num">
 															<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
-															<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
+															<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}" data-payment-date="${list.payment_date}"><span>${list.payment_id}</span></a>
 															<div class="btn_claim">
 																<c:if test="${carts.cart_state eq 'payment'}">
 																	<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"
@@ -151,7 +151,7 @@
 													<c:if test="${status.first}">
 														<td rowspan="${list.carts.size()}" class="order_day_num">
 															<em><fmt:formatDate value="${list.payment_date}" pattern="yyyy/MM/dd"/></em><br>
-																<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
+																<a class="order_num_link" href="/member/myPage/myPageOrderDetail?payment_id=${list.payment_id}" data-payment-date="${list.payment_date}" data-payment-id="${list.payment_id}"><span>${list.payment_id}</span></a>
 																<c:if test="${carts.cart_state eq 'payment'}">
 																	<div class="btn_claim">
 																		<span class="btn_order_cancel" data-payment-id="${list.payment_id}" data-payment-addPoint="${list.payment_add_point}"

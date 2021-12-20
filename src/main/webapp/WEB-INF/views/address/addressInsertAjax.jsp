@@ -162,6 +162,7 @@ $('.delivery_a_close_ajax').click(function(){
 	
 	$('.delivery_modal_list').addClass('dn'); 
 	$("body").css("overflow","auto");//body 스크롤바 생성
+	location.reload(true);
 	
 });
 
