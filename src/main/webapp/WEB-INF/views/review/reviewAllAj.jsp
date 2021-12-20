@@ -33,26 +33,18 @@
 									<span>${reviewVO.review_contents}</span>
 								</div>
 								
-								<c:forEach items="${reviewVO.fileList}" var="reviewFileVO" begin="0" end="2">
-									<div style="display:inline-block; position:relative; ">
-										<div class="review_img" style=" cursor:pointer;display:inline-block; margin-right:20px;  width:102px; height:102px; overflow:hidden; position:relative;" class="review_photo">
-											<img style="position:absolute; width:100%; top:50%; transform: translateY(-50%);" src="/upload/review/${reviewFileVO.reviewFile_name}"> 
+								<c:forEach items="${refileList}" var="reviewFileVO">
+									<c:if test="${reviewVO.review_id eq reviewFileVO.review_id}">
+										<div style="display:inline-block; position:relative; ">
+											<div class="review_img" style=" cursor:pointer;display:inline-block; margin-right:20px;  width:102px; height:102px; overflow:hidden; position:relative;" class="review_photo">
+												<img style="position:absolute; width:100%; top:50%; transform: translateY(-50%);" src="/upload/review/${reviewFileVO.reviewFile_name}"> 
+											</div>
+											<div class="show" style="display:none; width:500px; overflow:hidden; height:500px; background-color:#fff; border:1px solid #dbdbdb; position:absolute; ">
+												<img style="position:absolute; width:100%;top:50%; transform: translateY(-50%); z-index: 99;" src="/upload/review/${reviewFileVO.reviewFile_name}">	
+											</div>
 										</div>
-										<div class="show" style="display:none; width:500px; overflow:hidden; height:500px; background-color:#fff; border:1px solid #dbdbdb; position:absolute; ">
-											<img style="position:absolute; width:100%;top:50%; transform: translateY(-50%); z-index: 99;" src="/upload/review/${reviewFileVO.reviewFile_name}">	
-										</div>
-									</div>
-								</c:forEach> 
-								<%-- <c:forEach items="${refileList}" var="reviewFileVO" begin="0" end="2" varStatus="status">
-									<div style="display:inline-block; position:relative; ">
-										<div class="review_img" style=" cursor:pointer;display:inline-block; margin-right:20px;  width:102px; height:102px; overflow:hidden; position:relative;" class="review_photo">
-											<img style="position:absolute; width:100%; top:50%; transform: translateY(-50%);" src="/upload/review/${reviewFileVO.reviewFile_name}"> 
-										</div>
-										<div class="show" style="display:none; width:500px; overflow:hidden; height:500px; background-color:#fff; border:1px solid #dbdbdb; position:absolute; ">
-											<img style="position:absolute; width:100%;top:50%; transform: translateY(-50%); z-index: 99;" src="/upload/review/${reviewFileVO.reviewFile_name}">	
-										</div>
-									</div>
-								</c:forEach> --%> 
+									</c:if>
+								</c:forEach>
 								
 								
 								
