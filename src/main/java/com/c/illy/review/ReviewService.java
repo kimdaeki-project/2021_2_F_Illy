@@ -42,7 +42,7 @@ public class ReviewService {
 	}
 
 	//리뷰 하나 조회하기 
-	public List<ReviewVO> reviewSelectOne(Integer cart_id)throws Exception{
+	public ReviewVO reviewSelectOne(Integer cart_id)throws Exception{
 		return reviewRepository.reviewSelectOne(cart_id);
 	}
 	
@@ -86,6 +86,13 @@ public class ReviewService {
 		  return 0;
 	}
 
+	//리뷰 하나의 파일리스트 조회하기 
+	public List<ReviewFileVO> reviewSelectFile(Integer review_id)throws Exception{
+		return reviewRepository.reviewSelectFile(review_id);
+	}
+	
+	
+	
 	// 리뷰 수정하기
 	public int reviewUpdate(ReviewVO reviewVO) throws Exception {
 		return reviewRepository.reviewUpdate(reviewVO);

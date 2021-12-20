@@ -22,7 +22,7 @@ public interface MemberRepository {
 	/* ijy */
 	
 	/* ldy */
-	public MemberVO getSelectUsername(MemberVO memberVO) throws Exception;
+	public MemberVO getSelectUsername(Integer member_id) throws Exception;
 	/* ldy */
 	
 	public MemberVO usernameSelect(MemberVO memberVO);

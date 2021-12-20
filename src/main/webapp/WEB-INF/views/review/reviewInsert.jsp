@@ -104,9 +104,9 @@
 										</td>
 									</tr>
 									<tr>
-										<th>첨부파일</th>
+										<th>사진추가</th>
 										<td colspan="3" style="width: 80%;" class="inputFileWrap">
-											<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="5" data-init_img_cnt="0" hidden="">
+											<input type="file" name="multipartFiles" multiple="multiple" data-maximum_file_cnt="3" data-init_img_cnt="0" hidden="">
 											
 											<div class="imgBoxWrap" data-total_img_cnt="0" data-init_img_cnt="0">
 											</div>

@@ -27,7 +27,7 @@ public interface QnaRepository {
 	public QnaVO qnaSelectOne(QnaVO qnaVO)throws Exception;
 	
 	//파일 다운로드
-	public QnaFileVO fileDown(QnaFileVO qnaFileVO)throws Exception;
+	public QnaFileVO fileDown2(QnaFileVO qnaFileVO)throws Exception;
 	
 	//qna 추가하기 
 	public int qnaInsert(QnaVO qnaVO)throws Exception;

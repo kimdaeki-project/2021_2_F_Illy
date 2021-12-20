@@ -101,7 +101,7 @@ SELECT P.*,PF.* FROM
 </resultMap>
 
 <!-- Qna 추가하기 -->
-<insert id="qnaInsert" parameterType="QnaVO">
+<insert id="qnaInsert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="qna_id">
 	INSERT INTO qna(qna_id,qna_type,qna_title,qna_contents,product_id,qna_state,qna_regDate,qna_phone,member_id)
 	VALUES(0,#{qna_type},#{qna_title},#{qna_contents},#{product_id},0,sysdate(),#{qna_phone},#{member_id})
 </insert>
@@ -113,7 +113,7 @@ SELECT P.*,PF.* FROM
 </insert>
 
 <!-- Qna 파일다운  -->
-<select id="fileDown" parameterType="QnaFileVO" resultType="QnaFileVO">
+<select id="fileDown2" parameterType="QnaFileVO" resultType="QnaFileVO">
 	SELECT * FROM qnafile WHERE qnaFile_id=#{qnaFile_id}
 </select>
 

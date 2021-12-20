@@ -60,7 +60,7 @@ public class QnaService {
 			if(file.getSize()==0L) {
 				continue; 
 			}
-			String fileName=fileManager.getUseClassPathResource("upload/notice", file);
+			String fileName=fileManager.getUseClassPathResource("upload/qna", file);
 			//*** 이미지 저장 위치 [workspace]\[project]\target\classes\static
 			QnaFileVO qnaFileVO = new QnaFileVO();
 			qnaFileVO.setQna_id(qnaVO.getQna_id());
@@ -72,8 +72,8 @@ public class QnaService {
 	}
 	
 	//파일 다운로드
-	public QnaFileVO fileDown(QnaFileVO qnaFileVO)throws Exception{
-		return qnaRepository.fileDown(qnaFileVO);
+	public QnaFileVO fileDown2(QnaFileVO qnaFileVO)throws Exception{
+		return qnaRepository.fileDown2(qnaFileVO);
 	}
 	
 	//qna수정하기

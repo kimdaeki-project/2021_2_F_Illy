@@ -79,6 +79,17 @@
 											</tr>	
 											</c:if>
 											<c:if test="${qnaVO.qna_state eq 0}">
+											<tr class="noticeEx">
+												<td scope="row">
+													<strong style="font-size:12px;">첨부파일</strong> 
+													<span style="font-size:11px; margin-left:5px;">|&nbsp;</span>
+													<c:forEach var="fileList" items="${qnaVO.fileList}">
+														 <i class="xi-paperclip xi-flip-horizontal"></i>
+														 <a href="/member/fileDown2?qnaFile_id=${fileList.qnaFile_id}" style="text-decoration: underline;">${fileList.qnaFile_oriName}</a>
+														 <span>&nbsp;&nbsp;&nbsp;</span>
+													</c:forEach>
+												</td>
+											</tr>
 											<tr class="con">
 												<td>
 													<strong class="view_q">Q.</strong>
