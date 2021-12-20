@@ -86,9 +86,30 @@
 	</insert>
 	
 	<!-- 리뷰 하나 조회 해오기 -->
-	<select id="reviewSelectOne" parameterType="Integer" resultMap="reviewResultAll">
-		select R.*,RF.* from review R left join reviewfile RF using(review_id) WHERE cart_id=#{cart_id}
+	<select id="reviewSelectOne" parameterType="Integer" resultMap="reviewSelectOne">
+		select R.*,RF.* from review R left join reviewfile RF using(review_id) WHERE cart_id=#{cart_id} GROUP BY R.review_id
 	</select>
+	
+	<!--리뷰 하나의 파일들 조회해오기-->
+	<select id="reviewSelectFile" parameterType="Integer" resultType="ReviewFileVO">
+		SELECT * FROM reviewfile WHERE review_id=#{review_id}
+	</select>
+	
+	<resultMap type="ReviewVO" id="reviewSelectOne">
+		<id column="review_id" property="review_id" />
+			<result column="cart_id" property="cart_id"/>	
+			<result column="review_star" property="review_star"/>
+			<result column="review_title" property="review_title"/>
+			<result column="review_contents" property="review_contents"/>
+			<result column="review_regDate" property="review_regDate"/>
+		
+		<collection property="fileList" ofType="ReviewFileVO" javaType="List">
+			<id column="reviewFile_id" property="reviewFile_id"/>
+			<result column="reviewFile_name" property="reviewFile_name"/>
+			<result column="reviewFile_oriName" property="reviewFile_oriName"/>
+		</collection>
+	</resultMap>
+	
 	
 	<!--리뷰 파일업로드-->
 	<insert id="reviewFileInsert" parameterType="ReviewFileVO">

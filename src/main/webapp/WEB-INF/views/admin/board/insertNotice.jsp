@@ -130,7 +130,7 @@
 	
 	//유효성 검사
 	$(".upload").click(function(){
-		if($(".notice_type").val()==''){
+		if($("#notice_type").val()==''){
 			alert("공지 유형을 선택하세요");
 			return false;
 		}
@@ -141,6 +141,7 @@
 		
 		if($(".summernote").summernote('isEmpty')){
 			alert("본문은 필수 입력 사항입니다.");
+			return false; 
 		}
 		
 		if(confirm('공지를 업로드 하시겠습니까?')){

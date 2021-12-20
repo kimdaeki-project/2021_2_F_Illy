@@ -15,7 +15,10 @@ public interface ReviewRepository {
 	public Long reviewTotalCount(Pager pager)throws Exception;
 	
 	//리뷰 하나 조회하기 
-	public List<ReviewVO> reviewSelectOne(Integer cart_id)throws Exception;
+	public ReviewVO reviewSelectOne(Integer cart_id)throws Exception;
+	
+	//리뷰 하나의 사진들 불러오기 
+	public List<ReviewFileVO> reviewSelectFile(Integer review_id)throws Exception;
 	
 	//리뷰작성하기 
 	public int reviewInsert(ReviewVO reviewVO)throws Exception;

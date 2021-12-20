@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.c.illy.cart.CartService;
 import com.c.illy.cart.CartVO;
+import com.c.illy.member.MemberService;
+import com.c.illy.member.MemberVO;
 import com.c.illy.product.ProductFileVO;
 import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
@@ -26,6 +28,8 @@ public class ReviewController {
 	private CartService cartService; 
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private MemberService memberService; 
 
 	
 	@GetMapping("bestReview")
@@ -38,6 +42,34 @@ public class ReviewController {
 		return "review/reviewAll";
 	}
 	
+	/*
+	 * @GetMapping("reviewAllAj") public ModelAndView reviewAllAj(ModelAndView
+	 * mv,Pager pager)throws Exception{ List<ReviewVO> ar =
+	 * reviewService.getReviewList(pager); List<ProductFileVO> par = new
+	 * ArrayList<ProductFileVO>(); List<ReviewFileVO> rfVO = new
+	 * ArrayList<ReviewFileVO>();
+	 * 
+	 * //꺼낼데이터타입 변수명 : 어디서꺼낼지 for(ReviewVO rlist: ar) {
+	 * 
+	 * List<ReviewFileVO>
+	 * orifile=reviewService.reviewSelectFile(rlist.getReview_id());
+	 * rfVO.addAll(orifile);
+	 * 
+	 * MemberVO memberVO=new MemberVO();
+	 * 
+	 * rlist.setMemberVO(memberService.getSelectUsername(rlist.getMemberVO().
+	 * getMember_id()));
+	 * 
+	 * ProductVO productVO=new ProductVO();
+	 * productVO.setProduct_id(rlist.getProductVO().getProduct_id());
+	 * List<ProductFileVO>
+	 * pfList=productService.getSelectProductFileList(productVO);
+	 * par.add(pfList.get(0)); }
+	 * 
+	 * mv.addObject("refileList", rfVO); mv.addObject("rList", ar);
+	 * mv.addObject("pfList", par); mv.setViewName("review/reviewAllAj");
+	 * mv.addObject("pager", pager); return mv; }
+	 */
 	@GetMapping("reviewAllAj")
 	public ModelAndView reviewAllAj(ModelAndView mv,Pager pager)throws Exception{
 		List<ReviewVO> ar = reviewService.getReviewList(pager);
@@ -52,6 +84,9 @@ public class ReviewController {
 			productVO.setProduct_id(rlist.getProductVO().getProduct_id());
 			List<ProductFileVO> pfList=productService.getSelectProductFileList(productVO);
 			par.add(pfList.get(0));
+			MemberVO memberVO=new MemberVO();
+			rlist.setMemberVO(memberService.getSelectUsername(rlist.getMemberVO().getMember_id()));
+			
 		}
 		//System.out.println(rfVO.size());
 		
@@ -62,5 +97,9 @@ public class ReviewController {
 		mv.addObject("pager", pager);	
 		return mv; 
 	}
+	
+	
+	
+	
 	
 }

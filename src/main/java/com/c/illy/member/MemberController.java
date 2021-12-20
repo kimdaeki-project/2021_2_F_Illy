@@ -31,14 +31,17 @@ import com.c.illy.coupon.CouponService;
 import com.c.illy.coupon.CouponVO;
 import com.c.illy.member.point.PointService;
 import com.c.illy.member.point.PointVO;
+import com.c.illy.notice.NoticeFileVO;
 import com.c.illy.notice.NoticeVO;
 import com.c.illy.payment.PaymentService;
 import com.c.illy.payment.PaymentVO;
 import com.c.illy.product.ProductFileVO;
 import com.c.illy.product.ProductService;
 import com.c.illy.product.ProductVO;
+import com.c.illy.qna.QnaFileVO;
 import com.c.illy.qna.QnaService;
 import com.c.illy.qna.QnaVO;
+import com.c.illy.review.ReviewFileVO;
 import com.c.illy.review.ReviewService;
 import com.c.illy.review.ReviewVO;
 import com.c.illy.util.Pager;
@@ -541,6 +544,22 @@ public class MemberController {
 		 mv.addObject("qnaVO",qnaVO);
 		 return mv;
 	 }
+	 
+	@GetMapping("fileDown2")
+ 	public ModelAndView fileDown(QnaFileVO qnaFileVO)throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
+		qnaFileVO = qnaService.fileDown2(qnaFileVO);
+		    
+		    // FileDown 클래스 내에서 사용하는 Model의 키값과 동일한 이름 
+		mv.addObject("fileVO", qnaFileVO);
+		    // FileDown 클래스 내에서 사용하는 Model의 키값과 동일한 이름 
+		mv.addObject("path", "/upload/qna/");
+		
+		   //FileDown 클래스의 Bean의 이름과 동일한 이름으로 View name을 설정 
+		    mv.setViewName("fileDown2");
+		return mv;
+	}
 	
 	//1:1문의 작성하기 
 	@GetMapping("addQna")
@@ -624,13 +643,20 @@ public class MemberController {
 		return "redirect:/member/myReviewList";
 	}
 	
+	//리뷰 한개 조회하기 
 	@GetMapping("myReviewSelect")
 	public String myReviewSelect(@AuthenticationPrincipal MemberVO memberVO,CartVO cartVO,Model model)throws Exception{
-		
 		model.addAttribute("member", memberVO);
 		Integer cart_id=cartVO.getCart_id();
-		model.addAttribute("reviewVO", reviewService.reviewSelectOne(cart_id));
-		
+		ProductVO productVO = new ProductVO();
+		productVO.setProduct_id(cartService.searchCart(cartVO));
+		model.addAttribute("productFileVOList", productService.getSelectProductFileList(productVO));
+		model.addAttribute("productVO", productService.getSelectProductOne(productVO));
+		ReviewVO reviewVO=reviewService.reviewSelectOne(cart_id);
+		List<ReviewFileVO> reviewFileList=reviewService.reviewSelectFile(reviewVO.getReview_id());
+		model.addAttribute("username", memberService.getSelectUsername(memberVO.getMember_id()));
+		model.addAttribute("reviewVO",reviewVO);
+		model.addAttribute("refileList", reviewFileList);
 		return "review/myReviewSelect";
 	}
 

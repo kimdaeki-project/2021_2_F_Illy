@@ -9,8 +9,7 @@
 	</select>
 	
 	<!--다영 추가 ID 뒤에 글자 *로 치환-->
-	<select id="getSelectUsername" parameterType="MemberVO"
-		resultType="MemberVO">
+	<select id="getSelectUsername" parameterType="Integer" resultType="MemberVO">
 		SELECT RPAD(SUBSTR(username, 1, 2), LENGTH(username), '*') AS username from member WHERE member_id=#{member_id}  
 	</select>
 

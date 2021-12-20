@@ -244,8 +244,8 @@ public class MemberService implements UserDetailsService {
 	}
 
 	//다영 추가
-	public MemberVO getSelectUsername(MemberVO memberVO)throws Exception{
-		return memberRepository.getSelectUsername(memberVO);
+	public MemberVO getSelectUsername(Integer member_id)throws Exception{
+		return memberRepository.getSelectUsername(member_id);
 	}
 	
 }

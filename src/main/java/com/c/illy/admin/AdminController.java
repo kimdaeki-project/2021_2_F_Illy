@@ -343,7 +343,7 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		memberVO.setMember_id(qnaVO.getMember_id());
 		productVO.setProduct_id(qnaVO.getProduct_id());
-		mv.addObject("username", memberService.getSelectUsername(memberVO));
+		mv.addObject("username", memberService.getSelectUsername(qnaVO.getMember_id()));
 		mv.addObject("member", memberService.getSelect(memberVO));
 		mv.addObject("productFileVOList", productService.getSelectProductFileList(productVO));
 		mv.addObject("productVO", productService.getSelectProductOne(productVO));
