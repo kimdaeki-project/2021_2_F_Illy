@@ -138,7 +138,7 @@ $('#selfDelivery').click(function(){
 
 //나의 배송지 추가
 $('.delivery_add').find('#myDeliveryAdd').click(function(){
-	if($(this).next().hasClass('on') === true){
+	if($('.check_s').hasClass('on') == true){
 		$('.check_s').removeClass('on');
 		$('#myDeliveryAdd').val('no');
 	}else {
@@ -360,12 +360,18 @@ $('.read_bean').keyup(function(){
 	deliverySale = deliverySale.replace(/,/g, "");
 	deliverySale = parseInt(deliverySale);
 	
+	ttPrice = ttPrice-productSale-deliverySale;
+	
 	//- 보유 포인트보다 많은 포인트를 적었을 때
 	if($('.read_bean').val()>allBean){
 		alert('보유 일리 포인트는 '+allBean+'콩 입니다.');
-		$('.read_bean').val(allBean);
-		ttPrice -= allBean;
-		ttPrice = ttPrice-productSale-deliverySale;
+		if(ttPrice-$('.read_bean').val()<0){
+			$('.read_bean').val(ttPrice);
+			ttPrice -= ttPrice;
+		}else {
+			$('.read_bean').val(allBean);
+			ttPrice -= allBean;
+		}
 		ttPrice=ttPrice.toLocaleString();
 		$('.total_total_sum').html(ttPrice);
 	} else{
@@ -405,6 +411,7 @@ $('.delivery_a_close').click(function(){
 	}
 	$('.delivery_modal_list').addClass('dn'); 
 	$("body").css("overflow","auto");//body 스크롤바 생성
+	location.reload(true);
 });
 
 
@@ -642,7 +649,7 @@ $('.btn_center_order').click(function(){
 	let patternPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;  //핸드폰 번호 올바른 패턴 확인하기
 
 	//필수 동의 체크 여부
-	if($('.import_s').hasClass('on') == true){
+	if($('.import_s').hasClass('on') === true){
 		if($('.order_name').val() == ''){
 			alert('주문하시는 분 정보를 입력해 주세요.');
 			$('.order_name').focus();
