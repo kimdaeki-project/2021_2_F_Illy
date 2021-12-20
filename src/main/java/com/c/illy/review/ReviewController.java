@@ -42,60 +42,34 @@ public class ReviewController {
 		return "review/reviewAll";
 	}
 	
-	/*
-	 * @GetMapping("reviewAllAj") public ModelAndView reviewAllAj(ModelAndView
-	 * mv,Pager pager)throws Exception{ List<ReviewVO> ar =
-	 * reviewService.getReviewList(pager); List<ProductFileVO> par = new
-	 * ArrayList<ProductFileVO>(); List<ReviewFileVO> rfVO = new
-	 * ArrayList<ReviewFileVO>();
-	 * 
-	 * //꺼낼데이터타입 변수명 : 어디서꺼낼지 for(ReviewVO rlist: ar) {
-	 * 
-	 * List<ReviewFileVO>
-	 * orifile=reviewService.reviewSelectFile(rlist.getReview_id());
-	 * rfVO.addAll(orifile);
-	 * 
-	 * MemberVO memberVO=new MemberVO();
-	 * 
-	 * rlist.setMemberVO(memberService.getSelectUsername(rlist.getMemberVO().
-	 * getMember_id()));
-	 * 
-	 * ProductVO productVO=new ProductVO();
-	 * productVO.setProduct_id(rlist.getProductVO().getProduct_id());
-	 * List<ProductFileVO>
-	 * pfList=productService.getSelectProductFileList(productVO);
-	 * par.add(pfList.get(0)); }
-	 * 
-	 * mv.addObject("refileList", rfVO); mv.addObject("rList", ar);
-	 * mv.addObject("pfList", par); mv.setViewName("review/reviewAllAj");
-	 * mv.addObject("pager", pager); return mv; }
-	 */
+	
 	@GetMapping("reviewAllAj")
-	public ModelAndView reviewAllAj(ModelAndView mv,Pager pager)throws Exception{
-		List<ReviewVO> ar = reviewService.getReviewList(pager);
-		List<ProductFileVO> par = new ArrayList<ProductFileVO>(); 
-		//List<ReviewFileVO> rfVO = new ArrayList<ReviewFileVO>();
-
-		//꺼낼데이터타입  변수명 : 어디서꺼낼지
-		for(ReviewVO rlist: ar) {
-			//Integer review_id=rlist.getReview_id();
-			//rfVO=reviewService.reviewFiles(review_id);
+	public ModelAndView reviewAllAj(ModelAndView	mv,Pager pager) throws Exception{
+		List<ReviewVO> ar =	reviewService.getReviewList(pager);
+		List<ProductFileVO> par = new ArrayList<ProductFileVO>();
+		List<ReviewFileVO> rfVO = new ArrayList<ReviewFileVO>();
+		
+	//	꺼낼데이터타입 변수명 : 어디서꺼낼지 
+		for(ReviewVO rlist: ar) {			
+			List<ReviewFileVO> orifile=reviewService.reviewSelectFile(rlist.getReview_id());
+			rfVO.addAll(orifile);
+			
+			MemberVO memberVO=new MemberVO();
+			
+			rlist.setMemberVO(memberService.getSelectUsername(rlist.getMemberVO().getMember_id()));
+			
 			ProductVO productVO=new ProductVO();
 			productVO.setProduct_id(rlist.getProductVO().getProduct_id());
 			List<ProductFileVO> pfList=productService.getSelectProductFileList(productVO);
 			par.add(pfList.get(0));
-			MemberVO memberVO=new MemberVO();
-			rlist.setMemberVO(memberService.getSelectUsername(rlist.getMemberVO().getMember_id()));
-			
 		}
-		//System.out.println(rfVO.size());
 		
-		//mv.addObject("rfVO", rfVO);
+		mv.addObject("refileList", rfVO);
 		mv.addObject("rList", ar);
 		mv.addObject("pfList", par);
 		mv.setViewName("review/reviewAllAj");
-		mv.addObject("pager", pager);	
-		return mv; 
+		mv.addObject("pager", pager);
+		return mv;
 	}
 	
 	
